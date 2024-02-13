@@ -1,0 +1,21 @@
+---
+title: About
+description: 'AI make work life balance'
+---
+
+import DefaultPageLayout from '$/layouts/default.astro'
+import Prose from '$/components/Prose.astro'
+
+<DefaultPageLayout content={{ title: frontmatter.title, description: frontmatter.description }}>
+    <Prose>
+
+## 关于 iOS Daily News
+
+<div class="author">
+    <img width="160" src="https://cdn.zhangferry.com/Images/head_oneself.JPG" title="Aalam" />
+</div>
+
+使用 AI 总结 RSS 信息，目前收录均为 iOS 方向内容，整个项目还在打磨中，欢迎大家多提意见。
+
+    </Prose>
+</DefaultPageLayout>
