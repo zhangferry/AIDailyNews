@@ -1,5 +1,4 @@
-from workflow.mainflow import parse_daily_rss_article
-from workflow.article.blog import make_markdown_with
+import workflow.mainflow as mainflow
 from dotenv import load_dotenv
 import os
 
@@ -12,8 +11,5 @@ if __name__ == '__main__':
     os.environ["http_proxy"] = "http://127.0.0.1:465"
     os.environ["all_proxy"] = "http://127.0.0.1:465"
 
-    articles = parse_daily_rss_article()
-    make_markdown_with(articles)
-
-
+    mainflow.execute()
 

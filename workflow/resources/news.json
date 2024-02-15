@@ -15,6 +15,10 @@
                 "url": "https://www.apple.com/newsroom/rss-feed.rss"
             },
             {
+                "title": "Swift.org",
+                "url": "https://www.swift.org/atom.xml"
+            },
+            {
                 "title": "Xcode Release",
                 "url": "https://www.apple.com/newsroom/rss-feed.rss"
             },
@@ -39,16 +43,26 @@
                 "url": "https://9to5mac.com/feed/"
             },
             {
-                "title": "Cult of Mac",
-                "url": "https://www.cultofmac.com/feed/"
-            },
-            {
                 "title": "swiftbysundell",
                 "url": "https://swiftbysundell.com/feed.rss"
             },
             {
                 "title": "Hacker News - iOS",
                 "url": "https://hnrss.org/newest?q=iOS"
+            },
+            {
+                "title": "iOS dev",
+                "url": "https://rsshub.app/telegram/channel/iosdevio",
+                "type": "link"
+            },
+            {
+                "title": "PMCAFF",
+                "url": "https://rsshub.app/pmcaff/list/2",
+                "type": "link"
+            },
+            {
+                "title": "Fatbobman's Blog",
+                "url": "https://fatbobman.com/zh/rss.xml"
             }
         ]
     }

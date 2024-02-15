@@ -1,0 +1,21 @@
+[
+    {
+        "category": "Code",
+        "tag": [
+            "iOS",
+            "Swift"
+        ],
+        "items": [
+            {
+                "title": "Swift Repo",
+                "url": "https://rsshub.app/github/trending/daily/swift/en",
+                "type": "code"
+            },
+            {
+                "title": "Python Repo",
+                "url": "https://rsshub.app/github/trending/daily/python/en",
+                "type": "code"
+            }
+        ]
+    }
+]

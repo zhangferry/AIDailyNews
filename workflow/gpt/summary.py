@@ -1,5 +1,6 @@
 import os
 import google.generativeai as genai
+from openai import OpenAI
 import workflow.gpt.prompt as prompt_template
 from dotenv import load_dotenv
 
@@ -47,10 +48,33 @@ def request_gemini(prompt, content):
                                   generation_config=generation_config,
                                   safety_settings=safety_settings)
 
-    response = model.generate_content([input_text])
-    print(response.text)
-    return response.text
+    try:
+        response = model.generate_content([input_text])
+        print(response.text)
+        return response.text
+    except Exception as e:
+        # 兜底
+        if os.environ.get("RETRY_MODE") == "openai":
+            print(f"request gemini failed: {e}, retry with openai")
+            response = request_openai(prompt, content)
+            return response
+        else:
+            raise e
 
 
 def request_openai(prompt, content):
-    raise RuntimeError("openai provider is not support")
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"],
+                    base_url=os.environ.get("OPENAI_BASE_URL", "https://api.openai.com"))
+
+    chat_completion = client.chat.completions.create(messages=[
+        {
+            "role": "system",
+            "content": prompt
+        },
+        {
+            "role": "user",
+            "content": content
+        }
+    ], model="gpt-3.5-turbo")
+    return chat_completion.choices[0].message.content
+
