@@ -11,11 +11,15 @@ import Prose from '$/components/Prose.astro'
 
 ## 关于 iOS Daily News
 
-<div class="author">
-    <img width="160" src="https://cdn.zhangferry.com/Images/head_oneself.JPG" title="Aalam" />
-</div>
+工作原理，如图所示：
 
-使用 AI 总结 RSS 信息，目前收录均为 iOS 方向内容，整个项目还在打磨中，欢迎大家多提意见。
+![](https://cdn.zhangferry.com/Images/202402160030912.png)
+
+选 RSS 格式而不是纯网页做做数据源是因为前者比较标准，方便处理，且大部分优质内容均有 RSS 格式信息。即使想关注的内容 RSS 信息,也是可以通过一些开源方案把网站内容转成 RSS 格式的，比如[RSSHub](https://docs.rsshub.app)。
+
+GPT 方案默认用的 Gemini-Pro，它最大的好处就是免费、支持更大的上下文问答空间。
+
+最后将 AI 总结内容整理为一篇博客内容。
 
     </Prose>
 </DefaultPageLayout>

@@ -4,7 +4,7 @@ import workflow.article.rss as rss
 import workflow.article.blog as blog
 
 
-def execute(rss_resource="resources"):
+def execute(rss_resource="workflow/resources"):
     # 缓存判断
     cache_folder, cache_file = find_valid_file()
     rss_list = parse_daily_rss_article(rss_resource, cache_file)
@@ -45,15 +45,16 @@ def find_favorite_article(rss_articles):
             continue
         article.evaluate = evaluate
         evaluate_list.append(article)
-        if len(evaluate_list) >= max_article_nums:
-            break
 
     evaluate_list.sort(key=lambda x: x.evaluate["score"], reverse=True)
+    evaluate_list = evaluate_list[:max_article_nums]
     return evaluate_list
 
 
 def evaluate_article(content):
     text = request_gpt(content)
+    if not text:
+        return None
     # 去掉首尾两行就是完整json内容
     text = text.removeprefix("```json")
     text = text.removesuffix("```")
@@ -72,7 +73,10 @@ def find_valid_file():
     """是否为有效rss缓存"""
     if os.environ.get("RSS_CACHE_ENABLE") != "true":
         return None, None
-    cache_folder = "draft"
+
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+
+    cache_folder = f"{current_directory}/draft"
     cache_files = glob.glob(f"{cache_folder}/*.json")
     cache_file = cache_files[-1] if cache_files else None
     return cache_folder, cache_file

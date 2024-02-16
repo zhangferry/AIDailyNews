@@ -12,4 +12,3 @@ if __name__ == '__main__':
     os.environ["all_proxy"] = "http://127.0.0.1:465"
 
     mainflow.execute()
-

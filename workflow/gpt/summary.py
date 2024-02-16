@@ -15,7 +15,6 @@ def request_gpt(content):
 
 
 def request_gemini(prompt, content):
-    # Initialize Vertex AI
     input_text = f"{prompt}: ```{content}```"
 
     api_key = os.environ.get("GPT_API_KEY")
@@ -24,7 +23,8 @@ def request_gemini(prompt, content):
 
     genai.configure(api_key=api_key)
     # Set up the model
-    generation_config = genai.GenerationConfig(temperature=0.2)
+    generation_config = genai.GenerationConfig(temperature=0.2,
+                                               max_output_tokens=1024)
 
     safety_settings = [
         {
@@ -59,22 +59,25 @@ def request_gemini(prompt, content):
             response = request_openai(prompt, content)
             return response
         else:
-            raise e
+            print(f"request gemini failed: {e}, skip")
+            return None
 
 
 def request_openai(prompt, content):
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"],
-                    base_url=os.environ.get("OPENAI_BASE_URL", "https://api.openai.com"))
+    try:
+        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"],
+                        base_url=os.environ.get("OPENAI_BASE_URL", "https://api.openai.com"))
 
-    chat_completion = client.chat.completions.create(messages=[
-        {
-            "role": "system",
-            "content": prompt
-        },
-        {
-            "role": "user",
-            "content": content
-        }
-    ], model="gpt-3.5-turbo")
-    return chat_completion.choices[0].message.content
-
+        chat_completion = client.chat.completions.create(messages=[
+            {
+                "role": "system",
+                "content": prompt
+            },
+            {
+                "role": "user",
+                "content": content
+            }
+        ], model="gpt-3.5-turbo")
+        return chat_completion.choices[0].message.content
+    except Exception as e:
+        print(f"request openai failed: {e}")
