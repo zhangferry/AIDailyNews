@@ -60,6 +60,16 @@
             {
                 "title": "SwiftLee RSS",
                 "url": "https://www.avanderlee.com/feed/"
+            },
+            {
+                "title": "The Keyword",
+                "url": "https://blog.google/rss/",
+                "type": "link"
+            },
+            {
+                "title": "OpenAI Blog",
+                "url": "https://openai.com/blog/rss.xml",
+                "type": "link"
             }
         ]
     }

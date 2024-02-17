@@ -24,7 +24,7 @@ def request_gemini(prompt, content):
     genai.configure(api_key=api_key)
     # Set up the model
     generation_config = genai.GenerationConfig(temperature=0.2,
-                                               max_output_tokens=1024)
+                                               max_output_tokens=512)
 
     safety_settings = [
         {

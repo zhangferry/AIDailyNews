@@ -38,7 +38,7 @@ class MyTestCase(unittest.TestCase):
         print(res)
 
     def target_config(self, type_name):
-        configs = rss.load_rss_configs()
+        configs = rss.load_rss_configs("./../resources")
         target_config = None
         for config in configs:
             if config.get("type") == type_name:

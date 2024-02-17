@@ -1,7 +1,7 @@
 import feedparser
 import html2text
 import os, json, re
-from datetime import datetime
+from datetime import datetime, timedelta
 import dateparser
 import requests
 from bs4 import BeautifulSoup
@@ -60,11 +60,15 @@ def parse_rss_item(rss_item):
     for article in res[keymap["items"]]:
         title = article["title"]
         link = article["link"]
+
+        # news获取昨天的信息，code获取当天信息
+        target_date = datetime.today().date() - timedelta(days=1)
         if rss_item.get("type") == "link":
             summary = parse_web_page(url=link)
         elif rss_item.get("type") == "image":
             summary = transform_html2txt(article["summary"], False)
         elif rss_item.get("type") == "code":
+            target_date = datetime.today().date()
             summary = parse_github_readme(link)
         else:
             summary = transform_html2txt(article["summary"])
@@ -75,7 +79,8 @@ def parse_rss_item(rss_item):
                   date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
                   info=res[keymap["channel"]],
                   type=rss_item.get("type", "default"))
-        if article_date.date() == datetime.today().date():
+
+        if article_date.date() == target_date:
             # 判断是否为当天信息，可能有多个内容
             today_rss.append(rss)
             if len(today_rss) >= max_count:

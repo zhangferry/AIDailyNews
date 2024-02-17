@@ -13,6 +13,9 @@ def execute(rss_resource="workflow/resources"):
     articles = find_favorite_article(rss_list)
     blog.make_daily_markdown_with(articles)
 
+    # 保存内容
+    os.system("git add . && git commit -m \"add daily content\" && git push origin main")
+
 
 def parse_daily_rss_article(rss_resource, cache_file=None):
     """获取rss信息"""
@@ -35,7 +38,7 @@ def find_favorite_article(rss_articles):
     # 因gemini限流，文章最多分析20篇
     max_analyze_nums = 20
     rss_articles = rss_articles[:max_analyze_nums]
-    max_article_nums = int(os.environ.get("MAX_ARTICLE_NUMS", "6"))
+    max_article_nums = int(os.environ.get("MAX_ARTICLE_NUMS", "8"))
 
     for article in rss_articles:
         if not article.summary:
@@ -77,7 +80,8 @@ def find_valid_file():
     current_directory = os.path.dirname(os.path.abspath(__file__))
 
     cache_folder = f"{current_directory}/draft"
-    cache_files = glob.glob(f"{cache_folder}/*.json")
+    today_str = datetime.date.today().strftime('%Y-%m-%d')
+    cache_files = glob.glob(f"{cache_folder}/*{today_str}.json")
     cache_file = cache_files[-1] if cache_files else None
     return cache_folder, cache_file
 
@@ -87,7 +91,6 @@ def save_article(articles, draft_folder):
     data = []
     path = f"{draft_folder}/article_cache_{datetime.date.today().strftime('%Y-%m-%d')}.json"
     for article in articles:
-        print(article.__dict__)
         data.append(article.__dict__)
 
     with open(path, "w") as fp:

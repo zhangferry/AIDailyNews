@@ -4,9 +4,9 @@ from workflow.gpt.summary import request_gpt
 
 class MyTestCase(unittest.TestCase):
     def test_something(self):
-        os.environ["https_proxy"] = "http://127.0.0.1:465"
-        os.environ["http_proxy"] = "http://127.0.0.1:465"
-        os.environ["all_proxy"] = "http://127.0.0.1:465"
+        # os.environ["https_proxy"] = "http://127.0.0.1:465"
+        # os.environ["http_proxy"] = "http://127.0.0.1:465"
+        # os.environ["all_proxy"] = "http://127.0.0.1:465"
 
         res = request_gpt(
             """
