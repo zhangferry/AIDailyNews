@@ -38,8 +38,10 @@ def make_daily_markdown_with(articles):
     daily_code = make_daily_code(code_articles)
 
     blog = Blog(metadata=meta_data, guide=daily_guide, news=daily_news, code=daily_code)
+    print(f"make blog success: {meta_data}")
     with open(md_path, "w") as fp:
         fp.write(blog.make_blog())
+        print(f"write to file: {md_path}")
 
 
 def make_meta_data(description, tags):
