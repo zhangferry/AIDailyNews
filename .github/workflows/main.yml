@@ -22,8 +22,43 @@ jobs:
     env:
       GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
       AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
+      GIT_NAME: ${{ secrets.GIT_NAME }}
+      GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 
     steps:
-      - name: create news
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Before Execute
         # You may pin to the exact commit or the version.
-        run: python main.py
+        run: |
+          echo $GPT_API_KEY
+          echo $AI_PROVIDER
+          ls -l
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install requirements
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install -r ./requirements.txt
+
+      - name: Create Daily News
+        # You may pin to the exact commit or the version.
+        run: python3 ./main.py
+
+      - name: Commit
+        run: |
+          git config --local user.name $GIT_NAME
+          git config --local user.email $GIT_EMAIL
+          git add .
+          git commit -m "Github action update at `date '+%Y-%m-%d %H:%M:%S'`."
+
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          branch: master

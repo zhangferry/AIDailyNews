@@ -13,9 +13,6 @@ def execute(rss_resource="workflow/resources"):
     articles = find_favorite_article(rss_list)
     blog.make_daily_markdown_with(articles)
 
-    # 保存内容
-    os.system("git add . && git commit -m \"add daily content\" && git push origin main")
-
 
 def parse_daily_rss_article(rss_resource, cache_file=None):
     """获取rss信息"""
