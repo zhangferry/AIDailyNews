@@ -52,12 +52,7 @@ def make_meta_data(description, tags):
     project_root = os.path.dirname(current_directory)
     blog_folder = f"{project_root}/../src/content/blog"
 
-    count = 0
-    for file in os.listdir(blog_folder):
-        if file.endswith(".md"):
-            count += 1
-
-    md_title = f"iOS Daily News #{count + 1} ({today_str})"
+    md_title = f"iOS Daily News #{today_str}"
 
     tags_str = "".join([f"- '{tag}'\n" for tag in set(tags)])
 

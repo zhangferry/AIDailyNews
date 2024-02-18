@@ -3,7 +3,7 @@ import type { NavItems } from "./types";
 export const NAV_ITEMS: NavItems = {
 	home: {
 		path: "/",
-		title: "home",
+		title: "today",
 	},
 	blog: {
 		path: "/blog",
