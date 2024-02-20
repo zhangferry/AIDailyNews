@@ -1,10 +1,6 @@
 [
     {
-        "category": "News",
-        "tag": [
-            "iOS",
-            "Swift"
-        ],
+        "category": "Daily News",
         "items": [
             {
                 "title": "Latest News - Apple Developer",
@@ -15,10 +11,6 @@
                 "url": "https://www.apple.com/newsroom/rss-feed.rss"
             },
             {
-                "title": "Swift.org",
-                "url": "https://www.swift.org/atom.xml"
-            },
-            {
                 "title": "Macworld",
                 "url": "https://www.macworld.com/feed"
             },
@@ -27,17 +19,8 @@
                 "url": "https://osxdaily.com/feed/"
             },
             {
-                "title": "swiftbysundell",
-                "url": "https://swiftbysundell.com/feed.rss"
-            },
-            {
                 "title": "Hacker News - iOS",
                 "url": "https://hnrss.org/newest?q=iOS",
-                "type": "link"
-            },
-            {
-                "title": "iOS dev - Telegram",
-                "url": "https://rsshub.app/telegram/channel/iosdevio",
                 "type": "link"
             },
             {
@@ -46,30 +29,8 @@
                 "type": "link"
             },
             {
-                "title": "Android Developers Blog",
-                "url": "https://feeds.feedburner.com/blogspot/hsDu"
-            },
-            {
                 "title": "Netflix TechBlog - Medium",
                 "url": "https://medium.com/feed/netflix-techblog"
-            },
-            {
-                "title": "Facebook Engineering",
-                "url": "https://engineering.fb.com/feed/"
-            },
-            {
-                "title": "SwiftLee RSS",
-                "url": "https://www.avanderlee.com/feed/"
-            },
-            {
-                "title": "The Keyword",
-                "url": "https://blog.google/rss/",
-                "type": "link"
-            },
-            {
-                "title": "OpenAI Blog",
-                "url": "https://openai.com/blog/rss.xml",
-                "type": "link"
             }
         ]
     }

@@ -1,13 +1,9 @@
 [
     {
-        "category": "Code",
-        "tag": [
-            "iOS",
-            "Swift"
-        ],
+        "category": "Daily Code",
         "items": [
             {
-                "title": "Swift Repo",
+                "title": "Github repo trending",
                 "url": "https://rsshub.app/github/trending/daily/any",
                 "type": "code"
             }

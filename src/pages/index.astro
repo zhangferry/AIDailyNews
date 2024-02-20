@@ -3,28 +3,36 @@ export const prerender = true;
 
 import { getCollection, getEntryBySlug } from "astro:content";
 import DefaultPageLayout from "$/layouts/default.astro";
+import PostLayout from "$/layouts/post.astro";
 import PostPreviewList from "$/components/PostPreviewList.astro";
 import Prose from "$/components/Prose.astro";
 import { Content as AboutAstroInk } from "./_home_intro.md";
+
+import Code from "../components/Code.astro";
 
 const title = "Home";
 const description =
   "Astro-Ink is a crisp, minimal, personal blog theme for Astro";
 
 let posts = await getCollection("blog");
-posts = posts.sort(
-  (a, b) => new Date(b.data.date) - new Date(a.data.date)
-);
+posts = posts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+
+let post = posts[0];
+
+const { slug } = Astro.params;
+const entry = post;
+
+const { id, collection, data } = entry;
+const { Content } = await entry.render();
 ---
 
-<DefaultPageLayout content={{ title, description }} showPageHeader={false}>
-  <PostPreviewList posts={posts.slice(0, 5)} heading="recent posts" />
-  <div class="page__actions">
-    <a class="action__go-to-blog ink-h" href="/blog" title="All Posts"
-      >All Posts &rarr;</a
-    >
-  </div>
-</DefaultPageLayout>
+<PostLayout meta={{ id, collection, slug }} content={data}>
+  <Content
+    components={{
+      code: Code,
+    }}
+  />
+</PostLayout>
 
 <style>
   .hero {

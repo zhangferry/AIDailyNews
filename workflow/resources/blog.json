@@ -1,0 +1,37 @@
+[
+    {
+        "category": "Daily Blog",
+        "items": [
+            {
+                "title": "Swift Repo",
+                "url": "https://rsshub.app/github/trending/daily/any",
+                "type": "code"
+            },
+            {
+                "title": "Swift.org",
+                "url": "https://www.swift.org/atom.xml"
+            },
+            {
+                "title": "swiftbysundell",
+                "url": "https://swiftbysundell.com/feed.rss"
+            },
+            {
+                "title": "iOS dev - Telegram",
+                "url": "https://rsshub.app/telegram/channel/iosdevio",
+                "type": "link"
+            },
+            {
+                "title": "Android Developers Blog",
+                "url": "https://feeds.feedburner.com/blogspot/hsDu"
+            },
+            {
+                "title": "Facebook Engineering",
+                "url": "https://engineering.fb.com/feed/"
+            },
+            {
+                "title": "SwiftLee RSS",
+                "url": "https://www.avanderlee.com/feed/"
+            }
+        ]
+    }
+]

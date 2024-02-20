@@ -21,11 +21,11 @@ export const NAV_ITEMS: NavItems = {
 
 export const SITE = {
 	// Your site's detail?
-	name: "iOS Daily News",
+	name: "Dev Daily News",
 	title: "zhangferry",
-	description: "Made with AI",
+	description: "Made with Gemini",
 	url: "https://daily.zhangferry.com",
-	githubUrl: "https://github.com/zhangferry",
+	githubUrl: "https://github.com/zhangferry/AIDailyNews",
 	listDrafts: true,
 	image:
 		"https://raw.githubusercontent.com/one-aalam/astro-ink/main/public/astro-banner.png",
