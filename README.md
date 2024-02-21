@@ -1,6 +1,8 @@
 ## DailyNewsReport
 
-基于 AI 进行信息采集，设置定时任务，每天早上 9 点总结前一天的内容，汇总内容生成一份 markdown 文档，将文档内容展示到网页中，就形成了一份每日总结。
+![](https://cdn.zhangferry.com/Images/202402212338780.png)
+
+基于 RSS 信息源，每天早上 9 点采集一次前一天的内容，通过 AI 进行分析总结，并按照评分排序，汇总内容生成一份 markdown 文档。将文档内容渲染到网页中，形成一份每日总结。
 
 ![](https://cdn.zhangferry.com/Images/202402210023524.png)
 

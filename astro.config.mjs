@@ -26,7 +26,8 @@ export default defineConfig(
     markdown: {
       syntaxHighlight: "shiki",
       shikiConfig: {
-        theme: "css-variables",
+        theme: "dracula",
+        wrap: true,
       },
       remarkPlugins: [remarkCodeTitles],
     },

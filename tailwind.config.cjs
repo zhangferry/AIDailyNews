@@ -45,7 +45,7 @@ module.exports = {
             },
             blockquote: {
               color: colors.primary,
-              fontSize: theme("fontSize.xl"),
+              fontSize: theme("fontSize.l"),
               borderColor: colors.dark.primary,
             },
             "blockquote > p::before, p::after": {
