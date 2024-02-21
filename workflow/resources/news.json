@@ -31,6 +31,16 @@
             {
                 "title": "Netflix TechBlog - Medium",
                 "url": "https://medium.com/feed/netflix-techblog"
+            },
+            {
+                "title": "The Keyword",
+                "url": "https://blog.google/rss/",
+                "type": "link"
+            },
+            {
+                "title": "OpenAI Blog",
+                "url": "https://openai.com/blog/rss.xml",
+                "type": "link"
             }
         ]
     }

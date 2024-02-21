@@ -65,8 +65,8 @@ def request_gemini(prompt, content):
 
 def request_openai(prompt, content):
     try:
-        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"],
-                        base_url=os.environ.get("OPENAI_BASE_URL", "https://api.openai.com"))
+        client = OpenAI(api_key=os.environ["GPT_API_KEY"],
+                        base_url=os.environ.get("GPT_BASE_URL", "https://api.openai.com"))
 
         chat_completion = client.chat.completions.create(messages=[
             {

@@ -2,9 +2,13 @@ import feedparser
 import html2text
 import os, json, re
 from datetime import datetime, timedelta
+from dateutil import tz
 import dateparser
 import requests
 from bs4 import BeautifulSoup
+
+# 统一时区
+time_zone_value = "Asia/Shanghai"
 
 
 class RSS:
@@ -14,6 +18,7 @@ class RSS:
     date: str
     info: dict
     type: str
+    category: str
     evaluate: dict  # 来源于ai生成
 
     def __init__(self, **kwargs):
@@ -45,6 +50,7 @@ def load_rss_configs(resource):
 
     for rss_category in rss_configs:
         for rss in rss_category["items"]:
+            rss["category"] = rss_category.get("category", "Daily News")
             rss_items.append(rss)
 
     return rss_items
@@ -62,13 +68,15 @@ def parse_rss_item(rss_item):
         link = article["link"]
 
         # news获取昨天的信息，code获取当天信息
-        target_date = datetime.today().date() - timedelta(days=1)
+        time_zone = tz.gettz(time_zone_value)
+        today_with_timezone = datetime.today().astimezone(time_zone).date()
+        target_date = today_with_timezone - timedelta(days=1)
         if rss_item.get("type") == "link":
             summary = parse_web_page(url=link)
         elif rss_item.get("type") == "image":
             summary = transform_html2txt(article["summary"], False)
         elif rss_item.get("type") == "code":
-            target_date = datetime.today().date()
+            target_date = today_with_timezone
             summary = parse_github_readme(link)
         else:
             summary = transform_html2txt(article["summary"])
@@ -78,6 +86,7 @@ def parse_rss_item(rss_item):
                   link=link,
                   date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
                   info=res[keymap["channel"]],
+                  category=rss_item["category"],
                   type=rss_item.get("type", "default"))
 
         if article_date.date() == target_date:

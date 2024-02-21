@@ -1,6 +1,8 @@
 import unittest, os
 import workflow.article.rss as rss
 import workflow.mainflow as mainflow
+from dateutil import tz
+from datetime import datetime
 
 
 class MyTestCase(unittest.TestCase):
@@ -37,12 +39,22 @@ class MyTestCase(unittest.TestCase):
         res = mainflow.find_favorite_article(articles)
         print(res)
 
+    def test_time_zone(self):
+        cn_time_zone = "Asia/Shanghai"
+        us_time_zone = "America/Detroit"
+        unify_time_zone = tz.gettz(us_time_zone)
+
+        date = datetime.today().astimezone(unify_time_zone)
+        print(date)
+
     def target_config(self, type_name):
         configs = rss.load_rss_configs("./../resources")
         target_config = None
         for config in configs:
             if config.get("type") == type_name:
                 target_config = config
+            else:
+                continue
         return target_config
 
 

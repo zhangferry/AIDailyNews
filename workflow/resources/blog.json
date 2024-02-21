@@ -3,11 +3,6 @@
         "category": "Daily Blog",
         "items": [
             {
-                "title": "Swift Repo",
-                "url": "https://rsshub.app/github/trending/daily/any",
-                "type": "code"
-            },
-            {
                 "title": "Swift.org",
                 "url": "https://www.swift.org/atom.xml"
             },
