@@ -21,15 +21,16 @@ def make_daily_markdown_with(articles):
     tags = []
     article_titles = []
 
+    category_list = []
     for article in articles:
+        if article.category not in category_list:
+            category_list.append(article.category)
         tags.extend(article.evaluate.get("tags", []))
         article_titles.append(article.evaluate["title"])
 
     md_path, meta_data = make_meta_data(description="\n".join(article_titles), tags=tags)
     daily_guide = make_daily_guide(article_titles)
 
-    # TODO: 仅用于控制展示顺序，命名需跟resources文件一致
-    category_list = ["Daily News", "Daily Blog", "Daily Code"]
     category_contents = []
     for category in category_list:
         category_contents.append(make_daily_category(category=category, articles=articles))

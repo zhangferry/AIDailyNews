@@ -61,7 +61,8 @@ def parse_rss_item(rss_item):
     res = feedparser.parse(rss_item["url"])
     keymap = res.keymap
     today_rss = []
-    max_count = 2
+    # 默认同一个源只获取两个信息
+    max_count = rss_item.get("count", 2)
 
     for article in res[keymap["items"]]:
         title = article["title"]

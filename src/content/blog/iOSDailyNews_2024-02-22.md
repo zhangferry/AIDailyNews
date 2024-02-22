@@ -32,14 +32,14 @@ tags:
 
 ---
 
-> * 🚀 Apache Arrow 和 Velox 的融合：迈向可组合的数据管理
-> * MacBook Docking Stations: A Comprehensive Guide
-> * 📱 轻松自动填充短信验证码
-> * 💡 Go 跨平台桌面应用程序开发经验分享
-> * 🏢 谷歌在纽约市的新家：圣约翰码头
-> * 🌟谷歌推出 Gemini Business，为组织提供生成式 AI 服务
-> * 📱 断网功能：保护隐私的利器？
-> * 💥上海安洵信息内幕大揭秘！
+> - 🚀 Apache Arrow 和 Velox 的融合：迈向可组合的数据管理
+> - MacBook Docking Stations: A Comprehensive Guide
+> - 📱 轻松自动填充短信验证码
+> - 💡 Go 跨平台桌面应用程序开发经验分享
+> - 🏢 谷歌在纽约市的新家：圣约翰码头
+> - 🌟 谷歌推出 Gemini Business，为组织提供生成式 AI 服务
+> - 📱 断网功能：保护隐私的利器？
+> - 💥 上海安洵信息内幕大揭秘！
 
 ## Daily News
 
@@ -73,9 +73,9 @@ iPhone、Mac 和 iPad 上的消息都包含一个非常方便的功能，可以�
 
 发布时间：2024-02-21 23:00:00
 
-谷歌在纽约市开设了新办公室圣约翰码头，自2018年以来，该市员工人数翻了一番。该办公室旨在促进协作和创新，设有共享社区、公共空间和专为客户和合作伙伴设计的区域。可持续的设计结合了原始的铁路码头结构，减少了碳排放并改善了当地生态。
+谷歌在纽约市开设了新办公室圣约翰码头，自 2018 年以来，该市员工人数翻了一番。该办公室旨在促进协作和创新，设有共享社区、公共空间和专为客户和合作伙伴设计的区域。可持续的设计结合了原始的铁路码头结构，减少了碳排放并改善了当地生态。
 
-### [🌟谷歌推出 Gemini Business，为组织提供生成式 AI 服务](https://blog.google/products/workspace/google-gemini-workspace/)
+### [🌟 谷歌推出 Gemini Business，为组织提供生成式 AI 服务](https://blog.google/products/workspace/google-gemini-workspace/)
 
 来源：The Keyword
 
@@ -103,7 +103,7 @@ Apache Arrow 15 包含了三个通过与 Voltron Data 和 Arrow 社区合作开�
 
 ## Daily Code
 
-### [💥上海安洵信息内幕大揭秘！](https://github.com/I-S00N/I-S00N)
+### [💥 上海安洵信息内幕大揭秘！](https://github.com/I-S00N/I-S00N)
 
 来源：Trending repositories on GitHub today · GitHub
 
