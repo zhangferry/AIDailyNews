@@ -11,6 +11,10 @@
                 "url": "https://www.apple.com/newsroom/rss-feed.rss"
             },
             {
+                "title": "MacRumors",
+                "url": "https://feeds.macrumors.com/MacRumors-All"
+            },
+            {
                 "title": "Macworld",
                 "url": "https://www.macworld.com/feed"
             },
@@ -41,6 +45,24 @@
                 "title": "OpenAI Blog",
                 "url": "https://openai.com/blog/rss.xml",
                 "type": "link"
+            },
+            {
+                "title": "The Register",
+                "url": "http://www.theregister.co.uk/excerpts.rss",
+                "type": "link"
+            },
+            {
+                "title": "少数派",
+                "url": "http://sspai.me/feed",
+                "type": "link"
+            },
+            {
+                "title": "電腦玩物",
+                "url": "http://feeds.feedburner.com/playpc"
+            },
+            {
+                "title": "MIT Technology Review",
+                "url": "http://www.technologyreview.com/rss/rss.aspx"
             }
         ]
     },
@@ -71,6 +93,11 @@
             {
                 "title": "SwiftLee RSS",
                 "url": "https://www.avanderlee.com/feed/"
+            },
+            {
+                "title": "肘子的 Swift 记事本",
+                "url": "https://www.fatbobman.com/feed.rss",
+                "type": "link"
             }
         ]
     },
