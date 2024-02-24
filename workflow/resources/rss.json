@@ -12,20 +12,19 @@
             },
             {
                 "title": "MacRumors",
-                "url": "https://feeds.macrumors.com/MacRumors-All"
-            },
-            {
-                "title": "Macworld",
-                "url": "https://www.macworld.com/feed"
+                "url": "https://feeds.macrumors.com/MacRumors-All",
+                "count": 1
             },
             {
                 "title": "OS X Daily",
-                "url": "https://osxdaily.com/feed/"
+                "url": "https://osxdaily.com/feed/",
+                "count": 1
             },
             {
                 "title": "Hacker News - iOS",
                 "url": "https://hnrss.org/newest?q=iOS",
-                "type": "link"
+                "type": "link",
+                "count": 1
             },
             {
                 "title": "PMCAFF",
