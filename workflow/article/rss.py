@@ -72,26 +72,29 @@ def parse_rss_item(rss_item):
         time_zone = tz.gettz(time_zone_value)
         today_with_timezone = datetime.today().astimezone(time_zone).date()
         target_date = today_with_timezone - timedelta(days=1)
-        if rss_item.get("type") == "link":
-            summary = parse_web_page(url=link)
-        elif rss_item.get("type") == "image":
-            summary = transform_html2txt(article["summary"], False)
-        elif rss_item.get("type") == "code":
+        if rss_item.get("type") == "code":
             target_date = today_with_timezone
-            summary = parse_github_readme(link)
-        else:
-            summary = transform_html2txt(article["summary"])
         article_date = unify_timezone(article.get(keymap["date"], res.get(keymap["date"])))
-        rss = RSS(title=title,
-                  summary=summary,
-                  link=link,
-                  date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
-                  info=res[keymap["channel"]],
-                  category=rss_item["category"],
-                  type=rss_item.get("type", "default"))
-
         if article_date.date() == target_date:
             # 判断是否为当天信息，可能有多个内容
+            if rss_item.get("type") == "link":
+                summary = parse_web_page(url=link)
+            elif rss_item.get("type") == "image":
+                summary = transform_html2txt(article["summary"], False)
+            elif rss_item.get("type") == "code":
+                target_date = today_with_timezone
+                summary = parse_github_readme(link)
+            else:
+                summary = transform_html2txt(article["summary"])
+
+            rss = RSS(title=title,
+                        summary=summary,
+                        link=link,
+                        date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
+                        info=res[keymap["channel"]],
+                        category=rss_item["category"],
+                        type=rss_item.get("type", "default"))
+
             today_rss.append(rss)
             if len(today_rss) >= max_count:
                 return today_rss
@@ -131,7 +134,7 @@ def parse_web_page(url):
             extracted_text = '\n'.join(paragraphs_text)
             return extracted_text.strip()
         else:
-            print(f"Failed to retrieve webpage. Status code: {response.status_code}")
+            print(f"{url}: Failed to retrieve webpage. Status code: {response.status_code}")
             return None
     except requests.exceptions.RequestException as e:
         print(f"Error occurred: {e}")
