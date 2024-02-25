@@ -27,11 +27,16 @@ class MyTestCase(unittest.TestCase):
         res = mainflow.find_favorite_article(article)
         print(res)
 
-    def test_parse_link_rss(self):
-        articles = rss.parse_rss_item(self.target_config("link"))
+    def test_parse_rss(self):
+        config = {
+            "title": "The Register",
+            "url": "http://www.theregister.co.uk/excerpts.rss",
+            "type": "link"
+        }
+        articles = rss.parse_rss_item(config)
         print(articles)
-        res = mainflow.find_favorite_article(articles)
-        print(res)
+        # res = mainflow.find_favorite_article(articles)
+        # print(res)
 
     def test_parse_code_rss(self):
         articles = rss.parse_rss_item(self.target_config("code"))

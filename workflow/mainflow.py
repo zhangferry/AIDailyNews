@@ -35,7 +35,8 @@ def find_favorite_article(rss_articles):
     # 因gemini限流，文章最多分析20篇
     max_analyze_nums = 20
     rss_articles = rss_articles[:max_analyze_nums]
-    max_article_nums = int(os.environ.get("MAX_ARTICLE_NUMS", "8"))
+    # 默认输出结果10
+    max_article_nums = int(os.environ.get("MAX_ARTICLE_NUMS", "10"))
 
     for article in rss_articles:
         if not article.summary:

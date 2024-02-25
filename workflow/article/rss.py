@@ -61,8 +61,8 @@ def parse_rss_item(rss_item):
     res = feedparser.parse(rss_item["url"])
     keymap = res.keymap
     today_rss = []
-    # 默认同一个源只获取两个信息
-    max_count = rss_item.get("count", 2)
+    # 默认同一个源只获取一条信息
+    max_count = rss_item.get("count", 1)
 
     for article in res[keymap["items"]]:
         title = article["title"]
@@ -82,18 +82,17 @@ def parse_rss_item(rss_item):
             elif rss_item.get("type") == "image":
                 summary = transform_html2txt(article["summary"], False)
             elif rss_item.get("type") == "code":
-                target_date = today_with_timezone
                 summary = parse_github_readme(link)
             else:
                 summary = transform_html2txt(article["summary"])
 
             rss = RSS(title=title,
-                        summary=summary,
-                        link=link,
-                        date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
-                        info=res[keymap["channel"]],
-                        category=rss_item["category"],
-                        type=rss_item.get("type", "default"))
+                      summary=summary,
+                      link=link,
+                      date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
+                      info=res[keymap["channel"]],
+                      category=rss_item["category"],
+                      type=rss_item.get("type", "default"))
 
             today_rss.append(rss)
             if len(today_rss) >= max_count:
