@@ -17,14 +17,17 @@ class Blog:
         return self.metadata + self.guide + "\n".join(self.categories)
 
 
-def make_daily_markdown_with(articles):
+def make_daily_markdown_with(articles, rss_list):
     tags = []
     article_titles = []
 
     category_list = []
+    # 文章列表有可能因为评分打乱了排序，再次从原始配置获取顺序
+    for rss in rss_list:
+        if rss.category not in category_list:
+            category_list.append(rss.category)
+
     for article in articles:
-        if article.category not in category_list:
-            category_list.append(article.category)
         tags.extend(article.evaluate.get("tags", []))
         article_titles.append(article.evaluate["title"])
 

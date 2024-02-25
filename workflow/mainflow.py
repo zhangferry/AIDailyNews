@@ -11,7 +11,7 @@ def execute(rss_resource="workflow/resources"):
     if cache_folder:
         save_article(rss_list, cache_folder)
     articles = find_favorite_article(rss_list)
-    blog.make_daily_markdown_with(articles)
+    blog.make_daily_markdown_with(articles, rss_list)
 
 
 def parse_daily_rss_article(rss_resource, cache_file=None):
@@ -36,7 +36,7 @@ def find_favorite_article(rss_articles):
     max_analyze_nums = 20
     rss_articles = rss_articles[:max_analyze_nums]
     # 默认输出结果10
-    max_article_nums = int(os.environ.get("MAX_ARTICLE_NUMS", "10"))
+    max_article_nums = int(os.environ.get("MAX_ARTICLE_NUMS", "12"))
 
     for article in rss_articles:
         if not article.summary:

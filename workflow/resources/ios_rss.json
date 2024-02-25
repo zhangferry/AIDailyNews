@@ -24,10 +24,6 @@
                 "type": "link"
             },
             {
-                "title": "電腦玩物",
-                "url": "http://feeds.feedburner.com/playpc"
-            },
-            {
                 "title": "MIT Technology Review",
                 "url": "http://www.technologyreview.com/rss/rss.aspx"
             },
@@ -99,6 +95,11 @@
                 "type": "link"
             },
             {
+                "title": "Hugging Face - Blog",
+                "url": "https://huggingface.co/blog/feed.xml",
+                "type": "link"
+            },
+            {
                 "title": "MIT News - Machine learning",
                 "url": "https://news.mit.edu/topic/mitmachine-learning-rss.xml"
             }
@@ -110,8 +111,7 @@
             {
                 "title": "Github repo trending",
                 "url": "https://rsshub.app/github/trending/daily/swift",
-                "type": "code",
-                "count": 2
+                "type": "code"
             },
             {
                 "title": "Github repo trending",
@@ -121,8 +121,7 @@
             {
                 "title": "Github repo trending",
                 "url": "https://rsshub.app/github/trending/daily/python",
-                "type": "code",
-                "count": 2
+                "type": "code"
             }
         ]
     }
