@@ -1,102 +1,101 @@
 ---
 title: "iOS Daily News #2024-02-26"
-date: "2024-02-26 09:21:29"
+date: "2024-02-26 23:51:48"
 author: 摸鱼仔
-description: "🌟 IINA：现代化的 macOS 视频播放器
-🌟 YOLORv9：可编程梯度信息学习法
-💥Best Buy 优惠活动，iPad 和 MacBook 限时促销！
-🌐 Edge：跨平台同步，畅享极速浏览
-🌟 iOS 设备无法创建非 iOS 设备可以加入的 Wi-Fi Direct 组
-🌟本期《Installer》精选：刺客信条Nexus、拉面制作、TikTok之旅等
-📱 联想和摩托罗拉推出 Smart Connect，跨设备管理更轻松
-🌟 Zed：一款高性能多人协作代码编辑器"
+description: "🎉Best Buy限时促销：iPad Air、MacBook Air和MacBook Pro史低价！
+🌐 Edge浏览器：跨平台同步，畅享极速浏览
+🌟 iOS 设备无法创建非 iOS 设备可以加入的 Wi-Fi 直连群组
+💡本周分享：刺客信条、拉面大师、TikTok、沙丘、爱国者、脆皮球芽甘蓝
+🌟谷歌在 MWC 上宣布了一系列 Android 更新
+🍷 Whisky：一款 macOS 上的葡萄酒管理软件
+🌟 Czkwawka：简单、免费、开源的磁盘清理应用程序
+【特效】YOLOv9：使用可视化方式信息的新方法学习最要的信息"
 tags: 
-- '浏览器'
-- '视频播放器'
-- '代码编辑器'
-- '摩托罗拉'
-- '跨设备管理'
-- '科技'
-- '联想'
-- 'Smart Connect'
-- '目标探测'
 - 'iOS'
+- '考诗'
+- '浏览器'
+- '葡萄酒管理'
+- '科技'
+- '文件管理'
+- '游戏'
+- 'Android 更新'
+- '磁盘清理'
 
 ---
 
-> * 🌟 IINA：现代化的 macOS 视频播放器
-> * 🌟 YOLORv9：可编程梯度信息学习法
-> * 💥Best Buy 优惠活动，iPad 和 MacBook 限时促销！
-> * 🌐 Edge：跨平台同步，畅享极速浏览
-> * 🌟 iOS 设备无法创建非 iOS 设备可以加入的 Wi-Fi Direct 组
-> * 🌟本期《Installer》精选：刺客信条Nexus、拉面制作、TikTok之旅等
-> * 📱 联想和摩托罗拉推出 Smart Connect，跨设备管理更轻松
-> * 🌟 Zed：一款高性能多人协作代码编辑器
+> * 🎉Best Buy限时促销：iPad Air、MacBook Air和MacBook Pro史低价！
+> * 🌐 Edge浏览器：跨平台同步，畅享极速浏览
+> * 🌟 iOS 设备无法创建非 iOS 设备可以加入的 Wi-Fi 直连群组
+> * 💡本周分享：刺客信条、拉面大师、TikTok、沙丘、爱国者、脆皮球芽甘蓝
+> * 🌟谷歌在 MWC 上宣布了一系列 Android 更新
+> * 🍷 Whisky：一款 macOS 上的葡萄酒管理软件
+> * 🌟 Czkwawka：简单、免费、开源的磁盘清理应用程序
+> * 【特效】YOLOv9：使用可视化方式信息的新方法学习最要的信息
 
 ## Apple News
 
-### [💥Best Buy 优惠活动，iPad 和 MacBook 限时促销！](https://www.macrumors.com/2024/02/25/best-buy-lowest-prices-ipad-macbook/)
+### [🎉Best Buy限时促销：iPad Air、MacBook Air和MacBook Pro史低价！](https://www.macrumors.com/2024/02/25/best-buy-lowest-prices-ipad-macbook/)
 
 来源：MacRumors: Mac News and Rumors - All Stories
 
 发布时间：2024-02-25 23:10:12
 
-Best Buy 正在进行促销活动，包括 iPad 和 MacBook Air、MacBook Pro 等，其中一些是迄今为止我们见过的最优惠价格。
+Best Buy现正在进行苹果MacBooks和iPads的促销活动，包括MacBook Air、MacBook Pro、iPad Air等机型。其中一些优惠需要My Best Buy Plus或My Best Buy Total会员资格，年费从49.99美元起。除了独家享受部分折扣外，您还可以享受免费2天送货、60天延长退货窗口等服务。
 
-### [🌐 Edge：跨平台同步，畅享极速浏览](https://osxdaily.com/2024/02/24/how-to-make-microsoft-edge-the-default-mac-web-browser/)
+### [🌐 Edge浏览器：跨平台同步，畅享极速浏览](https://osxdaily.com/2024/02/24/how-to-make-microsoft-edge-the-default-mac-web-browser/)
 
 来源：OS X Daily
 
 发布时间：2024-02-25 00:47:34
 
-微软 Edge 是一款出色的网络浏览器，适用于 MacOS、iPhone、iPad、Windows 和 Android。它不仅速度快，还提供对 ChatGPT 4 的免费访问。如果您经常使用不同的计算平台，您会很高兴地发现您可以跨所有设备同步浏览器数据。
+微软Edge浏览器是一款适用于MacOS、iPhone、iPad、Windows和Android的出色网络浏览器替代品。它不仅速度快，还提供对ChatGPT 4的免费访问，如果您经常使用不同的计算平台，您会很高兴能够在所有设备上同步浏览器数据。
 
-### [🌟 iOS 设备无法创建非 iOS 设备可以加入的 Wi-Fi Direct 组](https://forums.developer.apple.com/forums/thread/12885)
+### [🌟 iOS 设备无法创建非 iOS 设备可以加入的 Wi-Fi 直连群组](https://forums.developer.apple.com/forums/thread/12885)
 
 来源：Hacker News - Newest: "iOS"
 
 发布时间：2024-02-25 06:59:29
 
-iOS 设备无法创建非 iOS 设备可以加入的 Wi-Fi Direct 组。Wi-Fi Direct 是一种开放标准，理论上没有限制，但 iOS 的对等 Wi-Fi 与 Wi-Fi Direct 不兼容。AirDrop 使用 Bonjour + TCP，而不是 Wi-Fi Direct。对于非 Apple 硬件，情况更具挑战性，因为对等网络协议（Wi-Fi 和蓝牙）没有针对第三方使用进行记录。
+iOS 设备无法创建非 iOS 设备可以加入的 Wi-Fi 直连群组。iOS 设备的点对点 Wi-Fi 与 Wi-Fi 直连不兼容。
 
-### [🌟本期《Installer》精选：刺客信条Nexus、拉面制作、TikTok之旅等](https://www.theverge.com/24081130/balatro-fujifilm-x100vi-drive-to-survive-twitter-books-installer)
+### [💡本周分享：刺客信条、拉面大师、TikTok、沙丘、爱国者、脆皮球芽甘蓝](https://www.theverge.com/24081130/balatro-fujifilm-x100vi-drive-to-survive-twitter-books-installer)
 
 来源：The Verge -  Apple Posts
 
 发布时间：2024-02-25 21:00:00
 
-本期《Installer》介绍了刺客信条Nexus、拉面制作、诺亚·卡汉的TikTok之旅、电影《沙丘》和《爱国者》，以及如何制作美味的布鲁塞尔豆芽。还推荐了一款新的相机、智能家居管理工具、一本关于Twitter的新书和一些有趣的游戏。
+本周，作者分享了他在Quest 3上玩《刺客信条：联盟》的体验，阅读了关于拉面制作大师和诺亚·卡汉成为TikTok超级巨星的旅程的文章，观看了《沙丘》和《爱国者》，并尝试学习制作脆皮球芽甘蓝。他还推荐了一款新的超流行相机、一种管理智能家居的更好方式、一本关于Twitter的新书，以及一些很棒的游戏。
 
-### [📱 联想和摩托罗拉推出 Smart Connect，跨设备管理更轻松](https://www.engadget.com/lenovo-and-motorolas-smart-connect-makes-it-easier-to-manage-tasks-across-your-devices-230058598.html?src=rss)
+### [🌟谷歌在 MWC 上宣布了一系列 Android 更新](https://www.engadget.com/google-brings-gemini-to-messages-and-adds-ai-text-summaries-for-android-auto-080051647.html?src=rss)
 
 来源：Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics
 
-发布时间：2024-02-25 05:32:37
+发布时间：2024-02-25 22:02:58
 
-联想和摩托罗拉在 MWC 2024 上宣布了一款名为 Smart Connect 的跨设备管理工具，它允许用户在不同设备之间无缝切换任务。例如，只需轻扫一下，就可以将播客从手机移到平板电脑，而不会中断播放，或者使用统一的共享中心轻松地在连接的设备之间共享文件。
+谷歌在 MWC 上宣布了一系列 Android 更新，包括将 Gemini 集成到信息中，以及在您开车时提供人工智能驱动的文本摘要。Android Auto 也将获得人工智能的提升，这有助于最大程度地减少在您开车时收到短信的干扰。谷歌还宣布了一些新的 Android 无障碍功能，包括在 Lookout 应用程序中使用人工智能生成的图像字幕。
 
 ## Daily Code
 
-### [🌟 IINA：现代化的 macOS 视频播放器](https://github.com/iina/iina)
+### [🍷 Whisky：一款 macOS 上的葡萄酒管理软件](https://github.com/Whisky-App/Whisky)
 
 来源：Trending Swift repositories on GitHub today · GitHub
 
-发布时间：2024-02-26 08:33:33
+发布时间：2024-02-26 22:03:41
 
-IINA 是一款现代化的 macOS 视频播放器，基于 mpv 构建，拥有现代 macOS 设计，支持字幕、播放列表、章节等功能，还支持触控栏和手势控制。
+Whisky 是一款运行在 macOS 上的葡萄酒管理软件，它提供了一个干净且易于使用的图形界面，可以轻松管理葡萄酒瓶，安装和运行 Windows 应用程序和游戏，无需任何技术知识。
 
-### [🌟 YOLORv9：可编程梯度信息学习法](https://github.com/WongKinYiu/yolov9)
-
-来源：Trending Python repositories on GitHub today · GitHub
-
-发布时间：2024-02-26 07:10:59
-
-YOLORv9是一个新的目标探测模型，它利用可编程的梯度信息来学习用户想要学习的内容。它在MS COCO数据集上取得了最优的性能，在640的图像尺寸下，它的测试精度为53.0%，AP50为70.2%，AP75为57.8%。
-
-### [🌟 Zed：一款高性能多人协作代码编辑器](https://github.com/zed-industries/zed)
+### [🌟 Czkwawka：简单、免费、开源的磁盘清理应用程序](https://github.com/qarmin/czkawka)
 
 来源：Trending Rust repositories on GitHub today · GitHub
 
-发布时间：2024-02-26 08:01:06
+发布时间：2024-02-26 23:20:50
 
-Zed是一款由Atom和Tree-sitter的创建者开发的高性能多人协作代码编辑器，目前支持macOS系统，后续将支持Linux、Windows和Web平台。Zed提供了本地协作功能，并支持通过Homebrew安装。
+Czkwawka 是一个简单、免费、开源的应用程序，可删除计算机上不必要的垃圾文件。它使用 Rust 编写，支持多平台，并提供多种语言支持。Czkwawka 提供了多种实用且高效的清理功能，包括查找重复文件、查找空文件夹、查找大文件、查找临时文件、查找相似图像、查找相似视频、查找相同音频、查找无效符号符号、查找损坏文件、查找扩展名错误的文件等。Czkwawka 还提供了多种界面选项，包括 CLI 和 GTK 4 或 Slint 框架。
+
+### [【特效】YOLOv9：使用可视化方式信息的新方法学习最要的信息](https://github.com/WongKinYiu/yolov9)
+
+来源：Trending Python repositories on GitHub today · GitHub
+
+发布时间：2024-02-26 23:31:25
+
+这文章为新版本者开发的名为YOLOv9的检测模式。这个模式用了可视化方式信息的新方法。这个新方法可以学习模式从数据中学习最要的信息。这个新方法可以帮助模式更高的实施特效。
