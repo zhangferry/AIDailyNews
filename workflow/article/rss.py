@@ -115,7 +115,7 @@ def transform_html2txt(content, ignore_image=True):
 
 def unify_timezone(date_string):
     str_date = dateparser.parse(date_string,
-                                settings={"TIMEZONE": "Asia/Shanghai",
+                                settings={"TIMEZONE": time_zone_value,
                                           "RETURN_AS_TIMEZONE_AWARE": True})
     return str_date
 
@@ -126,8 +126,7 @@ def parse_web_page(url):
         if response.status_code == 200:
             # 使用BeautifulSoup解析HTML
             soup = BeautifulSoup(response.text.encode("utf-8"), 'html.parser')
-
-            # 提取限定标签
+            # 提取限定标签，简化取网页内容流程
             paragraphs = soup.find_all(["h1", "h2", "p"])
             paragraphs_text = [p.get_text() for p in paragraphs]
             extracted_text = '\n'.join(paragraphs_text)

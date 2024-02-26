@@ -27,16 +27,18 @@ def make_daily_markdown_with(articles, rss_list):
         if rss.category not in category_list:
             category_list.append(rss.category)
 
-    for article in articles:
-        tags.extend(article.evaluate.get("tags", []))
-        article_titles.append(article.evaluate["title"])
+    category_contents = []
+    for category in category_list:
+        for article in articles:
+            if article.category != category:
+                continue
+            tags.extend(article.evaluate.get("tags", []))
+            article_titles.append(article.evaluate["title"])
+
+        category_contents.append(make_daily_category(category=category, articles=articles))
 
     md_path, meta_data = make_meta_data(description="\n".join(article_titles), tags=tags)
     daily_guide = make_daily_guide(article_titles)
-
-    category_contents = []
-    for category in category_list:
-        category_contents.append(make_daily_category(category=category, articles=articles))
 
     blog = Blog(metadata=meta_data, guide=daily_guide, categories=category_contents)
     print(f"make blog success: {meta_data}")
@@ -57,9 +59,7 @@ def make_meta_data(description, tags):
     blog_folder = f"{project_root}/../src/content/blog"
 
     md_title = f"iOS Daily News #{today_str}"
-
     tags_str = "".join([f"- '{tag}'\n" for tag in set(tags)])
-
     data = f"""---
 title: "{md_title}"
 date: "{today_with_timezone.strftime("%Y-%m-%d %H:%M:%S")}"
@@ -71,7 +71,6 @@ tags:
 """
 
     path = f"{blog_folder}/iOSDailyNews_{today_str}.md"
-
     return path, data
 
 
