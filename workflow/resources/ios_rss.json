@@ -54,10 +54,6 @@
                 "type": "link"
             },
             {
-                "title": "Facebook Engineering",
-                "url": "https://engineering.fb.com/feed/"
-            },
-            {
                 "title": "SwiftLee RSS",
                 "url": "https://www.avanderlee.com/feed/"
             },
@@ -65,10 +61,6 @@
                 "title": "肘子的 Swift 记事本",
                 "url": "https://www.fatbobman.com/feed.rss",
                 "type": "link"
-            },
-            {
-                "title": "Netflix TechBlog - Medium",
-                "url": "https://medium.com/feed/netflix-techblog"
             }
         ]
     },
@@ -79,6 +71,14 @@
                 "title": "OpenAI Blog",
                 "url": "https://openai.com/blog/rss.xml",
                 "type": "link"
+            },
+            {
+                "title": "Netflix TechBlog - Medium",
+                "url": "https://medium.com/feed/netflix-techblog"
+            },
+            {
+                "title": "Facebook Engineering",
+                "url": "https://engineering.fb.com/feed/"
             },
             {
                 "title": "Artificial Intelligence News",
