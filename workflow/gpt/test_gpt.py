@@ -1,5 +1,5 @@
 import unittest, os
-from workflow.gpt.summary import request_gpt
+from workflow.gpt.summary import evaluate_with_gpt
 
 
 class MyTestCase(unittest.TestCase):
@@ -10,10 +10,10 @@ class MyTestCase(unittest.TestCase):
         os.environ["all_proxy"] = "http://127.0.0.1:465"
 
         example_input = [
-            """Several of Apple's display suppliers have proposed their prices for supplying
-OLED displays for the fourth-generation iPhone SE,Apple Negotiating With OLED Suppliers for Next Year's iPhone SE",
+            """The collection includes a large number of popular and classic titles. 
+Subscribers can access the movies in a "Great Movies on Apple TV+" section in the Apple TV app. 
+Some titles are also available in 3D. Movies in the collection include: 21 Jump Street",
             """,
-            "short content",
             """29 February is causing problems in software systems across the globe. 
 It’s a good reminder on how few assumptions we should make about dates – and why to use a date library when you can.
             """,
@@ -28,9 +28,9 @@ The Swift evolution process aims to strike a balance that best serves the Swift 
             """
         ]
 
-        res = request_gpt(example_input)
+        res = evaluate_with_gpt(example_input)
         # 4条结果
-        assert len(res) == 4
+        assert len(res) == 3
         # 评分最高的内容包含Swift字符串
         item = res[-1]
         assert "Swift" in item["title"]
