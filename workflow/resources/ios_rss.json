@@ -24,16 +24,8 @@
                 "type": "link"
             },
             {
-                "title": "MIT Technology Review",
-                "url": "http://www.technologyreview.com/rss/rss.aspx"
-            },
-            {
                 "title": "The Verge - Apple Posts",
                 "url": "https://www.theverge.com/apple/rss/index.xml"
-            },
-            {
-                "title": "Engadget",
-                "url": "https://www.engadget.com/topics/apple/rss.xml"
             }
         ]
     },
@@ -83,11 +75,6 @@
             {
                 "title": "Artificial Intelligence News",
                 "url": "https://www.artificialintelligence-news.com/feed/"
-            },
-            {
-                "title": "aibusiness",
-                "url": "https://aibusiness.com/rss.xml",
-                "type": "link"
             },
             {
                 "title": "NVIDIA Technical Blog",

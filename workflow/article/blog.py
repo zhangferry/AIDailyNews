@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from dateutil import tz
-
+from loguru import logger
 
 class Blog:
     metadata: str
@@ -41,10 +41,10 @@ def make_daily_markdown_with(articles, rss_list):
     daily_guide = make_daily_guide(article_titles)
 
     blog = Blog(metadata=meta_data, guide=daily_guide, categories=category_contents)
-    print(f"make blog success: {meta_data}")
+    logger.info(f"make blog success: {meta_data}")
     with open(md_path, "w") as fp:
         fp.write(blog.make_blog())
-        print(f"write to file: {md_path}")
+        logger.info(f"write to file: {md_path}")
 
 
 def make_meta_data(description, tags):
@@ -97,5 +97,5 @@ def make_daily_category(category, articles):
 
 
 def make_daily_guide(titles):
-    guide = "".join([f"> * {item}\n" for item in titles])
+    guide = "".join([f"> - {item}\n" for item in titles])
     return f"\n{guide}\n"

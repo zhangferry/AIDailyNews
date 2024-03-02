@@ -55,3 +55,5 @@ tqdm==4.66.1
 typing_extensions==4.9.0
 tzlocal==5.2
 urllib3==1.26.6
+
+loguru~=0.7.2

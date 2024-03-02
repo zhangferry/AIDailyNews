@@ -6,6 +6,7 @@ from dateutil import tz
 import dateparser
 import requests
 from bs4 import BeautifulSoup
+from loguru import logger
 
 # 统一时区
 time_zone_value = "Asia/Shanghai"
@@ -61,8 +62,8 @@ def parse_rss_item(rss_item):
     res = feedparser.parse(rss_item["url"])
     keymap = res.keymap
     today_rss = []
-    # 默认同一个源只获取一条信息
-    max_count = rss_item.get("count", 1)
+    # 默认一个rss源只获取一定数量信息
+    max_count = rss_item.get("count", 5)
 
     for article in res[keymap["items"]]:
         title = article["title"]
@@ -124,18 +125,20 @@ def parse_web_page(url):
     try:
         response = requests.get(url)
         if response.status_code == 200:
+            # 指定编码方式
+            response.encoding = response.apparent_encoding
             # 使用BeautifulSoup解析HTML
-            soup = BeautifulSoup(response.text.encode("utf-8"), 'html.parser')
+            soup = BeautifulSoup(response.text, 'html.parser')
             # 提取限定标签，简化取网页内容流程
-            paragraphs = soup.find_all(["h1", "h2", "p"])
+            paragraphs = soup.find_all(["h1", "h2", "p", "code"])
             paragraphs_text = [p.get_text() for p in paragraphs]
             extracted_text = '\n'.join(paragraphs_text)
             return extracted_text.strip()
         else:
-            print(f"{url}: Failed to retrieve webpage. Status code: {response.status_code}")
+            logger.error(f"fetch {url} failed. Status code: {response.status_code}")
             return None
     except requests.exceptions.RequestException as e:
-        print(f"Error occurred: {e}")
+        logger.exception(f"fetch {url} get error: {e}")
         return None
 
 
@@ -161,5 +164,5 @@ def parse_github_readme(repo_url):
         return readme_content
 
     except Exception as e:
-        print(f"Error occurred: {e}")
+        logger.error(f"fetch {repo_url} get error: {e}")
         return None
