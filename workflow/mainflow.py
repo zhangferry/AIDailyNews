@@ -46,7 +46,7 @@ def find_favorite_article(rss_articles):
             continue
         rss_category = article.info["title"]
         if rss_category in rss_resource.keys():
-            rss_resource[rss_category].append(article.summary)
+            rss_resource[rss_category].append(article)
         else:
             rss_resource[rss_category] = [article]
 
