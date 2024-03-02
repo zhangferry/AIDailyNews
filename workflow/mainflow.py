@@ -3,6 +3,8 @@ from workflow.gpt.summary import evaluate_with_gpt
 import workflow.article.rss as rss
 import workflow.article.blog as blog
 
+from loguru import logger
+
 
 def execute(rss_resource="workflow/resources"):
     # 缓存判断
@@ -25,7 +27,7 @@ def parse_daily_rss_article(rss_resource, cache_file=None):
         rss_list = rss.parse_rss_item(item)
         for rss_item in rss_list:
             daily_rss.append(rss_item)
-            print(f"date: {rss_item.date}, link: {rss_item.link}")
+            logger.info(f"date: {rss_item.date}, link: {rss_item.link}")
     return daily_rss
 
 
@@ -64,7 +66,7 @@ def find_favorite_article(rss_articles):
         evaluate_results.sort(key=lambda x: x["score"], reverse=True)
         # 剔除分值过低内容
         satisfy_items = [item for item in evaluate_results if item["score"] > 6]
-        print(f"filter articles from {len(evaluate_results)} to {len(satisfy_items)}")
+        logger.info(f"filter articles from {len(evaluate_results)} to {len(satisfy_items)}")
         if satisfy_items:
             show_article.append(satisfy_items[0])
     return show_article[:max_article_nums]

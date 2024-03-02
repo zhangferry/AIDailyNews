@@ -6,6 +6,7 @@ from dateutil import tz
 import dateparser
 import requests
 from bs4 import BeautifulSoup
+from loguru import logger
 
 # 统一时区
 time_zone_value = "Asia/Shanghai"
@@ -134,10 +135,10 @@ def parse_web_page(url):
             extracted_text = '\n'.join(paragraphs_text)
             return extracted_text.strip()
         else:
-            print(f"fetch {url} failed. Status code: {response.status_code}")
+            logger.error(f"fetch {url} failed. Status code: {response.status_code}")
             return None
     except requests.exceptions.RequestException as e:
-        print(f"fetch {url} get error: {e}")
+        logger.exception(f"fetch {url} get error: {e}")
         return None
 
 
@@ -163,5 +164,5 @@ def parse_github_readme(repo_url):
         return readme_content
 
     except Exception as e:
-        print(f"fetch {repo_url} get error: {e}")
+        logger.error(f"fetch {repo_url} get error: {e}")
         return None

@@ -1,8 +1,12 @@
-import os, json
+import json
+import os
+
 import google.generativeai as genai
-from openai import OpenAI
-from workflow.gpt.prompt import structured_prompt, multi_content_prompt
 from dotenv import load_dotenv
+from openai import OpenAI
+from loguru import logger
+
+from workflow.gpt.prompt import multi_content_prompt
 
 
 def evaluate_with_gpt(contents):
@@ -56,16 +60,16 @@ def request_gemini(prompt, content):
 
     try:
         response = model.generate_content([input_text])
-        print(response.text)
+        logger.info(response.text)
         return response.text
     except Exception as e:
         # 兜底
         if os.environ.get("RETRY_MODE") == "openai":
-            print(f"request gemini failed: {e}, retry with openai")
+            logger.error(f"request gemini failed: {e}, retry with openai")
             response = request_openai(prompt, content)
             return response
         else:
-            print(f"request gemini failed: {e}, skip")
+            logger.error(f"request gemini failed: {e}, skip")
             return None
 
 
@@ -86,7 +90,7 @@ def request_openai(prompt, content):
         ], model="gpt-3.5-turbo")
         return chat_completion.choices[0].message.content
     except Exception as e:
-        print(f"request openai failed: {e}")
+        logger.error(f"request openai failed: {e}")
 
 
 def transform2json(result):
@@ -102,6 +106,6 @@ def transform2json(result):
         # 关键信息校验
         format_json = json_obj
     except Exception as e:
-        print(f"{e}")
+        logger.exception(f"{e}")
     finally:
         return format_json
