@@ -51,7 +51,7 @@ def find_favorite_article(rss_articles):
             rss_resource[rss_category] = [article]
 
     show_article = []
-    for key, articles in enumerate(rss_resource):
+    for key, articles in rss_resource.items():
         article_contents = []
         for article in articles:
             article_contents.append(article.summary)
