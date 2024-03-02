@@ -63,7 +63,7 @@ def parse_rss_item(rss_item):
     keymap = res.keymap
     today_rss = []
     # 默认一个rss源只获取一定数量信息
-    max_count = rss_item.get("count", 5)
+    max_count = rss_item.get("count", 4)
 
     for article in res[keymap["items"]]:
         title = article["title"]

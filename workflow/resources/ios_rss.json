@@ -98,17 +98,20 @@
             {
                 "title": "Github repo trending",
                 "url": "https://rsshub.app/github/trending/daily/swift",
-                "type": "code"
+                "type": "code",
+                "count": 2
             },
             {
                 "title": "Github repo trending",
                 "url": "https://rsshub.app/github/trending/daily/rust",
-                "type": "code"
+                "type": "code",
+                "count": 1
             },
             {
                 "title": "Github repo trending",
                 "url": "https://rsshub.app/github/trending/daily/python",
-                "type": "code"
+                "type": "code",
+                "count": 1
             }
         ]
     }
