@@ -53,11 +53,18 @@ def find_favorite_article(rss_articles):
     show_article = []
     for key, articles in rss_resource.items():
         article_contents = []
+        article_links = []
         for article in articles:
             article_contents.append(article.summary)
+            article_links.append(article.link)
+
+        logger.info(f"start summary: {article_links}")
         evaluate_results = evaluate_with_gpt(article_contents)
         if not isinstance(evaluate_results, list):
             continue
+
+        if len(articles) != len(evaluate_results):
+            logger.error(f"article count: {len(articles)}, evaluate count: {len(evaluate_results)}")
 
         # evaluate跟articles是一一对应的
         for idx, article in enumerate(articles):
@@ -71,7 +78,7 @@ def find_favorite_article(rss_articles):
             show_article.extend(full_score_evaluates)
             output_count = len(full_score_evaluates)
         else:
-            show_article.extend(articles[0])
+            show_article.append(articles[0])
         logger.info(f"filter articles from {len(evaluate_results)} to {output_count}")
     return show_article[:max_article_nums]
 

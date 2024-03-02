@@ -19,11 +19,6 @@
                 "url": "https://osxdaily.com/feed/"
             },
             {
-                "title": "Hacker News - iOS",
-                "url": "https://hnrss.org/newest?q=iOS",
-                "type": "link"
-            },
-            {
                 "title": "The Verge - Apple Posts",
                 "url": "https://www.theverge.com/apple/rss/index.xml"
             }
