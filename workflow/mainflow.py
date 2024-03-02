@@ -46,12 +46,12 @@ def find_favorite_article(rss_articles):
             continue
         rss_category = article.info["title"]
         if rss_category in rss_resource.keys():
-            rss_resource[rss_category].append(article.summary)
+            rss_resource[rss_category].append(article)
         else:
             rss_resource[rss_category] = [article]
 
     show_article = []
-    for key, articles in enumerate(rss_resource):
+    for key, articles in rss_resource.items():
         article_contents = []
         for article in articles:
             article_contents.append(article.summary)
@@ -63,12 +63,12 @@ def find_favorite_article(rss_articles):
         for idx, article in enumerate(articles):
             article.evaluate = evaluate_results[idx]
 
-        evaluate_results.sort(key=lambda x: x["score"], reverse=True)
+        articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
         # 剔除分值过低内容
-        satisfy_items = [item for item in evaluate_results if item["score"] > 6]
-        logger.info(f"filter articles from {len(evaluate_results)} to {len(satisfy_items)}")
-        if satisfy_items:
-            show_article.append(satisfy_items[0])
+        satisfy_evaluates = [item for item in articles if item.evaluate["score"] > 7]
+        logger.info(f"filter articles from {len(evaluate_results)} to {len(satisfy_evaluates)}")
+        if satisfy_evaluates:
+            show_article.append(satisfy_evaluates[0])
     return show_article[:max_article_nums]
 
 
