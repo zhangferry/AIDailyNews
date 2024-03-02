@@ -1,21 +1,28 @@
-import os
+import os, json
 import google.generativeai as genai
 from openai import OpenAI
-import workflow.gpt.prompt as prompt_template
+from workflow.gpt.prompt import structured_prompt, multi_content_prompt
 from dotenv import load_dotenv
 
 
-def request_gpt(content):
+def evaluate_with_gpt(contents):
     load_dotenv()
-    prompt = prompt_template.structured_prompt
-    if os.environ.get("AI_PROVIDER") == "gemini":
-        return request_gemini(prompt=prompt, content=content)
+    prompt = multi_content_prompt
+
+    gpt_input = ""
+    for idx, item in enumerate(contents):
+        gpt_input += f"```[{idx}].{item}```.\n"
+
+    ai_provider = os.environ.get("AI_PROVIDER")
+    if ai_provider == "openai":
+        response = request_openai(prompt=prompt, content=gpt_input)
     else:
-        return request_openai(prompt=prompt, content=content)
+        response = request_gemini(prompt=prompt, content=gpt_input)
+    return transform2json(response)
 
 
 def request_gemini(prompt, content):
-    input_text = f"{prompt}: ```{content}```"
+    input_text = f"{prompt}: {content}"
 
     api_key = os.environ.get("GPT_API_KEY")
     if not api_key:
@@ -23,8 +30,7 @@ def request_gemini(prompt, content):
 
     genai.configure(api_key=api_key)
     # Set up the model
-    generation_config = genai.GenerationConfig(temperature=0.2,
-                                               max_output_tokens=1024)
+    generation_config = genai.GenerationConfig(temperature=0.2)
 
     safety_settings = [
         {
@@ -81,3 +87,21 @@ def request_openai(prompt, content):
         return chat_completion.choices[0].message.content
     except Exception as e:
         print(f"request openai failed: {e}")
+
+
+def transform2json(result):
+    if not result:
+        return None
+    format_json = None
+    # 去掉首尾两行就是完整json内容
+    text = result.removeprefix("```json")
+    text = text.removesuffix("```")
+    # 有时输出格式可能不完全符合json
+    try:
+        json_obj = json.loads(text)
+        # 关键信息校验
+        format_json = json_obj
+    except Exception as e:
+        print(f"{e}")
+    finally:
+        return format_json

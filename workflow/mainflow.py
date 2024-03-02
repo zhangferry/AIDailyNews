@@ -1,5 +1,5 @@
 import os, json, datetime, glob
-from workflow.gpt.summary import request_gpt
+from workflow.gpt.summary import evaluate_with_gpt
 import workflow.article.rss as rss
 import workflow.article.blog as blog
 
@@ -31,52 +31,43 @@ def parse_daily_rss_article(rss_resource, cache_file=None):
 
 def find_favorite_article(rss_articles):
     """获取评分最高的文章"""
-    evaluate_list = []
-    # 因gemini限流，文章最多分析20篇
-    max_analyze_nums = 20
+    # 限流，文章最多分析20篇
+    max_analyze_nums = 60
     rss_articles = rss_articles[:max_analyze_nums]
     # 默认输出结果10
     max_article_nums = int(os.environ.get("MAX_ARTICLE_NUMS", "12"))
-
     # 一个rss源对应一个总结，多条内容，合并处理
-    # {"resource_type": "", "items": []}
+    # {"Apple News": [<article>]}
     rss_resource = {}
     for article in rss_articles:
         if not article.summary:
             continue
-        if article.info["title"] in rss_resource.keys():
-            rss_resource[article.info["title"]].append(article.summary)
+        rss_category = article.info["title"]
+        if rss_category in rss_resource.keys():
+            rss_resource[rss_category].append(article.summary)
         else:
-            rss_resource[article.info["title"]] = [article]
+            rss_resource[rss_category] = [article]
 
-    for item in rss_resource:
-        evaluate = evaluate_article(item)
-        if not evaluate:
+    show_article = []
+    for key, articles in enumerate(rss_resource):
+        article_contents = []
+        for article in articles:
+            article_contents.append(article.summary)
+        evaluate_results = evaluate_with_gpt(article_contents)
+        if not isinstance(evaluate_results, list):
             continue
-        article.evaluate = evaluate
-        evaluate_list.append(article)
 
-    evaluate_list.sort(key=lambda x: x.evaluate["score"], reverse=True)
-    evaluate_list = evaluate_list[:max_article_nums]
-    return evaluate_list
+        # evaluate跟articles是一一对应的
+        for idx, article in enumerate(articles):
+            article.evaluate = evaluate_results[idx]
 
-
-def evaluate_article(content):
-    text = request_gpt(content)
-    if not text:
-        return None
-    # 去掉首尾两行就是完整json内容
-    text = text.removeprefix("```json")
-    text = text.removesuffix("```")
-    # 有时输出格式可能不完全符合json
-    try:
-        json_obj = json.loads(text)
-        # 关键信息校验
-        if json_obj.get("score"):
-            return json_obj
-        return None
-    except:
-        return None
+        evaluate_results.sort(key=lambda x: x["score"], reverse=True)
+        # 剔除分值过低内容
+        satisfy_items = [item for item in evaluate_results if item["score"] > 6]
+        print(f"filter articles from {len(evaluate_results)} to {len(satisfy_items)}")
+        if satisfy_items:
+            show_article.append(satisfy_items[0])
+    return show_article[:max_article_nums]
 
 
 def find_valid_file():
