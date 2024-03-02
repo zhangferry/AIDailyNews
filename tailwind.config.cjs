@@ -65,6 +65,9 @@ module.exports = {
             p: {
               margin: "0.5em 0em",
             },
+            ".prose blockquote": {
+              fontStyle: "normal", // 设置引用内部的文字不斜体
+            },
           },
         },
       }),

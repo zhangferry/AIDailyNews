@@ -97,5 +97,5 @@ def make_daily_category(category, articles):
 
 
 def make_daily_guide(titles):
-    guide = "".join([f"> * {item}\n" for item in titles])
+    guide = "".join([f"> - {item}\n" for item in titles])
     return f"\n{guide}\n"

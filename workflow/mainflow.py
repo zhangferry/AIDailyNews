@@ -38,10 +38,19 @@ def find_favorite_article(rss_articles):
     # 默认输出结果10
     max_article_nums = int(os.environ.get("MAX_ARTICLE_NUMS", "12"))
 
+    # 一个rss源对应一个总结，多条内容，合并处理
+    # {"resource_type": "", "items": []}
+    rss_resource = {}
     for article in rss_articles:
         if not article.summary:
             continue
-        evaluate = evaluate_article(article.summary)
+        if article.info["title"] in rss_resource.keys():
+            rss_resource[article.info["title"]].append(article.summary)
+        else:
+            rss_resource[article.info["title"]] = [article]
+
+    for item in rss_resource:
+        evaluate = evaluate_article(item)
         if not evaluate:
             continue
         article.evaluate = evaluate

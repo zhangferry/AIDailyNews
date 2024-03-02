@@ -13,9 +13,12 @@ class MyTestCase(unittest.TestCase):
         os.environ["all_proxy"] = "http://127.0.0.1:465"
 
     def test_parse_webpage(self):
-        url = "https://holyswift.app/xcode-15-new-feature-streamlined-accessibility-audits/"
+        url = "https://fatbobman.com/zh/posts/swift-predicate-usage-composition-and-considerations/"
         content = rss.parse_web_page(url)
-        print(content)
+        # h2 check
+        assert("什么是谓词" in content)
+        # code check
+        assert("let predicate = #Predicate<MyObject>" in content)
 
     def test_parse_github(self):
         url = "https://github.com/hmlongco/Factory"
