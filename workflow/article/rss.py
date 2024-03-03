@@ -86,6 +86,9 @@ def parse_rss_item(rss_item):
                 summary = parse_github_readme(link)
             else:
                 summary = transform_html2txt(article["summary"])
+            # 过短内容跳过总结
+            if len(summary) < 50:
+                continue
 
             rss = RSS(title=title,
                       summary=summary,

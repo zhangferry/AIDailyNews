@@ -20,6 +20,11 @@ class MyTestCase(unittest.TestCase):
         # code check
         assert("let predicate = #Predicate<MyObject>" in content)
 
+    def test_url_example(self):
+        url = "https://news.ycombinator.com/item?id=39570625"
+        content = rss.parse_web_page(url)
+        print(content)
+
     def test_parse_github(self):
         url = "https://github.com/hmlongco/Factory"
         content = rss.parse_github_readme(url)
