@@ -21,7 +21,7 @@ class MyTestCase(unittest.TestCase):
         assert("let predicate = #Predicate<MyObject>" in content)
 
     def test_url_example(self):
-        url = "https://news.ycombinator.com/item?id=39570625"
+        url = "https://news.ycombinator.com/item?id=39577878"
         content = rss.parse_web_page(url)
         print(content)
 

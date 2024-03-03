@@ -9,11 +9,11 @@ from loguru import logger
 def execute(rss_resource="workflow/resources"):
     # 缓存判断
     cache_folder, cache_file = find_valid_file()
-    rss_list = parse_daily_rss_article(rss_resource, cache_file)
+    origin_article_list = parse_daily_rss_article(rss_resource, cache_file)
     if cache_folder:
-        save_article(rss_list, cache_folder)
-    articles = find_favorite_article(rss_list)
-    blog.make_daily_markdown_with(articles, rss_list)
+        save_article(origin_article_list, cache_folder)
+    articles = find_favorite_article(origin_article_list)
+    blog.make_daily_markdown_with(articles, origin_article_list)
 
 
 def parse_daily_rss_article(rss_resource, cache_file=None):
@@ -52,23 +52,17 @@ def find_favorite_article(rss_articles):
 
     show_article = []
     for key, articles in rss_resource.items():
-        article_contents = []
-        article_links = []
-        for article in articles:
-            article_contents.append(article.summary)
-            article_links.append(article.link)
 
-        logger.info(f"start summary: {article_links}")
-        evaluate_results = evaluate_with_gpt(article_contents)
+        evaluate_results = evaluate_with_gpt(articles)
         if not isinstance(evaluate_results, list):
             continue
+        for evaluate in evaluate_results:
+            for article in articles:
+                if article.link == evaluate.get("link"):
+                    article.evaluate = evaluate
 
-        if len(articles) != len(evaluate_results):
-            logger.error(f"article count: {len(articles)}, evaluate count: {len(evaluate_results)}")
-
-        # evaluate跟articles是一一对应的
-        for idx, article in enumerate(articles):
-            article.evaluate = evaluate_results[idx]
+        # 有可能某些内容未总结完成，过滤
+        articles = [item for item in articles if item.evaluate]
 
         articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
         # 满分内容，可展示多个
@@ -114,7 +108,7 @@ def decode_article(path):
     with open(path, "r") as fp:
         object_list = json.loads(fp.read())
         for item in object_list:
-            rss_item = rss.RSS()
+            rss_item = rss.Article()
             for key, value in item.items():
                 setattr(rss_item, key, value)
             rss_list.append(rss_item)

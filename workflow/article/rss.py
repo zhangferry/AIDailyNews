@@ -12,7 +12,7 @@ from loguru import logger
 time_zone_value = "Asia/Shanghai"
 
 
-class RSS:
+class Article:
     title: str
     summary: str
     link: str
@@ -28,7 +28,7 @@ class RSS:
 
     @staticmethod
     def make_with_dict(obj_dict):
-        rss = RSS()
+        rss = Article()
         for key, value in obj_dict.items():
             setattr(rss, key, value)
         return rss
@@ -90,13 +90,13 @@ def parse_rss_item(rss_item):
             if len(summary) < 50:
                 continue
 
-            rss = RSS(title=title,
-                      summary=summary,
-                      link=link,
-                      date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
-                      info=res[keymap["channel"]],
-                      category=rss_item["category"],
-                      type=rss_item.get("type", "default"))
+            rss = Article(title=title,
+                          summary=summary,
+                          link=link,
+                          date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
+                          info=res[keymap["channel"]],
+                          category=rss_item["category"],
+                          type=rss_item.get("type", "default"))
 
             today_rss.append(rss)
             if len(today_rss) >= max_count:
@@ -133,9 +133,10 @@ def parse_web_page(url):
             # 使用BeautifulSoup解析HTML
             soup = BeautifulSoup(response.text, 'html.parser')
             # 提取限定标签，简化取网页内容流程
-            paragraphs = soup.find_all(["h1", "h2", "p", "code"])
-            paragraphs_text = [p.get_text() for p in paragraphs]
-            extracted_text = '\n'.join(paragraphs_text)
+            tags = soup.find_all(["h1", "h2", "p", "code"])
+            # 不处理标签嵌套内容
+            tags_text = [tag.get_text() for tag in tags if not tag.next.name]
+            extracted_text = '\n'.join(tags_text)
             return extracted_text.strip()
         else:
             logger.error(f"fetch {url} failed. Status code: {response.status_code}")

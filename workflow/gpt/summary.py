@@ -9,13 +9,17 @@ from loguru import logger
 from workflow.gpt.prompt import multi_content_prompt
 
 
-def evaluate_with_gpt(contents):
+def evaluate_with_gpt(articles):
     load_dotenv()
+
+    article_links = [article.link for article in articles]
+    logger.info(f"start summary: {article_links}")
+
     prompt = multi_content_prompt
 
     gpt_input = ""
-    for idx, item in enumerate(contents):
-        gpt_input += f"```[{idx}].{item}```.\n"
+    for idx, item in enumerate(articles):
+        gpt_input += f"```link: {item.link}, content:{item.summary}```.\n"
 
     ai_provider = os.environ.get("AI_PROVIDER")
     if ai_provider == "openai":
@@ -63,14 +67,8 @@ def request_gemini(prompt, content):
         logger.info(response.text)
         return response.text
     except Exception as e:
-        # 兜底
-        if os.environ.get("RETRY_MODE") == "openai":
-            logger.error(f"request gemini failed: {e}, retry with openai")
-            response = request_openai(prompt, content)
-            return response
-        else:
-            logger.error(f"request gemini failed: {e}, skip")
-            return None
+        logger.error(f"request gemini failed: {e}, skip")
+        return None
 
 
 def request_openai(prompt, content):
