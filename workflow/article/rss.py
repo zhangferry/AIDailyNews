@@ -7,6 +7,7 @@ import dateparser
 import requests
 from bs4 import BeautifulSoup
 from loguru import logger
+from markdown import markdown
 
 # 统一时区
 time_zone_value = "Asia/Shanghai"
@@ -165,7 +166,16 @@ def parse_github_readme(repo_url):
         # 将 Base64 编码的内容解码为字符串
         import base64
         readme_content = base64.b64decode(readme_content).decode("utf-8")
-        return readme_content
+
+        # md > html > text
+        html = markdown(readme_content)
+        # remove code snippets
+        html = re.sub(r'<pre>(.*?)</pre>', '', html, flags=re.DOTALL)
+        html = re.sub(r'<code>(.*?)</code>', '', html, flags=re.DOTALL)
+        html = re.sub(r'```(.*?)```', '', html, flags=re.DOTALL)
+        soup = BeautifulSoup(html, "html.parser")
+        text = ''.join(soup.findAll(text=True))
+        return text.strip()
 
     except Exception as e:
         logger.error(f"fetch {repo_url} get error: {e}")
