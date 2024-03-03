@@ -21,6 +21,16 @@
             {
                 "title": "The Verge - Apple Posts",
                 "url": "https://www.theverge.com/apple/rss/index.xml"
+            },
+            {
+                "title": "Hacker News - iOS",
+                "url": "https://hnrss.org/newest?q=iOS",
+                "type": "link"
+            },
+            {
+                "title": "Hacker News - Vision Pro",
+                "url": "https://hnrss.org/newest?q=vision%20pro",
+                "type": "link"
             }
         ]
     },
@@ -60,10 +70,6 @@
                 "type": "link"
             },
             {
-                "title": "Netflix TechBlog - Medium",
-                "url": "https://medium.com/feed/netflix-techblog"
-            },
-            {
                 "title": "Facebook Engineering",
                 "url": "https://engineering.fb.com/feed/"
             },
@@ -72,18 +78,17 @@
                 "url": "https://www.artificialintelligence-news.com/feed/"
             },
             {
-                "title": "NVIDIA Technical Blog",
-                "url": "https://developer.nvidia.com/blog/feed",
-                "type": "link"
-            },
-            {
                 "title": "Hugging Face - Blog",
                 "url": "https://huggingface.co/blog/feed.xml",
                 "type": "link"
             },
             {
-                "title": "MIT News - Machine learning",
-                "url": "https://news.mit.edu/topic/mitmachine-learning-rss.xml"
+                "title": "Hacker News - Newest: agi",
+                "url": "https://hnrss.org/newest?q=agi"
+            },
+            {
+                "title": "Hacker News - Newest: programming",
+                "url": "https://hnrss.org/newest?q=programming"
             }
         ]
     },
@@ -98,15 +103,9 @@
             },
             {
                 "title": "Github repo trending",
-                "url": "https://rsshub.app/github/trending/daily/rust",
+                "url": "https://rsshub.app/github/trending/daily/any",
                 "type": "code",
-                "count": 1
-            },
-            {
-                "title": "Github repo trending",
-                "url": "https://rsshub.app/github/trending/daily/python",
-                "type": "code",
-                "count": 1
+                "count": 3
             }
         ]
     }
