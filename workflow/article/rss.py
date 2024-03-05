@@ -88,7 +88,7 @@ def parse_rss_item(rss_item):
             else:
                 summary = transform_html2txt(article["summary"])
             # 过短内容跳过总结
-            if len(summary) < 50:
+            if not summary or len(summary) < 50:
                 continue
 
             rss = Article(title=title,
