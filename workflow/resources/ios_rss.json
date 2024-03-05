@@ -23,8 +23,8 @@
                 "url": "https://www.theverge.com/apple/rss/index.xml"
             },
             {
-                "title": "Hacker News - iOS",
-                "url": "https://hnrss.org/newest?q=iOS",
+                "title": "Hacker News - Apple",
+                "url": "https://hnrss.org/newest?q=apple",
                 "type": "link"
             },
             {
@@ -48,7 +48,8 @@
             {
                 "title": "iOS dev - Telegram",
                 "url": "https://rsshub.app/telegram/channel/iosdevio",
-                "type": "link"
+                "type": "link",
+                "output_count": 3
             },
             {
                 "title": "SwiftLee RSS",
@@ -83,8 +84,9 @@
                 "type": "link"
             },
             {
-                "title": "Hacker News - Newest: agi",
-                "url": "https://hnrss.org/newest?q=agi"
+                "title": "Hacker News - Newest",
+                "url": "https://hnrss.org/newest",
+                "output_count": 2
             },
             {
                 "title": "Hacker News - Newest: programming",
@@ -99,13 +101,13 @@
                 "title": "Github repo trending",
                 "url": "https://rsshub.app/github/trending/daily/swift",
                 "type": "code",
-                "count": 2
+                "input_count": 2
             },
             {
                 "title": "Github repo trending",
                 "url": "https://rsshub.app/github/trending/daily/any",
                 "type": "code",
-                "count": 3
+                "input_count": 3
             }
         ]
     }

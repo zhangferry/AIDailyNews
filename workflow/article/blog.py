@@ -24,13 +24,13 @@ def make_daily_markdown_with(articles, rss_list):
     category_list = []
     # 文章列表有可能因为评分打乱了排序，再次从原始配置获取顺序
     for rss in rss_list:
-        if rss.category not in category_list:
-            category_list.append(rss.category)
+        if rss.config["category"] not in category_list:
+            category_list.append(rss.config["category"])
 
     category_contents = []
     for category in category_list:
         for article in articles:
-            if article.category != category:
+            if article.config["category"] != category:
                 continue
             tags.extend(article.evaluate.get("tags", []))
             article_titles.append(article.evaluate["title"])
@@ -79,7 +79,7 @@ def make_daily_category(category, articles):
         return ""
     content = ""
     for article in articles:
-        if article.category != category:
+        if article.config["category"] != category:
             continue
         article_intro = f"""
 ### [{article.evaluate["title"]}]({article.link})
