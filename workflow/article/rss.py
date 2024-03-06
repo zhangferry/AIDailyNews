@@ -19,8 +19,8 @@ class Article:
     link: str
     date: str
     info: dict
-    type: str
-    category: str
+    # rss 配置信息
+    config: dict
     evaluate: dict  # 来源于ai生成
 
     def __init__(self, **kwargs):
@@ -58,13 +58,13 @@ def load_rss_configs(resource):
     return rss_items
 
 
-def parse_rss_item(rss_item):
+def parse_rss_config(rss_config):
     """仅获取当天的rss信息"""
-    res = feedparser.parse(rss_item["url"])
+    res = feedparser.parse(rss_config["url"])
     keymap = res.keymap
     today_rss = []
     # 默认一个rss源只获取一定数量信息
-    max_count = rss_item.get("count", 4)
+    max_count = rss_config.get("input_count", 4)
 
     for article in res[keymap["items"]]:
         title = article["title"]
@@ -74,16 +74,19 @@ def parse_rss_item(rss_item):
         time_zone = tz.gettz(time_zone_value)
         today_with_timezone = datetime.today().astimezone(time_zone).date()
         target_date = today_with_timezone - timedelta(days=1)
-        if rss_item.get("type") == "code":
+        if rss_config.get("type") == "code":
             target_date = today_with_timezone
-        article_date = unify_timezone(article.get(keymap["date"], res.get(keymap["date"])))
+        # issued > date > res.date
+        article_date = unify_timezone(article.get(keymap["issued"],
+                                                  article.get(keymap["date"],
+                                                              res.get(keymap["date"]))))
         if article_date.date() == target_date:
             # 判断是否为当天信息，可能有多个内容
-            if rss_item.get("type") == "link":
+            if rss_config.get("type") == "link":
                 summary = parse_web_page(url=link)
-            elif rss_item.get("type") == "image":
+            elif rss_config.get("type") == "image":
                 summary = transform_html2txt(article["summary"], False)
-            elif rss_item.get("type") == "code":
+            elif rss_config.get("type") == "code":
                 summary = parse_github_readme(link)
             else:
                 summary = transform_html2txt(article["summary"])
@@ -96,8 +99,7 @@ def parse_rss_item(rss_item):
                           link=link,
                           date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
                           info=res[keymap["channel"]],
-                          category=rss_item["category"],
-                          type=rss_item.get("type", "default"))
+                          config=rss_config)
 
             today_rss.append(rss)
             if len(today_rss) >= max_count:

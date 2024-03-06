@@ -1,5 +1,5 @@
 import os, json, datetime, glob
-from workflow.gpt.summary import evaluate_with_gpt
+from workflow.gpt.summary import evaluate_article_with_gpt
 import workflow.article.rss as rss
 import workflow.article.blog as blog
 
@@ -24,7 +24,7 @@ def parse_daily_rss_article(rss_resource, cache_file=None):
 
     daily_rss = []
     for item in rss_items:
-        rss_list = rss.parse_rss_item(item)
+        rss_list = rss.parse_rss_config(item)
         for rss_item in rss_list:
             daily_rss.append(rss_item)
             logger.info(f"date: {rss_item.date}, link: {rss_item.link}")
@@ -50,10 +50,10 @@ def find_favorite_article(rss_articles):
         else:
             rss_resource[rss_category] = [article]
 
-    show_article = []
+    show_articles = []
     for key, articles in rss_resource.items():
 
-        evaluate_results = evaluate_with_gpt(articles)
+        evaluate_results = evaluate_article_with_gpt(articles)
         if not isinstance(evaluate_results, list):
             continue
         for evaluate in evaluate_results:
@@ -67,14 +67,15 @@ def find_favorite_article(rss_articles):
         articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
         # 满分内容，可展示多个
         full_score_evaluates = [item for item in articles if item.evaluate["score"] >= 10]
-        output_count = 1
-        if full_score_evaluates:
-            show_article.extend(full_score_evaluates)
+        # 默认数量1
+        output_count = articles[0].config.get("output_count", 1)
+        if len(full_score_evaluates) >= output_count:
+            show_articles.extend(full_score_evaluates)
             output_count = len(full_score_evaluates)
         else:
-            show_article.append(articles[0])
+            show_articles.extend(articles[:output_count])
         logger.info(f"filter articles from {len(evaluate_results)} to {output_count}")
-    return show_article[:max_article_nums]
+    return show_articles[:max_article_nums]
 
 
 def find_valid_file():

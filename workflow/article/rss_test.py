@@ -31,23 +31,22 @@ class MyTestCase(unittest.TestCase):
         print(content)
 
     def test_parse_image_rss(self):
-        article = rss.parse_rss_item(self.target_config("image"))
+        article = rss.parse_rss_config(self.target_config("image"))
         res = mainflow.find_favorite_article(article)
         print(res)
 
     def test_parse_rss(self):
         config = {
             "title": "The Register",
-            "url": "http://www.theregister.co.uk/excerpts.rss",
-            "type": "link"
+            "url": "https://www.apple.com/newsroom/rss-feed.rss"
         }
-        articles = rss.parse_rss_item(config)
+        articles = rss.parse_rss_config(config)
         print(articles)
         # res = mainflow.find_favorite_article(articles)
         # print(res)
 
     def test_parse_code_rss(self):
-        articles = rss.parse_rss_item(self.target_config("code"))
+        articles = rss.parse_rss_config(self.target_config("code"))
         print(articles)
         res = mainflow.find_favorite_article(articles)
         print(res)
