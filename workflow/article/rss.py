@@ -76,7 +76,10 @@ def parse_rss_config(rss_config):
         target_date = today_with_timezone - timedelta(days=1)
         if rss_config.get("type") == "code":
             target_date = today_with_timezone
-        article_date = unify_timezone(article.get(keymap["issued"], res.get(keymap["date"])))
+        # issued > date > res.date
+        article_date = unify_timezone(article.get(keymap["issued"],
+                                                  article.get(keymap["date"],
+                                                              res.get(keymap["date"]))))
         if article_date.date() == target_date:
             # 判断是否为当天信息，可能有多个内容
             if rss_config.get("type") == "link":
