@@ -13,8 +13,7 @@ class MyTestCase(unittest.TestCase):
         load_dotenv()
 
     def test_flow(self):
-
-        rss_resource_path = "resources/code.json"
+        rss_resource_path = "test_resources"
         flow.execute(rss_resource_path)
 
 

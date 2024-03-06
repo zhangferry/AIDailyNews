@@ -9,7 +9,7 @@ from loguru import logger
 from workflow.gpt.prompt import multi_content_prompt
 
 
-def evaluate_with_gpt(articles):
+def evaluate_article_with_gpt(articles):
     load_dotenv()
 
     article_links = [article.link for article in articles]

@@ -1,5 +1,5 @@
 import os, json, datetime, glob
-from workflow.gpt.summary import evaluate_with_gpt
+from workflow.gpt.summary import evaluate_article_with_gpt
 import workflow.article.rss as rss
 import workflow.article.blog as blog
 
@@ -50,10 +50,10 @@ def find_favorite_article(rss_articles):
         else:
             rss_resource[rss_category] = [article]
 
-    show_article = []
+    show_articles = []
     for key, articles in rss_resource.items():
 
-        evaluate_results = evaluate_with_gpt(articles)
+        evaluate_results = evaluate_article_with_gpt(articles)
         if not isinstance(evaluate_results, list):
             continue
         for evaluate in evaluate_results:
@@ -70,12 +70,12 @@ def find_favorite_article(rss_articles):
         # 默认数量1
         output_count = articles[0].config.get("output_count", 1)
         if len(full_score_evaluates) >= output_count:
-            show_article.extend(full_score_evaluates)
+            show_articles.extend(full_score_evaluates)
             output_count = len(full_score_evaluates)
         else:
-            show_article.append(articles[:output_count])
+            show_articles.extend(articles[:output_count])
         logger.info(f"filter articles from {len(evaluate_results)} to {output_count}")
-    return show_article[:max_article_nums]
+    return show_articles[:max_article_nums]
 
 
 def find_valid_file():

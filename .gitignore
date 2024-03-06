@@ -28,3 +28,5 @@ netlify
 .astro/
 .idea/
 .vercel
+
+workflow/test_resources

@@ -38,7 +38,7 @@ class MyTestCase(unittest.TestCase):
     def test_parse_rss(self):
         config = {
             "title": "The Register",
-            "url": "https://rsshub.app/telegram/channel/iosdevio",
+            "url": "https://hnrss.org/newest?q=apple",
             "type": "link"
         }
         articles = rss.parse_rss_config(config)
