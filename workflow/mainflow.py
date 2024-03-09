@@ -54,8 +54,6 @@ def find_favorite_article(rss_articles):
     for key, articles in rss_resource.items():
 
         evaluate_results = evaluate_article_with_gpt(articles)
-        if not isinstance(evaluate_results, list):
-            continue
         for evaluate in evaluate_results:
             for article in articles:
                 if article.link == evaluate.get("link"):
@@ -75,6 +73,8 @@ def find_favorite_article(rss_articles):
         else:
             show_articles.extend(articles[:output_count])
         logger.info(f"filter articles from {len(evaluate_results)} to {output_count}")
+    # 汇总之后再排序
+    show_articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
     return show_articles[:max_article_nums]
 
 

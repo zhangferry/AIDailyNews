@@ -26,7 +26,13 @@ def evaluate_article_with_gpt(articles):
         response = request_openai(prompt=prompt, content=gpt_input)
     else:
         response = request_gemini(prompt=prompt, content=gpt_input)
-    return transform2json(response)
+    response_json = transform2json(response)
+    # check format
+    if not isinstance(response_json, list):
+        return []
+
+    evaluate_list = [item for item in response_json if item.get("title") and item.get("link")]
+    return evaluate_list
 
 
 def request_gemini(prompt, content):
