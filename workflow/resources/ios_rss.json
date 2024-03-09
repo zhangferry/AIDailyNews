@@ -48,7 +48,7 @@
                 "title": "iOS dev - Telegram",
                 "url": "https://rsshub.app/telegram/channel/iosdevio",
                 "type": "link",
-                "output_count": 3
+                "output_count": 2
             },
             {
                 "title": "SwiftLee RSS",
@@ -88,8 +88,8 @@
                 "output_count": 2
             },
             {
-                "title": "Hacker News - Newest: programming",
-                "url": "https://hnrss.org/newest?q=programming"
+                "title": "Changelogs Archive - The GitHub Blog",
+                "url": "https://github.blog/changelog/feed/"
             }
         ]
     },

@@ -21,7 +21,7 @@ class Article:
     info: dict
     # rss 配置信息
     config: dict
-    evaluate: dict  # 来源于ai生成
+    evaluate: dict = None  # 来源于ai生成
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
