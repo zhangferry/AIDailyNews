@@ -61,6 +61,8 @@ def find_favorite_article(rss_articles):
 
         # 有可能某些内容未总结完成，过滤
         articles = [item for item in articles if item.evaluate]
+        if not articles:
+            continue
 
         articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
         # 满分内容，可展示多个
