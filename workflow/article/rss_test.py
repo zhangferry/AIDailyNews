@@ -38,10 +38,11 @@ class MyTestCase(unittest.TestCase):
     def test_parse_rss(self):
         config = {
             "title": "The Register",
-            "url": "https://www.apple.com/newsroom/rss-feed.rss"
+            "url": "https://rsshub.app/telegram/channel/iosdevio"
         }
         articles = rss.parse_rss_config(config)
-        print(articles)
+        for item in articles:
+            print(item.link)
         # res = mainflow.find_favorite_article(articles)
         # print(res)
 
