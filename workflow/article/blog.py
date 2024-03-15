@@ -59,7 +59,8 @@ def make_meta_data(description, tags):
     blog_folder = f"{project_root}/../src/content/blog"
 
     md_title = f"iOS Daily News #{today_str}"
-    tags_str = "".join([f"- '{tag}'\n" for tag in set(tags)])
+    # Expected "tag" to match "[^\/#\?]+?"
+    tags_str = "".join([f"- '{str(tag).replace('/', '_')}'\n" for tag in set(tags)])
     data = f"""---
 title: "{md_title}"
 date: "{today_with_timezone.strftime("%Y-%m-%d %H:%M:%S")}"

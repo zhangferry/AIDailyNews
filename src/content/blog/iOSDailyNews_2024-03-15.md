@@ -18,7 +18,7 @@ tags:
 - 'AI 法案'
 - 'Chakra UI'
 - 'SQLModel'
-- 'CI/CD'
+- 'CI_CD'
 - 'JWT'
 - 'FastAPI'
 - '动画'
