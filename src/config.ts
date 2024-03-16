@@ -21,9 +21,9 @@ export const NAV_ITEMS: NavItems = {
 
 export const SITE = {
 	// Your site's detail?
-	name: "iOS Daily News",
+	name: "My Daily News",
 	title: "zhangferry",
-	description: "Made with Gemini",
+	description: "Made with AI",
 	url: "https://daily.zhangferry.com",
 	githubUrl: "https://github.com/zhangferry/AIDailyNews",
 	listDrafts: true,
