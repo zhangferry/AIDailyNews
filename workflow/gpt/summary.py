@@ -26,12 +26,15 @@ def evaluate_article_with_gpt(articles):
         response = request_openai(prompt=prompt, content=gpt_input)
     else:
         response = request_gemini(prompt=prompt, content=gpt_input)
-    response_json = transform2json(response)
+    response_list = transform2json(response)
     # check format
-    if not isinstance(response_json, list):
+    if not response_list:
         return []
+    if not isinstance(response_list, list):
+        # 有时单个内容未按数组格式输出
+        response_list = [response_list]
 
-    evaluate_list = [item for item in response_json if item.get("title") and item.get("link")]
+    evaluate_list = [item for item in response_list if item.get("title") and item.get("link")]
     return evaluate_list
 
 
