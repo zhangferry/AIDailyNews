@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "THEME_KEY=indigone astro dev",
-    "build": "astro build",
+    "build": "THEME_KEY=indigone astro build",
     "check": "astro check",
     "postbuild": "node ./scripts/search/prepare-index.js",
     "preview": "astro preview",

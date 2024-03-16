@@ -3,6 +3,7 @@ from datetime import datetime
 from dateutil import tz
 from loguru import logger
 
+
 class Blog:
     metadata: str
     guide: str
@@ -64,7 +65,6 @@ def make_meta_data(description, tags):
     data = f"""---
 title: "{md_title}"
 date: "{today_with_timezone.strftime("%Y-%m-%d %H:%M:%S")}"
-author: 摸鱼仔
 description: "{description}"
 tags: 
 {tags_str}

@@ -68,34 +68,7 @@ const AUTHOR_AVATAR = content.authorImage
       <br />
       <br />
       <h5 class={`post__desc ${AUTHOR_AVATAR ? "flex flex-row gap-2" : ""}`}>
-        {
-          AUTHOR_AVATAR ? (
-            <img
-              class="avatar"
-              src={AUTHOR_AVATAR}
-              alt={`${AUTHOR_NAME}'s avatar`}
-            />
-          ) : (
-            ""
-          )
-        }
         <div class={AUTHOR_AVATAR ? "flex flex-col border-l-2 pl-2" : ""}>
-          {
-            AUTHOR_TWITTER ? (
-              <a
-                class="post__author"
-                href={`https://twitter.com/${AUTHOR_TWITTER}`}
-                title={`${AUTHOR_NAME}'s twitter`}
-                target="_blank"
-                rel="external"
-              >
-                {AUTHOR_NAME}
-              </a>
-            ) : (
-              <span class="post__author">{AUTHOR_NAME}</span>
-            )
-          }
-          {!AUTHOR_AVATAR ? " | " : ""}
           <span class="post__date">
             <!-- post creation/updation data -->
             {
@@ -158,7 +131,7 @@ const AUTHOR_AVATAR = content.authorImage
     }
     .post__date,
     .post__stats {
-      @apply text-gray-400;
+      @apply text-gray-500;
     }
     .post__tags {
       @apply inline-flex gap-2 flex-wrap;

@@ -60,7 +60,7 @@ def find_favorite_article(rss_articles):
                     article.evaluate = evaluate
 
         # 有可能某些内容未总结完成，过滤
-        articles = [item for item in articles if item.evaluate]
+        articles = [item for item in articles if item.evaluate and item.evaluate.get("score")]
         if not articles:
             continue
 
