@@ -43,14 +43,15 @@ class MyTestCase(unittest.TestCase):
         articles = rss.parse_rss_config(config)
         for item in articles:
             print(item.link)
-        # res = mainflow.find_favorite_article(articles)
-        # print(res)
 
     def test_parse_code_rss(self):
-        articles = rss.parse_rss_config(self.target_config("code"))
-        print(articles)
-        res = mainflow.find_favorite_article(articles)
-        print(res)
+        config = {
+            "title": "Github",
+            "url": "https://rsshub.app/github/trending/daily/swift"
+        }
+        articles = rss.parse_rss_config(config)
+        for item in articles:
+            print(item.link)
 
     def test_time_zone(self):
         cn_time_zone = "Asia/Shanghai"
