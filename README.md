@@ -10,7 +10,7 @@ My Daily News：一键部署独属于你的每日新闻总览,支持 GPT3，Gemi
 
 Fork 该仓库，删除 [src/content/blog](https://github.com/zhangferry/AIDailyNews/tree/main/src/content/blog) 里的文件，然后做如下修改：
 
-1. 修改 [rss.json](https://github.com/zhangferry/AIDailyNews/blob/main/workflow/resources/rss.json)，这里是你要订阅的 RSS 内容，以下是各参数说明：
+1、修改 [rss.json](https://github.com/zhangferry/AIDailyNews/blob/main/workflow/resources/rss.json)，这里是你要订阅的 RSS 内容，以下是各参数说明：
    ```json5
    [
      {
@@ -25,7 +25,7 @@ Fork 该仓库，删除 [src/content/blog](https://github.com/zhangferry/AIDaily
      },
    ]
    ```
-2. 配置数据采集的环境变量，为 Github 定时任务所需。
+2、配置数据采集的环境变量，为 Github 定时任务所需。
 
    ![](https://cdn.zhangferry.com/Images/202403161224264.png)
 
@@ -41,13 +41,13 @@ Fork 该仓库，删除 [src/content/blog](https://github.com/zhangferry/AIDaily
    - `GIT_EMAIL`: git email 地址
    - `ACCESS_TOKEN`: github token 权限。token 的生成需要到这里：个人头像 -> Settings -> Developer settings -> Personal access tokens，点击 Generate new token。
 
-3. 部署到 Vercel：[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fzhangferry%2FAIDailyNews)
+3、部署到 Vercel：[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fzhangferry%2FAIDailyNews)
 
-恭喜，你将会每天收到订阅内容的总结！
+🎉恭喜，你将会每天收到所订阅内容的总结啦！
 
-## Build
+## Build & Custom
 
-用于本地调试和改造项目。项目工作流程如下：
+用于本地调试和项目自定义。项目工作流程如下：
 
 ![](https://cdn.zhangferry.com/Images/whiteboard_exported_image.png)
 

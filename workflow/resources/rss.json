@@ -10,12 +10,7 @@
             {
                 "title": "NewsRoom",
                 "url": "https://www.apple.com/newsroom/rss-feed.rss",
-                "type": "link",
-                "output_count": 2
-            },
-            {
-                "title": "MacRumors",
-                "url": "https://feeds.macrumors.com/MacRumors-All"
+                "type": "link"
             },
             {
                 "title": "OS X Daily",
@@ -24,11 +19,6 @@
             {
                 "title": "Hacker News - Apple",
                 "url": "https://hnrss.org/newest?q=apple",
-                "type": "link"
-            },
-            {
-                "title": "Hacker News - Vision Pro",
-                "url": "https://hnrss.org/newest?q=vision%20pro",
                 "type": "link"
             }
         ]
@@ -45,18 +35,87 @@
                 "url": "https://swiftbysundell.com/feed.rss"
             },
             {
-                "title": "iOS dev - Telegram",
-                "url": "https://rsshub.app/telegram/channel/iosdevio",
-                "type": "link",
-                "output_count": 2
-            },
-            {
                 "title": "SwiftLee RSS",
                 "url": "https://www.avanderlee.com/feed/"
             },
             {
                 "title": "肘子的 Swift 记事本",
                 "url": "https://www.fatbobman.com/feed.rss",
+                "type": "link"
+            },
+            {
+                "title": "Donny Wals",
+                "url": "https://www.donnywals.com/feed/",
+                "type": "link"
+            },
+            {
+                "title": "Daniel Saidi",
+                "url": "https://danielsaidi.com/feed.xml"
+            },
+            {
+                "title": "Augmented Code",
+                "url": "https://augmentedcode.io/blog/feed/"
+            },
+            {
+                "title": "massicotte.org",
+                "url": "https://www.massicotte.org/feed.xml"
+            },
+            {
+                "title": "Emerge Tools Blog",
+                "url": "https://www.emergetools.com/rss.xml"
+            },
+            {
+                "title": "Ole Begemann",
+                "url": "https://oleb.net/blog/atom.xml"
+            },
+            {
+                "title": "Swift with Majid",
+                "url": "https://swiftwithmajid.com/feed.xml"
+            },
+            {
+                "title": "manu.show",
+                "url": "https://www.manu.show/feed.xml"
+            },
+            {
+                "title": "Donny Wals",
+                "url": "https://www.donnywals.com/feed/"
+            },
+            {
+                "title": "Wade Tregaskis",
+                "url": "https://wadetregaskis.com/feed/"
+            },
+            {
+                "title": "overdesigned blog",
+                "url": "https://blog.overdesigned.net/feed.rss"
+            },
+            {
+                "title": "otbivnoe’s blog",
+                "url": "https://otbivnoe.ru/feed.xml"
+            },
+            {
+                "title": "Scott Smith Dev",
+                "url": "https://scottsmithdev.com/rss.xml"
+            },
+            {
+                "title": "Augmented Code",
+                "url": "https://augmentedcode.io/blog/feed/"
+            },
+            {
+                "title": "Swift on server",
+                "url": "https://swiftonserver.com/rss.xml",
+                "type": "link"
+            },
+            {
+                "title": "Swift Unwrap",
+                "url": "https://swiftunwrap.com/feed.rss"
+            },
+            {
+                "title": "Swiftology",
+                "url": "https://swiftology.io/feed.rss"
+            },
+            {
+                "title": "Bryce Pauken",
+                "url": "https://bryce.co/index.xml",
                 "type": "link"
             }
         ]
@@ -78,14 +137,8 @@
                 "url": "https://www.artificialintelligence-news.com/feed/"
             },
             {
-                "title": "Hugging Face - Blog",
-                "url": "https://huggingface.co/blog/feed.xml",
-                "type": "link"
-            },
-            {
                 "title": "Hacker News - Newest",
-                "url": "https://hnrss.org/newest",
-                "output_count": 2
+                "url": "https://hnrss.org/newest"
             },
             {
                 "title": "Changelogs Archive - The GitHub Blog",
