@@ -1,6 +1,6 @@
 import { component } from "@astrojs/markdoc/config";
 
-const SITE_DOMAIN = "astro-ink.vercel.app";
+const SITE_DOMAIN = "daily.zhangferry.com";
 function getHrefTarget(attributes) {
 	const href = attributes.href;
 	if (

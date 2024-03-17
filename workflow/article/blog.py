@@ -59,7 +59,7 @@ def make_meta_data(description, tags):
     project_root = os.path.dirname(current_directory)
     blog_folder = f"{project_root}/../src/content/blog"
 
-    md_title = f"My Daily News #{today_str}"
+    md_title = f"Daily News #{today_str}"
     # Expected "tag" to match "[^\/#\?]+?"
     tags_str = "".join([f"- '{str(tag).replace('/', '_')}'\n" for tag in set(tags)])
     data = f"""---
