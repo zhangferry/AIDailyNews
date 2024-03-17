@@ -10,7 +10,6 @@ interface Props {
 const {
   post: { data: post, slug },
   asCard = false,
-  isWeekly = false,
 } = Astro.props;
 ---
 
@@ -29,9 +28,7 @@ const {
   </div>
   <div class="flex-1">
     <h4 class="post-preview__title dark:text-theme-dark-primary">
-      <a href={`/${isWeekly ? "weekly" : "blog"}/${slug}`} title={post.title}
-        >{post.title}</a
-      >
+      <a href={`/${"blog"}/${slug}`} title={post.title}>{post.title}</a>
     </h4>
     <p class="post-preview__desc">
       {post.description}
