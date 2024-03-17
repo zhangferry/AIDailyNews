@@ -1,43 +1,46 @@
 ---
-title: "My Daily News #2024-03-17"
-date: "2024-03-17 09:35:19"
-description: "🌟 macOS Ventura：如何找到通用控制设置
-macOS 14.4 更新可能会影响 Java 用户
+title: "Daily News #2024-03-17"
+date: "2024-03-17 12:39:29"
+description: "🌟 macOS Ventura：如何找到通用控制设置？
+Apple Vision Pro应用商店
 🚀 阿联酋将资助 OpenAI 研发 AI 芯片
-🎉 Dependabot 优化：15 次失败后自动暂停计划任务
-✨ Diia：乌克兰数字政府服务应用"
+💡Dependabot 优化：15 次失败后自动暂停计划任务
+🚀 全栈 FastAPI 模板
+👍 Diia: 乌克兰政府服务应用"
 tags: 
+- 'Apple Vision Pro'
+- '乌克兰'
+- 'FastAPI'
 - 'GitHub'
-- '技术'
-- '移动应用'
 - 'macOS'
 - 'AI 芯片'
 
 ---
 
-> - 🌟 macOS Ventura：如何找到通用控制设置
-> - macOS 14.4 更新可能会影响 Java 用户
+> - 🌟 macOS Ventura：如何找到通用控制设置？
+> - Apple Vision Pro应用商店
 > - 🚀 阿联酋将资助 OpenAI 研发 AI 芯片
-> - 🎉 Dependabot 优化：15 次失败后自动暂停计划任务
-> - ✨ Diia：乌克兰数字政府服务应用
+> - 💡Dependabot 优化：15 次失败后自动暂停计划任务
+> - 🚀 全栈 FastAPI 模板
+> - 👍 Diia: 乌克兰政府服务应用
 
 ## Apple News
 
-### [🌟 macOS Ventura：如何找到通用控制设置](https://osxdaily.com/2024/03/15/how-to-find-universal-control-settings-on-macos-sonoma-ventura/)
+### [🌟 macOS Ventura：如何找到通用控制设置？](https://osxdaily.com/2024/03/15/how-to-find-universal-control-settings-on-macos-sonoma-ventura/)
 
 来源：OS X Daily
 
 发布时间：2024-03-16 00:35:06
 
-通用控制是 macOS 用户最实用的功能之一，它允许用户使用单个鼠标和键盘控制多台 Mac 和 iPad，一旦设置好并开始工作，它就能很好地工作并提供出色的体验。
+通用控制是 macOS 用户最实用的功能之一，它允许用户使用单个鼠标和键盘控制多台 Mac 和 iPad。它运行良好，一旦设置好并开始工作，它就会提供极好的体验。
 
-### [macOS 14.4 更新可能会影响 Java 用户](https://blogs.oracle.com/java/post/java-on-macos-14-4)
+### [Apple Vision Pro应用商店](https://apps.apple.com/us/vision)
 
 来源：Hacker News - Newest: "apple"
 
-发布时间：2024-03-16 14:24:03
+发布时间：2024-03-16 19:07:32
 
-使用 Apple 芯片运行 macOS 14 的 Java 用户应考虑推迟 macOS 14.4 更新，因为该更新可能会导致问题。
+Apple Vision Pro应用商店提供各种空间音频、增强现实和虚拟现实体验，让您以全新的方式探索世界。从沉浸式音乐会到交互式学习工具，再到引人入胜的游戏，这里应有尽有。
 
 ## Tech News
 
@@ -47,22 +50,30 @@ tags:
 
 发布时间：2024-03-16 00:21:50
 
-据金融时报报道，阿联酋国家支持的集团 MGX 正在与 OpenAI 讨论，为其构建 AI 芯片的计划提供支持。OpenAI 计划开发自己的半导体芯片，为先进的 AI 模型提供动力。
+据金融时报报道，阿联酋国家支持的集团 MGX 正在讨论支持 OpenAI 构建 AI 芯片的计划。OpenAI 计划开发自己的半导体芯片，为先进的 AI 模型提供动力。
 
-### [🎉 Dependabot 优化：15 次失败后自动暂停计划任务](https://github.blog/changelog/2024-03-15-dependabot-will-now-pause-scheduled-jobs-after-15-failures)
+### [💡Dependabot 优化：15 次失败后自动暂停计划任务](https://github.blog/changelog/2024-03-15-dependabot-will-now-pause-scheduled-jobs-after-15-failures)
 
 来源：Changelogs Archive - The GitHub Blog
 
 发布时间：2024-03-16 05:49:28
 
-Dependabot 现已优化，当计划任务连续失败 15 次后，将自动暂停该任务。这将有助于减少不必要的资源消耗，并确保任务在失败后不会无限期地继续运行。
+Dependabot 现已优化，当计划任务连续失败 15 次后，将自动暂停该任务。这将有助于防止不必要的资源消耗和错误累积，从而提高任务的可靠性和效率。
 
 ## Daily Code
 
-### [✨ Diia：乌克兰数字政府服务应用](https://github.com/diia-open-source/ios-diia)
+### [🚀 全栈 FastAPI 模板](https://github.com/tiangolo/full-stack-fastapi-template)
+
+来源：Trending repositories on GitHub today · GitHub
+
+发布时间：2024-03-17 09:48:54
+
+这是一个全栈 FastAPI 模板，包含了构建现代 Web 应用程序所需的所有内容，包括 Python 后端、React 前端、Docker Compose 开发和生产环境、CI/CD 等。
+
+### [👍 Diia: 乌克兰政府服务应用](https://github.com/diia-open-source/ios-diia)
 
 来源：Trending Swift repositories on GitHub today · GitHub
 
-发布时间：2024-03-17 09:34:40
+发布时间：2024-03-17 11:38:08
 
-Diia 是一款乌克兰政府开发的移动应用，提供数字文件和政府服务，让乌克兰公民可以轻松便捷地与政府互动，无需排队和繁琐的文书工作。
+Diia 是一款乌克兰政府服务应用，提供数字文件和政府服务访问权限。该应用旨在让乌克兰人只需轻点几下即可与国家互动，无需排队和填写文书工作。Diia 开源应用程序将帮助国家、公司和社区建立长期关系的基础。这些关系的核心是开放、效率和人性化。
