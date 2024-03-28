@@ -5,7 +5,8 @@
             {
                 "title": "Latest News - Apple Developer",
                 "url": "https://developer.apple.com/news/rss/news.rss",
-                "output_count": 2
+                "output_count": 2,
+                "image_enable": true
             },
             {
                 "title": "NewsRoom",
@@ -28,7 +29,8 @@
         "items": [
             {
                 "title": "Swift.org",
-                "url": "https://www.swift.org/atom.xml"
+                "url": "https://www.swift.org/atom.xml",
+                "image_enable": true
             },
             {
                 "title": "swiftbysundell",
@@ -117,6 +119,10 @@
                 "title": "Bryce Pauken",
                 "url": "https://bryce.co/index.xml",
                 "type": "link"
+            },
+            {
+                "title": "Brentley’s Blog",
+                "url": "https://brentley.dev/rss.xml"
             }
         ]
     },
@@ -142,7 +148,8 @@
             },
             {
                 "title": "Changelogs Archive - The GitHub Blog",
-                "url": "https://github.blog/changelog/feed/"
+                "url": "https://github.blog/changelog/feed/",
+                "image_enable": true
             }
         ]
     },
