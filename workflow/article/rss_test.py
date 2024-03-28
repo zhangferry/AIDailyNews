@@ -30,10 +30,15 @@ class MyTestCase(unittest.TestCase):
         content = rss.parse_github_readme(url)
         print(content)
 
-    def test_parse_image_rss(self):
-        article = rss.parse_rss_config(self.target_config("image"))
-        res = mainflow.find_favorite_article(article)
-        print(res)
+    def test_parse_cover_rss(self):
+        config = {
+            "title": "Changelogs Archive - The GitHub Blog",
+            "url": "https://developer.apple.com/news/rss/news.rss",
+            "image_enable": True    # 提取图片
+        }
+        articles = rss.parse_rss_config(config)
+        for item in articles:
+            print(item.link)
 
     def test_parse_rss(self):
         config = {

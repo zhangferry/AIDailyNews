@@ -17,6 +17,7 @@ class Article:
     title: str
     summary: str
     link: str
+    cover_url: str  # 封面链接
     date: str
     info: dict
     # rss 配置信息
@@ -81,15 +82,14 @@ def parse_rss_config(rss_config):
                                                   article.get(keymap["date"],
                                                               res.get(keymap["date"]))))
         if article_date.date() == target_date:
+            image_url = ""
             # 判断是否为当天信息，可能有多个内容
             if rss_config.get("type") == "link":
                 summary = parse_web_page(url=link)
-            elif rss_config.get("type") == "image":
-                summary = transform_html2txt(article["summary"], False)
             elif rss_config.get("type") == "code":
                 summary = parse_github_readme(link)
             else:
-                summary = transform_html2txt(article["summary"])
+                summary, image_url = transform_html2txt(article["summary"], image_enable=rss_config.get("image_enable", False))
             # 过短内容跳过总结
             if not summary or len(summary) < 50:
                 continue
@@ -99,7 +99,8 @@ def parse_rss_config(rss_config):
                           link=link,
                           date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
                           info=res[keymap["channel"]],
-                          config=rss_config)
+                          config=rss_config,
+                          cover_url=image_url)
 
             today_rss.append(rss)
             if len(today_rss) >= max_count:
@@ -108,16 +109,17 @@ def parse_rss_config(rss_config):
     return today_rss
 
 
-def transform_html2txt(content, ignore_image=True):
-    html_transform = html2text.HTML2Text()
+def transform_html2txt(content, image_enable=False):
+    html_transform = html2text.HTML2Text(bodywidth=0)
     html_transform.ignore_links = True
-    html_transform.ignore_images = ignore_image
+    html_transform.ignore_images = not image_enable
     html_transform.ignore_tables = True
     html_transform.ignore_emphasis = True
     text = html_transform.handle(content)
-    if not ignore_image:
-        return extract_image_links(text)
-    return text
+    image_url = ""
+    if image_enable:
+        name, image_url = extract_image_links(text)
+    return text, image_url
 
 
 def unify_timezone(date_string):
@@ -150,10 +152,12 @@ def parse_web_page(url):
 
 
 def extract_image_links(text):
-    # 定义匹配Markdown格式图片链接的正则表达式
-    image_link_regex = r"!\[[^\]]*\]\((.*?)\)"
+    # 定义匹配Markdown格式图片链接的正则表达式，输出为元组格式
+    image_link_regex = r"!\[(.*?)\]\((.*?)\)"
     image_links = re.findall(image_link_regex, text)
-    return "".join(image_links[:1])
+    if image_links:
+        return image_links[0]
+    return "", ""
 
 
 def parse_github_readme(repo_url):
