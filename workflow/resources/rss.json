@@ -150,6 +150,11 @@
                 "title": "Changelogs Archive - The GitHub Blog",
                 "url": "https://github.blog/changelog/feed/",
                 "image_enable": true
+            },
+            {
+                "title": "Blog posts",
+                "url": "https://read.dabing.one/rss.xml",
+                "type": "link"
             }
         ]
     },
