@@ -1,5 +1,10 @@
+---
+import Comment from "$/components/Comment.svelte";
+---
+
 <article class="prose dark:prose-dark">
   <slot />
+  <Comment client:load />
 </article>
 
 <style>
