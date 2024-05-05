@@ -44,6 +44,7 @@
     "@astrojs/vercel": "^6.0.1",
     "@libsql/client": "^0.4.0-pre.5",
     "astro-decap-cms-oauth": "^0.2.9",
+    "gitalk": "^1.8.0",
     "ioredis": "^5.3.2",
     "sharp": "^0.33.2"
   },

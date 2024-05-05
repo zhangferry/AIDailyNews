@@ -28,7 +28,7 @@ export const SITE = {
 	githubUrl: "https://github.com/zhangferry/AIDailyNews",
 	listDrafts: true,
 	image:
-		"https://raw.githubusercontent.com/one-aalam/astro-ink/main/public/astro-banner.png",
+		"https://cdn.zhangferry.com/Images/moyuzai_alpha.png",
 	// YT video channel Id (used in media.astro)
 	ytChannelId: "",
 	// Optional, user/author settings (example)
