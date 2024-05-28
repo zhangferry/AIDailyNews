@@ -52,11 +52,14 @@ class MyTestCase(unittest.TestCase):
     def test_parse_code_rss(self):
         config = {
             "title": "Github",
-            "url": "https://rsshub.app/github/trending/daily/swift"
+            "url": "https://rsshub.app/github/trending/daily/swift",
+            "type": "code"
         }
         articles = rss.parse_rss_config(config)
         for item in articles:
             print(item.link)
+
+        assert len(articles) == 3
 
     def test_time_zone(self):
         cn_time_zone = "Asia/Shanghai"
