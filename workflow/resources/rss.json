@@ -123,6 +123,14 @@
             {
                 "title": "Brentley’s Blog",
                 "url": "https://brentley.dev/rss.xml"
+            },
+            {
+                "title": "byla.lt",
+                "url": "https://byla.lt/feed.rss"
+            },
+            {
+                "title": "ryanashcraft",
+                "url": "https://ryanashcraft.com/rss/"
             }
         ]
     },
