@@ -67,14 +67,14 @@ def find_favorite_article(rss_articles):
         articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
         # 满分内容，可展示多个
         full_score_evaluates = [item for item in articles if item.evaluate["score"] >= 10]
-        # 默认数量1
-        output_count = articles[0].config.get("output_count", 1)
+        # 默认输出数量 1
+        output_count = articles[0].config.get("output_count", 2)
         if len(full_score_evaluates) >= output_count:
-            show_articles.extend(full_score_evaluates)
-            output_count = len(full_score_evaluates)
+            select_articles = full_score_evaluates
         else:
-            show_articles.extend(articles[:output_count])
-        logger.info(f"filter articles from {len(evaluate_results)} to {output_count}")
+            select_articles = articles[:output_count]
+        show_articles.extend(select_articles)
+        logger.info(f"select articles: {[item.title for item in select_articles]}")
     # 汇总之后再排序
     show_articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
     return show_articles[:max_article_nums]
