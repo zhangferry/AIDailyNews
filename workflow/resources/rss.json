@@ -9,15 +9,6 @@
                 "image_enable": true
             },
             {
-                "title": "NewsRoom",
-                "url": "https://www.apple.com/newsroom/rss-feed.rss",
-                "type": "link"
-            },
-            {
-                "title": "OS X Daily",
-                "url": "https://osxdaily.com/feed/"
-            },
-            {
                 "title": "Hacker News - Apple",
                 "url": "https://hnrss.org/newest?q=apple",
                 "type": "link"
@@ -131,6 +122,15 @@
             {
                 "title": "ryanashcraft",
                 "url": "https://ryanashcraft.com/rss/"
+            },
+            {
+                "title": "OneV's Den",
+                "url": "https://onevcat.com/feed.xml",
+                "type": "link"
+            },
+            {
+                "title": "SwiftToolkit",
+                "url": "https://swifttoolkit.dev/feed.rss"
             }
         ]
     },
@@ -147,22 +147,39 @@
                 "url": "https://engineering.fb.com/feed/"
             },
             {
-                "title": "Artificial Intelligence News",
-                "url": "https://www.artificialintelligence-news.com/feed/"
-            },
-            {
-                "title": "Hacker News - Newest",
-                "url": "https://hnrss.org/newest"
-            },
-            {
-                "title": "Changelogs Archive - The GitHub Blog",
-                "url": "https://github.blog/changelog/feed/",
-                "image_enable": true
-            },
-            {
-                "title": "Blog posts",
-                "url": "https://read.dabing.one/rss.xml",
+                "title": "少数派",
+                "url": "https://sspai.com/feed",
                 "type": "link"
+            },
+            {
+                "title": "机核",
+                "url": "https://www.gcores.com/rss",
+                "type": "link"
+            },
+            {
+                "title": "maxOS",
+                "url": "https://maxoxo.me/rss/",
+                "type": "link"
+            },
+            {
+                "title": "潮流周刊",
+                "url": "https://weekly.tw93.fun/rss.xml"
+            },
+            {
+                "title": "全栈应用开发:精益实践",
+                "url": "https://www.phodal.com/blog/feeds/rss/"
+            },
+            {
+                "title": "知乎每日精选",
+                "url": "https://www.zhihu.com/rss"
+            },
+            {
+                "title": "构建我的被动收入",
+                "url": "https://www.bmpi.dev/index.xml"
+            },
+            {
+                "title": "Julia Evans",
+                "url": "https://jvns.ca/atom.xml"
             }
         ]
     },
