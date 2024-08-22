@@ -1,6 +1,5 @@
 import unittest, os
 import workflow.article.rss as rss
-import workflow.mainflow as mainflow
 from dateutil import tz
 from datetime import datetime
 
@@ -43,11 +42,11 @@ class MyTestCase(unittest.TestCase):
     def test_parse_rss(self):
         config = {
             "title": "The Register",
-            "url": "https://rsshub.app/telegram/channel/iosdevio"
+            "url": "https://sspai.com/feed"
         }
         articles = rss.parse_rss_config(config)
         for item in articles:
-            print(item.link)
+            print(f"link: {item.link}, summary: {item.summary}")
 
     def test_parse_code_rss(self):
         config = {
