@@ -1184,6 +1184,13 @@
   dependencies:
     server-only "^0.0.1"
 
+"@vercel/analytics@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.npmmirror.com/@vercel/analytics/-/analytics-1.3.1.tgz#e2b1deac1b5d14fa2e4fe36186ac5054c6385ae4"
+  integrity sha512-xhSlYgAuJ6Q4WQGkzYTLmXwhYl39sWjoMA3nHxfkvG+WdBT25c563a7QhwwKivEOZtPJXifYHR1m2ihoisbWyA==
+  dependencies:
+    server-only "^0.0.1"
+
 "@vercel/nft@^0.24.3":
   version "0.24.4"
   resolved "https://registry.npmmirror.com/@vercel/nft/-/nft-0.24.4.tgz#b8942340c7821e6ff7bdf943b559642dbc9cae78"

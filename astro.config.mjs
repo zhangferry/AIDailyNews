@@ -18,7 +18,7 @@ import decapCmsOauth from "astro-decap-cms-oauth";
 // https://astro.build/config
 export default defineConfig(
   /** @type {import('astro').AstroUserConfig} */ {
-    output: "static",
+    output: "server",
     site: "https://zhangferry.com", // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
     server: {
       // port: 4321, // The port to run the dev server on.
@@ -52,6 +52,10 @@ export default defineConfig(
         allowNodeBuiltins: true,
       },
     },
-    // adapter: vercel(),
+    adapter: vercel(
+        {
+            webAnalytics: { enabled: true }
+        }
+    ),
   }
 );
