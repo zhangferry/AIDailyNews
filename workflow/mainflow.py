@@ -72,7 +72,7 @@ def find_favorite_article(rss_articles):
         if len(full_score_evaluates) >= output_count:
             select_articles = full_score_evaluates
         else:
-            select_articles = articles[:output_count]
+            select_articles = articles[:output_count] if len(articles) >= output_count else articles
         show_articles.extend(select_articles)
         logger.info(f"select articles: {[item.title for item in select_articles]}")
     # 汇总之后再排序
