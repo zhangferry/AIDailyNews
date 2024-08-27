@@ -11,7 +11,8 @@
             {
                 "title": "Hacker News - Apple",
                 "url": "https://hnrss.org/newest?q=apple",
-                "type": "link"
+                "type": "link",
+                "output_count": 1
             }
         ]
     },
@@ -163,7 +164,8 @@
             },
             {
                 "title": "知乎每日精选",
-                "url": "https://www.zhihu.com/rss"
+                "url": "https://www.zhihu.com/rss",
+                "output_count": 1
             },
             {
                 "title": "构建我的被动收入",
@@ -188,7 +190,7 @@
                 "title": "Github repo trending",
                 "url": "https://rsshub.app/github/trending/daily/any",
                 "type": "code",
-                "input_count": 3
+                "input_count": 2
             }
         ]
     }
