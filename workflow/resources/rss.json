@@ -86,10 +86,6 @@
                 "url": "https://scottsmithdev.com/rss.xml"
             },
             {
-                "title": "Augmented Code",
-                "url": "https://augmentedcode.io/blog/feed/"
-            },
-            {
                 "title": "Swift on server",
                 "url": "https://swiftonserver.com/rss.xml",
                 "type": "link"
