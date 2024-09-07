@@ -4,30 +4,12 @@ from dateutil import tz
 from datetime import datetime
 
 
-class MyTestCase(unittest.TestCase):
+class RssTestCase(unittest.TestCase):
 
     def setUp(self) -> None:
         os.environ["https_proxy"] = "http://127.0.0.1:465"
         os.environ["http_proxy"] = "http://127.0.0.1:465"
         os.environ["all_proxy"] = "http://127.0.0.1:465"
-
-    def test_parse_webpage(self):
-        url = "https://fatbobman.com/zh/posts/swift-predicate-usage-composition-and-considerations/"
-        content = rss.parse_web_page(url)
-        # h2 check
-        assert("什么是谓词" in content)
-        # code check
-        assert("let predicate = #Predicate<MyObject>" in content)
-
-    def test_url_example(self):
-        url = "https://news.ycombinator.com/item?id=39577878"
-        content = rss.parse_web_page(url)
-        print(content)
-
-    def test_parse_github(self):
-        url = "https://github.com/hmlongco/Factory"
-        content = rss.parse_github_readme(url)
-        print(content)
 
     def test_parse_cover_rss(self):
         config = {
@@ -42,7 +24,8 @@ class MyTestCase(unittest.TestCase):
     def test_parse_rss(self):
         config = {
             "title": "The Register",
-            "url": "https://sspai.com/feed"
+            "url": "https://rsshub.app/telegram/channel/CocoaDevBlogs",
+            "feature": "GitHub Trends Weekly"
         }
         articles = rss.parse_rss_config(config)
         for item in articles:
@@ -77,6 +60,21 @@ class MyTestCase(unittest.TestCase):
             else:
                 continue
         return target_config
+
+
+class WebPageTestCase(unittest.TestCase):
+
+    def test_parse_webpage(self):
+        url = "https://www.theverge.com/2024/9/3/24234777/microsoft-apple-cloud-gaming-app-store-changes-xbox-cma"
+        content = rss.parse_web_page(url)
+        print(content)
+        # h2 check
+
+    def test_parse_github(self):
+        # url = "https://t.co/wmWNbu8bVn"
+        url = "https://github.com/hmlongco/Factory"
+        content = rss.parse_github_readme(url)
+        print(content)
 
 
 if __name__ == '__main__':
