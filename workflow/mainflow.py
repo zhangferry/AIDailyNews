@@ -2,6 +2,7 @@ import os, json, datetime, glob
 from workflow.gpt.summary import evaluate_article_with_gpt
 import workflow.article.rss as rss
 import workflow.article.blog as blog
+import time
 
 from loguru import logger
 
@@ -52,7 +53,8 @@ def find_favorite_article(rss_articles):
 
     show_articles = []
     for key, articles in rss_resource.items():
-
+        # 防止 gemini 限频
+        time.sleep(2)
         evaluate_results = evaluate_article_with_gpt(articles)
         for evaluate in evaluate_results:
             for article in articles:

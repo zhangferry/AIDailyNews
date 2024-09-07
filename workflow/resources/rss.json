@@ -135,18 +135,6 @@
                 "url": "https://engineering.fb.com/feed/"
             },
             {
-                "title": "少数派",
-                "url": "https://sspai.com/feed",
-                "type": "link",
-                "output_count": 1
-            },
-            {
-                "title": "机核",
-                "url": "https://www.gcores.com/rss",
-                "type": "link",
-                "output_count": 1
-            },
-            {
                 "title": "maxOS",
                 "url": "https://maxoxo.me/rss/",
                 "type": "link"

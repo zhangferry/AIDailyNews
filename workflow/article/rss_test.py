@@ -24,7 +24,7 @@ class RssTestCase(unittest.TestCase):
     def test_parse_rss(self):
         config = {
             "title": "The Register",
-            "url": "https://rsshub.app/telegram/channel/CocoaDevBlogs",
+            "url": "https://rsshub.app/xiaoyuzhou/podcast/66d9e2a3bfd7110df48e4adf",
             "feature": "GitHub Trends Weekly"
         }
         articles = rss.parse_rss_config(config)
