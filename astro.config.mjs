@@ -10,6 +10,7 @@ import markdoc from "@astrojs/markdoc";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import remarkCodeTitles from "remark-code-titles";
+import rehypeExternalLinks from "rehype-external-links";
 import decapCmsOauth from "astro-decap-cms-oauth";
 
 // Full Astro Configuration API Documentation:
@@ -30,6 +31,15 @@ export default defineConfig(
         wrap: true,
       },
       remarkPlugins: [remarkCodeTitles],
+      rehypePlugins: [
+        [
+          rehypeExternalLinks,
+          {
+            target: "_blank",
+            ref: ["nofollow, noopener, noreferrer"],
+          },
+        ],
+      ],
     },
     integrations: [
       mdx(),
@@ -52,10 +62,8 @@ export default defineConfig(
         allowNodeBuiltins: true,
       },
     },
-    adapter: vercel(
-        {
-            webAnalytics: { enabled: true }
-        }
-    ),
+    adapter: vercel({
+      webAnalytics: { enabled: true },
+    }),
   }
 );
