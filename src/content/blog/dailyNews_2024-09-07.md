@@ -1,149 +1,148 @@
 ---
 title: "Daily News #2024-09-07"
-date: "2024-09-07 10:29:23"
-description: "🌟 测试可模拟命令
-😴 从 NIB 中醒来
-❤️婚礼游戏：定制纽约时报游戏应用程序
-🌟 Apple Watch ECG 功能挽救了一位孕妇和她的宝宝
-🌟上古之谜：野猪与天极
-🌟 lululemon创始人Chip Wilson：DTC关键要素和中国品牌潜力
-🎮 游戏行业从业者必听！许怡然老师畅谈游戏行业发展与职业探索
-💻 不依赖公网 IP 的远程桌面推荐
-🌟 寻找南斯拉夫：从文学记者到历史探索者
-🌟 精英的秘密：中国学神如何走向全球竞争
-🌟 CodeEdit：专为 macOS 构建的社区代码编辑器
-🌟 Feather：iOS 设备上的免费应用程序管理器/安装程序"
+date: "2024-09-07 22:15:47"
+description: "测试命令和 Mockable
+从 NIB 唤醒
+用 NYT 游戏 App 定制我们的婚礼
+Apple Watch 心电图功能挽救了一位孕妇和她的宝宝
+Composable Architecture
+CodeEdit for macOS
+辛德勇：从野猪到饕餮，上古神话的演变
+寻找南斯拉夫：一位文学记者的探索之旅
+lululemon创始人Chip Wilson：DTC成功的关键要素
+游戏行业资深老兵许怡然：第一款国产 3A 游戏诞生是一种必然
+精英的定义与中国社会不平等"
 tags: 
-- 'Swift'
-- 'DTC'
-- 'iOS'
-- '文学'
-- '代码编辑器'
-- '游戏行业'
+- 'State Management'
+- '孕妇'
+- '社会学'
+- '中国社会'
+- '神话'
+- '精英研究'
+- 'Open Source'
 - 'Apple Watch'
-- 'lululemon'
-- '历史'
+- '旅行'
+- 'Code Editor'
 - 'macOS'
-- '中国品牌'
+- 'Swift'
 - '品牌定位'
-- 'iOS 开发'
-- '教育'
-- '远程桌面'
-- '游戏'
+- '文学'
+- '考古'
+- 'Cocoa 开发'
+- 'iOS'
+- 'lululemon'
+- '心电图'
+- 'DTC'
+- '游戏行业'
+- '历史'
+- 'Architecture'
 
 ---
 
-> - 🌟 测试可模拟命令
-> - 😴 从 NIB 中醒来
-> - ❤️婚礼游戏：定制纽约时报游戏应用程序
-> - 🌟 Apple Watch ECG 功能挽救了一位孕妇和她的宝宝
-> - 🌟上古之谜：野猪与天极
-> - 🌟 lululemon创始人Chip Wilson：DTC关键要素和中国品牌潜力
-> - 🎮 游戏行业从业者必听！许怡然老师畅谈游戏行业发展与职业探索
-> - 💻 不依赖公网 IP 的远程桌面推荐
-> - 🌟 寻找南斯拉夫：从文学记者到历史探索者
-> - 🌟 精英的秘密：中国学神如何走向全球竞争
-> - 🌟 CodeEdit：专为 macOS 构建的社区代码编辑器
-> - 🌟 Feather：iOS 设备上的免费应用程序管理器/安装程序
+> - 测试命令和 Mockable
+> - 从 NIB 唤醒
+> - 用 NYT 游戏 App 定制我们的婚礼
+> - Apple Watch 心电图功能挽救了一位孕妇和她的宝宝
+> - Composable Architecture
+> - CodeEdit for macOS
+> - 辛德勇：从野猪到饕餮，上古神话的演变
+> - 寻找南斯拉夫：一位文学记者的探索之旅
+> - lululemon创始人Chip Wilson：DTC成功的关键要素
+> - 游戏行业资深老兵许怡然：第一款国产 3A 游戏诞生是一种必然
+> - 精英的定义与中国社会不平等
 
-## iOS Blog
+## 🍎 iOS Blog
 
-### [🌟 测试可模拟命令](https://swifttoolkit.dev/posts/testing-commands-mockable)
+### [测试命令和 Mockable](https://swifttoolkit.dev/posts/testing-commands-mockable)
 
 来源：SwiftToolkit.dev
 
 发布时间：2024-09-06 08:00:00
 
-本文介绍了如何设计可测试的代码流、确定要测试的内容，并使用标准模拟方法和 `@Mockable` 宏来测试 Swift 命令。`@Mockable` 宏通过自动生成协议的模拟实现，简化了模拟过程，使其更灵活、更强大。
+本文介绍了如何设计可测试的代码流、确定要测试的内容，以及使用标准模拟方法和 Mockable 宏来测试命令。Mockable 宏通过自动生成协议的模拟实现简化了模拟过程，使其更灵活、更强大。
 
-### [😴 从 NIB 中醒来](https://massicotte.org/awakefromnib)
+### [从 NIB 唤醒](https://massicotte.org/awakefromnib)
 
 来源：massicotte.org
 
 发布时间：2024-09-06 12:00:00
 
-作者分享了从 Interface Builder 转向使用编程方式定义界面的经历，并表示在 14 年前就成为了编程定义界面的忠实拥护者。
+作者分享了从 Interface Builder 转向以编程方式定义用户界面的经历。作者认为以编程方式定义用户界面更加灵活和高效，并且在 14 年前就成为了它的忠实拥护者。
 
-### [❤️婚礼游戏：定制纽约时报游戏应用程序](https://bryce.co/wedding-games/)
+### [用 NYT 游戏 App 定制我们的婚礼](https://bryce.co/wedding-games/)
 
 来源：Bryce Bostwick
 
 发布时间：2024-09-06 00:00:00
 
-作者和他的妻子是纽约时报游戏（如填字游戏、连接、单词和链条）的忠实粉丝，他们决定为婚礼定制一个包含有关他们和婚礼的谜题的应用程序。他们使用 NSURLProtocol 拦截请求并返回自己的数据，成功地修改了应用程序。这篇文章分享了他们的经验和代码，并感谢纽约时报游戏团队为他们的婚礼增添乐趣。
+作者和他的妻子是纽约时报游戏（如填字游戏、连接、单词和链条）的忠实粉丝，他们决定为婚礼定制一个包含关于他们和婚礼的谜题的 NYT 游戏 App。他们使用 NSURLProtocol 拦截请求并返回自己的数据，成功地修改了 App。作者感谢 NYT 游戏团队为他们的婚礼增添了乐趣。
 
-## Tech News
+## 📥 Tech News
 
-### [🌟 Apple Watch ECG 功能挽救了一位孕妇和她的宝宝](https://9to5mac.com/2024/09/04/apple-watch-ecg-pregnant-woman/)
+### [Apple Watch 心电图功能挽救了一位孕妇和她的宝宝](https://9to5mac.com/2024/09/04/apple-watch-ecg-pregnant-woman/)
 
 来源：Hacker News - Newest: "apple"
 
 发布时间：2024-09-06 01:54:02
 
-Apple Watch 的 ECG 功能再次挽救了一条生命。一位名叫 Rachel Manalo 的孕妇在怀孕 18 周时感到心跳加速不止。她使用 Apple Watch 进行了 ECG 检查，结果显示她的心脏跳动异常。医生诊断她患有室性心动过速，这是心脏下半部分无法正常工作，导致血液中氧气不足。如果不及早治疗，这种心脏问题可能会导致心脏病发作。Manalo 遵照医生的建议进行了治疗，并顺利生下了一个健康的宝宝。这起事件再次证明了 Apple Watch 在健康监测方面的价值。
+Apple Watch 的心电图功能再次挽救了一条生命。一位名叫 Rachel Manalo 的孕妇在怀孕 18 周时感到心脏不停地跳动。这些症状持续了数周，她决定使用 Apple Watch 进行心电图检查，以测量心脏的电活动。Apple Watch 给出了“不确定”的结果，她的心率在 40 多分钟内一直保持在 150bpm。心电图应用程序建议她去看医生，医生诊断她患有室性心动过速——心脏下部不能正常工作，导致血液中氧气不足。医生表示，如果不及时治疗，这种类型的心脏问题可能导致心脏病发作。Apple Watch 当然不能代替医学检查，但它确实可以帮助用户在收到有关异常情况的通知后去看医生。
 
-### [🌟上古之谜：野猪与天极](https://www.xiaoyuzhoufm.com/episode/66dad286bfd7110df4b87f94)
+## 💾 Daily Code
+
+### [Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture)
+
+来源：Trending Swift repositories on GitHub this week · GitHub
+
+发布时间：2024-09-07 20:16:35
+
+The Composable Architecture is a library for building applications in a consistent and understandable way, with composition, testing, and ergonomics in mind. It can be used in SwiftUI, UIKit, and more, and on any Apple platform (iOS, macOS, visionOS, tvOS, and watchOS).
+
+### [CodeEdit for macOS](https://github.com/CodeEditApp/CodeEdit)
+
+来源：Trending Swift repositories on GitHub this week · GitHub
+
+发布时间：2024-09-07 20:16:35
+
+CodeEdit is a code editor built by the community, for the community, written entirely and unapologetically for macOS. Features include syntax highlighting, code completion, project find and replace, snippets, terminal, task running, debugging, git integration, code review, extensions, and more.
+
+## 📻 Podcast
+
+### [辛德勇：从野猪到饕餮，上古神话的演变](https://www.xiaoyuzhoufm.com/episode/66dad286bfd7110df4b87f94)
 
 来源：忽左忽右
 
 发布时间：2024-09-06 17:59:33
 
-辛德勇教授从考古发现出发，探讨了上古华夏先民对天极的信仰，认为北斗七星的御座是一头野猪，野猪象征天极。他还分析了黄帝、黑帝、玄武等神话人物的演变，以及五行学说对四帝序列的影响。节目内容丰富，观点新颖，对理解上古中国文化提供了新的视角。
+辛德勇教授从考古发现出发，探讨了上古华夏先民对天极的信仰，以及野猪、龙、饕餮等神话形象的演变。他认为，这些神话形象反映了古人对天象的观察和对自然界的崇拜，也体现了中国古代文化的多元性和丰富性。
 
-### [🌟 lululemon创始人Chip Wilson：DTC关键要素和中国品牌潜力](https://www.xiaoyuzhoufm.com/episode/66d987e8ee04007d8860c4a4)
-
-来源：温柔一刀
-
-发布时间：2024-09-06 07:00:00
-
-本期播客邀请到lululemon创始人Chip Wilson，分享他对品牌定位、DTC模式和中国品牌发展的见解。Chip Wilson认为，lululemon的“super girl”定位源于对目标人群的洞察，而DTC模式的成功关键在于专注于特定人群和提供优质体验。他还看好中国品牌的潜力，认为它们代表了未来的趋势。
-
-### [🎮 游戏行业从业者必听！许怡然老师畅谈游戏行业发展与职业探索](https://www.xiaoyuzhoufm.com/episode/66da9e85bfd7110df4aa09d1)
-
-来源：知行小酒馆
-
-发布时间：2024-09-06 20:00:00
-
-本期节目邀请到游戏行业资深人士许怡然老师，分享了他从业 30 年的经验和洞察。许老师认为，游戏行业适合热爱游戏、复合型人才，但并非所有人都适合做自己喜欢的游戏。他强调了职业探索的重要性，建议在两三个领域的交集点上找到适合自己的生态位。此外，许老师还分析了第一款国产 3A 游戏诞生的原因和意义，认为这标志着中国游戏行业的发展进入了一个新阶段。
-
-### [💻 不依赖公网 IP 的远程桌面推荐](https://www.v2ex.com/t/1070850)
-
-来源：V2EX-最新主题
-
-发布时间：2024-09-06 23:05:39
-
-用户因公司网络限制无法使用公网 IP，寻求不依赖公网 IP 的远程桌面工具，要求延迟低且流畅。
-
-### [🌟 寻找南斯拉夫：从文学记者到历史探索者](https://www.xiaoyuzhoufm.com/episode/66d9e2a3bfd7110df48e4adf)
+### [寻找南斯拉夫：一位文学记者的探索之旅](https://www.xiaoyuzhoufm.com/episode/66d9e2a3bfd7110df48e4adf)
 
 来源：不止读书
 
 发布时间：2024-09-06 08:00:00
 
-柏琳从文学记者转型为历史探索者，踏上寻找南斯拉夫的旅程。她的著作《边界的诱惑：寻找南斯拉夫》融合了游记、历史和当下问题，展现了一个坚定而开放的世界主义者的视角。柏琳强调，追求卓越和回看自己的身份都是可能的，鼓励人们以热情和好奇心探索世界。
+柏林是一位独立记者和青年作家，因对南斯拉夫的热情，她走遍了前南斯拉夫六个加盟共和国，写出了《边界的诱惑：寻找南斯拉夫》一书。这本书涉及多个国家的历史和当下问题，柏林通过旅行和阅读，深入了解了南斯拉夫的历史和文化，展现了一个坚定而开放的世界主义者的形象。
 
-### [🌟 精英的秘密：中国学神如何走向全球竞争](https://www.xiaoyuzhoufm.com/episode/66da5946bfd7110df49820a2)
+### [lululemon创始人Chip Wilson：DTC成功的关键要素](https://www.xiaoyuzhoufm.com/episode/66d987e8ee04007d8860c4a4)
+
+来源：温柔一刀
+
+发布时间：2024-09-06 07:00:00
+
+本期节目邀请到lululemon创始人Chip Wilson，分享他对DTC模式、品牌定位和中国市场发展的见解。Chip Wilson认为，DTC成功的关键要素在于精准的人群定位和独特的品牌社区风格。他还透露了lululemon的“super girl”定位是如何产生的，以及他对中国品牌发展的看法。
+
+### [游戏行业资深老兵许怡然：第一款国产 3A 游戏诞生是一种必然](https://www.xiaoyuzhoufm.com/episode/66da9e85bfd7110df4aa09d1)
+
+来源：知行小酒馆
+
+发布时间：2024-09-06 20:00:00
+
+资深游戏行业人士许怡然分享了他对游戏行业的洞察和经验。他认为，第一款国产 3A 游戏的诞生是必然的，因为中国游戏行业已经发展到了一个成熟的阶段。他还谈到了游戏行业的人才需求、投资风向等问题，为想要进入游戏行业的人提供了有价值的建议。
+
+### [精英的定义与中国社会不平等](https://www.xiaoyuzhoufm.com/episode/66da5946bfd7110df49820a2)
 
 来源：不合时宜
 
 发布时间：2024-09-06 09:22:13
 
-社会学者姜以琳追踪研究了 28 名北京精英高中生，揭示了中国精英家庭的亲子关系、学神与学霸的差距，以及精英面临的巨大圈层压力。研究发现，中国精英的核心竞争力来自高考，但精英地位和评判标准正趋于混杂。
-
-## Daily Code
-
-### [🌟 CodeEdit：专为 macOS 构建的社区代码编辑器](https://github.com/CodeEditApp/CodeEdit)
-
-来源：Trending Swift repositories on GitHub this week · GitHub
-
-发布时间：2024-09-07 08:15:27
-
-CodeEdit 是一款由社区构建、专为 macOS 设计的代码编辑器。它具有语法高亮、代码补全、项目查找和替换、代码片段、终端、任务运行、调试、Git 集成、代码审查、扩展等功能。CodeEdit 致力于保持轻量级的体验，同时能够根据需要扩展到功能更丰富的体验。
-
-### [🌟 Feather：iOS 设备上的免费应用程序管理器/安装程序](https://github.com/khcrysalis/Feather)
-
-来源：Trending Swift repositories on GitHub this week · GitHub
-
-发布时间：2024-09-07 08:15:27
-
-Feather 是一款免费的 iOS 设备应用程序管理器/安装程序，使用 UIKit 构建，注重质量。它支持 Altstore 存储库，允许导入自定义证书，在签名应用程序时注入调整，并通过无线方式将应用程序无缝安装到设备上。Feather 还允许导入多个证书以方便切换，并提供可配置的签名选项。
+社会学者姜以琳对北京精英高中生进行了七年的追踪研究，发现精英家庭收入是中国城市家庭收入前 10% 的两倍以上。研究表明，中国精英学生具有强烈的合作精神，学神与学霸之间存在差距，学神建立起了独特的秩序。精英面临着巨大的圈层压力，拥有跨国选择的权利后，精英父母在教育子女方面也有所不同。
