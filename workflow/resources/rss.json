@@ -1,22 +1,5 @@
 [
     {
-        "category": "Apple News",
-        "items": [
-            {
-                "title": "Latest News - Apple Developer",
-                "url": "https://developer.apple.com/news/rss/news.rss",
-                "output_count": 2,
-                "image_enable": true
-            },
-            {
-                "title": "Hacker News - Apple",
-                "url": "https://hnrss.org/newest?q=apple",
-                "type": "link",
-                "output_count": 1
-            }
-        ]
-    },
-    {
         "category": "iOS Blog",
         "items": [
             {
@@ -131,6 +114,18 @@
         "category": "Tech News",
         "items": [
             {
+                "title": "Latest News - Apple Developer",
+                "url": "https://developer.apple.com/news/rss/news.rss",
+                "output_count": 2,
+                "image_enable": true
+            },
+            {
+                "title": "Hacker News - Apple",
+                "url": "https://hnrss.org/newest?q=apple",
+                "type": "link",
+                "output_count": 1
+            },
+            {
                 "title": "OpenAI Blog",
                 "url": "https://openai.com/blog/rss.xml",
                 "type": "link"
@@ -138,18 +133,6 @@
             {
                 "title": "Facebook Engineering",
                 "url": "https://engineering.fb.com/feed/"
-            },
-            {
-                "title": "少数派",
-                "url": "https://sspai.com/feed",
-                "type": "link",
-                "output_count": 1
-            },
-            {
-                "title": "机核",
-                "url": "https://www.gcores.com/rss",
-                "type": "link",
-                "output_count": 1
             },
             {
                 "title": "maxOS",
@@ -176,6 +159,54 @@
             {
                 "title": "Julia Evans",
                 "url": "https://jvns.ca/atom.xml"
+            },
+            {
+                "title": "v2ex",
+                "url": "https://rsshub.app/v2ex/topics/latest"
+            },
+            {
+                "title": "小宇宙-乱翻书",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/61358d971c5d56efe5bcb5d2"
+            },
+            {
+                "title": "小宇宙-张小珺Jùn｜商业访谈录",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/626b46ea9cbbf0451cf5a962"
+            },
+            {
+                "title": "小宇宙-纵横四海",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/62694abdb221dd5908417d1e"
+            },
+            {
+                "title": "小宇宙-不止读书",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/6050c4708ff254143361678d"
+            },
+            {
+                "title": "小宇宙-忽左忽右",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/5e4ee557418a84a0466737b7"
+            },
+            {
+                "title": "小宇宙-温柔一刀",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/61e795844675a08411f51310"
+            },
+            {
+                "title": "小宇宙-三五环",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/5e280fab418a84a0461faa3c"
+            },
+            {
+                "title": "小宇宙-商业就是这样",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/6022a180ef5fdaddc30bb101"
+            },
+            {
+                "title": "小宇宙-知行小酒馆",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/6013f9f58e2f7ee375cf4216"
+            },
+            {
+                "title": "小宇宙-声东击西",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/5e2831ed418a84a046231c00"
+            },
+            {
+                "title": "小宇宙-不合时宜",
+                "url": "https://rsshub.app/xiaoyuzhou/podcast/5e280fb8418a84a0461fd076"
             }
         ]
     },
@@ -184,13 +215,13 @@
         "items": [
             {
                 "title": "Github repo trending",
-                "url": "https://rsshub.app/github/trending/daily/swift",
+                "url": "https://rsshub.app/github/trending/weekly/swift",
                 "type": "code",
                 "input_count": 2
             },
             {
                 "title": "Github repo trending",
-                "url": "https://rsshub.app/github/trending/daily/any",
+                "url": "https://rsshub.app/github/trending/weekly/any",
                 "type": "code",
                 "input_count": 2
             }
