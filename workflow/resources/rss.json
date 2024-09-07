@@ -1,6 +1,6 @@
 [
     {
-        "category": "iOS Blog",
+        "category": "🍎 iOS Blog",
         "items": [
             {
                 "title": "Swift.org",
@@ -111,7 +111,7 @@
         ]
     },
     {
-        "category": "Tech News",
+        "category": "📥 Tech News",
         "items": [
             {
                 "title": "Latest News - Apple Developer",
@@ -163,7 +163,29 @@
             {
                 "title": "v2ex",
                 "url": "https://rsshub.app/v2ex/topics/latest"
+            }
+        ]
+    },
+    {
+        "category": "💾 Daily Code",
+        "items": [
+            {
+                "title": "Github repo trending",
+                "url": "https://rsshub.app/github/trending/weekly/swift",
+                "type": "code",
+                "input_count": 2
             },
+            {
+                "title": "Github repo trending",
+                "url": "https://rsshub.app/github/trending/weekly/any",
+                "type": "code",
+                "input_count": 2
+            }
+        ]
+    },
+    {
+        "category": "📻 Podcast",
+        "items": [
             {
                 "title": "小宇宙-乱翻书",
                 "url": "https://rsshub.app/xiaoyuzhou/podcast/61358d971c5d56efe5bcb5d2"
@@ -207,23 +229,6 @@
             {
                 "title": "小宇宙-不合时宜",
                 "url": "https://rsshub.app/xiaoyuzhou/podcast/5e280fb8418a84a0461fd076"
-            }
-        ]
-    },
-    {
-        "category": "Daily Code",
-        "items": [
-            {
-                "title": "Github repo trending",
-                "url": "https://rsshub.app/github/trending/weekly/swift",
-                "type": "code",
-                "input_count": 2
-            },
-            {
-                "title": "Github repo trending",
-                "url": "https://rsshub.app/github/trending/weekly/any",
-                "type": "code",
-                "input_count": 2
             }
         ]
     }

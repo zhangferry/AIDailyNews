@@ -142,6 +142,27 @@ module.exports = {
     },
   },
   /**
+   * Color Palette - Custom
+   */
+  ferry: {
+    colors: {
+      primary: "#1E2A5E",
+      secondary: "#7C93C3",
+      background: "#1E2A5E11",
+      dark: {
+        primary: "#7C93C3",
+        secondary: "#7C93C3",
+      },
+      accent: {
+        gray: {
+          light: colors.gray[300],
+          dark: colors.gray[500],
+        },
+        default: "#1E2A5E",
+      },
+    },
+  },
+  /**
    * Color Palette - Default/Duplicate of Purple Heart (Never remove this)
    */
   default: {

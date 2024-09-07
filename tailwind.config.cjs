@@ -28,17 +28,26 @@ module.exports = {
             color: theme("colors.gray.200"),
             blockquote: {
               color: colors.dark.primary,
-              borderColor: colors.primary,
+              borderColor: colors.dark.primary,
             },
             "blockquote > p::before, p::after": {
-              color: colors.primary,
+              color: colors.dark.primary,
+            },
+            a: {
+              color: colors.dark.secondary,
+              "&:hover": {
+                color: colors.dark.primary,
+              },
+            },
+            h2: {
+              color: colors.dark.primary,
             },
           },
         },
         DEFAULT: {
           css: {
             a: {
-              color: colors.dark.primary,
+              color: colors.secondary,
               "&:hover": {
                 color: colors.primary,
               },
@@ -46,21 +55,32 @@ module.exports = {
             blockquote: {
               color: colors.primary,
               fontSize: theme("fontSize.l"),
-              borderColor: colors.dark.primary,
+              borderColor: colors.primary,
+              backgroundColor: colors.background,
             },
             "blockquote > p::before, p::after": {
-              color: colors.dark.primary,
+              color: colors.primary,
             },
             h1: {
-              color: colors.dark.secondary,
+              color: colors.primary,
             },
             h2: {
-              color: colors.dark.secondary,
+              color: colors.primary,
               margin: "1em 0em",
+              textAlign: "center",
+              textDecoration: "underline",
+              underlineColor: "#fcaf17",
+              textDecorationThickness: 4,
+              textDecorationColor: "#fcaf17",
+              textUnderlineOffset: 7,
             },
             h3: {
-              color: colors.dark.secondary,
+              color: colors.secondary,
               margin: "1em 0em",
+              // borderLeftWidth: 4,
+              // borderColor: colors.primary,
+              // borderLeftOffset: 4,
+              // paddingLeft: 6,
             },
             p: {
               margin: "0.5em 0em",
