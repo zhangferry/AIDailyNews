@@ -11,7 +11,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import remarkCodeTitles from "remark-code-titles";
 import rehypeExternalLinks from "rehype-external-links";
-import decapCmsOauth from "astro-decap-cms-oauth";
 
 // Full Astro Configuration API Documentation:
 // https://docs.astro.build/reference/configuration-reference

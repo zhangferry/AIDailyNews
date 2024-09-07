@@ -12,9 +12,9 @@ import SearchBtn from "./SearchBtn.svelte";
     </a>
   </div>
   <div class="header__meta flex-1">
-    <h3 class="header__title dark:text-theme-dark-secondary">
+    <h2 class="header__title">
       <a href="/">{SITE.name}</a>
-    </h3>
+    </h2>
     <div class="header__meta-more flex">
       <p class="header__desc">
         {SITE.description}
@@ -59,7 +59,7 @@ import SearchBtn from "./SearchBtn.svelte";
     @apply w-20 h-20 overflow-hidden;
   }
   .header__title {
-    @apply text-4xl font-extrabold md:text-5xl text-theme-secondary dark:text-theme-dark-secondary;
+    @apply text-4xl font-extrabold md:text-5xl text-theme-primary dark:text-theme-dark-primary;
   }
   .header__desc {
     @apply text-xl flex-1 dark:text-gray-200;

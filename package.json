@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "THEME_KEY=indigone astro dev",
-    "build": "THEME_KEY=indigone astro build",
+    "dev": "THEME_KEY=ferry astro dev",
+    "build": "THEME_KEY=ferry astro build",
     "check": "astro check",
     "postbuild": "node ./scripts/search/prepare-index.js",
     "preview": "astro preview",
