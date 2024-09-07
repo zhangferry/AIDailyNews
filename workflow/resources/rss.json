@@ -142,12 +142,14 @@
             {
                 "title": "少数派",
                 "url": "https://sspai.com/feed",
-                "type": "link"
+                "type": "link",
+                "output_count": 1
             },
             {
                 "title": "机核",
                 "url": "https://www.gcores.com/rss",
-                "type": "link"
+                "type": "link",
+                "output_count": 1
             },
             {
                 "title": "maxOS",

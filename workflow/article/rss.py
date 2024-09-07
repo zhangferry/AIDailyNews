@@ -163,6 +163,7 @@ def extract_image_links(text):
 
 def parse_github_readme(repo_url):
     try:
+        repo_url = get_real_url(repo_url)
         # 提取用户名和仓库名
         username, repo_name = repo_url.split("/")[-2:]
         api_url = f"https://api.github.com/repos/{username}/{repo_name}/readme"
@@ -187,3 +188,8 @@ def parse_github_readme(repo_url):
     except Exception as e:
         logger.error(f"fetch {repo_url} get error: {e}")
         return None
+
+def get_real_url(short_url):
+    # get real url from short url
+    response = requests.head(short_url, allow_redirects=True)
+    return response.url
