@@ -1,47 +1,66 @@
 ---
 title: "Daily News #2024-09-22"
-date: "2024-09-22 10:00:37"
-description: "寻求合作项目，flutter/ios/android/react
-苹果 AirPods Pro 2 将成为爆款，助听器功能备受期待
-特斯拉 Model 3 右侧滚轮按压激活 AP 灵敏度低"
+date: "2024-09-22 15:16:57"
+description: "Apple PCC 解释：Apple 如何重新定义云安全
+Google 要求提供税务信息
+学校邮箱注册的 OneDrive 无法访问
+eCapture：无需 CA 证书即可捕获 SSL/TLS 文本内容
+Fish Speech：用声音合成模型让鱼说话"
 tags: 
-- "flutter"
-- "滚轮灵敏度"
-- "android"
-- "特斯拉 Model 3"
-- "AirPods Pro 2"
-- "react"
-- "ios"
-- "合作项目"
+- "网络安全"
+- "科技"
+- "语音合成"
+- "税务"
+- "OneDrive"
 
 ---
 
-> - 寻求合作项目，flutter/ios/android/react
-> - 苹果 AirPods Pro 2 将成为爆款，助听器功能备受期待
-> - 特斯拉 Model 3 右侧滚轮按压激活 AP 灵敏度低
+> - Apple PCC 解释：Apple 如何重新定义云安全
+> - Google 要求提供税务信息
+> - 学校邮箱注册的 OneDrive 无法访问
+> - eCapture：无需 CA 证书即可捕获 SSL/TLS 文本内容
+> - Fish Speech：用声音合成模型让鱼说话
 
 ## 📥 Tech News
 
-### [寻求合作项目，flutter/ios/android/react](https://www.v2ex.com/t/1074724)
-
-来源：V2EX-最新主题
-
-发布时间：2024-09-21 23:43:05
-
-作者拥有丰富的移动端和前端开发经验，目前有正职工作，闲暇时间寻求合作项目。文章详细列出了作者的技术栈和经验，并表示合作模式可谈，无报酬要求。
-
-### [苹果 AirPods Pro 2 将成为爆款，助听器功能备受期待](https://darnell.day/forget-iphone-16-apples-sleeper-hit-will-be-airpods-pro-2)
+### [Apple PCC 解释：Apple 如何重新定义云安全](https://www.tostring.ai/p/apple-pcc-explained-how-apple-redefines)
 
 来源：Hacker News - Newest: "apple"
 
-发布时间：2024-09-21 00:58:08
+发布时间：2024-09-22 00:47:32
 
-苹果 AirPods Pro 2 将搭载创新的非处方助听器功能，为轻度至中度听力损失的用户提供帮助。此外，AirPods Pro 2 还具有主动降噪功能，可以帮助用户在嘈杂的环境中保护听力。预计 AirPods Pro 2 将成为苹果的爆款产品，为工业和医疗领域带来巨大的商业价值。
+Apple 的私人云计算 (PCC) 系统旨在提供安全和私密的生成式 AI 功能。它通过实施 IP 地址匿名化、请求与用户身份分离以及分布式请求处理等措施来实现安全。Apple 还致力于硬件安全，包括对 PCC 节点组件进行详细记录和验证，以及在数据中心进行重新验证。这种全面的安全方法为云计算基础设施树立了新的标准。
 
-### [特斯拉 Model 3 右侧滚轮按压激活 AP 灵敏度低](https://www.v2ex.com/t/1074726)
+### [Google 要求提供税务信息](https://www.v2ex.com/t/1074803)
 
 来源：V2EX-最新主题
 
-发布时间：2024-09-21 23:44:43
+发布时间：2024-09-22 15:03:33
 
-作者发现新提的 Model 3 右侧滚轮按压激活 AP 灵敏度较低，向售后咨询后得到这是正常现象的答复。文章详细描述了问题现象和售后沟通过程，为其他 Model 3 车主提供了参考。
+为了避免付款延迟和确保预扣税准确，Google 要求在新加坡赚取收入和接收付款的用户提供税务信息。添加税务信息有助于 Google 确定正确的预扣税金额。
+
+### [学校邮箱注册的 OneDrive 无法访问](https://www.v2ex.com/t/1074802)
+
+来源：V2EX-最新主题
+
+发布时间：2024-09-22 14:49:55
+
+使用学校邮箱注册的 OneDrive 在网页版登录后显示“拒绝访问”，无法查看内容。目前尚不清楚文件是否可以恢复。
+
+## 💾 Daily Code
+
+### [eCapture：无需 CA 证书即可捕获 SSL/TLS 文本内容](https://github.com/gojue/ecapture)
+
+来源：Trending repositories on GitHub this week · GitHub
+
+发布时间：2024-09-22 15:15:58
+
+eCapture 是一款工具，它可以无需 CA 证书即可捕获 SSL/TLS 文本内容。它支持 Linux/Android 内核版本 x86_64 4.18 及以上、aarch64 5.5 及以上。eCapture 使用 eBPF 技术，它可以高效地捕获网络流量并提取文本内容。eCapture 可以用于各种安全审计和取证场景。
+
+### [Fish Speech：用声音合成模型让鱼说话](https://github.com/fishaudio/fish-speech)
+
+来源：Trending repositories on GitHub this week · GitHub
+
+发布时间：2024-09-22 15:15:58
+
+Fish Speech 是一款语音合成模型，它可以将文本转换成逼真的鱼类声音。该模型基于 VITS2 架构，并使用了一个大型的鱼类语音数据集进行训练。Fish Speech 可以用于各种应用，例如创建鱼类语音助手、开发鱼类语言学习工具，甚至制作鱼类音乐。
