@@ -37,13 +37,15 @@ class Article:
 
 
 def load_rss_configs(resource):
-    rss_configs = []
+    rss_configs = {}
+    rss_categories = []
     rss_items = []
 
     def load_config_with(path):
         with open(path, "r") as fp:
             data = json.loads(fp.read())
-            rss_configs.extend(data)
+            rss_categories.extend(data["categories"])
+            rss_configs.update(data["configuration"])
 
     if os.path.isdir(resource):
         for file in os.listdir(resource):
@@ -51,9 +53,11 @@ def load_rss_configs(resource):
     else:
         load_config_with(resource)
 
-    for rss_category in rss_configs:
+    for rss_category in rss_categories:
         for rss in rss_category["items"]:
             rss["category"] = rss_category.get("category", "Daily News")
+            if "rsshub_path" in rss:
+                rss["url"] = rss_configs["rsshub_domain"] + rss["rsshub_path"]
             rss_items.append(rss)
 
     return rss_items
@@ -92,7 +96,7 @@ def parse_rss_config(rss_config):
             else:
                 summary, image_url = transform_html2txt(article["summary"], image_enable=rss_config.get("image_enable", False))
             # 过短内容跳过总结
-            if not summary or len(summary) < 50:
+            if not summary or len(summary) < 10:
                 continue
 
             rss = Article(title=title,
@@ -193,3 +197,6 @@ def get_real_url(short_url):
     # get real url from short url
     response = requests.head(short_url, allow_redirects=True)
     return response.url
+
+def rss_env():
+    os.environ[""] = ""
