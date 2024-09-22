@@ -111,6 +111,8 @@ def parse_rss_config(rss_config):
             if len(today_rss) >= max_count:
                 return today_rss
     # 防止一个地址有过多内容，这里限定下数量
+    if len(today_rss) == 0:
+        logger.info(f'{rss_config["url"]} content of today is empty')
     return today_rss
 
 
