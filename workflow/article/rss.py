@@ -76,12 +76,9 @@ def parse_rss_config(rss_config):
         title = article["title"]
         link = article["link"]
 
-        # news获取昨天的信息，code获取当天信息
+        # 获取当天信息
         time_zone = tz.gettz(time_zone_value)
-        today_with_timezone = datetime.today().astimezone(time_zone).date()
-        target_date = today_with_timezone - timedelta(days=1)
-        if rss_config.get("type") == "code":
-            target_date = today_with_timezone
+        target_date = datetime.today().astimezone(time_zone).date()
         # issued > date > res.date
         article_date = unify_timezone(article.get(keymap["issued"],
                                                   article.get(keymap["date"],
