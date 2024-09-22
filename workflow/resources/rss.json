@@ -1,235 +1,236 @@
-[
-    {
-        "category": "🍎 iOS Blog",
-        "items": [
-            {
-                "title": "Swift.org",
-                "url": "https://www.swift.org/atom.xml",
-                "image_enable": true
-            },
-            {
-                "title": "swiftbysundell",
-                "url": "https://swiftbysundell.com/feed.rss"
-            },
-            {
-                "title": "SwiftLee RSS",
-                "url": "https://www.avanderlee.com/feed/"
-            },
-            {
-                "title": "肘子的 Swift 记事本",
-                "url": "https://www.fatbobman.com/feed.rss",
-                "type": "link"
-            },
-            {
-                "title": "Donny Wals",
-                "url": "https://www.donnywals.com/feed/",
-                "type": "link"
-            },
-            {
-                "title": "Daniel Saidi",
-                "url": "https://danielsaidi.com/feed.xml"
-            },
-            {
-                "title": "Augmented Code",
-                "url": "https://augmentedcode.io/blog/feed/"
-            },
-            {
-                "title": "massicotte.org",
-                "url": "https://www.massicotte.org/feed.xml"
-            },
-            {
-                "title": "Emerge Tools Blog",
-                "url": "https://www.emergetools.com/rss.xml"
-            },
-            {
-                "title": "Ole Begemann",
-                "url": "https://oleb.net/blog/atom.xml"
-            },
-            {
-                "title": "Swift with Majid",
-                "url": "https://swiftwithmajid.com/feed.xml"
-            },
-            {
-                "title": "manu.show",
-                "url": "https://www.manu.show/feed.xml"
-            },
-            {
-                "title": "Wade Tregaskis",
-                "url": "https://wadetregaskis.com/feed/"
-            },
-            {
-                "title": "overdesigned blog",
-                "url": "https://blog.overdesigned.net/feed.rss"
-            },
-            {
-                "title": "otbivnoe’s blog",
-                "url": "https://otbivnoe.ru/feed.xml"
-            },
-            {
-                "title": "Scott Smith Dev",
-                "url": "https://scottsmithdev.com/rss.xml"
-            },
-            {
-                "title": "Swift on server",
-                "url": "https://swiftonserver.com/rss.xml",
-                "type": "link"
-            },
-            {
-                "title": "Swift Unwrap",
-                "url": "https://swiftunwrap.com/feed.rss"
-            },
-            {
-                "title": "Swiftology",
-                "url": "https://swiftology.io/feed.rss"
-            },
-            {
-                "title": "Bryce Pauken",
-                "url": "https://bryce.co/index.xml",
-                "type": "link"
-            },
-            {
-                "title": "Brentley’s Blog",
-                "url": "https://brentley.dev/rss.xml"
-            },
-            {
-                "title": "byla.lt",
-                "url": "https://byla.lt/feed.rss"
-            },
-            {
-                "title": "ryanashcraft",
-                "url": "https://ryanashcraft.com/rss/"
-            },
-            {
-                "title": "OneV's Den",
-                "url": "https://onevcat.com/feed.xml",
-                "type": "link"
-            },
-            {
-                "title": "SwiftToolkit",
-                "url": "https://swifttoolkit.dev/feed.rss"
-            }
-        ]
+{
+    "configuration":{
+        "rsshub_domain": "https://rsshub.zhangferry.com/"
     },
-    {
-        "category": "📥 Tech News",
-        "items": [
-            {
-                "title": "Latest News - Apple Developer",
-                "url": "https://developer.apple.com/news/rss/news.rss",
-                "output_count": 2,
-                "image_enable": true
-            },
-            {
-                "title": "Hacker News - Apple",
-                "url": "https://hnrss.org/newest?q=apple",
-                "type": "link",
-                "output_count": 1
-            },
-            {
-                "title": "OpenAI Blog",
-                "url": "https://openai.com/blog/rss.xml",
-                "type": "link"
-            },
-            {
-                "title": "Facebook Engineering",
-                "url": "https://engineering.fb.com/feed/"
-            },
-            {
-                "title": "maxOS",
-                "url": "https://maxoxo.me/rss/",
-                "type": "link"
-            },
-            {
-                "title": "潮流周刊",
-                "url": "https://weekly.tw93.fun/rss.xml"
-            },
-            {
-                "title": "全栈应用开发:精益实践",
-                "url": "https://www.phodal.com/blog/feeds/rss/"
-            },
-            {
-                "title": "知乎每日精选",
-                "url": "https://www.zhihu.com/rss",
-                "output_count": 1
-            },
-            {
-                "title": "构建我的被动收入",
-                "url": "https://www.bmpi.dev/index.xml"
-            },
-            {
-                "title": "Julia Evans",
-                "url": "https://jvns.ca/atom.xml"
-            },
-            {
-                "title": "v2ex",
-                "url": "https://rsshub.app/v2ex/topics/latest"
-            }
-        ]
-    },
-    {
-        "category": "💾 Daily Code",
-        "items": [
-            {
-                "title": "Github repo trending",
-                "url": "https://rsshub.app/github/trending/weekly/swift",
-                "type": "code",
-                "input_count": 2
-            },
-            {
-                "title": "Github repo trending",
-                "url": "https://rsshub.app/github/trending/weekly/any",
-                "type": "code",
-                "input_count": 2
-            }
-        ]
-    },
-    {
-        "category": "📻 Podcast",
-        "items": [
-            {
-                "title": "小宇宙-乱翻书",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/61358d971c5d56efe5bcb5d2"
-            },
-            {
-                "title": "小宇宙-张小珺Jùn｜商业访谈录",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/626b46ea9cbbf0451cf5a962"
-            },
-            {
-                "title": "小宇宙-纵横四海",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/62694abdb221dd5908417d1e"
-            },
-            {
-                "title": "小宇宙-不止读书",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/6050c4708ff254143361678d"
-            },
-            {
-                "title": "小宇宙-忽左忽右",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/5e4ee557418a84a0466737b7"
-            },
-            {
-                "title": "小宇宙-温柔一刀",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/61e795844675a08411f51310"
-            },
-            {
-                "title": "小宇宙-三五环",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/5e280fab418a84a0461faa3c"
-            },
-            {
-                "title": "小宇宙-商业就是这样",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/6022a180ef5fdaddc30bb101"
-            },
-            {
-                "title": "小宇宙-知行小酒馆",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/6013f9f58e2f7ee375cf4216"
-            },
-            {
-                "title": "小宇宙-声东击西",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/5e2831ed418a84a046231c00"
-            },
-            {
-                "title": "小宇宙-不合时宜",
-                "url": "https://rsshub.app/xiaoyuzhou/podcast/5e280fb8418a84a0461fd076"
-            }
-        ]
-    }
-]
+    "categories": [
+        {
+            "category": "🍎 iOS Blog",
+            "items": [
+                {
+                    "title": "Swift.org",
+                    "url": "https://www.swift.org/atom.xml",
+                    "image_enable": true
+                },
+                {
+                    "title": "swiftbysundell",
+                    "url": "https://swiftbysundell.com/feed.rss"
+                },
+                {
+                    "title": "SwiftLee RSS",
+                    "url": "https://www.avanderlee.com/feed/"
+                },
+                {
+                    "title": "肘子的 Swift 记事本",
+                    "url": "https://www.fatbobman.com/feed.rss",
+                    "type": "link"
+                },
+                {
+                    "title": "Donny Wals",
+                    "url": "https://www.donnywals.com/feed/",
+                    "type": "link"
+                },
+                {
+                    "title": "Daniel Saidi",
+                    "url": "https://danielsaidi.com/feed.xml"
+                },
+                {
+                    "title": "Augmented Code",
+                    "url": "https://augmentedcode.io/blog/feed/"
+                },
+                {
+                    "title": "massicotte.org",
+                    "url": "https://www.massicotte.org/feed.xml"
+                },
+                {
+                    "title": "Emerge Tools Blog",
+                    "url": "https://www.emergetools.com/rss.xml"
+                },
+                {
+                    "title": "Ole Begemann",
+                    "url": "https://oleb.net/blog/atom.xml"
+                },
+                {
+                    "title": "Swift with Majid",
+                    "url": "https://swiftwithmajid.com/feed.xml"
+                },
+                {
+                    "title": "manu.show",
+                    "url": "https://www.manu.show/feed.xml"
+                },
+                {
+                    "title": "Wade Tregaskis",
+                    "url": "https://wadetregaskis.com/feed/"
+                },
+                {
+                    "title": "overdesigned blog",
+                    "url": "https://blog.overdesigned.net/feed.rss"
+                },
+                {
+                    "title": "otbivnoe’s blog",
+                    "url": "https://otbivnoe.ru/feed.xml"
+                },
+                {
+                    "title": "Scott Smith Dev",
+                    "url": "https://scottsmithdev.com/rss.xml"
+                },
+                {
+                    "title": "Swift on server",
+                    "url": "https://swiftonserver.com/rss.xml",
+                    "type": "link"
+                },
+                {
+                    "title": "Swift Unwrap",
+                    "url": "https://swiftunwrap.com/feed.rss"
+                },
+                {
+                    "title": "Swiftology",
+                    "url": "https://swiftology.io/feed.rss"
+                },
+                {
+                    "title": "Bryce Pauken",
+                    "url": "https://bryce.co/index.xml",
+                    "type": "link"
+                },
+                {
+                    "title": "Brentley’s Blog",
+                    "url": "https://brentley.dev/rss.xml"
+                },
+                {
+                    "title": "byla.lt",
+                    "url": "https://byla.lt/feed.rss"
+                },
+                {
+                    "title": "ryanashcraft",
+                    "url": "https://ryanashcraft.com/rss/"
+                },
+                {
+                    "title": "OneV's Den",
+                    "url": "https://onevcat.com/feed.xml",
+                    "type": "link"
+                },
+                {
+                    "title": "SwiftToolkit",
+                    "url": "https://swifttoolkit.dev/feed.rss"
+                }
+            ]
+        },
+        {
+            "category": "📥 Tech News",
+            "items": [
+                {
+                    "title": "Latest News - Apple Developer",
+                    "url": "https://developer.apple.com/news/rss/news.rss",
+                    "output_count": 2,
+                    "image_enable": true
+                },
+                {
+                    "title": "Hacker News - Apple",
+                    "url": "https://hnrss.org/newest?q=apple",
+                    "type": "link",
+                    "output_count": 1
+                },
+                {
+                    "title": "OpenAI Blog",
+                    "url": "https://openai.com/blog/rss.xml",
+                    "type": "link"
+                },
+                {
+                    "title": "Facebook Engineering",
+                    "url": "https://engineering.fb.com/feed/"
+                },
+                {
+                    "title": "maxOS",
+                    "url": "https://maxoxo.me/rss/",
+                    "type": "link"
+                },
+                {
+                    "title": "潮流周刊",
+                    "url": "https://weekly.tw93.fun/rss.xml"
+                },
+                {
+                    "title": "全栈应用开发:精益实践",
+                    "url": "https://www.phodal.com/blog/feeds/rss/"
+                },
+                {
+                    "title": "知乎每日精选",
+                    "url": "https://www.zhihu.com/rss",
+                    "output_count": 1
+                },
+                {
+                    "title": "构建我的被动收入",
+                    "url": "https://www.bmpi.dev/index.xml"
+                },
+                {
+                    "title": "Julia Evans",
+                    "url": "https://jvns.ca/atom.xml"
+                },
+                {
+                    "title": "v2ex",
+                    "rsshub_path": "v2ex/topics/latest"
+                }
+            ]
+        },
+        {
+            "category": "💾 Daily Code",
+            "items": [
+                {
+                    "title": "Github repo trending",
+                    "rsshub_path": "github/trending/weekly/swift",
+                    "type": "code",
+                    "input_count": 2
+                },
+                {
+                    "title": "Github repo trending",
+                    "rsshub_path": "github/trending/weekly/any",
+                    "type": "code",
+                    "input_count": 2
+                }
+            ]
+        },
+        {
+            "category": "📻 Podcast",
+            "items": [
+                {
+                    "title": "小宇宙-乱翻书",
+                    "rsshub_path": "xiaoyuzhou/podcast/61358d971c5d56efe5bcb5d2"
+                },
+                {
+                    "title": "小宇宙-张小珺Jùn｜商业访谈录",
+                    "rsshub_path": "xiaoyuzhou/podcast/626b46ea9cbbf0451cf5a962"
+                },
+                {
+                    "title": "小宇宙-纵横四海",
+                    "rsshub_path": "xiaoyuzhou/podcast/62694abdb221dd5908417d1e"
+                },
+                {
+                    "title": "小宇宙-忽左忽右",
+                    "rsshub_path": "xiaoyuzhou/podcast/5e4ee557418a84a0466737b7"
+                },
+                {
+                    "title": "小宇宙-温柔一刀",
+                    "rsshub_path": "xiaoyuzhou/podcast/61e795844675a08411f51310"
+                },
+                {
+                    "title": "小宇宙-三五环",
+                    "rsshub_path": "xiaoyuzhou/podcast/5e280fab418a84a0461faa3c"
+                },
+                {
+                    "title": "小宇宙-商业就是这样",
+                    "rsshub_path": "xiaoyuzhou/podcast/6022a180ef5fdaddc30bb101"
+                },
+                {
+                    "title": "小宇宙-知行小酒馆",
+                    "rsshub_path": "xiaoyuzhou/podcast/6013f9f58e2f7ee375cf4216"
+                },
+                {
+                    "title": "小宇宙-声东击西",
+                    "rsshub_path": "xiaoyuzhou/podcast/5e2831ed418a84a046231c00"
+                },
+                {
+                    "title": "小宇宙-不合时宜",
+                    "rsshub_path": "xiaoyuzhou/podcast/5e280fb8418a84a0461fd076"
+                }
+            ]
+        }
+    ]
+}
