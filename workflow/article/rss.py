@@ -73,9 +73,6 @@ def parse_rss_config(rss_config):
     max_count = rss_config.get("input_count", 4)
 
     for article in res[keymap["items"]]:
-        title = article["title"]
-        link = article["link"]
-
         # 获取当天信息
         time_zone = tz.gettz(time_zone_value)
         target_date = datetime.today().astimezone(time_zone).date()
@@ -83,34 +80,44 @@ def parse_rss_config(rss_config):
         article_date = unify_timezone(article.get(keymap["issued"],
                                                   article.get(keymap["date"],
                                                               res.get(keymap["date"]))))
-        if article_date.date() == target_date:
-            image_url = ""
-            # 判断是否为当天信息，可能有多个内容
-            if rss_config.get("type") == "link":
-                summary = parse_web_page(url=link)
-            elif rss_config.get("type") == "code":
-                summary = parse_github_readme(link)
-            else:
-                summary, image_url = transform_html2txt(article["summary"], image_enable=rss_config.get("image_enable", False))
-            # 过短内容跳过总结
-            if not summary or len(summary) < 10:
-                continue
+        if article_date.date() != target_date:
+            continue
+        rss = gen_article_from(rss_item=article, rss_type=rss_config.get("type"), image_enable=rss_config.get("image_enable", False),
+                               rss_date=article_date.strftime("%Y-%m-%d %H:%M:%S"), channel=res[keymap["channel"]],
+                               config=rss_config)
 
-            rss = Article(title=title,
-                          summary=summary,
-                          link=link,
-                          date=article_date.strftime("%Y-%m-%d %H:%M:%S"),
-                          info=res[keymap["channel"]],
-                          config=rss_config,
-                          cover_url=image_url)
-
-            today_rss.append(rss)
-            if len(today_rss) >= max_count:
-                return today_rss
+        today_rss.append(rss)
+        if len(today_rss) >= max_count:
+            return today_rss
     # 防止一个地址有过多内容，这里限定下数量
     if len(today_rss) == 0:
         logger.info(f'{rss_config["url"]} content of today is empty')
     return today_rss
+
+def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, channel=None, config=None):
+    title = rss_item["title"]
+    link = rss_item["link"]
+    summary_raw = rss_item.get("summary", "")
+    image_url = ""
+
+    if rss_type == "link":
+        summary = parse_web_page(url=link)
+    elif rss_type == "code":
+        summary = parse_github_readme(link)
+    else:
+        summary, image_url = transform_html2txt(summary_raw, image_enable=image_enable)
+
+    if not summary or len(summary) < 10:
+        return None
+
+    article = Article(title=title,
+                  summary=summary,
+                  link=link,
+                  date=rss_date,
+                  info=channel,
+                  config=config,
+                  cover_url=image_url)
+    return article
 
 
 def transform_html2txt(content, image_enable=False):
