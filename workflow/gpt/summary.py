@@ -94,7 +94,7 @@ def request_openai(prompt, content):
                 "role": "user",
                 "content": content
             }
-        ], model="gpt-3.5-turbo")
+        ], model=os.environ.get("GPT_MODEL_NAME", "gpt-3.5-turbo"))
         return chat_completion.choices[0].message.content
     except Exception as e:
         logger.error(f"request openai failed: {e}")
