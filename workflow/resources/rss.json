@@ -167,6 +167,18 @@
                 {
                     "title": "v2ex",
                     "rsshub_path": "v2ex/topics/latest"
+                },
+                {
+                    "title": "人人都是产品经理",
+                    "url": "https://plink.anyfeeder.com/woshipm/popular"
+                },
+                {
+                    "title": "InfoQ 推荐",
+                    "url": "https://plink.anyfeeder.com/infoq/recommend"
+                },
+                {
+                    "title": "极客公园",
+                    "url": "https://www.geekpark.net/rss"
                 }
             ]
         },
