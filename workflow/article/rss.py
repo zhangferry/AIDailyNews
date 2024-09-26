@@ -85,7 +85,8 @@ def parse_rss_config(rss_config):
         rss = gen_article_from(rss_item=article, rss_type=rss_config.get("type"), image_enable=rss_config.get("image_enable", False),
                                rss_date=article_date.strftime("%Y-%m-%d %H:%M:%S"), channel=res[keymap["channel"]],
                                config=rss_config)
-
+        if rss is None:
+            continue
         today_rss.append(rss)
         if len(today_rss) >= max_count:
             return today_rss
