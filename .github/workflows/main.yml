@@ -22,9 +22,9 @@ jobs:
     env:
       GIT_NAME: ${{ secrets.GIT_NAME }}
       GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-      AI_PROVIDER: ${{ vars.AI_PROVIDER }}
-      GPT_MODEL_NAME: ${{ vars.GPT_MODEL_NAME }}
-      GPT_BASE_URL: ${{ vars.GPT_BASE_URL }}
+      AI_PROVIDER: openai
+      GPT_MODEL_NAME: gpt-4o-mini
+      GPT_BASE_URL: https://oa.api2d.net
       GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
 
     steps:
