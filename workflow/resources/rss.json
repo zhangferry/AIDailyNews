@@ -111,6 +111,15 @@
                 {
                     "title": "SwiftToolkit",
                     "url": "https://swifttoolkit.dev/feed.rss"
+                },
+                {
+                    "title": "hypercritical",
+                    "url": "https://hypercritical.co/feeds/main"
+                },
+                {
+                    "title": "Six Colors",
+                    "url": "https://feedpress.me/sixcolors",
+                    "description": "Apple, technology, and other stuff by Jason Snell & Dan Moren"
                 }
             ]
         },
