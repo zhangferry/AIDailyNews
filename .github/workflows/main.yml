@@ -20,10 +20,12 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
-      AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
       GIT_NAME: ${{ secrets.GIT_NAME }}
       GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+      AI_PROVIDER: ${{ vars.AI_PROVIDER }}
+      GPT_MODEL_NAME: ${{ vars.GPT_MODEL_NAME }}
+      GPT_BASE_URL: ${{ vars.GPT_BASE_URL }}
+      GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
 
     steps:
       - name: Checkout
