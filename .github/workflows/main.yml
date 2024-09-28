@@ -20,10 +20,12 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
-      AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
       GIT_NAME: ${{ secrets.GIT_NAME }}
       GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+      AI_PROVIDER: openai
+      GPT_MODEL_NAME: gpt-4o-mini
+      GPT_BASE_URL: https://oa.api2d.net
+      GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
 
     steps:
       - name: Checkout

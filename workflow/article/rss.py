@@ -93,6 +93,8 @@ def parse_rss_config(rss_config):
     # 防止一个地址有过多内容，这里限定下数量
     if len(today_rss) == 0:
         logger.info(f'{rss_config["url"]} content of today is empty')
+    else:
+        logger.info(f'{rss_config["url"]} content count of today is {len(today_rss)}')
     return today_rss
 
 def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, channel=None, config=None):
