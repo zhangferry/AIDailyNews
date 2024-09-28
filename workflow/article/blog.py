@@ -40,7 +40,9 @@ def make_daily_markdown_with(articles, rss_list):
 
     md_path, meta_data = make_meta_data(description="\n".join(article_titles), tags=tags)
     daily_guide = make_daily_guide(article_titles)
-
+    if len(category_contents) == 0:
+        logger.error("category content is empty!")
+        return
     blog = Blog(metadata=meta_data, guide=daily_guide, categories=category_contents)
     logger.info(f"make blog success: {meta_data}")
     with open(md_path, "w") as fp:
