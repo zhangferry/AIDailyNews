@@ -19,11 +19,13 @@ export const NAV_ITEMS: NavItems = {
 	},
 };
 
+const GPP_MODEL = "gpt-4o-mini"
+
 export const SITE = {
 	// Your site's detail?
 	name: "My Daily News",
 	title: "zhangferry",
-	description: "Made with AI",
+	description: `Made with ${GPP_MODEL}`,
 	url: "https://daily.zhangferry.com",
 	githubUrl: "https://github.com/zhangferry/AIDailyNews",
 	listDrafts: true,
