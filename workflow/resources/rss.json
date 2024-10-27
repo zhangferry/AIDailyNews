@@ -1,5 +1,5 @@
 {
-    "configuration":{
+    "configuration": {
         "rsshub_domain": "https://rsshub.zhangferry.com/"
     },
     "categories": [
@@ -175,7 +175,8 @@
                 },
                 {
                     "title": "v2ex",
-                    "rsshub_path": "v2ex/topics/latest"
+                    "rsshub_path": "v2ex/topics/latest",
+                    "output_count": 1
                 },
                 {
                     "title": "人人都是产品经理",
@@ -188,6 +189,21 @@
                 {
                     "title": "极客公园",
                     "url": "https://www.geekpark.net/rss"
+                },
+                {
+                    "title": "decohack",
+                    "url": "https://decohack.com/feed/",
+                    "type": "link"
+                },
+                {
+                    "title": "美团技术团队",
+                    "url": "https://tech.meituan.com/feed/",
+                    "type": "link"
+                },
+                {
+                    "title": "值得一读技术博客",
+                    "url": "https://daily-blog.chlinlearn.top/feed",
+                    "type": "link"
                 }
             ]
         },
@@ -250,6 +266,10 @@
                 {
                     "title": "小宇宙-不合时宜",
                     "rsshub_path": "xiaoyuzhou/podcast/5e280fb8418a84a0461fd076"
+                },
+                {
+                    "title": "疯投圈",
+                    "url": "https://crazy.capital/feed"
                 }
             ]
         }
