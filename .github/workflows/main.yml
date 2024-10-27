@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: 0 13 * * *  # every 21:00 UTC +8
+    - cron: 59 15 * * *  # every 23:59 UTC +8
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
