@@ -1,37 +1,35 @@
 ---
 title: "Daily News #2024-11-23"
-date: "2024-11-23 12:39:36"
+date: "2024-11-23 20:17:13"
 description: "苹果即将重磅推出智能家居新产品
 Sill：连接Bluesky与Mastodon的新社交工具
 《黑神话：悟空》斩获金摇杆奖年度最佳游戏
 警惕：移动设备上的欺骗性身份验证应用
 AI 时代的浏览器变革：OpenAI的大胆计划
-从后端开发到杭州市的跳槽计划
-Alamofire：强大的Swift HTTP网络库
-Payload：首款Next.js原生CMS简述
-2024 黑色星期五优惠汇总：macOS/iOS 软件与书籍
-全新Golang蓝图库：Go Blueprint的介绍
+容器启动中遇到platform参数的问题
+Whisk：轻松整理你的食谱助手
+AeroSpace: macOS上的新型平铺窗口管理器
+FLUX：图像生成与编辑的强大API
+ScreenPipe：智能助手的屏幕与语音记录工具
+2024黑色星期五优惠汇总！
 钟睒睒的社会思考：从农夫山泉到企业责任"
 tags: 
-- "库"
-- "CMS"
-- "优惠"
-- "安全"
-- "网络"
+- "窗口管理"
+- "API"
+- "图像生成"
 - "促销"
-- "浏览器"
-- "Golang"
-- "工具"
-- "职业发展"
-- "游戏奖项"
-- "开发"
-- "社交媒体"
-- "软件"
-- "AI"
-- "Swift"
-- "智能家居"
-- "Next.js"
 - "商业观察"
+- "浏览器"
+- "录制工具"
+- "智能家居"
+- "AI"
+- "食谱助手"
+- "安全"
+- "容器技术"
+- "社交媒体"
+- "智能助手"
+- "优惠"
+- "游戏奖项"
 
 ---
 
@@ -40,11 +38,12 @@ tags:
 > - 《黑神话：悟空》斩获金摇杆奖年度最佳游戏
 > - 警惕：移动设备上的欺骗性身份验证应用
 > - AI 时代的浏览器变革：OpenAI的大胆计划
-> - 从后端开发到杭州市的跳槽计划
-> - Alamofire：强大的Swift HTTP网络库
-> - Payload：首款Next.js原生CMS简述
-> - 2024 黑色星期五优惠汇总：macOS/iOS 软件与书籍
-> - 全新Golang蓝图库：Go Blueprint的介绍
+> - 容器启动中遇到platform参数的问题
+> - Whisk：轻松整理你的食谱助手
+> - AeroSpace: macOS上的新型平铺窗口管理器
+> - FLUX：图像生成与编辑的强大API
+> - ScreenPipe：智能助手的屏幕与语音记录工具
+> - 2024黑色星期五优惠汇总！
 > - 钟睒睒的社会思考：从农夫山泉到企业责任
 
 ## 🍎 iOS Blog
@@ -91,47 +90,55 @@ tags:
 
 OpenAI正在开发一款集成ChatGPT的AI浏览器，计划将其与主要服务商沟通，提升用户体验。虽然当前浏览器仍面对复杂操作的问题，借助AI技术，开发团队希望能创造新一代的浏览器，以更智能化的方式满足用户需求。Arc浏览器的开发团队则因产品本身复杂性选择彻底转型，显示行业对浏览器未来方向的探索。随着AI技术的发展，传统浏览器将转型为更加高效的用户助手，助力简化网络交互。
 
-### [从后端开发到杭州市的跳槽计划](https://www.v2ex.com/t/1091983)
+### [容器启动中遇到platform参数的问题](https://www.v2ex.com/t/1092065)
 
 来源：V2EX-最新主题
 
-发布时间：2024-11-23 12:35:44
+发布时间：2024-11-23 19:56:56
 
-RotkPPP是一名985硕士，刚入职后端开发领域，面临跳槽回杭州的挑战。为了提升自身竞争力，他计划开展开源AI项目并建立个人博客，记录开发过程与思考。这种积极的自我提升和实用的职业规划值得学习，但也反映出职场的不易。
+ecloud在寻找设置平台参数的地方，但未能找到，怀疑是否只能通过环境变量实现。其描述了一个情况，成功通过命令行启动容器后，图形界面可以正常启动，但复制的运行参数中并未包含platform参数，显示了使用中遇到的困惑。
+
+### [Whisk：轻松整理你的食谱助手](https://decohack.com/producthunt-daily-2024-11-23/)
+
+来源：Decohack
+
+发布时间：2024-11-23 15:15:59
+
+Whisk是一个强大的食谱助手，能够将各种格式的食谱（视频、文字或手写）转化为易于操作的步骤和流程。它提供清晰的食材清单、时间安排和购物清单，帮助用户简化烹饪过程，使得任何食谱都能轻松实现。无论你是烹饪新手还是经验丰富的厨师，Whisk都能提高你的厨房效率，是烹饪爱好者的理想工具。
 
 ## 💾 Daily Code
 
-### [Alamofire：强大的Swift HTTP网络库](https://github.com/Alamofire/Alamofire)
+### [AeroSpace: macOS上的新型平铺窗口管理器](https://github.com/nikitabobko/AeroSpace)
 
 来源：Trending Swift repositories on GitHub today · GitHub
 
-发布时间：2024-11-23 12:35:10
+发布时间：2024-11-23 20:16:26
 
-Alamofire是一个用Swift编写的HTTP网络库，支持链式请求、Swift并发、Combine等特性。提供包括HTTP请求、响应处理、文件上传和下载等功能，适用于iOS和macOS。库内还包含多种组件，以扩展其功能如AlamofireImage。文档详细，便于开发者快速上手。对于需要进行网络请求的Swift开发者而言，Alamofire是一个不可或缺的工具。
+AeroSpace是一个基于i3理念开发的macOS平铺窗口管理器，现处于公测阶段，适合日常使用但可能会有破坏性更改。其特点包括以树形结构管理窗口、快速切换工作区、虚拟工作区模拟，以及无须关闭系统完整性保护(SIP)。AeroSpace支持多显示器设置，配置友好，采用纯文本配置文件，满足高级用户的需求。用户可通过GitHub讨论区参与社区交流，项目致力于为开发者提供实用功能而非华丽外观。
 
-### [Payload：首款Next.js原生CMS简述](https://github.com/payloadcms/payload)
+### [FLUX：图像生成与编辑的强大API](https://github.com/black-forest-labs/flux)
 
 来源：Trending repositories on GitHub today · GitHub
 
-发布时间：2024-11-23 12:38:28
+发布时间：2024-11-23 20:16:28
 
-Payload是一个前卫的开源CMS，支持在Next.js环境中直接安装。它允许同时处理前后端代码，支持无服务器部署，避免了传统CMS的局限。其功能强大，支持丰富类型的数据库查询、身份验证和本地化，同时具备高度的API响应速率和安全性。此外，Payload提供完善的文档和社区支持，助力开发者快速创建网站、博客或企业解决方案。
+FLUX提供了一套完善的模型用于图像生成和编辑，用户可以通过API访问各类功能，如文本转图像、图像变体等。该仓库包含基础推断代码，可在本地安装并使用。支持通过Python接口和命令行进行调用，用户需注册API并创建密钥以便使用。详细文档可在docs.bfl.ml获取，模型许可证及权重信息同样在HuggingFace上提供。
 
-### [2024 黑色星期五优惠汇总：macOS/iOS 软件与书籍](https://github.com/mRs-/Black-Friday-Deals)
+### [ScreenPipe：智能助手的屏幕与语音记录工具](https://github.com/mediar-ai/screenpipe)
+
+来源：Trending repositories on GitHub today · GitHub
+
+发布时间：2024-11-23 20:16:28
+
+ScreenPipe结合了rewind.ai与cursor.com，旨在提供24/7的屏幕和语音记录服务，支持多种安装方式，包括CLI和桌面应用。用户可以创建、分享和安装插件以增强功能，且此项目为开源。ScreenPipe近期在GitHub上受到了广泛关注，并有多项新特性推出，如苹果和Windows原生OCR。详细信息及反馈方式可在其文档中找到。
+
+### [2024黑色星期五优惠汇总！](https://github.com/mRs-/Black-Friday-Deals)
 
 来源：Trending Swift repositories on GitHub today · GitHub
 
-发布时间：2024-11-23 12:35:10
+发布时间：2024-11-23 20:16:26
 
-本文列出了2024年黑色星期五期间针对macOS和iOS软件及书籍的各种优惠。按类别细分，包括开发、生产力、安全、实用工具和教育等，消费者可以通过Pull Request贡献新优惠。部分优惠折扣超过50%。对于开发者来说，推荐工具包括Proxyman、RocketSim等，能有效提升开发效率。
-
-### [全新Golang蓝图库：Go Blueprint的介绍](https://github.com/Melkeydev/go-blueprint)
-
-来源：Trending repositories on GitHub today · GitHub
-
-发布时间：2024-11-23 12:38:28
-
-Go Blueprint 是一款CLI工具，可帮助用户轻松创建Go项目的基本结构。用户可以快速设置HTTP服务器，集成多个流行的Go框架，并支持多种数据库驱动，包括MySQL、Postgres等。此外，优秀的高级功能如CI/CD、Websocket、Tailwind和Docker等也提供了丰富的扩展性。Blueprint UI能够以可视化的形式让用户预览项目结构。
+本文汇集了2024年黑色星期五期间macOS/iOS软件及图书的各类优惠信息，涵盖开发、安全、生产力等多个领域。读者可通过提交Pull Request贡献新优惠，正常价格及折扣均已标注。此外，文章还分类整理了不同类型的软件，便于用户查找与比较，帮助开发者把握优惠机会，提升个人及团队的工作效率。
 
 ## 📻 Podcast
 
