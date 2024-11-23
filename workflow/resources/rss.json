@@ -212,13 +212,13 @@
             "items": [
                 {
                     "title": "Github repo trending",
-                    "rsshub_path": "github/trending/weekly/swift",
+                    "rsshub_path": "github/trending/daily/swift",
                     "type": "code",
                     "input_count": 2
                 },
                 {
                     "title": "Github repo trending",
-                    "rsshub_path": "github/trending/weekly/any",
+                    "rsshub_path": "github/trending/daily/any",
                     "type": "code",
                     "input_count": 2
                 }
