@@ -63,7 +63,11 @@ def make_meta_data(description, tags):
 
     md_title = f"Daily News #{today_str}"
     # Expected "tag" to match "[^\/#\?]+?"
-    tags_str = "".join([f'- "{str(tag).replace('/', '_')}"\n' for tag in set(tags)])
+    def rectify_tag_value(value: str):
+        res = value.replace('/', '_')
+        return f'- "{res}"\n'
+
+    tags_str = "".join([rectify_tag_value(tag) for tag in set(tags)])
     data = f"""---
 title: "{md_title}"
 date: "{today_with_timezone.strftime("%Y-%m-%d %H:%M:%S")}"

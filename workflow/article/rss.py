@@ -49,7 +49,8 @@ def load_rss_configs(resource):
 
     if os.path.isdir(resource):
         for file in os.listdir(resource):
-            load_config_with(os.path.join(resource, file))
+            if file.endswith("json"):
+                load_config_with(os.path.join(resource, file))
     else:
         load_config_with(resource)
 

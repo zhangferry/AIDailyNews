@@ -1,0 +1,20 @@
+{
+  "configuration": {
+  },
+  "categories": [
+    {
+      "category": "Apple News",
+      "items": [
+        {
+            "title": "Changelogs Archive - The GitHub Blog",
+            "url": "https://github.blog/changelog/feed/"
+        },
+        {
+            "title": "Swift.org",
+            "url": "https://www.swift.org/atom.xml",
+            "image_enable": true
+        }
+      ]
+    }
+  ]
+}

@@ -29,4 +29,4 @@ netlify
 .idea/
 .vercel
 
-workflow/test_resources
+workflow/test_resources/.env
