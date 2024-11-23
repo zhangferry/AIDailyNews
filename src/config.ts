@@ -1,4 +1,5 @@
 import type { NavItems } from "./types";
+import config from "./config/config.json"
 
 export const NAV_ITEMS: NavItems = {
 	home: {
@@ -19,13 +20,11 @@ export const NAV_ITEMS: NavItems = {
 	},
 };
 
-const GPP_MODEL = "gpt-4o-mini"
-
 export const SITE = {
 	// Your site's detail?
-	name: "My Daily News",
+	name: config.name,
 	title: "zhangferry",
-	description: `Made with ${GPP_MODEL}`,
+	description: `Made with ${config.aiprovider_model}`,
 	url: "https://daily.zhangferry.com",
 	githubUrl: "https://github.com/zhangferry/AIDailyNews",
 	listDrafts: true,

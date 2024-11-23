@@ -2,7 +2,7 @@
 
 My Daily News：一键部署独属于你的每日新闻总览,支持 GPT3，Gemini Pro 模型。
 
-![](https://cdn.zhangferry.com/Images/202402212338780.png)
+![](https://cdn.zhangferry.com/Images/202411041740985.png)
 
 基于 RSS 地址，每天早上 9 点采集一次前一天的内容，通过 GPT 进行分析总结，形成一份每日报告。
 
@@ -12,27 +12,46 @@ Fork 该仓库，删除 [src/content/blog](https://github.com/zhangferry/AIDaily
 
 1、修改 [rss.json](https://github.com/zhangferry/AIDailyNews/blob/main/workflow/resources/rss.json)，这里是你要订阅的 RSS 内容，以下是各参数说明：
    ```json5
-   [
-     {
-       category: "Daily News", // 用于标记一类rss，它会在网页里被渲染为二级标题
-       items: [
-         {
-           title: "The Keyword", // rss 标题
-           url: "https://blog.google/rss/", // rss 源地址
-           type: "link", // 表示获取rss信息的方式，不填会从rss返回信息获取，link：会从原始链接获取，code：会通过github api 获取对应仓库readme文件
-         },
-       ],
-     },
-   ]
+{
+    "configuration": {
+      // rsshub domain，当使用自定义 rsshub_path 时会自动拼接这个值
+      "rsshub_domain": "https://rsshub.zhangferry.com/"
+    },
+    "categories": [
+      {
+        // rss分组，同时对应网页二级标题
+        "category": "Daily News",
+        // rss内容
+        "items": [
+          {
+            // rss 标题，仅用做备注
+            "title": "OpenAI Blog",
+            // rss 地址
+            "url": "https://openai.com/blog/rss.xml",
+            // rss 内容获取方式。link：会从关联原始链接获取，code：会通过github api 获取对应仓库readme文件。不带该字段提取 rss 原始信息
+            "type": "link",
+            // 该链接最大输出内容数量，默认为 2
+            "output_count": 3,
+            // 会跟 `configuration.rsshub_domain` 进行拼接
+            "rsshub_path": "github/trending/daily/swift",
+             // 是否提取 rss 中的图片，仅从原始 rss 信息获取
+             "image_enable": true
+          },
+        ],
+      },
+    ]
+}
    ```
-2、配置数据采集的环境变量，为 Github 定时任务所需。
+2、配置数据采集的环境变量，为 Github Action 定时任务所需。
 
+  环境变量配置到 [main.yml](https://github.com/zhangferry/AIDailyNews/blob/main/.github/workflows/main.yml)中，隐私信息通过 Action 的 secret 管理。
    ![](https://cdn.zhangferry.com/Images/202403161224264.png)
 
    GPT 能力所需：
 
    - `AI_PROVIDER`: 可选 `gemini` 和 `openai`。默认 `gemini`
    - `GPT_API_KEY`: 根据设置的 AI 能力填写对应的 Key
+   - `GPT_MODEL_NAME`: gemimi 默认 `gemini-pro`，openai 默认 `gpt-3.5-turbo`
    - `GPT_BASE_HOST`: 默认官方地址，可选
 
    更新仓库所需：
@@ -71,6 +90,12 @@ pip3 install -r ./requirements.txt
 # js 依赖
 yarn install --ignore-engines
 ```
+
+### workflow 调试
+
+workflow 的调试可以借助于 `workflow/test_mainflow` 里的 `test_mainflow_flow` 这个单测方法。 测试文件放在 `test_resources` 里， `.env` 和 `rss.json` 两个文件，分别用于指定本地的环境变量和需要观测的 rss 链接。
+
+其他函数的调试对应 `test_` 开头的 python 文件。
 
 ### 启动数据采集
 

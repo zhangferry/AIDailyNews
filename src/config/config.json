@@ -1,0 +1,5 @@
+{
+    "name": "My Daily News",
+    "aiprovider_name": "openai",
+    "aiprovider_model": "gpt-4o-mini"
+}
