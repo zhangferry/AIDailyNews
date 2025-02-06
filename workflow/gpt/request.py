@@ -1,5 +1,5 @@
 import json, os
-import google.generativeai as genai
+from google import genai
 from openai import OpenAI
 from loguru import logger
 
