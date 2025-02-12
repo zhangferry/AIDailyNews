@@ -104,10 +104,8 @@ def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, chan
     summary_raw = rss_item.get("summary", "")
     image_url = ""
 
-    if rss_type == "link":
-        summary = parse_web_page(url=link)
-    elif rss_type == "code":
-        summary = parse_github_readme(link)
+    if rss_type and len(rss_type) != 0:
+        summary = fetch_summary_from(url=link, rss_type=rss_type)
     else:
         summary, image_url = transform_html2txt(summary_raw, image_enable=image_enable)
 
@@ -121,6 +119,36 @@ def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, chan
                   info=channel,
                   config=config,
                   cover_url=image_url)
+    return article
+
+def fetch_summary_from(url: str, rss_type: str):
+    summary = None
+    if rss_type == "link":
+        summary = parse_web_page(url=url)
+    elif rss_type == "code":
+        summary = parse_github_readme(url)
+    return summary
+
+
+def transform_telegram_article(article: Article):
+    """
+    example:
+    link: https://t.me/CocoaDevBlogs/22734, summary: Late Night Silent Completions: Jiiiii — Part 446 https://t.co/iXZYsZO0A7
+    """
+    lines = article.summary.split('\n')
+    tco_links = []
+    for line in lines:
+        if not line.startswith('>'):
+            # 使用正则表达式查找以https://t.co开头的链接
+            links = re.findall(r'https://t.co\S+', line)
+            tco_links.extend(links)
+    if len(tco_links) > 0:
+        link = get_real_url(tco_links[0])
+        article.link = link
+        if link.startswith("https://github.com"):
+            article.summary = fetch_summary_from(url=link, rss_type="code")
+        else:
+            article.summary = fetch_summary_from(url=link, rss_type="link")
     return article
 
 

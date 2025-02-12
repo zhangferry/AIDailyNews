@@ -1,4 +1,6 @@
 import os, json, datetime, glob
+
+from workflow.article.rss import Article
 from workflow.gpt.summary import evaluate_article_with_gpt
 import workflow.article.rss as rss
 import workflow.article.blog as blog
@@ -23,11 +25,15 @@ def parse_daily_rss_article(rss_resource, cache_file=None):
         return decode_article(cache_file)
     rss_items = rss.load_rss_configs(rss_resource)
 
+    telegram_prefix = "https://t.me/"
+
     daily_rss = []
     for item in rss_items:
         rss_list = rss.parse_rss_config(item)
         for rss_item in rss_list:
             daily_rss.append(rss_item)
+            if rss_item.link.startswith(telegram_prefix):
+                rss_item = rss.transform_telegram_article(rss_item)
             logger.info(f"date: {rss_item.date}, link: {rss_item.link}")
     return daily_rss
 

@@ -23,7 +23,7 @@ class RssTestCase(unittest.TestCase):
         for item in articles:
             print(item.link)
 
-    def test_parse_rss(self):
+    def test_transform_telegram_rss(self):
         config = {
             "title": "The Register",
             "url": "https://rsshub.app/telegram/channel/CocoaDevBlogs",
@@ -31,6 +31,7 @@ class RssTestCase(unittest.TestCase):
         }
         articles = rss.parse_rss_config(config)
         for item in articles:
+            item = rss.transform_telegram_article(item)
             print(f"link: {item.link}, summary: {item.summary}")
 
     def test_parse_code_rss(self):
