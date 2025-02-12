@@ -194,7 +194,12 @@
             "items": [
                 {
                     "title": "CocoaDevBlogs",
-                    "rsshub_path": "https://rsshub.app/telegram/channel/CocoaDevBlogs",
+                    "rsshub_path": "telegram/channel/CocoaDevBlogs",
+                    "input_count": 4
+                },
+                {
+                    "title": "CocoaDevBlogs",
+                    "rsshub_path": "telegram/channel/iosdevio",
                     "input_count": 4
                 }
             ]
