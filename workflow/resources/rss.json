@@ -115,11 +115,6 @@
                 {
                     "title": "hypercritical",
                     "url": "https://hypercritical.co/feeds/main"
-                },
-                {
-                    "title": "Six Colors",
-                    "url": "https://feedpress.me/sixcolors",
-                    "description": "Apple, technology, and other stuff by Jason Snell & Dan Moren"
                 }
             ]
         },
@@ -153,10 +148,6 @@
                     "type": "link"
                 },
                 {
-                    "title": "潮流周刊",
-                    "url": "https://weekly.tw93.fun/rss.xml"
-                },
-                {
                     "title": "全栈应用开发:精益实践",
                     "url": "https://www.phodal.com/blog/feeds/rss/"
                 },
@@ -187,15 +178,6 @@
                     "url": "https://plink.anyfeeder.com/infoq/recommend"
                 },
                 {
-                    "title": "极客公园",
-                    "url": "https://www.geekpark.net/rss"
-                },
-                {
-                    "title": "decohack",
-                    "url": "https://decohack.com/feed/",
-                    "type": "link"
-                },
-                {
                     "title": "美团技术团队",
                     "url": "https://tech.meituan.com/feed/",
                     "type": "link"
@@ -208,19 +190,12 @@
             ]
         },
         {
-            "category": "💾 Daily Code",
+            "category": "💾 Daily Dev",
             "items": [
                 {
-                    "title": "Github repo trending",
-                    "rsshub_path": "github/trending/daily/swift",
-                    "type": "code",
-                    "input_count": 2
-                },
-                {
-                    "title": "Github repo trending",
-                    "rsshub_path": "github/trending/daily/any",
-                    "type": "code",
-                    "input_count": 2
+                    "title": "CocoaDevBlogs",
+                    "rsshub_path": "https://rsshub.app/telegram/channel/CocoaDevBlogs",
+                    "input_count": 4
                 }
             ]
         },
