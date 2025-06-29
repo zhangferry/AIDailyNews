@@ -81,7 +81,7 @@ def parse_rss_config(rss_config):
         article_date = unify_timezone(article.get(keymap["issued"],
                                                   article.get(keymap["date"],
                                                               res.get(keymap["date"]))))
-        if article_date.date() != target_date:
+        if not article_date or article_date.date() != target_date:
             continue
         rss = gen_article_from(rss_item=article, rss_type=rss_config.get("type"), image_enable=rss_config.get("image_enable", False),
                                rss_date=article_date.strftime("%Y-%m-%d %H:%M:%S"), channel=res[keymap["channel"]],
