@@ -1,9 +1,27 @@
 ---
-import Comment from "$/components/Comment.svelte";
+import Comment from "./Comment.svelte";
+import PostNavigation from "./PostNavigation.astro";
+
+interface Props {
+  currentPost?: any;
+  previousPost?: any;
+  nextPost?: any;
+}
+
+const { currentPost, previousPost, nextPost } = Astro.props;
 ---
 
 <article class="prose dark:prose-dark">
   <slot />
+  
+  {(previousPost || nextPost) && (
+    <PostNavigation 
+      currentPost={currentPost}
+      previousPost={previousPost}
+      nextPost={nextPost}
+    />
+  )}
+  
   <Comment client:load />
 </article>
 
