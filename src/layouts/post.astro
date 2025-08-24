@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import Icon from "astro-icon";
 import {
   SITE,
@@ -7,12 +8,12 @@ import {
   USE_AUTHOR_CARD,
   USE_SUBSCRIPTION,
   USE_VIEW_STATS,
-} from "$/config";
-import MainLayout from "$/components/MainLayout.astro";
-import BaseHead from "$/components/BaseHead.astro";
-import Prose from "$/components/Prose.astro";
-import PostStats from "$/components/PostStats.svelte";
-import EditUrl from "$/components/EditLink.astro";
+} from "../config";
+import MainLayout from "../components/MainLayout.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Prose from "../components/Prose.astro";
+import PostStats from "../components/PostStats.svelte";
+import EditUrl from "../components/EditLink.astro";
 
 interface Props {
   meta?: {
@@ -26,6 +27,23 @@ interface Props {
   };
 }
 const { content, meta } = Astro.props;
+
+// 获取所有博客文章用于导航
+const allPosts = await getCollection("blog");
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+// 只有在有meta.slug时才计算导航（即文章页面）
+let previousPost, nextPost;
+if (meta?.slug) {
+  // 找到当前文章的索引
+  const currentIndex = sortedPosts.findIndex(post => post.slug === meta?.slug);
+  
+  // 获取上一篇和下一篇文章
+  previousPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : undefined;
+  nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : undefined;
+}
 
 const AUTHOR_NAME = content.author
   ? content.author
@@ -112,7 +130,11 @@ const AUTHOR_AVATAR = content.authorImage
         ""
       )
     }
-    <Prose>
+    <Prose 
+      currentPost={{ data: content, slug: meta?.slug }}
+      previousPost={previousPost}
+      nextPost={nextPost}
+    >
       <slot />
     </Prose>
   </MainLayout>

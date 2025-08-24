@@ -1,0 +1,75 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Icon from "astro-icon";
+
+interface Props {
+  currentPost: {
+    data: CollectionEntry<"blog">["data"];
+    slug: string;
+  };
+  previousPost?: CollectionEntry<"blog">;
+  nextPost?: CollectionEntry<"blog">;
+}
+
+const { currentPost, previousPost, nextPost } = Astro.props;
+---
+
+<div class="post-navigation">
+  <div class="navigation-buttons">
+    {previousPost && (
+      <a 
+        href={`/blog/${previousPost.slug}`} 
+        class="nav-button prev-button"
+        title="上一篇: {previousPost.data.title}"
+      >
+        <Icon class="nav-icon" pack="mdi" name="chevron-left" />
+        <span class="nav-text">{previousPost.data.title}</span>
+      </a>
+    )}
+    
+    {nextPost && (
+      <a 
+        href={`/blog/${nextPost.slug}`} 
+        class="nav-button next-button"
+        title="下一篇: {nextPost.data.title}"
+      >
+        <span class="nav-text">{nextPost.data.title}</span>
+        <Icon class="nav-icon" pack="mdi" name="chevron-right" />
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  .post-navigation {
+    @apply my-8 py-6 border-t border-gray-200 dark:border-gray-700;
+  }
+  
+  .navigation-buttons {
+    @apply flex justify-between items-center gap-4;
+  }
+  
+  .nav-button {
+    @apply flex items-center gap-2 px-4 py-2 rounded-lg 
+           text-theme-primary dark:text-theme-dark-primary 
+           hover:text-theme-secondary dark:hover:text-theme-dark-secondary
+           transition-colors duration-200;
+  }
+  
+  .nav-icon {
+    @apply w-5 h-5;
+  }
+  
+  .nav-text {
+    @apply font-medium;
+  }
+  
+  /* 当只有其中一个按钮时的样式 */
+  .navigation-buttons:has(.prev-button:only-child) {
+    @apply justify-start;
+  }
+  
+  .navigation-buttons:has(.next-button:only-child) {
+    @apply justify-end;
+  }
+</style>
