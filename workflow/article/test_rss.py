@@ -26,7 +26,7 @@ class RssTestCase(unittest.TestCase):
     def test_transform_telegram_rss(self):
         config = {
             "title": "The Register",
-            "url": "https://rsshub.app/telegram/channel/CocoaDevBlogs",
+            "url": "https://rsshub.app/telegram/channel/piracy6",
             "feature": "GitHub Trends Weekly"
         }
         articles = rss.parse_rss_config(config)
