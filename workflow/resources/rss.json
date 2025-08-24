@@ -186,6 +186,16 @@
                     "title": "值得一读技术博客",
                     "url": "https://daily-blog.chlinlearn.top/feed",
                     "type": "link"
+                },
+                {
+                    "title": "Apple Nuts",
+                    "rsshub_path": "telegram/channel/AppleNuts",
+                    "input_count": 4
+                },
+                {
+                    "title": "黑洞资源笔记",
+                    "rsshub_path": "telegram/channel/piracy6",
+                    "input_count": 4
                 }
             ]
         },
