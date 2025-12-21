@@ -58,33 +58,9 @@ def request_gemini(provider: AIProvider, prompt, content):
     """
     input_text = f"{prompt}: {content}"
 
-    genai.configure(api_key=provider.api_key)
-    # Set up the model
-    generation_config = genai.GenerationConfig(temperature=0.2)
-
-    safety_settings = [
-        {
-            "category": "HARM_CATEGORY_HARASSMENT",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-        {
-            "category": "HARM_CATEGORY_HATE_SPEECH",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-        {
-            "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-        {
-            "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-    ]
-    model = genai.GenerativeModel(model_name=provider.model,
-                                  generation_config=generation_config,
-                                  safety_settings=safety_settings)
-
-    response = model.generate_content([input_text])
+    client = genai.Client()
+    response = client.models.generate_content(
+        model="gemini-2.5-flash", contents=input_text)
     return response.text
 
 def request_openai(provider: AIProvider, prompt, content):
