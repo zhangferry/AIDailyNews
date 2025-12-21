@@ -209,7 +209,13 @@ def parse_github_readme(repo_url):
         # 提取用户名和仓库名
         username, repo_name = repo_url.split("/")[-2:]
         api_url = f"https://api.github.com/repos/{username}/{repo_name}/readme"
-        response = requests.get(api_url)
+        headers = {
+            "Accept": "application/vnd.github.v3+json"
+        }
+        if os.environ.get("GITHUB_ACCESS_TOKEN"):
+            headers["Authorization"] = f"token {os.environ.get('GITHUB_ACCESS_TOKEN')}"
+        
+        response = requests.get(api_url, headers=headers)
         response.raise_for_status()
         # 解析响应，提取 README 内容
         readme_content = response.json()["content"]
