@@ -1,4 +1,5 @@
 import json, os
+import httpx
 from google import genai
 from openai import OpenAI
 from loguru import logger
@@ -67,8 +68,14 @@ def request_openai(provider: AIProvider, prompt, content):
     """
     https://platform.openai.com/docs/guides/text-generation
     """
+    proxy_url = os.environ.get("https_proxy") or os.environ.get("http_proxy")
+    http_client = None
+    if proxy_url:
+        http_client = httpx.Client(proxy=proxy_url)
+
     client = OpenAI(api_key=provider.api_key,
-                    base_url=provider.base_url)
+                    base_url=provider.base_url,
+                    http_client=http_client)
 
     chat_completion = client.chat.completions.create(messages=[
         {

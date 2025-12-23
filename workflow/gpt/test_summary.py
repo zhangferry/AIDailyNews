@@ -15,9 +15,9 @@ class SummaryTestCase(unittest.TestCase):
         test_resources is same peer with resources for test
         """
         # load_dotenv(dotenv_path="./../test_resources/.env")
-        ip = "127.0.0.1:7897"
-        os.environ["https_proxy"] = f"http://{ip}"
-        os.environ["http_proxy"] = f"http://{ip}"
+        # ip = "127.0.0.1:7897"
+        # os.environ["https_proxy"] = f"http://{ip}"
+        # os.environ["http_proxy"] = f"http://{ip}"
         # os.environ["all_proxy"] = f"socks5://{ip}"
         load_dotenv()
 
