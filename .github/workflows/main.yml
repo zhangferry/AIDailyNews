@@ -22,9 +22,8 @@ jobs:
     env:
       GIT_NAME: ${{ secrets.GIT_NAME }}
       GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-      AI_PROVIDER: openai
-      GPT_MODEL_NAME: gpt-4o-mini
-      GPT_BASE_URL: https://oa.api2d.net
+      AI_PROVIDER: gemini
+      GPT_MODEL_NAME: gemini-pro
       GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
 
     steps:
