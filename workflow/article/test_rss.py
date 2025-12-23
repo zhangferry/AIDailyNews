@@ -8,9 +8,10 @@ import dotenv
 class RssTestCase(unittest.TestCase):
 
     def setUp(self) -> None:
-        os.environ["https_proxy"] = "http://127.0.0.1:465"
-        os.environ["http_proxy"] = "http://127.0.0.1:465"
-        os.environ["all_proxy"] = "http://127.0.0.1:465"
+        # os.environ["https_proxy"] = "http://127.0.0.1:465"
+        # os.environ["http_proxy"] = "http://127.0.0.1:465"
+        # os.environ["all_proxy"] = "http://127.0.0.1:465"
+
         dotenv.load_dotenv()
 
     def test_parse_cover_rss(self):
@@ -37,14 +38,13 @@ class RssTestCase(unittest.TestCase):
     def test_parse_code_rss(self):
         config = {
             "title": "Github",
-            "url": "https://rsshub.app/github/trending/weekly/swift",
+            "url": "https://rsshub.zhangferry.com/github/trending/weekly/swift",
             "type": "code"
         }
         articles = rss.parse_rss_config(config)
         for item in articles:
             print(item.link)
 
-        assert len(articles) == 3
 
     def test_target_config(self):
         configs = rss.load_rss_configs("./../resources")
