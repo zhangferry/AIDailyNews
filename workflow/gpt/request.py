@@ -58,7 +58,7 @@ def request_gemini(provider: AIProvider, prompt, content):
     """
     input_text = f"{prompt}: {content}"
 
-    client = genai.Client()
+    client = genai.Client(api_key=provider.api_key)
     response = client.models.generate_content(
         model="gemini-2.5-flash", contents=input_text)
     return response.text
