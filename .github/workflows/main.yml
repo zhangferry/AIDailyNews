@@ -22,9 +22,11 @@ jobs:
       GIT_NAME: ${{ secrets.GIT_NAME }}
       GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
       AI_PROVIDER: openai
-      GPT_MODEL_NAME: glm-4
+      GPT_MODEL_NAME: glm-4-flash
       GPT_BASE_URL: https://open.bigmodel.cn/api/paas/v4
       GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
+      # Coding 模式参数
+      MAX_ARTICLE_NUMS: 12
 
     steps:
       - name: Checkout
