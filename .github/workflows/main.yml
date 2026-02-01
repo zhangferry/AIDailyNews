@@ -4,11 +4,11 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   schedule:
-    - cron: 0 15 * * *  # every 23:59 UTC +8
+    - cron: 0 15 * * * # every 23:59 UTC +8
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,9 +22,19 @@ jobs:
       GIT_NAME: ${{ secrets.GIT_NAME }}
       GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
       AI_PROVIDER: openai
-      GPT_MODEL_NAME: glm-4-flash
-      GPT_BASE_URL: https://open.bigmodel.cn/api/paas/v4
+
       GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
+      # 设置环境变量指向智谱Coding专用API地址
+      ANTHROPIC_BASE_URL: https://open.bigmodel.cn/api/coding/paas/v4
+      # 设置使用GLM-4.7模型（Coding套餐支持的模型之一）
+      ANTHROPIC_DEFAULT_OPUS_MODEL: GLM-4.7
+      ANTHROPIC_DEFAULT_SONNET_MODEL: GLM-4.7
+      ANTHROPIC_DEFAULT_HAIKU_MODEL: GLM-4.5-Air
+      ANTHROPIC_AUTH_TOKEN: ${{ secrets.GPT_API_KEY }}
+
+      # 适配智谱 Coding 的 GPT 接口地址
+      GPT_BASE_URL: https://open.bigmodel.cn/api/coding/paas/v4
+      GPT_MODEL_NAME: GLM-4.7
       # Coding 模式参数
       MAX_ARTICLE_NUMS: 12
 
