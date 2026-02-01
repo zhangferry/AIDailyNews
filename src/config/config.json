@@ -1,5 +1,5 @@
 {
     "name": "My Daily News",
     "aiprovider_name": "openai",
-    "aiprovider_model": "glm-4"
+    "aiprovider_model": "GLM-4.7"
 }
