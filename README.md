@@ -49,10 +49,26 @@ Fork 该仓库，删除 [src/content/blog](https://github.com/zhangferry/AIDaily
 
    GPT 能力所需：
 
-   - `AI_PROVIDER`: 可选 `gemini` 和 `openai`。默认 `gemini`
+   - `AI_PROVIDER`: 可选 `gemini` 和 `openai`（GLM 使用 `openai`）。默认 `gemini`
    - `GPT_API_KEY`: 根据设置的 AI 能力填写对应的 Key
-   - `GPT_MODEL_NAME`: gemimi 默认 `gemini-pro`，openai 默认 `gpt-3.5-turbo`
-   - `GPT_BASE_HOST`: 默认官方地址，可选
+   - `GPT_MODEL_NAME`: gemini 默认 `gemini-pro`，openai 默认 `gpt-3.5-turbo`，GLM 推荐使用 `glm-4` 或 `glm-4-flash`
+   - `GPT_BASE_URL`: 默认官方地址，GLM 使用 `https://open.bigmodel.cn/api/paas/v4`，可选
+
+   **支持的 AI 服务：**
+   - **智谱 GLM**（推荐，性价比高）：
+     - AI_PROVIDER: `openai`
+     - GPT_BASE_URL: `https://open.bigmodel.cn/api/paas/v4`
+     - GPT_MODEL_NAME: `glm-4`（或其他 GLM 模型如 `glm-4-flash`）
+     - GPT_API_KEY: GLM API Key
+   - **OpenAI**：
+     - AI_PROVIDER: `openai`
+     - GPT_BASE_URL: `https://api.openai.com`（或使用代理如 api2d）
+     - GPT_MODEL_NAME: `gpt-4o-mini` 等
+     - GPT_API_KEY: OpenAI API Key
+   - **Google Gemini**：
+     - AI_PROVIDER: `gemini`
+     - GPT_MODEL_NAME: `gemini-2.5-flash` 等
+     - GPT_API_KEY: Gemini API Key
 
    更新仓库所需：
 
