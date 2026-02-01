@@ -30,13 +30,14 @@ def make_daily_markdown_with(articles, rss_list):
 
     category_contents = []
     for category in category_list:
+        category_result = make_daily_category(category=category, articles=articles)
+        if category_result is not None:
+            category_contents.append(category_result)
         for article in articles:
             if article.config["category"] != category:
                 continue
             tags.extend(article.evaluate.get("tags", []))
-            article_titles.append(article.evaluate["title"])
-
-        category_contents.append(make_daily_category(category=category, articles=articles))
+            article_titles.append(article.evaluate.get("title", ""))
 
     md_path, meta_data = make_meta_data(description="\n".join(article_titles), tags=tags)
     daily_guide = make_daily_guide(article_titles)
@@ -87,25 +88,26 @@ tags:
 
 def make_daily_category(category, articles):
     if not articles:
-        return ""
+        return None
     content = ""
     for article in articles:
         if article.config["category"] != category:
             continue
         cover = f"![]({article.cover_url})" if article.cover_url else ""
         article_intro = f"""
-### [{article.evaluate["title"]}]({article.link})
+### [{article.evaluate("title")}]({article.link})
 
 来源：{article.info["title"]}
 
 发布时间：{article.date}
 {cover}
-{article.evaluate["summary"]}
+{article.evaluate("summary")}
 """
         content += article_intro
     if content:
         content = f"## {category}\n" + content
-    return content
+        return content
+    return None
 
 
 def make_daily_guide(titles):
