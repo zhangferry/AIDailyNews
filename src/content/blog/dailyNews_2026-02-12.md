@@ -1,95 +1,177 @@
 ---
 title: "Daily News #2026-02-12"
-date: "2026-02-12 00:09:09"
-description: "AI 视频下半场：Seedance2.0 与导演工作流的胜利
-health.md: On-device Apple Health to Markdown Exporter
-OpenClaw 时代：产品经理从 UI 设计转向意图识别逻辑
-ChatGPT 正式测试广告模式，OpenAI 探索商业化新路径
-蚂蚁集团开源全模态大模型 Ming-Flash-Omni 2.0
-88AI 关于 Claude 模型请求限制的公告"
+date: "2026-02-12 23:59:10"
+description: "实测可灵3.0：AI视频已具备真正的导演思维
+Resolve AI：用AI解决AI代码引发的运维危机
+React严重安全漏洞预警：CVE-2025-55182允许远程代码执行
+解决 DeepSeek 长对话中 System Prompt 失效问题
+马斯克xAI全员会深度解读：组织重组与AI直接生成二进化的未来
+Apple says ‘random or anonymous chat’ apps no longer welcome on the App Store
+The Death of Traditional Testing: Agentic Development Broke a 50-Year-Old Field, JiTTesting Can Revive It
+俄罗斯监管机构以打击犯罪为由限制Telegram
+macOS 屏幕录制架构重构：从像素采集到元数据
+在 SwiftUI 中使用 Metal 着色器入门指南
+FLEX: iOS 应用内调试与探索工具
+Xcode 26.3 + Claude Agent 配置实战"
 tags: 
-- "ChatGPT"
+- "安全"
+- "Shaders"
+- "多Agent"
+- "网络安全"
+- "测试"
 - "iOS"
-- "AI商业模式"
-- "AI"
-- "多模态"
-- "全模态"
-- "AI 视频"
-- "Claude"
-- "Privacy"
-- "Tool"
-- "OpenAI"
-- "Markdown"
+- "React"
+- "新闻"
+- "漏洞"
+- "AI运维"
+- "编程模型"
+- "Telegram"
+- "macOS"
 - "AIGC"
-- "工作流"
-- "广告变现"
-- "蚂蚁集团"
-- "成本控制"
-- "API"
-- "行业动态"
-- "产品经理"
-- "交互设计"
-- "服务公告"
-- "HealthKit"
-- "MoE架构"
-- "开源大模型"
-- "产品架构"
+- "架构"
+- "Debugging"
+- "Dify"
+- "可灵3.0"
+- "AI视频"
+- "审核政策"
+- "技术实战"
+- "DevOps"
+- "监管"
+- "Xcode"
+- "Next.js"
+- "Tools"
+- "SwiftUI"
+- "Resolve AI"
+- "Metal"
+- "Apple"
+- "App Store"
+- "Runtime"
+- "隐私安全"
+- "RCE"
+- "MCP"
+- "开发工具"
+- "Claude"
+- "Graphics"
+- "Swift"
+- "ScreenCaptureKit"
+- "AI"
+- "LLM"
+- "Development"
+- "马斯克"
+- "xAI"
+- "DeepSeek"
 
 ---
 
-> - AI 视频下半场：Seedance2.0 与导演工作流的胜利
-> - health.md: On-device Apple Health to Markdown Exporter
-> - OpenClaw 时代：产品经理从 UI 设计转向意图识别逻辑
-> - ChatGPT 正式测试广告模式，OpenAI 探索商业化新路径
-> - 蚂蚁集团开源全模态大模型 Ming-Flash-Omni 2.0
-> - 88AI 关于 Claude 模型请求限制的公告
+> - 实测可灵3.0：AI视频已具备真正的导演思维
+> - Resolve AI：用AI解决AI代码引发的运维危机
+> - React严重安全漏洞预警：CVE-2025-55182允许远程代码执行
+> - 解决 DeepSeek 长对话中 System Prompt 失效问题
+> - 马斯克xAI全员会深度解读：组织重组与AI直接生成二进化的未来
+> - Apple says ‘random or anonymous chat’ apps no longer welcome on the App Store
+> - The Death of Traditional Testing: Agentic Development Broke a 50-Year-Old Field, JiTTesting Can Revive It
+> - 俄罗斯监管机构以打击犯罪为由限制Telegram
+> - macOS 屏幕录制架构重构：从像素采集到元数据
+> - 在 SwiftUI 中使用 Metal 着色器入门指南
+> - FLEX: iOS 应用内调试与探索工具
+> - Xcode 26.3 + Claude Agent 配置实战
 
 ## 📥 Tech News
 
-### [AI 视频下半场：Seedance2.0 与导演工作流的胜利](https://www.woshipm.com/ai/6340404.html)
+### [实测可灵3.0：AI视频已具备真正的导演思维](https://www.woshipm.com/ai/6341671.html)
 
 来源：热门文章 - 日榜 - 人人都是产品经理
 
-发布时间：2026-02-11 16:00:10
+发布时间：2026-02-12 21:00:39
 
-背景：AI 视频工具正经历从“炫技玩具”到“生产系统”的关键范式迁移，Seedance2.0 的出现标志着行业开始重视“导演工作流”的产品化。核心观点：Prompt 因缺乏结构、一致性、节奏和迭代控制，天生不适合视频交付。下一代 AI 视频产品必须以分镜为驱动，依赖参考图保证一致性，并支持局部可编辑。文章提出了包含分镜编辑器、资产库等在内的“最小可用导演台”清单。结论：未来的竞争不再单纯依赖模型能力，而是比拼制作系统能力。PM 应将评价指标从审美转向废片率、返工次数等生产指标，通过构建资产沉淀和团队协作的护城河，实现真正的商业价值。
+背景是AI视频生成技术的快速迭代与普及。核心观点是可灵3.0通过单次15秒多分镜生成、多角色对话及4K画质，展现了自主设计运镜的“导演思维”，解决了人物一致性差和缺乏镜头语言等痛点。文章详细拆解了低角度追拍、过肩镜头等具体应用及其Omni版本的音色固定功能。结论是AI视频已从单镜头时代迈向多镜头叙事时代，极大地降低了专业影视制作的门槛，普通用户也能高效产出具备电影感的作品。
 
-### [health.md: On-device Apple Health to Markdown Exporter](https://healthmd.isolated.tech/)
-
-来源：Hacker News - Newest: "apple"
-
-发布时间：2026-02-11 23:38:20
-
-针对用户希望摆脱封闭生态、自主掌控健康数据的需求，文章详细介绍了 health.md 这款 iOS 工具。该方案利用 HealthKit 接口，能够将步数、心率、睡眠等百余种健康数据直接导出为本地 Markdown 文件并存储于 iOS 文件系统中。其核心亮点在于完全的本地化处理与隐私保护，不仅支持自定义模板及自动后台同步，还承诺无云端账号、无数据上传。这为量化自我爱好者及个人知识库构建者提供了一次性付费、安全且高度定制化的数据归档方案，真正实现了用户对个人健康数据的完全拥有权。
-
-### [OpenClaw 时代：产品经理从 UI 设计转向意图识别逻辑](https://www.woshipm.com/ai/6339859.html)
+### [Resolve AI：用AI解决AI代码引发的运维危机](https://www.woshipm.com/ai/6341670.html)
 
 来源：热门文章 - 日榜 - 人人都是产品经理
 
-发布时间：2026-02-11 16:41:14
+发布时间：2026-02-12 20:57:32
 
-背景：计算机发展史本质上是人类迁就机器，但随着 OpenClaw 等多模态 AI 的崛起，产品设计正迎来“权力反转”，即机器主动理解人类意图。核心观点：PM 需全面转型，需求分析应从功能清单转向场景结果，技术选型需在精度与效率间博弈，设计重心从 UI 美感转向识别策略，核心指标也从点击率转向更能反映识别效果的“用户修正率”。结论：未来 PM 将更像算法工程师与心理学家的结合体，核心任务是设计让机器看懂世界的逻辑规则。商业模式也将随之变革，从收取功能费转向按成功识别结果计费，实现真正的价值交付。
+背景是AI代码生成速度提升导致的生产环境运维难度剧增，开发者对AI生成代码不熟悉使得故障排查更难。核心观点是Resolve AI利用多Agent系统监控生产环境，自动跨工具调查事故根本原因，将Coinbase事故调查时间缩短72%。文章剖析了其通过构建知识图谱和多层次验证机制建立信任的方案。结论是“AI for prod”正在定义运维新范式，将工程师从繁琐救火中解放，转向更高价值的架构设计。
 
-### [ChatGPT 正式测试广告模式，OpenAI 探索商业化新路径](https://www.infoq.cn/article/Y6SK6Mu5t4gmCk5mhxvk)
-
-来源：InfoQ 推荐
-
-发布时间：2026-02-11 18:01:56
-
-背景：面对巨大的基础设施投入和盈利压力，OpenAI 宣布在 ChatGPT 中启动广告测试，旨在通过商业化收入支撑免费及低价服务的持续运营。核心方案：广告将以标注“赞助”的链接形式出现在回答底部，仅面向免费版和 Go 套餐用户，并严格遵循与模型回答独立、保护对话隐私及透明可控的原则。结论：此举标志着主流生成式 AI 平台正式开启广告变现模式，虽然面临用户对体验下降的担忧，但为 AI 技术惠及更广泛人群提供了可持续的资金路径，或将引发行业对广告在 AI 中角色的重新思考。
-
-### [蚂蚁集团开源全模态大模型 Ming-Flash-Omni 2.0](https://www.infoq.cn/article/d9TEFiU7kq8EKCIodTmI)
+### [React严重安全漏洞预警：CVE-2025-55182允许远程代码执行](https://www.infoq.cn/article/qRHs8o3kirzwSImTe7iO)
 
 来源：InfoQ 推荐
 
-发布时间：2026-02-11 17:31:43
+发布时间：2026-02-12 18:15:19
 
-背景：针对当前多模态大模型多采用“模型拼装”架构导致跨模态深层语义关联不足的问题，蚂蚁集团开源了全模态大模型 Ming-Flash-Omni 2.0。核心方案：该模型基于 Ling-2.0 架构，采用统一参数体系对文本、图像、音频等进行联合建模，支持全场景音频统一生成及高保真实时推理，在多项基准测试中表现优异。结论：其开源不仅为开发者提供了具备竞争力的多模态能力底座，推动了行业向更深度的全模态统一架构演进，也显著降低了构建端到端多模态应用的复杂度与成本。
+文章披露了React Server Components及其相关框架（如Next.js）中存在的严重安全漏洞CVE-2025-55182，其CVSS评分为最高级别的10.0。该漏洞允许未经身份验证的远程攻击者通过恶意HTTP请求在服务器上执行任意代码。鉴于React在互联网应用中的广泛普及，据估计约39%的云环境受到波及。安全专家警告该漏洞利用门槛极低，大规模利用迫在眉睫。目前官方已发布紧急补丁，强烈建议开发者立即升级至修复版本，以确保系统安全。
 
-### [88AI 关于 Claude 模型请求限制的公告](https://www.v2ex.com/t/1192345)
+### [解决 DeepSeek 长对话中 System Prompt 失效问题](https://www.v2ex.com/t/1192577)
 
 来源：V2EX-最新主题
 
-发布时间：2026-02-11 23:55:23
+发布时间：2026-02-12 23:31:12
 
-88AI 面临成本压力与成交量下滑的背景，决定调整策略以维持项目运营。具体措施为仅限制无缓存且 Token 数超过 50000 的 Claude 模型请求，有缓存请求不受影响，底层渠道仍使用 OpenRouter。服务商保留调整配额的权利，此举旨在防止国库消耗殆尽，确保服务可持续性，用户需关注大 Token 请求的限制变化。
+在使用 DeepSeek API 配合 Dify 进行多轮对话开发时，发现模型在对话轮次增加后会出现智商下降或幻觉现象。经分析，这是由于 LLM 长上下文机制导致前置的 System prompt 在 Token 数量超过 4K 后被模型“遗忘”。文章提供了一种实用的工程化解决方案：通过修改 Dify 节点配置，将提示词追加至用户输入末尾，有效确保了模型在长对话中仍能严格遵守系统指令，保障了应用的稳定性。
+
+### [马斯克xAI全员会深度解读：组织重组与AI直接生成二进化的未来](https://www.infoq.cn/article/hsoVQfxDa9ofFiMZsDai)
+
+来源：InfoQ 推荐
+
+发布时间：2026-02-12 17:51:56
+
+针对xAI近期核心成员离职引发的猜测，马斯克公开全员会议视频，澄清这是公司规模扩张后的组织架构重组。会上，马斯克做出了激进预测：到2026年底，AI将直接生成二进制程序，彻底跳过传统代码编写环节。公司重组为Grok、Coding、Imagine和MacroHard四大团队，分别聚焦通用模型、顶尖编程模型、海量视频生成及全真公司仿真。马斯克强调xAI的核心战略是极致的速度与大规模算力（如百万GPU集群），并展望了未来将算力扩展至太空的宏大愿景，旨在通过软硬件的极致整合加速AGI的实现。
+
+### [Apple says ‘random or anonymous chat’ apps no longer welcome on the App Store](https://9to5mac.com/2026/02/06/apple-says-random-or-anonymous-chat-apps-no-longer-welcome-on-the-app-store/)
+
+来源：Hacker News - Newest: "apple"
+
+发布时间：2026-02-12 21:43:56
+
+Apple 更新 App Store 审核指南，明确将“随机或匿名聊天”类应用列入禁止名单，规定此类应用若无预警可被随时移除。此举被视为 Apple 加强平台内容管控的一部分，旨在应对匿名社交应用中常见的网络霸凌、虐待未成年人等安全风险。此前 Apple 已下架 OmeTV，新规也可能涉及如 Bridgefy 等被抗议者使用的工具，显示了公司在内容审核上的趋严态度。
+
+### [The Death of Traditional Testing: Agentic Development Broke a 50-Year-Old Field, JiTTesting Can Revive It](https://engineering.fb.com/2026/02/11/developer-tools/the-death-of-traditional-testing-agentic-development-jit-testing-revival/)
+
+来源：Engineering at Meta
+
+发布时间：2026-02-12 01:00:05
+
+随着代理式软件开发的兴起，代码编写、审查和发布的速度空前加快，导致传统测试框架难以适应这一极速变化的现状。文章指出，传统测试领域已被打破，必须向即时（JIT）测试转型，以便在代码落地时即时捕捉缺陷。这一变革旨在解决极速开发周期中的质量保障难题，为适应 AI 代理驱动的开发模式提供了新的技术演进方向。
+
+### [俄罗斯监管机构以打击犯罪为由限制Telegram](https://t.me/piracy6/34472)
+
+来源：黑洞资源笔记 - Telegram Channel
+
+发布时间：2026-02-12 09:18:03
+
+背景方面，俄罗斯国家通讯监管机构 Roskomnadzor 指责 Telegram 在打击诈骗和犯罪活动方面措施不力。为此，监管机构已开始对 Telegram 实施降速并限制访问，这延续了此前部分封锁其语音通话功能及强制设备预装本土 Max 应用的强硬策略。这一事件反映了俄罗斯持续推动本土数字替代方案，并进一步收紧对境外加密通讯平台管控力度的行业现状。
+
+## 💾 Daily Dev
+
+### [macOS 屏幕录制架构重构：从像素采集到元数据](https://t.me/iosdevio/6267)
+
+来源：iOS dev - Telegram Channel
+
+发布时间：2026-02-12 23:25:35
+
+文章探讨了在 macOS 平台构建高性能屏幕录制应用的技术挑战与架构设计。核心内容展示了如何利用 ScreenCaptureKit 和 Metal 进行底层像素处理与元数据管理，并针对性地解决了 ScreenCaptureKit 错误 -3821，同时结合 SwiftUI 的 @Observable 特性优化性能。此文为开发者提供了构建复杂多媒体应用的具体路径，涵盖了从底层 API 调用到上层 UI 优化的完整技术栈，极具参考价值。
+
+### [在 SwiftUI 中使用 Metal 着色器入门指南](https://www.createwithswift.com/taking-first-steps-into-metal-shaders/)
+
+来源：iOS Development News - Telegram Channel
+
+发布时间：2026-02-12 23:07:20
+
+在 SwiftUI 开发中，实现复杂且高性能的视觉效果通常需要直接利用 GPU 能力。文章介绍了如何在 SwiftUI 中集成和使用 Metal 着色器，以突破常规视图动画的限制。核心方案包括使用 Metal Shading Language (MSL) 编写着色器代码，通过 `[[ stitchable ]]` 属性使其可供 SwiftUI 调用，并利用 `.colorEffect()` 修饰符将着色器应用到视图。文章通过纯色填充和基于位置的动态渐变两个实例，展示了从像素级别控制渲染的原理与实现细节。这对于希望在 iOS 平台实现高性能自定义动画和视觉特效的开发者具有重要的参考价值。
+
+### [FLEX: iOS 应用内调试与探索工具](https://github.com/FLEXTool/FLEX)
+
+来源：iOS Development News - Telegram Channel
+
+发布时间：2026-02-12 10:12:18
+
+iOS 开发调试过程中，往往需要在不连接 Xcode 的情况下深入检查应用运行时状态。FLEX 是一套强大的应用内调试工具，提供了无需 LLDB 即可全面探索和修改应用状态的能力。其核心功能包括查看和修改视图层级、动态调用对象方法、监控网络请求历史、浏览沙盒文件系统及 SQLite 数据库等。FLEX 运行在应用进程内部，支持通过快捷键或代码唤起，且提供了完善的方案将其仅集成在 Debug 构建中。该工具极大地提升了开发者的调试效率，是 iOS 开发中不可或缺的辅助利器。
+
+### [Xcode 26.3 + Claude Agent 配置实战](https://t.me/iosdevio/6268)
+
+来源：iOS dev - Telegram Channel
+
+发布时间：2026-02-12 23:25:38
+
+文章针对在 Swift 开发中集成 Claude Agent 面临的配置问题。核心方案详细介绍了在 Xcode 26.3 中配置 Claude Agent 的实用技巧，包括模型切换、注入 MCP 支持、安装 Skills 以及编写自适应的 CLAUDE.md 文件。文章通过这些配置手段，旨在帮助开发者更高效地利用 AI 辅助编程，提升开发体验与效率，具有较高的实战指导意义。
