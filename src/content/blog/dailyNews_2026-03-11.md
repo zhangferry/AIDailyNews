@@ -1,120 +1,170 @@
 ---
 title: "Daily News #2026-03-11"
-date: "2026-03-11 00:11:09"
-description: "OpenClaw爆火启示：大模型厂商逃离流量内卷，转向API基建
-AI 时代的《人月神话》：智能体开发中的复杂性危机与人类价值
-博物馆参观迎来AI革命：全周期个性化服务重构文博体验
-Akamai 联手英伟达：利用 DPU 实现工业系统的无代理零信任安全
-German publishers push regulators to fine Apple over App Tracking Transparency
-利用 finshare 快速构建 A 股行情看板与金融工具
-生成式 AI 在软件工程中的演进
-How Advanced Browsing Protection Works in Messenger"
+date: "2026-03-11 23:56:02"
+description: "2026 年，为什么我仍在思考 Core Data
+深度拆解 OpenClaw 的技术革命与产业泡沫
+2026 春晚背后的火山引擎 AI 技术实战：8K 视频与亿级并发
+AI Coding Fluency：人机协作的能力演进
+医疗 AI 的“开蒙”困境：攻克数据死结
+作业帮基于 StarRocks 的即席查询架构升级实践
+Apple 放弃翻盖式折叠 iPhone 计划
+寻求系统性掌握 Cursor 编程工具的学习资源与指南
+Apple 发布 macOS 26.3.2 正式版更新
+How to handle callback in ASWebAuthenticationSession
+I tried Apple Xcode MCP and XcodeBuild MCP, only one feels complete"
 tags: 
-- "AI Agent"
-- "人月神话"
-- "NVIDIA"
-- "产品设计"
-- "用户体验"
-- "Security"
-- "文博数字化"
-- "软件工程"
-- "零信任"
-- "智能体"
-- "商业模式"
-- "行业趋势"
-- "Streamlit"
-- "网络安全"
-- "量化"
-- "Privacy"
-- "开源"
-- "Malware Protection"
-- "工业控制"
+- "8K 视频"
+- "Tooling"
 - "Apple"
-- "DPU"
-- "自动化"
-- "Messenger"
-- "系统设计"
+- "StarRocks"
+- "Xcode"
+- "macOS"
+- "AI编程"
+- "AI智能体"
+- "Presto"
+- "敏捷开发"
 - "AI"
-- "FinTech"
-- "隐私"
-- "监管"
-- "Python"
-- "大模型"
-- "反垄断"
+- "提示词工程"
+- "资讯"
+- "iOS Development"
+- "行业痛点"
+- "实时交互"
+- "Cursor"
+- "医疗AI"
+- "MCP"
+- "Foldable"
+- "Swift"
+- "持久化"
+- "Core Data"
+- "产品经理"
+- "iOS"
+- "架构设计"
+- "行业分析"
+- "团队协作"
+- "AI Agent"
+- "产品思维"
+- "OLAP"
+- "软件更新"
+- "软件工程"
+- "性能优化"
+- "开源生态"
+- "iPhone"
+- "系统架构"
+- "架构"
+- "AIGC"
+- "架构迁移"
+- "Security"
+- "ASWebAuthenticationSession"
+- "火山引擎"
+- "开发工具"
+- "Hardware"
+- "数据标注"
+- "RLHF"
 
 ---
 
-> - OpenClaw爆火启示：大模型厂商逃离流量内卷，转向API基建
-> - AI 时代的《人月神话》：智能体开发中的复杂性危机与人类价值
-> - 博物馆参观迎来AI革命：全周期个性化服务重构文博体验
-> - Akamai 联手英伟达：利用 DPU 实现工业系统的无代理零信任安全
-> - German publishers push regulators to fine Apple over App Tracking Transparency
-> - 利用 finshare 快速构建 A 股行情看板与金融工具
-> - 生成式 AI 在软件工程中的演进
-> - How Advanced Browsing Protection Works in Messenger
+> - 2026 年，为什么我仍在思考 Core Data
+> - 深度拆解 OpenClaw 的技术革命与产业泡沫
+> - 2026 春晚背后的火山引擎 AI 技术实战：8K 视频与亿级并发
+> - AI Coding Fluency：人机协作的能力演进
+> - 医疗 AI 的“开蒙”困境：攻克数据死结
+> - 作业帮基于 StarRocks 的即席查询架构升级实践
+> - Apple 放弃翻盖式折叠 iPhone 计划
+> - 寻求系统性掌握 Cursor 编程工具的学习资源与指南
+> - Apple 发布 macOS 26.3.2 正式版更新
+> - How to handle callback in ASWebAuthenticationSession
+> - I tried Apple Xcode MCP and XcodeBuild MCP, only one feels complete
+
+## 🍎 iOS Blog
+
+### [2026 年，为什么我仍在思考 Core Data](https://fatbobman.com/zh/posts/why-i-am-still-thinking-about-core-data-in-2026/)
+
+来源：肘子的 Swift 记事本 ｜ Fatbobman's Blog
+
+发布时间：2026-03-11 22:00:00
+
+在 SwiftData 等新技术普及的 2026 年，Core Data 虽在 Swift 表达力、并发模型上与现代开发存在明显错位，但因存量项目巨大且迁移成熟，仍被大量开发者沿用。文章指出，单纯依赖开发者经验已难以应对团队协作与 AI 编码的挑战。作者提出了在不替换 Core Data 前提下的解决方案，即通过开源库 CoreDataEvolution 进行工程化补缺。该方案试图将现代 Swift 的类型安全、声明式语法桥接到 Core Data，将隐性经验固化为显性代码结构，为维护大型遗留项目提供了兼顾历史包袱与现代体验的可行路径。
 
 ## 📥 Tech News
 
-### [OpenClaw爆火启示：大模型厂商逃离流量内卷，转向API基建](https://www.woshipm.com/ai/6351013.html)
+### [深度拆解 OpenClaw 的技术革命与产业泡沫](https://www.woshipm.com/ai/6343834.html)
 
 来源：热门文章 - 日榜 - 人人都是产品经理
 
-发布时间：2026-03-10 15:55:20
+发布时间：2026-03-11 19:02:02
 
-AI应用目前陷入“对话框”模式与流量买量的红海竞争，大模型初创公司面临获客成本高、护城河脆弱的困境。文章借OpenClaw项目的爆火现象指出，AI的终局在于Agent而非App。开源生态通过BYOK模式消耗海量Token，使智谱、Kimi等厂商得以转型为“水电煤”式的基础设施提供商，通过API服务实现盈利。这一观点揭示了AI生产力的本质在于自动化与渗透率，为大模型企业指出了逃离巨头流量围猎、构建底层生态优势的最佳路径。
+背景：开源智能体项目 OpenClaw 引发全民热潮，但也面临安全风险、成本黑洞与体验短板的严峻挑战。观点：文章深入剖析 OpenClaw 的三层解耦架构与插件生态，指出其实现了 AI 从“被动应答”到“主动执行”的范式转变。同时揭示了高危权限漏洞、产品化缺失及 Token 成本高企三大核心痛点。结论：AI 智能体落地需遵循“可控大于智能”原则，聚焦单点场景与极简体验，只有解决安全、成本与易用性问题，才能实现从极客玩具到大众工具的跨越。
 
-### [AI 时代的《人月神话》：智能体开发中的复杂性危机与人类价值](https://www.infoq.cn/article/BMcQSYf1yJGhEEtpLx2A)
-
-来源：InfoQ 推荐
-
-发布时间：2026-03-10 18:25:42
-
-AI 智能体大幅提升了代码生成效率，引发了关于软件工程未来及人类角色的思考。作者结合《人月神话》，指出智能体虽然解决了偶发复杂性，却加剧了“棕地屏障”和本质复杂性难题。免费的代码生成导致了范围蔓延和技术债的极速积累，而智能体难以胜任本质设计决策。真正的瓶颈不再是编码速度，而是设计决策、产品范围界定和审美品味。人类专家在把控概念完整性和约束智能体方面仍具有不可替代的价值。
-
-### [博物馆参观迎来AI革命：全周期个性化服务重构文博体验](https://www.woshipm.com/ai/6350941.html)
-
-来源：热门文章 - 日榜 - 人人都是产品经理
-
-发布时间：2026-03-10 16:35:59
-
-传统博物馆面临讲解单向输出、千篇一律及缺乏互动的行业痛点。文章提出“博物知古今”智能体解决方案，利用AI视觉识别、分层讲解与实景拍照联动技术，覆盖“参观前规划、参观中交互、参观后沉淀”全流程。通过千人千面的定制路线、AR沉浸式体验及自动生成专属文物纪念册，不仅解决了用户“看不懂、记不住”的问题，更通过长效知识延伸实现服务闭环，为博物馆数字化转型提供了兼具专业性与个性化的新范式。
-
-### [Akamai 联手英伟达：利用 DPU 实现工业系统的无代理零信任安全](https://www.infoq.cn/article/m4lQlXIAK0st0siiQzgk)
+### [2026 春晚背后的火山引擎 AI 技术实战：8K 视频与亿级并发](https://www.infoq.cn/article/LrApcWNtVzMMC2sd2AHC)
 
 来源：InfoQ 推荐
 
-发布时间：2026-03-10 18:15:49
+发布时间：2026-03-11 15:13:58
 
-工业控制系统常因设备老旧无法安装传统安全代理，面临稳定与安全的两难选择。Akamai 与英伟达合作，将 Guardicore 分段策略下沉至 NVIDIA BlueField DPU。通过硬件卸载技术，在不消耗主机 CPU 资源、不安装软件的情况下，实现流量可视化、网络隔离和零信任策略执行。该“带外安全”架构解决了关键基础设施的性能损耗痛点，实现了硬件级的安全隔离，为高负载生产环境提供了兼顾安全与运行效率的可行路径。
+背景：2026 春晚对 AI 生成内容提出了 8K 分辨率、50FPS 高帧率及实时高并发交互的极限技术挑战。核心：火山引擎利用智能画质增强技术（超分辨率、插帧）提升 AIGC 视频质量；采用 4D 高斯泼溅（4DGS）技术实现高保真数字分身；优化大模型推理与语音链路，将机器人交互延迟降至 1 秒内；并依托智能全球加速承载了 19 亿次 AI 互动。价值：展示了 AIGC 在顶级媒体制作中的成熟应用，以及在极高压场景下保障大规模实时系统稳定性的工程能力。
 
-### [German publishers push regulators to fine Apple over App Tracking Transparency](https://9to5mac.com/2026/03/09/german-publishers-push-regulators-to-fine-apple-over-app-tracking-transparency/)
-
-来源：Hacker News - Newest: "apple"
-
-发布时间：2026-03-10 23:49:03
-
-德国出版商与广告商驳回了苹果为解决反垄断担忧而对应用跟踪透明度（ATT）提出的规则修改，并敦促德国反垄断监管机构对苹果处以罚款。出版商认为，苹果的提案未能解决ATT框架带来的负面影响，苹果仍是广告数据的“守门人”，限制了企业与客户的沟通方式。苹果则坚称这是为了保护用户隐私，并拒绝了反竞争的指控。若监管机构认定违规，苹果可能面临高达年营业额10%的罚款，这将影响苹果在欧洲及其他地区的反垄断处境。
-
-### [利用 finshare 快速构建 A 股行情看板与金融工具](https://www.v2ex.com/t/1197248)
-
-来源：V2EX-最新主题
-
-发布时间：2026-03-10 23:50:40
-
-针对金融数据可视化开发中数据获取繁琐的痛点，文章介绍了基于免费 A 股数据库 `finshare` 的快速开发方案。作者展示了如何利用 Streamlit 和 Plotly 在极短时间内构建实时行情看板，并开源了 `finboard` 和 `finscreener` 等实战项目。核心方案在于通过 `finshare` 简化数据接口调用，使得开发者能专注于业务逻辑，如选股器、价格提醒及 K 线图表的开发。文章还鼓励社区基于此进行二次开发，并承诺推广优秀项目。结论：该内容为金融数据开发者提供了一套低门槛、高效率的工具链，具有较高的实战参考价值，适合用于快速原型验证和工具构建。
-
-### [生成式 AI 在软件工程中的演进](http://www.phodal.com/blog/harness-engineering/)
+### [AI Coding Fluency：人机协作的能力演进](http://www.phodal.com/blog/ai-coding-fluency/)
 
 来源：Blog | Phodal - A Growth Engineer
 
-发布时间：2026-03-10 21:45:00
+发布时间：2026-03-11 07:43:00
 
-背景：随着生成式 AI 技术的飞速发展，其正快速渗透并重塑软件开发的核心流程，成为行业变革的关键驱动力。核心观点：文章深入剖析了 AI 辅助编程的演进路径，明确指出技术已跨越了初期的代码补全阶段，进阶至能够独立生成完整功能模块的 Coding Agent，并正向具备系统自主修复能力的更高阶形态发展，体现了工具智能化的质的飞跃。结论/价值：虽然输入内容不完整，缺乏具体落地细节，但该框架清晰揭示了软件工程向“自主化”转型的必然趋势，对于开发者规划技术栈与理解未来研发范式具有重要参考意义。
+生成式 AI 正深入软件开发流程，从代码补全进化为能执行复杂任务的智能体。然而，多数组织仅将其视为工具升级，忽视了其对软件工程模式的深层变革。文章提出“AI Coding Fluency”模型，借鉴敏捷流畅度思想，将 AI 编程视为一种能力演进而非一次性技术采用。该模型不仅关注工具使用，更强调人机协作模式、工程化支撑、质量治理及上下文管理。随着能力提升，开发流程将从“人使用工具”转向“人与 AI 协作”，AI 将全面参与生成模块、运行测试及修复错误。这一模型为团队提供了评估和提升 AI 应用能力的框架，帮助组织在 AI 时代重构软件开发模式，实现人机协作的价值最大化。
 
-### [How Advanced Browsing Protection Works in Messenger](https://engineering.fb.com/2026/03/09/security/how-advanced-browsing-protection-works-in-messenger/)
+### [医疗 AI 的“开蒙”困境：攻克数据死结](https://www.woshipm.com/ai/6351701.html)
 
-来源：Engineering at Meta
+来源：热门文章 - 日榜 - 人人都是产品经理
 
-发布时间：2026-03-10 00:00:36
+发布时间：2026-03-11 17:44:00
 
-背景是用户在 Messenger 聊天中点击链接时，既面临恶意软件风险，又存在浏览隐私泄露的顾虑。核心方案是介绍“高级浏览保护”（ABP）机制，旨在检测并警告恶意链接，同时确保用户点击内容的隐私不被窥探。结论是该功能通过特定的工程挑战应对和基础设施组件，实现了隐私保护与安全预警的平衡，但具体技术实现细节在提供的文本中未详述。
+背景：医疗 AI 面临专家资源稀缺、标注周期漫长及意见分歧巨大的瓶颈，通用数据标注模式在医疗领域彻底失效。观点：文章指出，无论是放射影像的视觉迷雾还是病理切片的复杂性，都需要顶级专家进行高精度标注，导致极高的人力与时间成本。医疗 RLHF 更是容错率为零的高门槛工作。结论：破局之道在于采用人机协同的 AI 预标注技术、建立分级标注体系以及推动联邦学习，通过技术与流程优化降低对顶级专家的依赖，在知识灰度中锻造可靠的医疗 AI。
+
+### [作业帮基于 StarRocks 的即席查询架构升级实践](https://www.infoq.cn/article/avxUeMCAkaIPJ06BG97S)
+
+来源：InfoQ 推荐
+
+发布时间：2026-03-11 19:41:58
+
+背景：作业帮原有 Presto 集群在即席查询场景下存在资源争抢严重、查询慢、不支持 Iceberg 表等问题，影响业务体验。核心：团队采用存算分离架构的 StarRocks 替换 Presto，通过双跑机制验证语法兼容性与数据准确性，并解决了平台解析慢、Cancel 查询无效、FE OOM、Count Distinct 执行慢等一系列核心技术难题。价值：迁移后，P90 查询耗时缩短 2 至 3 倍，资源占用从 4300 核降至 1000 核，显著提升了性能与资源利用率，验证了 StarRocks 在大规模即席查询场景下的优势。
+
+### [Apple 放弃翻盖式折叠 iPhone 计划](https://www.macrumors.com/2026/03/10/apple-clamshell-foldable-iphone/)
+
+来源：Hacker News - Newest: "apple"
+
+发布时间：2026-03-11 22:03:32
+
+针对外界关注的翻盖式折叠 iPhone 传闻，爆料指出 Apple 因未能发现足够 compelling 的新用例而放弃了该计划。公司认为这种翻盖设计的主要优势仅在于折叠后的体积缩小，属于“不必要的”创新。此外，鉴于 iPhone mini 系列在市场上的惨淡销量，Apple 对小屏设备持谨慎态度，目前研发重心已完全转向计划于 2026 年推出的书本式大屏折叠设备。这一决策体现了 Apple 坚持“体验优先于形态”的产品策略，对行业观察者理解其产品路线图具有参考意义。
+
+### [寻求系统性掌握 Cursor 编程工具的学习资源与指南](https://www.v2ex.com/t/1197561)
+
+来源：V2EX-最新主题
+
+发布时间：2026-03-11 23:25:22
+
+背景：作为一名主要使用Cursor进行日常编程的开发者，用户虽然已经熟悉该工具的基础操作，但感觉尚未掌握其核心潜力。在AI辅助编程日益普及的当下，缺乏系统性的方法论成为了提升开发效率的瓶颈。核心观点：用户寻求关于如何系统化驾驭Cursor等AI编程工具的进阶学习资料，特别关注如何编写高质量的提示词以激发模型潜能，以及如何熟练运用工具内置的高级技能来解决复杂编程任务。结论价值：该需求反映了开发者从“会用工具”向“善用工具”转变的迫切愿望，对于探索人机协作新模式、挖掘AI编程工具在提升代码质量和开发效率方面的深层价值具有重要的实践意义。
+
+### [Apple 发布 macOS 26.3.2 正式版更新](https://t.me/AppleNuts/2397)
+
+来源： Apple Nuts - Telegram Channel
+
+发布时间：2026-03-11 02:00:25
+
+Apple 发布了 macOS 的正式版软件更新，具体版本号为 26.3.2，内部版本号为 25D2140。该信息主要作为软件发布的即时通知，旨在告知用户新版本的可用性。然而，现有信息极度精简，未包含任何关于此次更新的具体功能变更、安全性补丁详情、Bug 修复列表或性能优化说明。对于开发者和普通用户而言，仅凭版本号无法判断此次更新的技术含量或升级必要性。目前仅能确认软件迭代事实，缺乏实质性的技术内容分析或深度解读，参考价值极其有限，建议用户查阅官方完整的更新日志以获取详细信息。
+
+## 💾 Daily Dev
+
+### [How to handle callback in ASWebAuthenticationSession](https://onmyway133.com/posts/how-to-handle-callback-in-aswebauthenticationsession/)
+
+来源：iOS Development News - Telegram Channel
+
+发布时间：2026-03-11 21:03:05
+
+在 iOS 应用开发中，处理基于 Web 的身份验证（如 OAuth）需要解决从 Safari 回调到应用的控制权移交问题。ASWebAuthenticationSession 提供了两种主要的回调识别机制：自定义 URL Scheme 和 Universal Links。自定义 Scheme 配置简单，只需在 Info.plist 注册即可使用，但用户体验相对生硬；Universal Links 虽然需要配置服务器端文件和应用权限，设置成本较高，但能提供更专业、无缝的用户体验，避免弹窗干扰。文章建议开发者根据项目对用户体验的重视程度，权衡开发成本，优先考虑使用 Universal Links 以获得更好的生产环境表现。
+
+### [I tried Apple Xcode MCP and XcodeBuild MCP, only one feels complete](https://samwize.com/2026/03/11/i-tried-apple-xcode-mcp-and-xcodebuild-mcp-only-one-feels-complete/)
+
+来源：iOS Development News - Telegram Channel
+
+发布时间：2026-03-11 20:42:27
+
+随着 AI 代理介入软件开发，如何通过 MCP（Model Context Protocol）让 AI 高效操作 Xcode 成为关键。文章对比了 Apple 官方的 Xcode MCP 和社区版的 XcodeBuild MCP。Apple Xcode MCP 仅能构建当前打开的项目，速度快但功能单一，缺乏后续的安装和启动能力；而 XcodeBuild MCP 虽然构建耗时较长，但提供了完整的闭环工作流，支持指定模拟器、安装应用、启动并截图，甚至读取日志。对于旨在实现自动化开发和自我验证的 AI 代理而言，XcodeBuild MCP 凭借其完整的反馈机制和实际运行能力，是比官方版本更具实用价值的选择。
