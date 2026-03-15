@@ -128,23 +128,8 @@
                     "image_enable": true
                 },
                 {
-                    "title": "Hacker News - Apple",
-                    "url": "https://hnrss.org/newest?q=apple",
-                    "type": "link",
-                    "output_count": 1
-                },
-                {
                     "title": "OpenAI Blog",
                     "url": "https://openai.com/blog/rss.xml",
-                    "type": "link"
-                },
-                {
-                    "title": "Facebook Engineering",
-                    "url": "https://engineering.fb.com/feed/"
-                },
-                {
-                    "title": "maxOS",
-                    "url": "https://maxoxo.me/rss/",
                     "type": "link"
                 },
                 {
@@ -157,25 +142,13 @@
                     "output_count": 1
                 },
                 {
-                    "title": "构建我的被动收入",
-                    "url": "https://www.bmpi.dev/index.xml"
-                },
-                {
                     "title": "Julia Evans",
                     "url": "https://jvns.ca/atom.xml"
                 },
                 {
-                    "title": "v2ex",
-                    "rsshub_path": "v2ex/topics/latest",
-                    "output_count": 1
-                },
-                {
-                    "title": "人人都是产品经理",
-                    "url": "https://plink.anyfeeder.com/woshipm/popular"
-                },
-                {
                     "title": "InfoQ 推荐",
-                    "url": "https://plink.anyfeeder.com/infoq/recommend"
+                    "url": "https://plink.anyfeeder.com/infoq/recommend",
+                    "output_count": 1
                 },
                 {
                     "title": "美团技术团队",
@@ -193,9 +166,9 @@
                     "input_count": 4
                 },
                 {
-                    "title": "黑洞资源笔记",
-                    "rsshub_path": "telegram/channel/piracy6",
-                    "input_count": 4
+                    "title": "BestBlogs.dev - 精选文章",
+                    "url": "https://www.bestblogs.dev/feeds/rss?featured=y",
+                    "input_count": 3
                 }
             ]
         },
@@ -205,12 +178,12 @@
                 {
                     "title": "CocoaDevBlogs",
                     "rsshub_path": "telegram/channel/CocoaDevBlogs",
-                    "input_count": 4
+                    "input_count": 2
                 },
                 {
-                    "title": "CocoaDevBlogs",
+                    "title": "iosdevio",
                     "rsshub_path": "telegram/channel/iosdevio",
-                    "input_count": 4
+                    "input_count": 2
                 }
             ]
         },
@@ -218,16 +191,8 @@
             "category": "📻 Podcast",
             "items": [
                 {
-                    "title": "小宇宙-乱翻书",
-                    "rsshub_path": "xiaoyuzhou/podcast/61358d971c5d56efe5bcb5d2"
-                },
-                {
                     "title": "小宇宙-张小珺Jùn｜商业访谈录",
                     "rsshub_path": "xiaoyuzhou/podcast/626b46ea9cbbf0451cf5a962"
-                },
-                {
-                    "title": "小宇宙-纵横四海",
-                    "rsshub_path": "xiaoyuzhou/podcast/62694abdb221dd5908417d1e"
                 },
                 {
                     "title": "小宇宙-忽左忽右",
@@ -248,18 +213,6 @@
                 {
                     "title": "小宇宙-知行小酒馆",
                     "rsshub_path": "xiaoyuzhou/podcast/6013f9f58e2f7ee375cf4216"
-                },
-                {
-                    "title": "小宇宙-声东击西",
-                    "rsshub_path": "xiaoyuzhou/podcast/5e2831ed418a84a046231c00"
-                },
-                {
-                    "title": "小宇宙-不合时宜",
-                    "rsshub_path": "xiaoyuzhou/podcast/5e280fb8418a84a0461fd076"
-                },
-                {
-                    "title": "疯投圈",
-                    "url": "https://crazy.capital/feed"
                 }
             ]
         }

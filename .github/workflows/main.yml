@@ -24,6 +24,7 @@ jobs:
       AI_PROVIDER: openai
 
       GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
+
       # 设置环境变量指向智谱Coding专用API地址
       ANTHROPIC_BASE_URL: https://open.bigmodel.cn/api/coding/paas/v4
       # 设置使用GLM-4.7模型（Coding套餐支持的模型之一）

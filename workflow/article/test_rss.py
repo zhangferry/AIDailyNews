@@ -45,6 +45,14 @@ class RssTestCase(unittest.TestCase):
         for item in articles:
             print(item.link)
 
+    def test_parse_normal_rss(self):
+        config = {
+            "title": "全栈应用开发:精益实践",
+            "url": "https://www.phodal.com/blog/feeds/rss/"
+        }
+        articles = rss.parse_rss_config(config)
+        for item in articles:
+            print(item.link)
 
     def test_target_config(self):
         configs = rss.load_rss_configs("./../resources")
