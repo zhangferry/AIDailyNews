@@ -4,6 +4,20 @@ from google import genai
 from openai import OpenAI
 from loguru import logger
 
+# 全局 HTTP 客户端复用连接
+_global_httpx_client = None
+
+def get_httpx_client():
+    """获取全局 httpx 客户端"""
+    global _global_httpx_client
+    if _global_httpx_client is None:
+        proxy_url = os.environ.get("https_proxy") or os.environ.get("http_proxy")
+        if proxy_url:
+            _global_httpx_client = httpx.Client(proxy=proxy_url)
+        else:
+            _global_httpx_client = httpx.Client()
+    return _global_httpx_client
+
 
 class AIProvider:
     name: str
@@ -47,7 +61,9 @@ class AIProvider:
                 result = request_openai(provider=self, prompt=prompt, content=content)
             else:
                 result = request_gemini(provider=self, prompt=prompt, content=content)
-            logger.info(f"{self.name} response: {result}")
+            # 只记录响应状态，避免泄露敏感内容
+            response_preview = result[:100] + "..." if result and len(result) > 100 else result
+            logger.info(f"{self.name} 请求成功，响应预览: {response_preview}")
             return result
         except Exception as e:
             logger.error(f"request {self.name} failed: {e}")
@@ -68,10 +84,7 @@ def request_openai(provider: AIProvider, prompt, content):
     """
     https://platform.openai.com/docs/guides/text-generation
     """
-    proxy_url = os.environ.get("https_proxy") or os.environ.get("http_proxy")
-    http_client = None
-    if proxy_url:
-        http_client = httpx.Client(proxy=proxy_url)
+    http_client = get_httpx_client()
 
     client = OpenAI(api_key=provider.api_key,
                     base_url=provider.base_url,

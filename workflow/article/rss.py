@@ -1,6 +1,6 @@
 import feedparser
 import html2text
-import os, json, re
+import os, json, re, time
 from datetime import datetime, timedelta
 from dateutil import tz
 import dateparser
@@ -11,6 +11,21 @@ from markdown import markdown
 
 # 统一时区
 time_zone_value = "Asia/Shanghai"
+
+# 创建全局 HTTP Session 以复用连接
+_http_session = requests.Session()
+# 配置连接池和重试
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+retry_strategy = Retry(
+    total=3,
+    backoff_factor=1,
+    status_forcelist=[429, 500, 502, 503, 504],
+)
+adapter = HTTPAdapter(max_retries=retry_strategy, pool_connections=10, pool_maxsize=20)
+_http_session.mount("http://", adapter)
+_http_session.mount("https://", adapter)
 
 
 class Article:
@@ -172,25 +187,30 @@ def unify_timezone(date_string):
     return str_date
 
 
-def parse_web_page(url):
+def parse_web_page(url, timeout=15):
+    """解析网页内容，添加超时和更好的错误处理"""
     try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            # 指定编码方式
-            response.encoding = response.apparent_encoding
-            # 使用BeautifulSoup解析HTML
-            soup = BeautifulSoup(response.text, 'html.parser')
-            # 提取限定标签，简化取网页内容流程
-            tags = soup.find_all(["h1", "h2", "p", "code"])
-            # 不处理标签嵌套内容
-            tags_text = [tag.get_text() for tag in tags if not tag.next.name]
-            extracted_text = '\n'.join(tags_text)
-            return extracted_text.strip()
-        else:
-            logger.error(f"fetch {url} failed. Status code: {response.status_code}")
-            return None
+        response = _http_session.get(url, timeout=timeout)
+        response.raise_for_status()
+
+        # 指定编码方式
+        response.encoding = response.apparent_encoding
+        # 使用BeautifulSoup解析HTML
+        soup = BeautifulSoup(response.text, 'html.parser')
+        # 提取限定标签，简化取网页内容流程
+        tags = soup.find_all(["h1", "h2", "p", "code"])
+        # 不处理标签嵌套内容
+        tags_text = [tag.get_text() for tag in tags if not tag.next.name]
+        extracted_text = '\n'.join(tags_text)
+        return extracted_text.strip()
+    except requests.exceptions.Timeout:
+        logger.error(f"请求超时: {url}")
+        return None
+    except requests.exceptions.HTTPError as e:
+        logger.error(f"HTTP 错误: {url}, 状态码: {e.response.status_code}")
+        return None
     except requests.exceptions.RequestException as e:
-        logger.exception(f"fetch {url} get error: {e}")
+        logger.exception(f"解析网页失败: {url}, 错误: {e}")
         return None
 
 
@@ -219,7 +239,7 @@ def parse_github_readme(repo_url):
         elif os.environ.get("ACCESS_TOKEN"):
             github_token = f"token {os.environ.get('ACCESS_TOKEN')}"
         headers["Authorization"] = github_token
-        response = requests.get(api_url, headers=headers)
+        response = _http_session.get(api_url, headers=headers)
         response.raise_for_status()
         # 解析响应，提取 README 内容
         readme_content = response.json()["content"]
@@ -241,10 +261,24 @@ def parse_github_readme(repo_url):
         logger.error(f"fetch {repo_url} get error: {e}")
         return None
 
-def get_real_url(short_url):
-    # get real url from short url
-    response = requests.head(short_url, allow_redirects=True)
-    return response.url
+def get_real_url(short_url, timeout=10, max_retries=3):
+    """获取短链接的真实 URL，支持超时和重试机制"""
+    for attempt in range(max_retries):
+        try:
+            response = _http_session.head(short_url, allow_redirects=True, timeout=timeout)
+            response.raise_for_status()
+            return response.url
+        except requests.exceptions.Timeout:
+            logger.warning(f"获取真实 URL 超时 (尝试 {attempt + 1}/{max_retries}): {short_url}")
+            if attempt < max_retries - 1:
+                time.sleep(1)  # 重试前等待
+        except requests.exceptions.RequestException as e:
+            logger.error(f"获取真实 URL 失败: {short_url}, 错误: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(1)
+            else:
+                return short_url  # 重试失败，返回原始 URL
+    return short_url
 
 def rss_env():
     os.environ[""] = ""
