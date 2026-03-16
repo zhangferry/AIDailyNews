@@ -26,6 +26,7 @@ yarn-error.log*
 netlify
 
 .astro/
+.claude/
 .idea/
 .vercel
 
