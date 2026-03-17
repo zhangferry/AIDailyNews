@@ -94,14 +94,18 @@ def make_daily_category(category, articles):
         if article.config["category"] != category:
             continue
         cover = f"![]({article.cover_url})" if article.cover_url else ""
+        # 安全访问 evaluate 字典
+        title = article.evaluate.get("title", article.title) if article.evaluate else article.title
+        summary = article.evaluate.get("summary", "") if article.evaluate else ""
+
         article_intro = f"""
-### [{article.evaluate["title"]}]({article.link})
+### [{title}]({article.link})
 
 来源：{article.info["title"]}
 
 发布时间：{article.date}
 {cover}
-{article.evaluate["summary"]}
+{summary}
 """
         content += article_intro
     if content:

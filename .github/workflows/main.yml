@@ -72,7 +72,8 @@ jobs:
           git config --local user.name $GIT_NAME
           git config --local user.email $GIT_EMAIL
           git add .
-          git commit -m "Github action update at `date '+%Y-%m-%d %H:%M:%S'`."
+          # Only commit if there are changes
+          git diff --staged --quiet || git commit -m "Github action update at `date '+%Y-%m-%d %H:%M:%S'`."
 
       - name: Push
         uses: ad-m/github-push-action@master

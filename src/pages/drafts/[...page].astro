@@ -15,7 +15,7 @@ export async function getStaticPaths({ paginate, rss }) {
     } catch(error) {
         console.log('No draft posts found while generating the index page for the draft pages')
     }
-    const sortedPosts = allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const sortedPosts = allPosts.toSorted((a, b) => new Date(b.date) - new Date(a.date));
 
     return paginate(sortedPosts, {
       pageSize: PAGE_SIZE

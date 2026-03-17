@@ -1,0 +1,54 @@
+---
+export const prerender = true
+
+import { getCollection } from 'astro:content';
+import DefaultPageLayout from '$/layouts/default.astro'
+import Paginator from '$/components/Paginator.astro'
+
+let title = 'All Tags'
+let description = 'All the tags used so far...'
+
+export async function getStaticPaths({ paginate }) {
+  const TAGS_PAGE_SIZE = 150
+
+  const allPosts = await getCollection('blog');
+  const allTags = [...new Set([].concat.apply([], allPosts.map(post => post.data.tags)))]
+  const sortedTags = allTags.toSorted()
+
+  return paginate(sortedTags, {
+    pageSize: TAGS_PAGE_SIZE,
+  });
+}
+
+const { page } = Astro.props
+const tags = page.data
+---
+
+<DefaultPageLayout content={{ title, description }}>
+    <ul class="tag-list">
+     {tags.map((tag) => (
+        <li><a class="tag" href={`/tags/${tag}`} title={`View posts tagged under "${tag}"`} transition:animate="slide">{tag}</a></li>
+    ))}
+    </ul>
+
+    <!-- Pagination -->
+    <div class="pagination-wrapper">
+        <Paginator page={page} />
+    </div>
+</DefaultPageLayout>
+
+<style>
+    .tag-list {
+        @apply list-none flex gap-2 flex-wrap
+    }
+    .tag {
+        @apply inline-block text-base px-3 py-1 rounded-full text-theme-text-secondary bg-theme-surface border border-theme-border hover:border-theme-text-primary hover:text-theme-text-primary transition-colors duration-200;
+    }
+    :global(html.dark) .tag {
+        @apply text-theme-dark-text-secondary bg-theme-dark-surface border-theme-dark-border hover:border-theme-dark-text-primary hover:text-theme-dark-text-primary;
+    }
+
+    .pagination-wrapper {
+        @apply py-8 flex justify-center
+    }
+</style>

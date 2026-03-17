@@ -10,6 +10,9 @@ const { page } = Astro.props
         @apply flex justify-center md:justify-end py-6 gap-2
     }
     .action__go-to-x {
-        @apply text-base uppercase text-gray-500 dark:text-gray-400 hover:underline
+        @apply text-base uppercase text-theme-text-muted hover:underline
+    }
+    :global(html.dark) .action__go-to-x {
+        @apply text-theme-dark-text-muted
     }
 </style>

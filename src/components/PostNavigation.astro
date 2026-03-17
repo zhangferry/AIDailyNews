@@ -42,33 +42,41 @@ const { currentPost, previousPost, nextPost } = Astro.props;
 
 <style>
   .post-navigation {
-    @apply my-8 py-6 border-t border-gray-200 dark:border-gray-700;
+    @apply my-8 py-6 border-t border-theme-border;
   }
-  
+
+  :global(html.dark) .post-navigation {
+    @apply border-theme-dark-border;
+  }
+
   .navigation-buttons {
     @apply flex justify-between items-center gap-4;
   }
-  
+
   .nav-button {
-    @apply flex items-center gap-2 px-4 py-2 rounded-lg 
-           text-theme-primary dark:text-theme-dark-primary 
-           hover:text-theme-secondary dark:hover:text-theme-dark-secondary
+    @apply flex items-center gap-2 px-4 py-2 rounded-lg
+           text-theme-primary
+           hover:text-theme-secondary
            transition-colors duration-200;
   }
-  
+
+  :global(html.dark) .nav-button {
+    @apply text-theme-dark-primary hover:text-theme-dark-secondary;
+  }
+
   .nav-icon {
     @apply w-5 h-5;
   }
-  
+
   .nav-text {
     @apply font-medium;
   }
-  
+
   /* 当只有其中一个按钮时的样式 */
   .navigation-buttons:has(.prev-button:only-child) {
     @apply justify-start;
   }
-  
+
   .navigation-buttons:has(.next-button:only-child) {
     @apply justify-end;
   }

@@ -26,7 +26,9 @@ yarn-error.log*
 netlify
 
 .astro/
+.claude/
 .idea/
 .vercel
+.playwright-mcp/
 
 workflow/test_resources/.env

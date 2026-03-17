@@ -1,4 +1,5 @@
 import os, json, datetime, glob
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from workflow.article.rss import Article
 from workflow.gpt.summary import evaluate_article_with_gpt
@@ -38,13 +39,56 @@ def parse_daily_rss_article(rss_resource, cache_file=None):
     return daily_rss
 
 
+def process_category(key, articles):
+    """处理单个分类的文章评估"""
+    # 防止 AI 限频，每个分类之间稍微延迟
+    time.sleep(1)
+    evaluate_results = evaluate_article_with_gpt(articles)
+
+    # 检查 AI 请求是否成功
+    if not evaluate_results:
+        logger.warning(f"分类 '{key}' 的 AI 评估失败，跳过该分类")
+        return []
+
+    # 将评估结果关联到文章
+    for evaluate in evaluate_results:
+        for article in articles:
+            if article.link == evaluate.get("link"):
+                article.evaluate = evaluate
+
+    # 过滤掉没有评分的文章
+    valid_articles = [item for item in articles if item.evaluate and item.evaluate.get("score") is not None]
+    if not valid_articles:
+        logger.warning(f"分类 '{key}' 没有有效的评分文章，跳过")
+        return []
+
+    # 按评分排序
+    valid_articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
+    logger.info(f"分类 '{key}' 有效文章数: {len(valid_articles)}")
+
+    # 满分内容，可展示多个
+    full_score_evaluates = [item for item in valid_articles if item.evaluate["score"] >= 10]
+    # 默认输出数量 1
+    output_count = valid_articles[0].config.get("output_count", 2)
+    logger.info(f"分类 '{key}' 期望最大输出: {output_count}")
+
+    if len(full_score_evaluates) >= output_count:
+        selected = full_score_evaluates
+    else:
+        selected = valid_articles[:output_count] if len(valid_articles) >= output_count else valid_articles
+
+    logger.info(f"分类 '{key}' 选中文章: {[item.title for item in selected]}")
+    return selected
+
+
 def find_favorite_article(rss_articles):
-    """获取评分最高的文章"""
-    # 限流，文章最多分析20篇
+    """获取评分最高的文章（并行处理版本）"""
+    # 限流，文章最多分析60篇
     max_analyze_nums = 60
     rss_articles = rss_articles[:max_analyze_nums]
     # 默认输出结果10
     max_article_nums = int(os.environ.get("MAX_ARTICLE_NUMS", "12"))
+
     # 一个rss源对应一个总结，多条内容，合并处理
     # {"Apple News": [<article>]}
     rss_resource = {}
@@ -58,33 +102,28 @@ def find_favorite_article(rss_articles):
             rss_resource[rss_category] = [article]
 
     show_articles = []
-    for key, articles in rss_resource.items():
-        # 防止 gemini 限频
-        time.sleep(2)
-        evaluate_results = evaluate_article_with_gpt(articles)
-        for evaluate in evaluate_results:
-            for article in articles:
-                if article.link == evaluate.get("link"):
-                    article.evaluate = evaluate
 
-        # 有可能某些内容未总结完成，过滤
-        articles = [item for item in articles if item.evaluate and item.evaluate.get("score")]
-        if not articles:
-            continue
+    # 使用线程池并行处理各个分类
+    max_workers = min(5, len(rss_resource))  # 最多5个并发，避免过载
+    logger.info(f"开始并行处理 {len(rss_resource)} 个分类，并发数: {max_workers}")
 
-        articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
-        logger.info(f"count: {len(articles)}")
-        # 满分内容，可展示多个
-        full_score_evaluates = [item for item in articles if item.evaluate["score"] >= 10]
-        # 默认输出数量 1
-        output_count = articles[0].config.get("output_count", 2)
-        logger.info(f"expect max count: {output_count}")
-        if len(full_score_evaluates) >= output_count:
-            select_articles = full_score_evaluates
-        else:
-            select_articles = articles[:output_count] if len(articles) >= output_count else articles
-        show_articles.extend(select_articles)
-        logger.info(f"select articles: {[item.title for item in select_articles]}")
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # 提交所有任务
+        future_to_category = {
+            executor.submit(process_category, key, articles): key
+            for key, articles in rss_resource.items()
+        }
+
+        # 收集结果
+        for future in as_completed(future_to_category):
+            category = future_to_category[future]
+            try:
+                result = future.result()
+                if result:
+                    show_articles.extend(result)
+            except Exception as e:
+                logger.error(f"处理分类 '{category}' 时发生异常: {e}")
+
     # 汇总之后再排序
     show_articles.sort(key=lambda x: x.evaluate["score"], reverse=True)
     return show_articles[:max_article_nums]

@@ -6,29 +6,80 @@ interface Props {
   currentPost?: any;
   previousPost?: any;
   nextPost?: any;
+  showNavigation?: boolean;
+  showComment?: boolean;
 }
 
-const { currentPost, previousPost, nextPost } = Astro.props;
+const {
+  currentPost,
+  previousPost,
+  nextPost,
+  showNavigation = true,
+  showComment = true,
+} = Astro.props;
 ---
 
-<article class="prose dark:prose-dark">
+<article class="prose">
   <slot />
-  
-  {(previousPost || nextPost) && (
-    <PostNavigation 
+
+  {showNavigation && (previousPost || nextPost) && (
+    <PostNavigation
       currentPost={currentPost}
       previousPost={previousPost}
       nextPost={nextPost}
     />
   )}
-  
-  <Comment client:load />
+
+  {showComment && <Comment client:load />}
 </article>
 
 <style>
   .prose {
-    @apply max-w-none
-        /* Size Modifiers: https://github.com/tailwindlabs/tailwindcss-typography#size-modifiers */
-        /* Color Themes: https://github.com/tailwindlabs/tailwindcss-typography#color-modifiers */;
+    @apply max-w-none;
+  }
+
+  /* Typography colors for light mode */
+  .prose {
+    --tw-prose-body: theme('colors.theme.text-secondary');
+    --tw-prose-headings: theme('colors.theme.text-primary');
+    --tw-prose-links: theme('colors.theme.primary');
+    --tw-prose-bold: theme('colors.theme.text-primary');
+    --tw-prose-counters: theme('colors.theme.primary');
+    --tw-prose-bullets: theme('colors.theme.primary');
+    --tw-prose-hr: theme('colors.theme.border');
+    --tw-prose-quotes: theme('colors.theme.text-secondary');
+    --tw-prose-quote-borders: theme('colors.theme.primary');
+    --tw-prose-codes: theme('colors.theme.text-primary');
+    --tw-prose-pre-codes: theme('colors.theme.text-secondary');
+    --tw-prose-pre-bg: theme('colors.theme.surface');
+    --tw-prose-th-borders: theme('colors.theme.border');
+    --tw-prose-td-borders: theme('colors.theme.border');
+  }
+
+  /* Typography colors for dark mode */
+  :global(html.dark) .prose {
+    --tw-prose-body: theme('colors.theme.dark-text-secondary');
+    --tw-prose-headings: theme('colors.theme.dark-text-primary');
+    --tw-prose-links: theme('colors.theme.dark-primary');
+    --tw-prose-bold: theme('colors.theme.dark-text-primary');
+    --tw-prose-counters: theme('colors.theme.dark-primary');
+    --tw-prose-bullets: theme('colors.theme.dark-primary');
+    --tw-prose-hr: theme('colors.theme.dark-border');
+    --tw-prose-quotes: theme('colors.theme.dark-text-secondary');
+    --tw-prose-quote-borders: theme('colors.theme.dark-primary');
+    --tw-prose-codes: theme('colors.theme.dark-text-primary');
+    --tw-prose-pre-codes: theme('colors.theme.dark-text-secondary');
+    --tw-prose-pre-bg: theme('colors.theme.dark-surface');
+    --tw-prose-th-borders: theme('colors.theme.dark-border');
+    --tw-prose-td-borders: theme('colors.theme.dark-border');
+  }
+
+  /* Ensure links have hover effect */
+  .prose a {
+    @apply transition-colors duration-200;
+  }
+
+  .prose a:hover {
+    @apply opacity-80;
   }
 </style>

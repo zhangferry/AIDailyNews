@@ -81,10 +81,16 @@
 
 <style>
   .search {
-    @apply w-full relative bg-theme-primary  p-8  rounded-md shadow-lg;
+    @apply w-full relative bg-theme-primary p-8 rounded-md shadow-lg;
+  }
+  :global(html.dark) .search {
+    @apply bg-theme-dark-primary;
   }
   input {
-    @apply w-full px-4 py-2 pl-10 text-xl font-semibold text-gray-600 border-0 shadow-inner rounded-md bg-gray-100 placeholder-theme-dark-secondary;
+    @apply w-full px-4 py-2 pl-10 text-xl font-semibold text-theme-text-primary border-0 shadow-inner rounded-md bg-theme-surface placeholder-theme-text-secondary;
+  }
+  :global(html.dark) input {
+    @apply text-theme-dark-text-primary bg-theme-dark-surface placeholder-theme-dark-text-secondary;
   }
   .search__ctrl {
     @apply pb-4 relative;
@@ -92,13 +98,22 @@
   .search__ctrl label {
     @apply text-theme-primary absolute top-2 left-2;
   }
+  :global(html.dark) .search__ctrl label {
+    @apply text-theme-dark-primary;
+  }
   .search__results {
     @apply w-96 h-64 py-4 overflow-y-auto;
   }
   .search__results--none {
-    @apply text-center text-theme-dark-primary;
+    @apply text-center text-theme-text-primary;
+  }
+  :global(html.dark) .search__results--none {
+    @apply text-theme-dark-text-primary;
   }
   .note {
-    @apply w-full text-center text-white;
+    @apply w-full text-center text-theme-text-primary;
+  }
+  :global(html.dark) .note {
+    @apply text-theme-dark-text-primary;
   }
 </style>

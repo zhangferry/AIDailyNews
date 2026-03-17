@@ -3,51 +3,120 @@ import type { CollectionEntry } from "astro:content";
 import PostPreview from "./PostPreview.astro";
 
 interface Props {
-  posts: CollectionEntry<"blog">;
+  posts: CollectionEntry<"blog">[];
   heading?: string;
   mode?: "row" | "col";
+  showFeatured?: boolean;
+  featuredCount?: number;
 }
 
-const { posts, heading, isWeekly, mode = "col" } = Astro.props;
-const sortedPosts = posts.sort(
-  (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+const {
+  posts,
+  heading,
+  mode = "col",
+  showFeatured = false,
+  featuredCount = 1,
+} = Astro.props;
+
+const sortedPosts = posts.toSorted(
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
 );
+
+// Split posts into featured and regular
+const featuredPosts = showFeatured ? sortedPosts.slice(0, featuredCount) : [];
+const regularPosts = showFeatured ? sortedPosts.slice(featuredCount) : sortedPosts;
 ---
 
-{
-  heading ? (
-    <h5 class={`post-preview__heading post-preview__heading--${mode} ink-h`}>
-      {heading}
-    </h5>
-  ) : (
-    ""
-  )
-}
-<section class={`post-preview__list post-preview__list--${mode}`}>
+<section class="post-preview-section">
   {
-    sortedPosts.map((post) => (
-      <PostPreview
-        post={post}
-        asCard={mode === "row" ? true : false}
-        isWeekly={isWeekly}
-      />
-    ))
+    heading && (
+      <div class="section-header mb-8">
+        <h2 class="section-title ink-h">{heading}</h2>
+        <div class="section-border"></div>
+      </div>
+    )
   }
+
+  <!-- Featured Articles -->
+  {
+    showFeatured && featuredPosts.length > 0 && (
+      <div class="featured-section mb-12">
+        {featuredPosts.map((post, index) => (
+          <PostPreview
+            post={post}
+            featured={true}
+          />
+        ))}
+      </div>
+    )
+  }
+
+  <!-- Regular Articles Grid/List -->
+  <div class={`post-preview__list post-preview__list--${mode}`}>
+    {
+      regularPosts.map((post, index) => (
+        <PostPreview
+          post={post}
+          asCard={mode === "row"}
+          class={`animate-fade-in-up stagger-${Math.min(index + 1, 5)}`}
+        />
+      ))
+    }
+  </div>
 </section>
+
 <style>
-  .post-preview__heading {
-    @apply pl-0 sm:pl-6;
+  .post-preview-section {
+    @apply relative;
   }
-  .post-preview__heading--row {
-    @apply pl-0;
+
+  .section-header {
+    @apply relative;
   }
+
+  .section-title {
+    @apply text-lg md:text-xl font-display font-bold;
+    @apply text-theme-text-primary;
+    @apply mb-0;
+  }
+
+  :global(html.dark) .section-title {
+    @apply text-theme-dark-text-primary;
+  }
+
+  .section-border {
+    @apply h-px bg-gradient-to-r from-theme-border via-theme-primary/50 to-transparent;
+    @apply mt-4;
+  }
+
+  :global(html.dark) .section-border {
+    @apply from-theme-dark-border via-theme-dark-primary/50;
+  }
+
+  .featured-section {
+    @apply relative;
+  }
+
   .post-preview__list {
-    @apply flex flex-col gap-12;
+    @apply flex;
   }
-  .post-preview__list--row {
-    @apply flex-row flex-wrap md:px-6 lg:px-0 gap-12 md:gap-8 sm:gap-10 lg:gap-12;
-  }
+
   .post-preview__list--col {
-    @apply flex-col gap-12;
+    @apply flex-col gap-6;
+  }
+
+  .post-preview__list--row {
+    @apply flex-row flex-wrap gap-6;
+    @apply -mx-3 px-3;
+  }
+
+  .post-preview__list--row .post-preview {
+    @apply w-full sm:w-1/2 lg:w-1/3;
+  }
+
+  /* Ensure animations work properly */
+  .animate-fade-in-up {
+    opacity: 0;
+    animation-fill-mode: forwards;
   }
 </style>

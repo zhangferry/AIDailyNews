@@ -1,72 +1,357 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getMonthName } from "$/utils";
+import GeneratedCover from "./GeneratedCover.astro";
 
 interface Props {
   post: CollectionEntry<"blog">;
   asCard?: boolean;
+  featured?: boolean;
 }
 
 const {
   post: { data: post, slug },
   asCard = false,
+  featured = false,
 } = Astro.props;
+
+const { image, tags, date } = post;
+const postDate = new Date(date);
+const day = postDate.getDate();
+const monthYear = `${getMonthName(date)} ${postDate.getFullYear()}`;
+
+// Get first tag for category display
+const category = tags && tags.length > 0 ? tags[0] : null;
+
+// Generate a gradient background based on date if no image
+const gradientId = `gradient-${slug}`;
 ---
 
-<div class={`post-preview ${asCard && "post-preview--card"}`}>
-  <div class="post-preview__date-box">
-    <div class="post-preview__date">
-      <span class="post-preview__date__day"
-        >{new Date(post.date).getDate()}</span
-      >
-      <span class="post-preview__date__month-n-year"
-        >{
-          `${getMonthName(post.date)} ${new Date(post.date).getFullYear()}`
-        }</span
-      >
+<article
+  class={`post-preview group relative ${featured ? 'post-preview--featured' : ''} ${asCard ? 'post-preview--card' : ''}`}
+>
+  {featured ? (
+    <!-- Featured Article Layout -->
+    <div class="featured-wrapper">
+      <a href={`/${"blog"}/${slug}`} class="featured-link block relative overflow-hidden">
+        <div class="img-zoom-container w-full aspect-[16/9] md:aspect-[2/1] lg:aspect-[21/10]" style="max-height: 350px;">
+          {image ? (
+            <img
+              src={image}
+              alt={post.title}
+              class="block w-full h-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <GeneratedCover
+              title={post.title}
+              slug={slug}
+              tags={tags}
+              date={date}
+              width={1200}
+              height={550}
+              class="block w-full h-full object-cover"
+              alt={post.title}
+            />
+          )}
+        </div>
+
+        <!-- Gradient Overlay -->
+        <div class="magazine-overlay"></div>
+
+        <!-- Content -->
+        <div class="featured-content">
+          <div class="featured-meta">
+            {category && (
+              <span class="category-badge mb-3">{category}</span>
+            )}
+            <div class="flex items-center gap-3 text-theme-text-secondary text-sm">
+              <time datetime={date}>
+                {monthYear}
+              </time>
+              <span class="w-1 h-1 rounded-full bg-theme-text-secondary"></span>
+              <span>Day {day}</span>
+            </div>
+          </div>
+
+          <h2 class="featured-title font-display font-bold text-white group-hover:text-theme-primary transition-colors">
+            {post.title}
+          </h2>
+
+          {post.description && (
+            <p class="featured-description text-theme-text-secondary line-clamp-3">
+              {post.description}
+            </p>
+          )}
+
+          {tags && tags.length > 1 && (
+            <div class="flex flex-wrap gap-2 mt-4">
+              {tags.slice(1, 4).map(tag => (
+                <span class="text-xs text-theme-text-secondary/70 hover:text-theme-primary transition-colors">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Hover Effect Border -->
+        <div class="featured-border"></div>
+      </a>
     </div>
-  </div>
-  <div class="flex-1">
-    <h4 class="post-preview__title dark:text-theme-dark-primary">
-      <a href={`/${"blog"}/${slug}`} title={post.title}>{post.title}</a>
-    </h4>
-    <p class="post-preview__desc">
-      {post.description}
-    </p>
-  </div>
-</div>
+  ) : asCard ? (
+    <!-- Card Layout for Grid -->
+    <a href={`/${"blog"}/${slug}`} class="card-link block">
+      <div class="card-image-wrapper img-zoom-container w-full aspect-[16/10] overflow-hidden" style="max-height: 200px;">
+        {image ? (
+          <img
+            src={image}
+            alt={post.title}
+            class="block w-full h-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <GeneratedCover
+            title={post.title}
+            slug={slug}
+            tags={tags}
+            date={date}
+            width={600}
+            height={375}
+            class="block w-full h-full object-cover"
+            alt={post.title}
+          />
+        )}
+        <div class="magazine-overlay-light"></div>
+      </div>
+
+      <div class="card-content">
+        {category && (
+          <span class="category-badge text-xs mb-2">{category}</span>
+        )}
+
+        <h3 class="card-title font-display font-semibold text-theme-text-primary group-hover:text-theme-primary transition-colors line-clamp-2">
+          {post.title}
+        </h3>
+
+        {post.description && (
+          <p class="card-description text-theme-text-secondary text-sm line-clamp-2 mt-2">
+            {post.description}
+          </p>
+        )}
+
+        <div class="card-meta mt-3 flex items-center justify-between text-xs text-theme-text-muted">
+          <time datetime={date}>{monthYear}</time>
+          <span class="flex items-center gap-1">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            阅读更多
+          </span>
+        </div>
+      </div>
+    </a>
+  ) : (
+    <!-- List Layout -->
+    <a href={`/${"blog"}/${slug}`} class="list-link flex gap-6 group">
+      <div class="list-date flex-shrink-0">
+        <div class="date-day font-display font-bold text-4xl text-theme-primary">{day}</div>
+        <div class="date-month text-xs text-theme-text-secondary uppercase tracking-wider mt-1">
+          {monthYear}
+        </div>
+      </div>
+
+      <div class="list-content flex-1 min-w-0">
+        <h3 class="list-title font-display font-semibold text-xl text-theme-text-primary group-hover:text-theme-primary transition-colors line-clamp-2">
+          {post.title}
+        </h3>
+
+        {post.description && (
+          <p class="list-description text-theme-text-secondary text-base line-clamp-2 mt-1">
+            {post.description}
+          </p>
+        )}
+
+        <div class="list-meta flex items-center gap-3 mt-2">
+          {category && (
+            <span class="category-badge text-xs">{category}</span>
+          )}
+          {tags && tags.length > 1 && (
+            <div class="flex gap-2">
+              {tags.slice(1, 3).map(tag => (
+                <span class="text-xs text-theme-text-muted">#{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {image && (
+        <div class="list-image flex-shrink-0 w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-lg">
+          <img
+            src={image}
+            alt={post.title}
+            class="block w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      )}
+    </a>
+  )}
+</article>
+
 <style>
+  /* Base styles */
   .post-preview {
-    @apply flex gap-6;
+    @apply rounded-xl overflow-hidden;
   }
-  .post-preview--card {
-    @apply flex flex-col-reverse gap-4 sm:w-72 md:w-60 lg:w-64;
+
+  /* Featured Article */
+  .post-preview--featured {
+    @apply mb-8 md:mb-12;
   }
-  .post-preview__date-box {
-    @apply sm:w-20 md:w-32;
+
+  .featured-wrapper {
+    @apply relative;
   }
-  .post-preview--card .post-preview__date-box {
+
+  .img-zoom-container > img,
+  .img-zoom-container > :global(img) {
+    @apply block w-full h-full;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .featured-link {
+    @apply rounded-2xl overflow-hidden;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .featured-link:hover {
+    @apply transform -translate-y-1;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  :global(html.dark) .featured-link:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(0, 245, 212, 0.1);
+  }
+
+  .featured-content {
+    @apply absolute bottom-0 left-0 right-0 p-6 md:p-8 lg:p-12;
+    @apply z-10;
+  }
+
+  .featured-meta {
+    @apply flex items-center gap-3 mb-4;
+  }
+
+  .featured-title {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+    @apply mb-4;
+    @apply leading-tight;
+  }
+
+  .featured-description {
+    @apply text-base md:text-lg;
+    @apply max-w-3xl;
+    @apply opacity-90;
+  }
+
+  .featured-border {
+    @apply absolute bottom-0 left-0 h-1 bg-gradient-to-r from-theme-primary via-theme-secondary to-theme-tertiary;
     @apply w-full;
+    @apply transform scale-x-0 group-hover:scale-x-100;
+    @apply transition-transform duration-500 ease-out;
+    @apply origin-left;
   }
-  .post-preview__date {
-    @apply flex flex-col w-full text-center;
+
+  /* Card Layout */
+  .post-preview--card {
+    @apply bg-theme-surface border border-theme-border;
+    transition: all 0.3s ease-out;
   }
-  .post-preview--card .post-preview__date {
-    @apply text-left flex flex-row gap-1;
+
+  .post-preview--card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   }
-  .post-preview__date__day {
-    @apply text-6xl font-semibold text-gray-500 dark:text-gray-300;
+
+  .post-preview--card:hover {
+    @apply border-theme-primary/30;
   }
-  .post-preview--card .post-preview__date__day {
-    @apply text-4xl;
+
+  .card-link {
+    @apply h-full;
   }
-  .post-preview__date__month-n-year {
-    @apply text-gray-400;
+
+  .card-image-wrapper {
+    @apply relative w-full;
   }
-  .post-preview__title {
-    @apply text-2xl font-semibold text-theme-primary dark:text-theme-dark-primary /* this doesn't works here */ hover:underline mb-2;
+
+  .card-image-wrapper img,
+  .card-image-wrapper :global(img) {
+    @apply block w-full h-full;
+    object-fit: cover;
+    object-position: center;
   }
-  .post-preview__desc {
-    @apply text-lg leading-6 line-clamp-2 dark:text-white hyphens-auto;
+
+  .card-content {
+    @apply p-4 md:p-5;
+  }
+
+  .card-title {
+    @apply text-lg md:text-xl;
+  }
+
+  .card-description {
+    @apply leading-relaxed;
+  }
+
+  /* List Layout */
+  .list-link {
+    @apply py-6 border-b border-theme-border;
+    @apply transition-all duration-200 ease-out;
+    @apply items-start;
+  }
+
+  .list-link:hover {
+    @apply pl-4;
+    @apply border-theme-primary/20;
+  }
+
+  .list-link:last-child {
+    @apply border-b-0;
+  }
+
+  .list-date {
+    @apply text-center;
+    @apply min-w-[60px];
+  }
+
+  .list-title {
+    @apply leading-tight;
+  }
+
+  .list-image {
+    @apply hidden md:block;
+  }
+
+  .list-image img {
+    @apply block w-full h-full;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .featured-title {
+      @apply text-2xl;
+    }
+
+    .featured-description {
+      @apply text-sm;
+    }
   }
 </style>

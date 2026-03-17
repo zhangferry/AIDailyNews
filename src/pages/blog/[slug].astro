@@ -18,9 +18,10 @@ const { slug } = Astro.params
 const entry = await getEntryBySlug('blog', slug!)
 
 const { id, collection, data } = entry
-const { Content } = await entry.render()
+const { Content, headings } = await entry.render()
+const coverHeadings = (headings || []).map((heading) => heading.text).slice(0, 5)
 ---
-<PostLayout meta={{id, collection, slug }} content={data} >
+<PostLayout meta={{id, collection, slug }} content={data} coverHeadings={coverHeadings}>
     <Content components={{
         code: Code
     }}/>

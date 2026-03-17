@@ -14,6 +14,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Prose from "../components/Prose.astro";
 import PostStats from "../components/PostStats.svelte";
 import EditUrl from "../components/EditLink.astro";
+import GeneratedCover from "../components/GeneratedCover.astro";
 
 interface Props {
   meta?: {
@@ -22,27 +23,33 @@ interface Props {
     collection: string;
   };
   content: CollectionEntry<"blog">["data"];
+  coverHeadings?: string[];
   stats?: {
     views: number;
   };
 }
-const { content, meta } = Astro.props;
+const { content, meta, coverHeadings = [] } = Astro.props;
 
 // 获取所有博客文章用于导航
 const allPosts = await getCollection("blog");
-const sortedPosts = allPosts.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+const sortedPosts = allPosts.toSorted(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 
 // 只有在有meta.slug时才计算导航（即文章页面）
 let previousPost, nextPost;
 if (meta?.slug) {
   // 找到当前文章的索引
-  const currentIndex = sortedPosts.findIndex(post => post.slug === meta?.slug);
-  
+  const currentIndex = sortedPosts.findIndex(
+    (post) => post.slug === meta?.slug,
+  );
+
   // 获取上一篇和下一篇文章
   previousPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : undefined;
-  nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : undefined;
+  nextPost =
+    currentIndex < sortedPosts.length - 1
+      ? sortedPosts[currentIndex + 1]
+      : undefined;
 }
 
 const AUTHOR_NAME = content.author
@@ -77,21 +84,23 @@ const AUTHOR_AVATAR = content.authorImage
         {
           content.tags.length > 0 &&
             content.tags.map((tag) => (
-              <a class="post__tag" href={`/tags/${tag}`} title={tag}>
+              <a
+                class="category-badge post__tag"
+                href={`/tags/${tag}`}
+                title={tag}
+              >
                 {tag}
               </a>
             ))
         }
       </div>
-      <br />
-      <br />
       <h5 class={`post__desc ${AUTHOR_AVATAR ? "flex flex-row gap-2" : ""}`}>
         <div class={AUTHOR_AVATAR ? "flex flex-col border-l-2 pl-2" : ""}>
           <span class="post__date">
             <!-- post creation/updation data -->
             {
               new Intl.DateTimeFormat("en-US", { dateStyle: "full" }).format(
-                new Date(content.date)
+                new Date(content.date),
               )
             }
           </span>
@@ -115,22 +124,41 @@ const AUTHOR_AVATAR = content.authorImage
         USE_POST_IMG_OVERLAY ? (
           <>
             <div class="img__outer">
-              <img src={content.image} alt={content.title} />
+              <img
+                class="img__outer-image"
+                src={content.image}
+                alt={content.title}
+              />
               <div class="img_gradient" />
             </div>
-            <br />
           </>
         ) : (
-          <>
-            <img class="img__outer" src={content.image} alt={content.title} />
-            <br />
-          </>
+          <div class="img__outer">
+            <img
+              class="img__outer-image"
+              src={content.image}
+              alt={content.title}
+            />
+          </div>
         )
       ) : (
-        ""
+        // 没有图片时使用生成的封面
+        <div class="post-cover-wrapper">
+          <GeneratedCover
+            title={content.title}
+            slug={meta?.slug}
+            tags={content.tags}
+            date={content.date}
+            headings={coverHeadings}
+            width={1200}
+            height={400}
+            class="block w-full h-full object-cover object-center rounded-lg"
+            alt={content.title}
+          />
+        </div>
       )
     }
-    <Prose 
+    <Prose
       currentPost={{ data: content, slug: meta?.slug }}
       previousPost={previousPost}
       nextPost={nextPost}
@@ -140,44 +168,90 @@ const AUTHOR_AVATAR = content.authorImage
   </MainLayout>
   <style>
     .post__header {
-      @apply py-4 mb-1 text-left;
+      @apply pt-4 pb-5 mb-4 text-left flex flex-col gap-3 md:gap-4;
     }
     .post__title {
-      @apply text-4xl font-extrabold text-theme-primary dark:text-theme-dark-primary;
+      @apply text-4xl font-extrabold text-theme-primary leading-tight;
+    }
+    :global(html.dark) .post__title {
+      @apply text-theme-dark-primary;
     }
     .post__desc {
-      @apply text-gray-500 dark:text-gray-100 flex flex-none text-left;
+      @apply text-theme-text-secondary text-sm md:text-base flex items-start gap-2 text-left;
     }
     .post__author {
-      @apply no-underline dark:text-white hover:text-theme-primary;
+      @apply no-underline hover:text-theme-primary;
+    }
+    :global(html.dark) .post__author {
+      @apply hover:text-theme-dark-primary;
     }
     .post__date,
     .post__stats {
-      @apply text-gray-500;
+      @apply text-theme-text-muted inline-flex items-center gap-1;
+    }
+    :global(html.dark) .post__date,
+    :global(html.dark) .post__stats {
+      @apply text-theme-dark-text-muted;
     }
     .post__tags {
       @apply inline-flex gap-2 flex-wrap;
     }
     .post__tag {
-      @apply text-gray-400 hover:text-theme-primary dark:hover:text-theme-dark-primary;
+      @apply no-underline;
     }
 
     .avatar {
-      @apply w-12 h-12 rounded-full object-cover p-1 border-2 border-solid border-theme-dark-primary dark:border-theme-primary;
+      @apply w-12 h-12 rounded-full object-cover p-1 border-2 border-solid border-theme-primary;
+    }
+    :global(html.dark) .avatar {
+      @apply border-theme-dark-primary;
     }
     .avatar--lg {
       @apply w-32 h-32;
     }
 
+    /* 文章封面样式 */
+    .post-cover-wrapper {
+      @apply relative rounded-lg shadow-md overflow-hidden;
+      @apply w-full;
+      @apply mb-6 md:mb-8;
+      aspect-ratio: 21 / 5;
+    }
+
+    .post-cover-image {
+      @apply block w-full h-full;
+      object-fit: cover;
+      @apply rounded-lg;
+    }
+
+    /* 原有图片样式 */
     .img__outer {
       @apply relative rounded-lg shadow-xl overflow-hidden;
+      @apply w-full;
+      @apply block;
+      @apply mb-6 md:mb-8;
+      aspect-ratio: 21 / 5;
     }
+
+    .img__outer-image {
+      @apply block w-full h-full;
+      object-fit: cover;
+      object-position: center;
+    }
+
     .img_gradient {
-      @apply absolute z-10 w-full bottom-0 left-0 h-full bg-gradient-to-tr from-theme-primary dark:from-theme-dark-primary;
+      @apply absolute z-10 w-full bottom-0 left-0 h-full bg-gradient-to-tr from-theme-primary;
+    }
+
+    :global(html.dark) .img_gradient {
+      @apply from-theme-dark-primary;
     }
 
     .author-card {
-      @apply text-gray-500 dark:text-gray-100 flex flex-row gap-4 justify-start text-left;
+      @apply text-theme-text-secondary flex flex-row gap-4 justify-start text-left;
+    }
+    :global(html.dark) .author-card {
+      @apply text-theme-dark-text-secondary;
     }
     .author-card__meta {
       @apply border-l pl-4;
@@ -186,21 +260,31 @@ const AUTHOR_AVATAR = content.authorImage
       @apply text-2xl mb-1;
     }
     .author-card__bio {
-      @apply text-gray-400;
+      @apply text-theme-text-muted;
+    }
+    :global(html.dark) .author-card__bio {
+      @apply text-theme-dark-text-muted;
     }
 
     .subscription-form {
       @apply w-4/6 mt-2 flex flex-row rounded-lg overflow-hidden shadow-lg;
     }
     .subscription-form input {
-      @apply flex-grow border-0 text-theme-accent-gray-dark;
+      @apply flex-grow border-0 text-theme-text-primary;
+    }
+    :global(html.dark) .subscription-form input {
+      @apply text-theme-dark-text-primary;
     }
     .subscription-form button,
     .button {
-      @apply px-4 py-2 uppercase font-bold text-white bg-gradient-to-tr from-theme-primary to-theme-dark-secondary dark:from-theme-dark-secondary dark:to-theme-primary;
+      @apply px-4 py-2 uppercase font-bold text-white bg-gradient-to-tr from-theme-primary to-theme-secondary;
+    }
+    :global(html.dark) .subscription-form button,
+    :global(html.dark) .button {
+      @apply from-theme-dark-primary to-theme-dark-secondary;
     }
     .author-card__follow-btn {
-      @apply rounded-md shadow-md shadow-theme-dark-secondary dark:shadow-theme-primary hover:shadow-theme-secondary hover:dark:shadow-theme-secondary hover:shadow-lg transition-all;
+      @apply rounded-md shadow-md hover:shadow-lg transition-all;
     }
   </style>
 </html>

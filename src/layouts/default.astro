@@ -25,9 +25,15 @@ const { content, showPageHeader = true } = Astro.props
         @apply py-4 mb-1
     }
     .page__title {
-        @apply text-5xl font-extrabold text-theme-primary dark:text-theme-dark-primary
+        @apply text-5xl font-extrabold text-theme-primary;
+    }
+    :global(html.dark) .page__title {
+        @apply text-theme-dark-primary;
     }
     .page__desc {
-        @apply text-gray-400
+        @apply text-theme-text-muted;
+    }
+    :global(html.dark) .page__desc {
+        @apply text-theme-dark-text-muted;
     }
 </style>
