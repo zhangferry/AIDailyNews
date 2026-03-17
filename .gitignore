@@ -29,5 +29,6 @@ netlify
 .claude/
 .idea/
 .vercel
+.playwright-mcp/
 
 workflow/test_resources/.env
