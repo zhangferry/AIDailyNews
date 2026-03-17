@@ -8,7 +8,14 @@ export interface CoverConfig {
   tags?: string[];
   date?: string;
   category?: string;
+  headings?: string[];
 }
+
+declare const Deno:
+  | {
+    writeTextFile: (outputPath: string, svg: string) => Promise<void>;
+  }
+  | undefined;
 
 // 预定义的配色方案
 const colorSchemes = {
@@ -30,6 +37,7 @@ const colorSchemes = {
 
 // 几何图案类型
 type PatternType = 'gradient' | 'geometric' | 'waves' | 'dots' | 'lines' | 'abstract';
+type ColorScheme = (typeof colorSchemes.light)[number];
 
 /**
  * 根据文章标题生成随机数（保持一致性）
@@ -46,10 +54,19 @@ function seededRandom(seed: string): () => number {
   };
 }
 
+function hashString(value: string): number {
+  let hash = 0;
+  for (let i = 0; i < value.length; i++) {
+    hash = (hash << 5) - hash + value.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
 /**
  * 生成随机颜色方案
  */
-function getColorScheme(title: string, isDark: boolean = false) {
+function getColorScheme(title: string, isDark = false) {
   const random = seededRandom(title);
   const schemes = isDark ? colorSchemes.dark : colorSchemes.light;
   return schemes[Math.floor(random() * schemes.length)];
@@ -67,7 +84,7 @@ function getPatternType(title: string): PatternType {
 /**
  * 生成渐变背景 SVG
  */
-function generateGradient(colors: typeof colorSchemes.light[0], width: number, height: number): string {
+function generateGradient(colors: ColorScheme, width: number, height: number): string {
   const angle = Math.floor(Math.random() * 360);
   return `
     <defs>
@@ -85,8 +102,8 @@ function generateGradient(colors: typeof colorSchemes.light[0], width: number, h
 /**
  * 生成几何图案 SVG
  */
-function generateGeometric(colors: typeof colorSchemes.light[0], width: number, height: number): string {
-  const shapes = [];
+function generateGeometric(colors: ColorScheme, width: number, height: number): string {
+  const shapes: string[] = [];
   const numShapes = 5 + Math.floor(Math.random() * 5);
 
   for (let i = 0; i < numShapes; i++) {
@@ -98,9 +115,9 @@ function generateGeometric(colors: typeof colorSchemes.light[0], width: number, 
     const opacity = 0.1 + Math.random() * 0.2;
 
     if (type === 'circle') {
-      shapes.push(`<circle cx="${x}" cy="${y}" r="${size/2}" fill="${color}" fill-opacity="${opacity}"/>`);
+      shapes.push(`<circle cx="${x}" cy="${y}" r="${size / 2}" fill="${color}" fill-opacity="${opacity}"/>`);
     } else {
-      shapes.push(`<rect x="${x - size/2}" y="${y - size/2}" width="${size}" height="${size}" fill="${color}" fill-opacity="${opacity}" transform="rotate(${Math.random() * 45} ${x} ${y})"/>`);
+      shapes.push(`<rect x="${x - size / 2}" y="${y - size / 2}" width="${size}" height="${size}" fill="${color}" fill-opacity="${opacity}" transform="rotate(${Math.random() * 45} ${x} ${y})"/>`);
     }
   }
 
@@ -113,8 +130,8 @@ function generateGeometric(colors: typeof colorSchemes.light[0], width: number, 
 /**
  * 生成波浪图案 SVG
  */
-function generateWaves(colors: typeof colorSchemes.light[0], width: number, height: number): string {
-  const waves = [];
+function generateWaves(colors: ColorScheme, width: number, height: number): string {
+  const waves: string[] = [];
   const numWaves = 3 + Math.floor(Math.random() * 3);
 
   for (let i = 0; i < numWaves; i++) {
@@ -142,13 +159,13 @@ function generateWaves(colors: typeof colorSchemes.light[0], width: number, heig
 /**
  * 生成点阵图案 SVG
  */
-function generateDots(colors: typeof colorSchemes.light[0], width: number, height: number): string {
-  const dots = [];
+function generateDots(colors: ColorScheme, width: number, height: number): string {
+  const dots: string[] = [];
   const spacing = 30 + Math.floor(Math.random() * 20);
   const radius = 3 + Math.random() * 5;
 
-  for (let x = spacing/2; x < width; x += spacing) {
-    for (let y = spacing/2; y < height; y += spacing) {
+  for (let x = spacing / 2; x < width; x += spacing) {
+    for (let y = spacing / 2; y < height; y += spacing) {
       const color = [colors.primary, colors.secondary, colors.accent][Math.floor(Math.random() * 3)];
       const opacity = 0.1 + Math.random() * 0.2;
       dots.push(`<circle cx="${x}" cy="${y}" r="${radius}" fill="${color}" fill-opacity="${opacity}"/>`);
@@ -164,8 +181,8 @@ function generateDots(colors: typeof colorSchemes.light[0], width: number, heigh
 /**
  * 生成线条图案 SVG
  */
-function generateLines(colors: typeof colorSchemes.light[0], width: number, height: number): string {
-  const lines = [];
+function generateLines(colors: ColorScheme, width: number, height: number): string {
+  const lines: string[] = [];
   const numLines = 8 + Math.floor(Math.random() * 8);
 
   for (let i = 0; i < numLines; i++) {
@@ -189,8 +206,8 @@ function generateLines(colors: typeof colorSchemes.light[0], width: number, heig
 /**
  * 生成抽象图案 SVG
  */
-function generateAbstract(colors: typeof colorSchemes.light[0], width: number, height: number): string {
-  const elements = [];
+function generateAbstract(colors: ColorScheme, width: number, height: number): string {
+  const elements: string[] = [];
   const numElements = 6 + Math.floor(Math.random() * 6);
 
   for (let i = 0; i < numElements; i++) {
@@ -203,18 +220,18 @@ function generateAbstract(colors: typeof colorSchemes.light[0], width: number, h
 
     if (type < 0.33) {
       // 圆形
-      elements.push(`<circle cx="${x}" cy="${y}" r="${size/2}" fill="${color}" fill-opacity="${opacity}"/>`);
+      elements.push(`<circle cx="${x}" cy="${y}" r="${size / 2}" fill="${color}" fill-opacity="${opacity}"/>`);
     } else if (type < 0.66) {
       // 三角形
       const points = [
-        `${x},${y - size/2}`,
-        `${x - size/2},${y + size/2}`,
-        `${x + size/2},${y + size/2}`
+        `${x},${y - size / 2}`,
+        `${x - size / 2},${y + size / 2}`,
+        `${x + size / 2},${y + size / 2}`
       ].join(' ');
       elements.push(`<polygon points="${points}" fill="${color}" fill-opacity="${opacity}"/>`);
     } else {
       // 椭圆
-      elements.push(`<ellipse cx="${x}" cy="${y}" rx="${size/2}" ry="${size/3}" fill="${color}" fill-opacity="${opacity}" transform="rotate(${Math.random() * 360} ${x} ${y})"/>`);
+      elements.push(`<ellipse cx="${x}" cy="${y}" rx="${size / 2}" ry="${size / 3}" fill="${color}" fill-opacity="${opacity}" transform="rotate(${Math.random() * 360} ${x} ${y})"/>`);
     }
   }
 
@@ -222,6 +239,129 @@ function generateAbstract(colors: typeof colorSchemes.light[0], width: number, h
     <rect width="100%" height="100%" fill="${colors.bg}"/>
     ${elements.join('\n    ')}
   `;
+}
+
+function collectMotionSnippets(config: CoverConfig): string[] {
+  const snippets = [config.title, ...(config.headings || []), ...(config.tags || [])]
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0);
+
+  return Array.from(new Set(snippets)).slice(0, 5);
+}
+
+type PixelIcon = {
+  id: string;
+  aliases: string[];
+  pattern: string[];
+};
+
+const PIXEL_ICONS: PixelIcon[] = [
+  {
+    id: 'robot',
+    aliases: ['agent', '智能体', '机器人', 'bot', 'assistant', 'ai agent'],
+    pattern: ['000111111000', '001111111100', '011010010110', '111111111111', '110110110011', '111111111111', '101111111101', '101001001101', '111111111111', '001100001100', '011000000110', '110000000011']
+  },
+  {
+    id: 'mouse',
+    aliases: ['mouse', '鼠标', 'pointing device', 'trackpad'],
+    pattern: ['001100001100', '011110011110', '111111111111', '111111111111', '111001100111', '111001100111', '111111111111', '011111111110', '001111111100', '000111111000', '000011110000', '000001100000']
+  },
+  {
+    id: 'chip',
+    aliases: ['ai', 'llm', '模型', '芯片', 'chip', 'gpu', 'compute'],
+    pattern: ['000010000100', '001111111110', '011111111111', '111000000111', '111011110111', '111011110111', '111011110111', '111000000111', '111111111111', '011111111110', '001111111100', '000010000100']
+  },
+  {
+    id: 'code',
+    aliases: ['code', 'coding', '开发', '编程', 'repo', 'github'],
+    pattern: ['000110000000', '001111000000', '011011100000', '110001110000', '000001110000', '000011100000', '000111000000', '001110000110', '011100001100', '111000011000', '011100001100', '001110000110']
+  },
+  {
+    id: 'browser',
+    aliases: ['browser', 'web', '页面', '前端', 'chrome', 'firefox'],
+    pattern: ['111111111111', '100000000001', '101111111101', '101000001101', '101011101101', '101010101101', '101011101101', '101000001101', '101111111101', '100000000001', '111111111111', '000000000000']
+  },
+  {
+    id: 'cloud',
+    aliases: ['cloud', '云', 'server', 'infra', 'k8s', '部署'],
+    pattern: ['000001110000', '000111111000', '001111111100', '011110011110', '111100001111', '111111111111', '111111111111', '011111111110', '001111111100', '000111111000', '000011110000', '000001100000']
+  },
+  {
+    id: 'security',
+    aliases: ['security', 'safe', '加密', '安全', 'auth', 'token'],
+    pattern: ['000011110000', '000111111000', '001111111100', '001111111100', '001111111100', '000111111000', '000111111000', '001111111100', '011110011110', '111100001111', '011000000110', '001000000100']
+  }
+];
+
+function detectPixelIcons(snippets: string[]): PixelIcon[] {
+  const normalized = snippets.map((item) => item.toLowerCase());
+  const matched = PIXEL_ICONS.filter((icon) =>
+    icon.aliases.some((alias) =>
+      normalized.some((text) => text.includes(alias.toLowerCase()))
+    )
+  );
+
+  if (matched.length) {
+    return matched.slice(0, 5);
+  }
+
+  return [PIXEL_ICONS[hashString(snippets.join('|')) % PIXEL_ICONS.length]];
+}
+
+function expandIconSet(baseIcons: PixelIcon[], targetCount: number, seedSource: string): PixelIcon[] {
+  const expanded: PixelIcon[] = [];
+  const base = baseIcons.length > 0
+    ? baseIcons
+    : [PIXEL_ICONS[hashString(seedSource) % PIXEL_ICONS.length]];
+  const seed = hashString(seedSource);
+  for (let i = 0; i < targetCount; i++) {
+    if (i < base.length) {
+      expanded.push(base[i]);
+    } else {
+      const fallback = PIXEL_ICONS[(seed + i) % PIXEL_ICONS.length];
+      expanded.push(base[i % base.length] ?? fallback);
+    }
+  }
+  return expanded;
+}
+
+function renderPixelPattern(
+  pattern: string[],
+  pixelSize: number,
+  fill: string,
+  secondary: string
+): string {
+  const rows = pattern.length;
+  const cols = pattern[0]?.length || 0;
+  const pixels: string[] = [];
+  const shadows: string[] = [];
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if (pattern[y][x] === '1') {
+        shadows.push(
+          `<rect x="${x * pixelSize + 1}" y="${y * pixelSize + 1}" width="${pixelSize}" height="${pixelSize}" fill="#000000" fill-opacity="0.18"/>`
+        );
+        const color = (x + y) % 3 === 0 ? secondary : fill;
+        pixels.push(
+          `<rect x="${x * pixelSize}" y="${y * pixelSize}" width="${pixelSize}" height="${pixelSize}" fill="${color}"/>`
+        );
+      }
+    }
+  }
+  return `${shadows.join('\n          ')}\n          ${pixels.join('\n          ')}`;
+}
+
+function generatePixelMotion(
+  config: CoverConfig,
+  colors: ColorScheme,
+  width: number,
+  height: number
+): string {
+  void config;
+  void colors;
+  void width;
+  void height;
+  return '';
 }
 
 /**
@@ -273,8 +413,7 @@ export function generateSVGCover(
       background = generateGradient(colors, width, height);
   }
 
-  // 不生成文字内容，只保留背景图案
-  let content = '';
+  const content = generatePixelMotion(config, colors, width, height);
 
   // 组合完整 SVG
   const svg = `

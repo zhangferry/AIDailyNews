@@ -10,6 +10,7 @@ interface Props {
   slug?: string;
   tags?: string[];
   date?: string;
+  headings?: string[];
   width?: number;
   height?: number;
   class?: string;
@@ -20,6 +21,7 @@ const {
   title,
   tags = [],
   date,
+  headings = [],
   width = 800,
   height = 500,
   class: className = '',
@@ -36,6 +38,7 @@ const coverUrl = generateCoverImageUrl({
   title,
   tags,
   date,
+  headings,
 }, {
   width,
   height,
@@ -53,4 +56,3 @@ const coverUrl = generateCoverImageUrl({
   height={height}
   loading="lazy"
 />
-

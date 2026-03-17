@@ -23,11 +23,12 @@ interface Props {
     collection: string;
   };
   content: CollectionEntry<"blog">["data"];
+  coverHeadings?: string[];
   stats?: {
     views: number;
   };
 }
-const { content, meta } = Astro.props;
+const { content, meta, coverHeadings = [] } = Astro.props;
 
 // 获取所有博客文章用于导航
 const allPosts = await getCollection("blog");
@@ -148,6 +149,7 @@ const AUTHOR_AVATAR = content.authorImage
             slug={meta?.slug}
             tags={content.tags}
             date={content.date}
+            headings={coverHeadings}
             width={1200}
             height={400}
             class="block w-full h-full object-cover object-center rounded-lg"

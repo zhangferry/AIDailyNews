@@ -3,134 +3,99 @@ export const prerender = true;
 
 import { getCollection } from "astro:content";
 import DefaultPageLayout from "$/layouts/default.astro";
-import PostPreviewList from "$/components/PostPreviewList.astro";
 import GeneratedCover from "$/components/GeneratedCover.astro";
-import { Content as AboutAstroInk } from "./_home_intro.md";
+import Code from "$/components/Code.astro";
+import Prose from "$/components/Prose.astro";
 
 const title = "Home";
-const description = "Daily News Report - Your daily dose of tech and development news";
+const description =
+  "Daily News Report - Your daily dose of tech and development news";
 
 let posts = await getCollection("blog");
-posts = posts.toSorted((a, b) => new Date(b.data.date) - new Date(a.data.date));
+posts = posts.toSorted(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+);
 
-// Get latest 8 posts
-const latestPosts = posts.slice(0, 8);
+const formatDateKey = (dateValue: Date | string) =>
+  new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date(dateValue));
 
-// Get unique categories from tags
-const allTags = posts.flatMap(post => post.data.tags || []);
-const uniqueCategories = [...new Set(allTags)].slice(0, 8);
+const todayKey = formatDateKey(new Date());
+const todayPost =
+  posts.find((post) => formatDateKey(post.data.date) === todayKey) ?? posts[0];
+const uniqueCategories = [...new Set(todayPost?.data.tags || [])];
+const todayRendered = todayPost ? await todayPost.render() : undefined;
+const coverHeadings = (todayRendered?.headings || [])
+  .map((heading) => heading.text)
+  .slice(0, 5);
+const TodayContent = todayRendered?.Content;
 ---
 
 <DefaultPageLayout content={{ title, description }} showPageHeader={false}>
   <!-- Hero Section with Featured Article -->
   <section class="hero-section">
     <div class="hero-content">
-      <p class="hero-description">
-        你的每日科技新闻精选，AI 驱动的智能聚合
-      </p>
+      <p class="hero-description">你的每日科技新闻精选，AI 驱动的智能聚合</p>
     </div>
 
     <!-- Category Pills -->
     <div class="category-pills">
-      {uniqueCategories.map(category => (
-        <a
-          href={`/tags/${category}`}
-          class="category-pill"
-        >
-          {category}
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <!-- Featured Posts Section -->
-  <section class="featured-section">
-    <PostPreviewList
-      posts={latestPosts}
-      mode="col"
-      showFeatured={true}
-      featuredCount={1}
-      heading="Latest Stories"
-    />
-  </section>
-
-  <!-- More Posts Grid -->
-  <section class="more-posts-section">
-    <div class="section-header">
-      <h2 class="section-title">More Articles</h2>
-      <a href="/blog" class="view-all-link">
-        View All
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
-    </div>
-
-    <div class="posts-grid">
-      {latestPosts.slice(1, 7).map((post, index) => (
-        <article class={`post-card animate-fade-in-up stagger-${index + 1}`}>
-          <a href={`/blog/${post.slug}`} class="post-card-link">
-            {post.data.image ? (
-              <div class="post-card-image img-zoom-container aspect-[16/10] overflow-hidden rounded-lg">
-                <img
-                  src={post.data.image}
-                  alt={post.data.title}
-                  class="block w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            ) : (
-              <div class="post-card-image img-zoom-container overflow-hidden rounded-lg" style="aspect-ratio: 16 / 10;">
-                <GeneratedCover
-                  title={post.data.title}
-                  slug={post.slug}
-                  tags={post.data.tags}
-                  date={post.data.date}
-                  width={800}
-                  height={500}
-                  class="block w-full h-full object-cover"
-                  alt={post.data.title}
-                />
-              </div>
-            )}
-
-            <div class="post-card-content">
-              {post.data.tags && post.data.tags.length > 0 && (
-                <span class="post-card-category">
-                  {post.data.tags[0]}
-                </span>
-              )}
-
-              <h3 class="post-card-title font-display font-semibold line-clamp-2">
-                {post.data.title}
-              </h3>
-
-              <p class="post-card-description text-sm line-clamp-2">
-                {post.data.description}
-              </p>
-
-              <div class="post-card-meta">
-                <time datetime={post.data.date}>
-                  {new Date(post.data.date).toLocaleDateString('zh-CN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </time>
-              </div>
-            </div>
+      {
+        uniqueCategories.map((category) => (
+          <a href={`/tags/${category}`} class="category-pill">
+            {category}
           </a>
-        </article>
-      ))}
+        ))
+      }
     </div>
   </section>
 
-  <!-- CTA Section -->
+  <section class="today-post-section">
+    {
+      todayPost ? (
+        <>
+          <div class="today-post-cover">
+            {todayPost.data.image ? (
+              <img
+                src={todayPost.data.image}
+                alt={todayPost.data.title}
+                class="today-post-cover-image"
+                loading="lazy"
+              />
+            ) : (
+              <GeneratedCover
+                title={todayPost.data.title}
+                slug={todayPost.slug}
+                tags={todayPost.data.tags}
+                date={todayPost.data.date}
+                headings={coverHeadings}
+                width={1200}
+                height={500}
+                class="today-post-cover-image"
+                alt={todayPost.data.title}
+              />
+            )}
+          </div>
+
+          <div class="today-content-wrap">
+            <Prose showNavigation={false} showComment={false}>
+              {TodayContent && <TodayContent components={{ code: Code }} />}
+            </Prose>
+          </div>
+        </>
+      ) : (
+        <div class="today-empty">暂无可展示的文章内容</div>
+      )
+    }
+  </section>
+
   <section class="cta-section">
     <div class="cta-content">
-      <h2 class="cta-title font-display font-bold">
-        Stay Updated
-      </h2>
+      <h2 class="cta-title font-display font-bold">Stay Updated</h2>
       <p class="cta-description">
         Get the latest tech news delivered to your inbox daily
       </p>
@@ -149,20 +114,28 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 8);
 <style>
   /* Hero Section */
   .hero-section {
-    @apply py-12 md:py-20 lg:py-24;
+    @apply py-6 md:py-8 lg:py-10;
     @apply text-center;
     @apply relative overflow-hidden;
   }
 
   .hero-section::before {
-    content: '';
+    content: "";
     @apply absolute inset-0;
-    background: radial-gradient(ellipse at center, rgba(91, 124, 153, 0.08) 0%, transparent 70%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(91, 124, 153, 0.08) 0%,
+      transparent 70%
+    );
     @apply pointer-events-none;
   }
 
   :global(html.dark) .hero-section::before {
-    background: radial-gradient(ellipse at center, rgba(107, 184, 184, 0.1) 0%, transparent 70%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(107, 184, 184, 0.1) 0%,
+      transparent 70%
+    );
   }
 
   .hero-content {
@@ -178,7 +151,7 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 8);
   /* Category Pills */
   .category-pills {
     @apply flex flex-wrap justify-center gap-3;
-    @apply mt-10;
+    @apply mt-4;
   }
 
   .category-pill {
@@ -195,122 +168,33 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 8);
     @apply hover:border-theme-dark-primary hover:text-theme-dark-primary hover:bg-theme-dark-primary/10;
   }
 
-  /* Featured Section */
-  .featured-section {
-    @apply py-8;
+  .today-post-section {
+    @apply pt-0 pb-2 md:pb-3;
   }
 
-  /* More Posts Section */
-  .more-posts-section {
-    @apply py-12 md:py-16;
+  .today-post-cover {
+    @apply relative overflow-hidden rounded-xl mb-1 md:mb-2;
+    aspect-ratio: 21 / 8;
   }
 
-  .section-header {
-    @apply flex items-center justify-between;
-    @apply mb-8;
+  .today-post-cover-image {
+    @apply block w-full h-full object-cover object-center;
   }
 
-  .section-title {
-    @apply text-2xl md:text-3xl font-display font-bold;
-    @apply text-theme-text-primary;
+  .today-content-wrap :global(article.prose) {
+    margin-top: 0;
   }
 
-  :global(html.dark) .section-title {
-    @apply text-theme-dark-text-primary;
+  .today-content-wrap :global(article.prose > *:first-child) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 
-  .view-all-link {
-    @apply inline-flex items-center gap-2;
-    @apply text-theme-primary font-medium;
-    @apply transition-all duration-200 ease-out;
-    @apply hover:gap-3;
+  .today-empty {
+    @apply py-10 text-center text-theme-text-muted;
   }
 
-  :global(html.dark) .view-all-link {
-    @apply text-theme-dark-primary;
-  }
-
-  .posts-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
-  }
-
-  .post-card {
-    @apply bg-theme-surface rounded-xl overflow-hidden;
-    @apply border border-theme-border;
-    transition: all 0.3s ease-out;
-    @apply w-full;
-  }
-
-  :global(html.dark) .post-card {
-    @apply bg-theme-dark-surface border-theme-dark-border;
-  }
-
-  .post-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-  }
-
-  :global(html.dark) .post-card:hover {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  }
-
-  .post-card-link {
-    @apply block h-full;
-  }
-
-  .post-card-image {
-    @apply w-full;
-    aspect-ratio: 16 / 10;
-    @apply overflow-hidden rounded-lg;
-  }
-
-  .post-card-image img,
-  .post-card-image :global(img) {
-    @apply block w-full h-full;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .post-card-content {
-    @apply p-5;
-  }
-
-  .post-card-category {
-    @apply inline-block;
-    @apply px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider;
-    @apply bg-theme-primary/10 text-theme-primary;
-    @apply mb-3;
-  }
-
-  :global(html.dark) .post-card-category {
-    @apply bg-theme-dark-primary/20 text-theme-dark-primary;
-  }
-
-  .post-card-title {
-    @apply text-lg text-theme-text-primary;
-    @apply mb-2;
-    @apply line-clamp-2;
-  }
-
-  :global(html.dark) .post-card-title {
-    @apply text-theme-dark-text-primary;
-  }
-
-  .post-card-description {
-    @apply text-theme-text-secondary;
-    @apply mb-4;
-  }
-
-  :global(html.dark) .post-card-description {
-    @apply text-theme-dark-text-secondary;
-  }
-
-  .post-card-meta {
-    @apply text-xs text-theme-text-muted;
-    @apply flex items-center gap-2;
-  }
-
-  :global(html.dark) .post-card-meta {
+  :global(html.dark) .today-empty {
     @apply text-theme-dark-text-muted;
   }
 
@@ -321,12 +205,20 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 8);
     @apply relative;
     @apply overflow-hidden;
     @apply rounded-2xl;
-    background: linear-gradient(135deg, rgba(91, 124, 153, 0.1) 0%, rgba(107, 184, 184, 0.1) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(91, 124, 153, 0.1) 0%,
+      rgba(107, 184, 184, 0.1) 100%
+    );
     border: 1px solid rgba(91, 124, 153, 0.2);
   }
 
   :global(html.dark) .cta-section {
-    background: linear-gradient(135deg, rgba(107, 184, 184, 0.12) 0%, rgba(212, 165, 165, 0.12) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(107, 184, 184, 0.12) 0%,
+      rgba(212, 165, 165, 0.12) 100%
+    );
     border: 1px solid rgba(107, 184, 184, 0.25);
   }
 

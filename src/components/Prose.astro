@@ -6,15 +6,23 @@ interface Props {
   currentPost?: any;
   previousPost?: any;
   nextPost?: any;
+  showNavigation?: boolean;
+  showComment?: boolean;
 }
 
-const { currentPost, previousPost, nextPost } = Astro.props;
+const {
+  currentPost,
+  previousPost,
+  nextPost,
+  showNavigation = true,
+  showComment = true,
+} = Astro.props;
 ---
 
 <article class="prose">
   <slot />
 
-  {(previousPost || nextPost) && (
+  {showNavigation && (previousPost || nextPost) && (
     <PostNavigation
       currentPost={currentPost}
       previousPost={previousPost}
@@ -22,7 +30,7 @@ const { currentPost, previousPost, nextPost } = Astro.props;
     />
   )}
 
-  <Comment client:load />
+  {showComment && <Comment client:load />}
 </article>
 
 <style>
