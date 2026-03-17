@@ -1,10 +1,10 @@
 <script lang="ts">
-
     import { draw } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
+    import { quintOut } from 'svelte/easing';
     import ModeSwitcher from './ModeSwitcher.svelte'
     import SvgIcon from './SvgIcon.svelte'
 </script>
+
 <ModeSwitcher let:theme>
     <SvgIcon>
         {#if theme === 'dark'}
@@ -22,3 +22,9 @@
         {/if}
     </SvgIcon>
 </ModeSwitcher>
+
+<style>
+  :global(svg) {
+    @apply w-5 h-5 md:w-5 md:h-5;
+  }
+</style>

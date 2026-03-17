@@ -1,31 +1,87 @@
 ---
-import { SITE } from '$/config'
-import MainLayout from '$/components/MainLayout.astro'
-import BaseHead from '$/components/BaseHead.astro'
-import Prose from '$/components/Prose.astro'
+import { SITE } from "$/config";
+import MainLayout from "$/components/MainLayout.astro";
+import BaseHead from "$/components/BaseHead.astro";
+import Prose from "$/components/Prose.astro";
+import GeneratedCover from "$/components/GeneratedCover.astro";
 
-const { content } = Astro.props
+const { content } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead {...content} title={ content.title ? `${ SITE.title } | ${content.title}` : SITE.title }/>
+        <BaseHead
+            {...content}
+            title={content.title
+                ? `${SITE.title} | ${content.title}`
+                : SITE.title}
+        />
     </head>
     <MainLayout>
         <div class="post__header">
             <div class="post__tags">
-                { content.tags.length > 0 && content.tags.map(tag => <a class="post__tag" href={`/tags/${tag}`} title={tag}>{tag}</a>) }
+                {
+                    content.tags.length > 0 &&
+                        content.tags.map((tag) => (
+                            <a
+                                class="category-badge post__tag"
+                                href={`/tags/${tag}`}
+                                title={tag}
+                            >
+                                {tag}
+                            </a>
+                        ))
+                }
             </div>
-            <h1 class="post__title">{ content.title }</h1>
+            <h1 class="post__title">{content.title}</h1>
             <h5 class="post__desc">
-                <a class="post__author" href={`https://twitter.com/${content.authorTwitter}`} title={`${content.author + "'s"} twitter`} target="_blank" rel="external">{ content.author }</a> |
-                <span class="post__date">{ new Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(new Date(content.date))}</span>
+                <a
+                    class="post__author"
+                    href={`https://twitter.com/${content.authorTwitter}`}
+                    title={`${content.author + "'s"} twitter`}
+                    target="_blank"
+                    rel="external">{content.author}</a
+                > |
+                <span class="post__date"
+                    >{
+                        new Intl.DateTimeFormat("en-US", {
+                            dateStyle: "full",
+                        }).format(new Date(content.date))
+                    }</span
+                >
             </h5>
         </div>
         <div class="draft-message">
-            You're viewing a <strong>preview</strong> of <code>/blog/{content.slug}</code> which isn't published yet!
+            You're viewing a <strong>preview</strong> of <code
+                >/blog/{content.slug}</code
+            > which isn't published yet!
         </div>
-        <!--<img src={content.image} alt={content.title} />-->
+
+        <!-- 文章封面 -->
+        <div class="post-cover-wrapper">
+            {
+                content.image ? (
+                    <img
+                        class="post-cover-image"
+                        src={content.image}
+                        alt={content.title}
+                    />
+                ) : (
+                    <GeneratedCover
+                        title={content.title}
+                        slug={content.slug}
+                        tags={content.tags}
+                        date={content.date}
+                        width={1200}
+                        height={400}
+                        class="block w-full h-full object-cover object-center rounded-lg"
+                        alt={content.title}
+                    />
+                )
+            }
+        </div>
+
         <Prose>
             <slot />
         </Prose>
@@ -33,7 +89,7 @@ const { content } = Astro.props
 </html>
 <style>
     .post__header {
-        @apply py-4 mb-1
+        @apply py-4 mb-1;
     }
     .post__title {
         @apply text-5xl font-extrabold text-theme-primary;
@@ -60,13 +116,10 @@ const { content } = Astro.props
         @apply text-theme-dark-text-muted;
     }
     .post__tags {
-        @apply inline-flex gap-2
+        @apply inline-flex gap-2;
     }
     .post__tag {
-        @apply text-theme-text-muted hover:text-theme-primary;
-    }
-    :global(html.dark) .post__tag {
-        @apply text-theme-dark-text-muted hover:text-theme-dark-primary;
+        @apply no-underline;
     }
 
     .draft-message {
@@ -74,5 +127,19 @@ const { content } = Astro.props
     }
     :global(html.dark) .draft-message {
         @apply bg-yellow-700 text-white;
+    }
+
+    /* 文章封面样式 */
+    .post-cover-wrapper {
+        @apply relative rounded-lg shadow-md overflow-hidden;
+        @apply w-full;
+        @apply mb-4;
+        aspect-ratio: 21 / 5;
+    }
+
+    .post-cover-image {
+        @apply block w-full h-full rounded-lg;
+        object-fit: cover;
+        object-position: center;
     }
 </style>

@@ -3,42 +3,164 @@ import { toTitleCase } from "$/utils";
 import { NAV_ITEMS } from "$/config";
 ---
 
-<nav class="nav py-3">
-  <ul class="nav-list" transition:animate="fade">
-    {
-      Object.keys(NAV_ITEMS).map((navItemKey) => (
-        <li>
-          <a
-            class:list={[
-              `pb-1 border-b-2 hover:border-theme-text-muted`,
-              Astro.url.pathname !== NAV_ITEMS[navItemKey].path
-                ? "border-theme-border"
-                : "",
-              Astro.url.pathname === NAV_ITEMS[navItemKey].path
-                ? "border-theme-primary"
-                : "",
-            ]}
-            href={NAV_ITEMS[navItemKey].path}
-            title={NAV_ITEMS[navItemKey].title}
-          >
-            {toTitleCase(NAV_ITEMS[navItemKey].title)}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+<nav class="magazine-nav" transition:animate="fade">
+  <div class="nav-container">
+    <ul class="nav-list">
+      {
+        Object.keys(NAV_ITEMS).map((navItemKey) => (
+          <li class="nav-item">
+            <a
+              class:list={[
+                "nav-link",
+                Astro.url.pathname === NAV_ITEMS[navItemKey].path
+                  ? "nav-link-active"
+                  : "nav-link-inactive",
+              ]}
+              href={NAV_ITEMS[navItemKey].path}
+              title={NAV_ITEMS[navItemKey].title}
+            >
+              <span class="nav-text">{toTitleCase(NAV_ITEMS[navItemKey].title)}</span>
+              <span class="nav-indicator"></span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </nav>
+
 <style>
+  .magazine-nav {
+    @apply bg-theme-background/95 backdrop-blur-sm;
+    @apply border-b border-theme-border/50;
+    box-shadow: 0 1px 0 0 rgba(91, 124, 153, 0.05);
+  }
+
+  :global(html.dark) .magazine-nav {
+    @apply bg-theme-dark-background/95 border-theme-dark-border/50;
+    box-shadow: 0 1px 0 0 rgba(107, 184, 184, 0.05);
+  }
+
+  .nav-container {
+    @apply px-4 md:px-6;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
   .nav-list {
-    @apply inline-flex list-none gap-8 text-xl font-semibold text-theme-primary py-2 flex-wrap;
+    @apply flex items-center gap-1 md:gap-2;
+    @apply list-none;
+    @apply overflow-x-auto;
+    @apply scrollbar-hide;
+    padding: 0.5rem 0;
   }
-  :global(html.dark) .nav-list {
-    @apply text-theme-dark-primary;
+
+  .nav-item {
+    @apply flex-shrink-0;
   }
-  :global(html.dark) .nav-list a {
-    @apply hover:border-theme-dark-text-muted;
+
+  .nav-link {
+    @apply relative;
+    @apply px-3 py-1.5 md:px-5 md:py-2;
+    @apply rounded-lg;
+    @apply text-sm md:text-base font-semibold;
+    @apply transition-all duration-200 ease-out;
+    @apply flex items-center gap-2;
+    text-decoration: none;
   }
-  :global(html.dark) .nav-list a:not(.border-theme-primary) {
-    @apply border-theme-dark-border;
+
+  .nav-link-inactive {
+    @apply text-theme-text-secondary;
+    @apply hover:text-theme-primary hover:bg-theme-surface;
+  }
+
+  :global(html.dark) .nav-link-inactive {
+    @apply text-theme-dark-text-secondary;
+    @apply hover:text-theme-dark-primary hover:bg-theme-dark-surface;
+  }
+
+  .nav-link-active {
+    @apply text-theme-primary bg-theme-primary/10;
+    @apply border border-theme-primary/20;
+  }
+
+  :global(html.dark) .nav-link-active {
+    @apply text-theme-dark-primary bg-theme-dark-primary/15;
+    @apply border-theme-dark-primary/30;
+  }
+
+  .nav-text {
+    @apply relative z-10;
+  }
+
+  /* Animated indicator */
+  .nav-indicator {
+    @apply absolute bottom-1 left-1/2;
+    @apply w-0 h-0.5;
+    @apply bg-theme-primary;
+    @apply transform -translate-x-1/2;
+    @apply transition-all duration-300 ease-out;
+    @apply rounded-full;
+  }
+
+  :global(html.dark) .nav-indicator {
+    @apply bg-theme-dark-primary;
+  }
+
+  .nav-link-active .nav-indicator {
+    @apply w-8;
+  }
+
+  /* Hover effects */
+  .nav-link:hover {
+    @apply scale-105;
+  }
+
+  /* Micro-interactions */
+  .nav-link::before {
+    content: '';
+    @apply absolute inset-0 rounded-lg;
+    @apply opacity-0;
+    background: radial-gradient(circle at center, rgba(91, 124, 153, 0.1) 0%, transparent 70%);
+    @apply transition-opacity duration-300 ease-out;
+  }
+
+  :global(html.dark) .nav-link::before {
+    background: radial-gradient(circle at center, rgba(107, 184, 184, 0.15) 0%, transparent 70%);
+  }
+
+  .nav-link:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Active link glow */
+  .nav-link-active {
+    box-shadow: 0 0 15px rgba(91, 124, 153, 0.12);
+  }
+
+  :global(html.dark) .nav-link-active {
+    box-shadow: 0 0 15px rgba(107, 184, 184, 0.15);
+  }
+
+  /* Hide scrollbar for clean look */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mobile optimization */
+  @media (max-width: 640px) {
+    .nav-link {
+      @apply px-2 py-1;
+      @apply text-xs;
+    }
+
+    .nav-link-active .nav-indicator {
+      @apply w-3;
+    }
   }
 </style>

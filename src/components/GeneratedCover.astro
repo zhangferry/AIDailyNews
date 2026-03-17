@@ -1,0 +1,56 @@
+---
+/**
+ * 动态生成的文章封面组件
+ * 为没有图片的文章自动生成独特的 SVG 封面
+ */
+import { generateCoverImageUrl } from '$/utils/coverGenerator';
+
+interface Props {
+  title: string;
+  slug?: string;
+  tags?: string[];
+  date?: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  alt?: string;
+}
+
+const {
+  title,
+  tags = [],
+  date,
+  width = 800,
+  height = 500,
+  class: className = '',
+  alt
+} = Astro.props;
+
+// 检测当前是否为深色模式
+const isDark = Astro.url?.searchParams?.get('theme') === 'dark' ||
+               Astro.request?.headers?.get('cookie')?.includes('theme=dark') ||
+               false;
+
+// 生成封面图片 URL（使用 data URL，最可靠的方式）
+const coverUrl = generateCoverImageUrl({
+  title,
+  tags,
+  date,
+}, {
+  width,
+  height,
+  isDark,
+  showTitle: false,
+  showDate: false,
+});
+---
+
+<img
+  src={coverUrl}
+  alt={alt || title}
+  class={className}
+  width={width}
+  height={height}
+  loading="lazy"
+/>
+

@@ -4,6 +4,7 @@ export const prerender = true;
 import { getCollection } from "astro:content";
 import DefaultPageLayout from "$/layouts/default.astro";
 import PostPreviewList from "$/components/PostPreviewList.astro";
+import GeneratedCover from "$/components/GeneratedCover.astro";
 import { Content as AboutAstroInk } from "./_home_intro.md";
 
 const title = "Home";
@@ -24,10 +25,6 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 8);
   <!-- Hero Section with Featured Article -->
   <section class="hero-section">
     <div class="hero-content">
-      <h1 class="hero-title font-display font-bold">
-        <span class="title-line">Daily News</span>
-        <span class="title-line title-accent">Report</span>
-      </h1>
       <p class="hero-description">
         你的每日科技新闻精选，AI 驱动的智能聚合
       </p>
@@ -78,15 +75,22 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 8);
                 <img
                   src={post.data.image}
                   alt={post.data.title}
-                  class="w-full h-full object-cover"
+                  class="block w-full h-full object-cover"
                   loading="lazy"
                 />
               </div>
             ) : (
-              <div class="post-card-image aspect-[16/10] overflow-hidden rounded-lg bg-gradient-to-br from-theme-surface to-theme-surface2 flex items-center justify-center">
-                <span class="text-4xl font-display font-bold text-theme-border/30">
-                  {new Date(post.data.date).getDate()}
-                </span>
+              <div class="post-card-image img-zoom-container overflow-hidden rounded-lg" style="aspect-ratio: 16 / 10;">
+                <GeneratedCover
+                  title={post.data.title}
+                  slug={post.slug}
+                  tags={post.data.tags}
+                  date={post.data.date}
+                  width={800}
+                  height={500}
+                  class="block w-full h-full object-cover"
+                  alt={post.data.title}
+                />
               </div>
             )}
 
@@ -165,30 +169,10 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 8);
     @apply relative z-10;
   }
 
-  .hero-title {
-    @apply text-5xl md:text-7xl lg:text-8xl;
-    @apply mb-6;
-    @apply leading-tight;
-  }
-
-  .title-line {
-    @apply block;
-    @apply text-theme-text-primary;
-  }
-
-  .title-accent {
-    @apply text-transparent bg-clip-text;
-    background-image: linear-gradient(135deg, #5b7c99 0%, #6bb8b8 100%);
-  }
-
-  :global(html.dark) .title-accent {
-    background-image: linear-gradient(135deg, #6bb8b8 0%, #d4a5a5 100%);
-  }
-
   .hero-description {
     @apply text-lg md:text-xl text-theme-text-secondary;
     @apply max-w-2xl mx-auto;
-    @apply mt-6;
+    @apply mt-0;
   }
 
   /* Category Pills */
@@ -254,6 +238,7 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 8);
     @apply bg-theme-surface rounded-xl overflow-hidden;
     @apply border border-theme-border;
     transition: all 0.3s ease-out;
+    @apply w-full;
   }
 
   :global(html.dark) .post-card {
@@ -275,6 +260,15 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 8);
 
   .post-card-image {
     @apply w-full;
+    aspect-ratio: 16 / 10;
+    @apply overflow-hidden rounded-lg;
+  }
+
+  .post-card-image img,
+  .post-card-image :global(img) {
+    @apply block w-full h-full;
+    object-fit: cover;
+    object-position: center;
   }
 
   .post-card-content {

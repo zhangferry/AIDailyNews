@@ -11,13 +11,15 @@ import AnimationEnhancer from './AnimationEnhancer.astro';
 ---
 <BaseLayout>
     <ReadingProgress />
-    <br class="my-4"/>
-    <Header/>
-    <Nav/>
-    <div class="content">
-        <slot />
+    <div class="sticky-header-wrapper">
+        <Header/>
+        <Nav/>
     </div>
-    <br class="my-4"/>
+    <div class="main-wrapper">
+        <div class="content">
+            <slot />
+        </div>
+    </div>
     <Footer/>
     <Portal>
             <SearchModal client:load/>
@@ -26,6 +28,19 @@ import AnimationEnhancer from './AnimationEnhancer.astro';
 </BaseLayout>
 
 <style>
+    .sticky-header-wrapper {
+        @apply sticky top-0 z-50;
+        @apply bg-theme-background/95 backdrop-blur-md;
+    }
+
+    :global(html.dark) .sticky-header-wrapper {
+        @apply bg-theme-dark-background/95 backdrop-blur-md;
+    }
+
+    .main-wrapper {
+        @apply min-h-screen;
+    }
+
     .content {
         min-height: 580px
     }
