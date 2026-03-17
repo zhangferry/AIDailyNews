@@ -93,8 +93,6 @@ const AUTHOR_AVATAR = content.authorImage
             ))
         }
       </div>
-      <br />
-      <br />
       <h5 class={`post__desc ${AUTHOR_AVATAR ? "flex flex-row gap-2" : ""}`}>
         <div class={AUTHOR_AVATAR ? "flex flex-col border-l-2 pl-2" : ""}>
           <span class="post__date">
@@ -168,16 +166,16 @@ const AUTHOR_AVATAR = content.authorImage
   </MainLayout>
   <style>
     .post__header {
-      @apply py-4 mb-1 text-left;
+      @apply pt-4 pb-5 mb-4 text-left flex flex-col gap-3 md:gap-4;
     }
     .post__title {
-      @apply text-4xl font-extrabold text-theme-primary;
+      @apply text-4xl font-extrabold text-theme-primary leading-tight;
     }
     :global(html.dark) .post__title {
       @apply text-theme-dark-primary;
     }
     .post__desc {
-      @apply text-theme-text-secondary flex flex-none text-left;
+      @apply text-theme-text-secondary text-sm md:text-base flex items-start gap-2 text-left;
     }
     .post__author {
       @apply no-underline hover:text-theme-primary;
@@ -187,7 +185,7 @@ const AUTHOR_AVATAR = content.authorImage
     }
     .post__date,
     .post__stats {
-      @apply text-theme-text-muted;
+      @apply text-theme-text-muted inline-flex items-center gap-1;
     }
     :global(html.dark) .post__date,
     :global(html.dark) .post__stats {
@@ -214,7 +212,7 @@ const AUTHOR_AVATAR = content.authorImage
     .post-cover-wrapper {
       @apply relative rounded-lg shadow-md overflow-hidden;
       @apply w-full;
-      @apply mb-4;
+      @apply mb-6 md:mb-8;
       aspect-ratio: 21 / 5;
     }
 
@@ -229,6 +227,7 @@ const AUTHOR_AVATAR = content.authorImage
       @apply relative rounded-lg shadow-xl overflow-hidden;
       @apply w-full;
       @apply block;
+      @apply mb-6 md:mb-8;
       aspect-ratio: 21 / 5;
     }
 

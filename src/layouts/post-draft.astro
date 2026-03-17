@@ -20,6 +20,7 @@ const { content } = Astro.props;
     </head>
     <MainLayout>
         <div class="post__header">
+            <h1 class="post__title">{content.title}</h1>
             <div class="post__tags">
                 {
                     content.tags.length > 0 &&
@@ -34,7 +35,6 @@ const { content } = Astro.props;
                         ))
                 }
             </div>
-            <h1 class="post__title">{content.title}</h1>
             <h5 class="post__desc">
                 <a
                     class="post__author"
@@ -89,16 +89,16 @@ const { content } = Astro.props;
 </html>
 <style>
     .post__header {
-        @apply py-4 mb-1;
+        @apply pt-4 pb-5 mb-4 text-left flex flex-col gap-3 md:gap-4;
     }
     .post__title {
-        @apply text-5xl font-extrabold text-theme-primary;
+        @apply text-4xl font-extrabold text-theme-primary leading-tight;
     }
     :global(html.dark) .post__title {
         @apply text-theme-dark-primary;
     }
     .post__desc {
-        @apply text-theme-text-secondary;
+        @apply text-theme-text-secondary text-sm md:text-base;
     }
     :global(html.dark) .post__desc {
         @apply text-theme-dark-text-secondary;
@@ -116,14 +116,14 @@ const { content } = Astro.props;
         @apply text-theme-dark-text-muted;
     }
     .post__tags {
-        @apply inline-flex gap-2;
+        @apply inline-flex gap-2 flex-wrap;
     }
     .post__tag {
         @apply no-underline;
     }
 
     .draft-message {
-        @apply bg-yellow-300 text-gray-700 px-2 py-1 my-2;
+        @apply bg-yellow-300 text-gray-700 px-3 py-2 my-3 rounded-md;
     }
     :global(html.dark) .draft-message {
         @apply bg-yellow-700 text-white;
@@ -133,7 +133,7 @@ const { content } = Astro.props;
     .post-cover-wrapper {
         @apply relative rounded-lg shadow-md overflow-hidden;
         @apply w-full;
-        @apply mb-4;
+        @apply mb-6 md:mb-8;
         aspect-ratio: 21 / 5;
     }
 
