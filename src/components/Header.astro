@@ -53,18 +53,27 @@ import SearchBtn from "./SearchBtn.svelte";
 
 <style>
   .header {
-    @apply flex gap-4 border-b py-3 /* border-gray-200 dark:border-gray-700 - check styles/global.css */;
+    @apply flex gap-4 border-b py-3;
   }
   .header__logo-img {
     @apply w-20 h-20 overflow-hidden;
   }
   .header__title {
-    @apply text-4xl font-extrabold md:text-5xl text-theme-primary dark:text-theme-dark-primary;
+    @apply text-4xl font-extrabold md:text-5xl text-theme-primary;
+  }
+  :global(html.dark) .header__title {
+    @apply text-theme-dark-primary;
   }
   .header__desc {
-    @apply text-xl flex-1 dark:text-gray-200;
+    @apply text-xl flex-1 text-theme-text-secondary;
+  }
+  :global(html.dark) .header__desc {
+    @apply text-theme-dark-text-secondary;
   }
   .header__ref-list {
-    @apply flex gap-3 text-gray-400;
+    @apply flex gap-3 text-theme-text-muted;
+  }
+  :global(html.dark) .header__ref-list {
+    @apply text-theme-dark-text-muted;
   }
 </style>

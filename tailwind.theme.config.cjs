@@ -163,6 +163,45 @@ module.exports = {
     },
   },
   /**
+   * Color Palette - Modern Magazine (Soft & Professional)
+   */
+  neonmagazine: {
+    colors: {
+      primary: "#5b7c99", // Soft blue for light mode
+      secondary: "#7da87b", // Soft green accent
+      tertiary: "#d4a5a5", // Soft pink accent
+      background: "#ffffff", // White for light mode
+      surface: "#f8f9fa", // Light gray surface
+      surface2: "#e9ecef", // Slightly darker for cards
+      border: "#dee2e6", // Light borders
+      "text-primary": "#212529",
+      "text-secondary": "#6c757d",
+      "text-muted": "#adb5bd",
+      "dark-primary": "#6bb8b8", // Soft teal for dark mode
+      "dark-secondary": "#d4a5a5", // Soft pink
+      "dark-tertiary": "#d8b8a0", // Soft peach
+      "dark-background": "#1a1a2e", // Deep blue-black (softer than pure black)
+      "dark-surface": "#252540", // Dark surface
+      "dark-surface2": "#2f2f4f", // Card background
+      "dark-border": "#3f3f5f", // Dark borders
+      "dark-text-primary": "#f0f0f5",
+      "dark-text-secondary": "#b0b0c0",
+      "dark-text-muted": "#707080",
+      accent: {
+        gray: {
+          light: "#e9ecef",
+          dark: "#3f3f5f",
+        },
+        default: "#6bb8b8",
+      },
+      gradient: {
+        primary: "linear-gradient(135deg, #5b7c99 0%, #6bb8b8 100%)",
+        secondary: "linear-gradient(135deg, #d4a5a5 0%, #c99a9a 100%)",
+        tertiary: "linear-gradient(135deg, #d8b8a0 0%, #d4a5a5 100%)",
+      },
+    },
+  },
+  /**
    * Color Palette - Default/Duplicate of Purple Heart (Never remove this)
    */
   default: {

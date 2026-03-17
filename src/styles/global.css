@@ -1,19 +1,135 @@
 @tailwind base;
+@tailwind components;
 /* https://github.com/tailwindlabs/tailwindcss/discussions/2917 */
 @layer base {
 	html {
-		&.dark {
-			@apply text-gray-200;
-            header, footer {
-                @apply text-gray-400 border-gray-700;
-            }
-			strong {
-				@apply text-inherit
-			}
-		}
+		@apply text-theme-text-primary bg-theme-background;
+        header, footer {
+            @apply text-theme-text-secondary;
+        }
+	}
+
+	html.dark {
+		@apply text-theme-dark-text-primary bg-theme-dark-background;
+        header, footer {
+            @apply text-theme-dark-text-secondary;
+        }
 	}
 }
-@tailwind components;
+
+@layer components {
+    /* Magazine-style gradient overlays */
+    .magazine-overlay {
+        @apply absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent;
+    }
+
+    :global(html.dark) .magazine-overlay {
+        background: linear-gradient(to top, rgba(26, 26, 46, 0.95) 0%, rgba(26, 26, 46, 0.6) 40%, transparent 100%);
+    }
+
+    .magazine-overlay-light {
+        @apply absolute inset-0 bg-gradient-to-t from-gray-100/90 via-white/50 to-transparent;
+    }
+
+    /* Neon glow effects - softer version */
+    .neon-glow {
+        box-shadow: 0 4px 12px rgba(91, 124, 153, 0.15),
+                    0 2px 6px rgba(91, 124, 153, 0.1);
+    }
+
+    :global(html.dark) .neon-glow {
+        box-shadow: 0 4px 12px rgba(107, 184, 184, 0.15),
+                    0 2px 6px rgba(107, 184, 184, 0.1);
+    }
+
+    .neon-glow-hover:hover {
+        box-shadow: 0 6px 16px rgba(91, 124, 153, 0.2),
+                    0 3px 8px rgba(91, 124, 153, 0.15);
+    }
+
+    :global(html.dark) .neon-glow-hover:hover {
+        box-shadow: 0 6px 16px rgba(107, 184, 184, 0.2),
+                    0 3px 8px rgba(107, 184, 184, 0.15);
+    }
+
+    /* Category badges */
+    .category-badge {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider;
+        @apply bg-theme-primary/10 text-theme-primary border border-theme-primary/20;
+    }
+
+    :global(html.dark) .category-badge {
+        @apply bg-theme-dark-primary/20 text-theme-dark-primary border-theme-dark-primary/30;
+    }
+
+    /* Animated underline */
+    .animated-underline {
+        @apply relative inline-block;
+    }
+
+    .animated-underline::after {
+        content: '';
+        @apply absolute bottom-0 left-0 w-full h-0.5 bg-theme-primary;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+    }
+
+    :global(html.dark) .animated-underline::after {
+        @apply bg-theme-dark-primary;
+    }
+
+    /* Card hover effects */
+    .card-hover {
+        transition: all 0.3s ease-out;
+    }
+
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    html.dark .card-hover:hover {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Staggered animation delays */
+    .stagger-1 { animation-delay: 100ms; }
+    .stagger-2 { animation-delay: 200ms; }
+    .stagger-3 { animation-delay: 300ms; }
+    .stagger-4 { animation-delay: 400ms; }
+    .stagger-5 { animation-delay: 500ms; }
+
+    /* Fade in animation */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    /* Image zoom effect */
+    .img-zoom-container {
+        @apply overflow-hidden;
+    }
+
+    .img-zoom-container img {
+        transition: transform 0.5s ease-out;
+    }
+
+    .img-zoom-container:hover img {
+        transform: scale(1.1);
+    }
+}
+
 @tailwind utilities;
 
 /* Ink specific styles */
@@ -26,11 +142,27 @@
 }
 
 ::-webkit-scrollbar-track {
-	@apply bg-theme-dark-primary dark:bg-theme-primary bg-opacity-20;
+	@apply bg-theme-surface;
+}
+
+:global(html.dark) ::-webkit-scrollbar-track {
+	background-color: #252540;
 }
 
 ::-webkit-scrollbar-thumb {
-	@apply bg-theme-primary dark:bg-theme-dark-primary bg-opacity-20 dark:bg-opacity-100 shadow-2xl rounded-full;
+	@apply bg-theme-primary/30 rounded-full;
+}
+
+:global(html.dark) ::-webkit-scrollbar-thumb {
+	@apply bg-theme-dark-primary/30;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	@apply bg-theme-primary/50;
+}
+
+:global(html.dark) ::-webkit-scrollbar-thumb:hover {
+	@apply bg-theme-dark-primary/50;
 }
 
 /** Code block **/

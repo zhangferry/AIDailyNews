@@ -4,11 +4,12 @@ export const prerender = true;
 import { getCollection } from "astro:content";
 import DefaultPageLayout from "$/layouts/default.astro";
 import PostPreviewList from "$/components/PostPreviewList.astro";
+import PostPreview from "$/components/PostPreview.astro";
 import Paginator from "$/components/Paginator.astro";
 import { PAGE_SIZE } from "$/config";
 
 let title = "Blog";
-let description = "All the articles posted so far...";
+let description = "All articles and daily news reports";
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection("blog");
@@ -22,9 +23,145 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page } = Astro.props;
+const posts = page.data;
+
+// Get unique categories for filter
+const allPosts = await getCollection("blog");
+const allTags = allPosts.flatMap(post => post.data.tags || []);
+const uniqueCategories = [...new Set(allTags)].slice(0, 12);
 ---
 
 <DefaultPageLayout content={{ title, description }}>
-  <PostPreviewList posts={page.data} />
-  <Paginator page={page} />
+  <!-- Page Header -->
+  <div class="page-hero">
+    <h1 class="page-title font-display font-bold">
+      All Articles
+    </h1>
+    <p class="page-subtitle">
+      Browse through our collection of daily tech news and insights
+    </p>
+  </div>
+
+  <!-- Category Filter -->
+  <div class="category-filter">
+    <a
+      href="/blog"
+      class="filter-item active"
+    >
+      All
+    </a>
+    {uniqueCategories.map(category => (
+      <a
+        href={`/tags/${category}`}
+        class="filter-item"
+      >
+        {category}
+      </a>
+    ))}
+  </div>
+
+  <!-- Featured Post (only on first page) -->
+  {page.currentPage === 1 && posts.length > 0 && (
+    <section class="featured-post-section mb-12">
+      <PostPreview
+        post={posts[0]}
+        featured={true}
+      />
+    </section>
+  )}
+
+  <!-- Posts Grid -->
+  <section class="posts-grid-section">
+    <PostPreviewList
+      posts={page.currentPage === 1 ? posts.slice(1) : posts}
+      mode="row"
+      heading={page.currentPage === 1 ? "Recent Articles" : undefined}
+    />
+  </section>
+
+  <!-- Pagination -->
+  <div class="pagination-wrapper">
+    <Paginator page={page} />
+  </div>
 </DefaultPageLayout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    @apply text-center py-12 md:py-16;
+    @apply mb-8;
+  }
+
+  .page-title {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+    @apply text-theme-text-primary;
+    @apply mb-4;
+  }
+
+  :global(html.dark) .page-title {
+    @apply text-theme-dark-text-primary;
+  }
+
+  .page-subtitle {
+    @apply text-lg text-theme-text-secondary;
+    @apply max-w-2xl mx-auto;
+  }
+
+  :global(html.dark) .page-subtitle {
+    @apply text-theme-dark-text-secondary;
+  }
+
+  /* Category Filter */
+  .category-filter {
+    @apply flex flex-wrap justify-center gap-3;
+    @apply py-6 px-4;
+    @apply mb-8;
+    @apply border-y border-theme-border;
+    @apply sticky top-0;
+    @apply bg-theme-background/95 backdrop-blur-sm;
+    @apply z-40;
+  }
+
+  :global(html.dark) .category-filter {
+    @apply border-theme-dark-border;
+    @apply bg-theme-dark-background/95;
+  }
+
+  .filter-item {
+    @apply px-4 py-2 rounded-full;
+    @apply text-sm font-medium;
+    @apply bg-theme-surface border border-theme-border;
+    @apply text-theme-text-secondary;
+    @apply transition-all duration-200 ease-out;
+    @apply hover:border-theme-primary hover:text-theme-primary hover:bg-theme-primary/10;
+  }
+
+  :global(html.dark) .filter-item {
+    @apply bg-theme-dark-surface border-theme-dark-border text-theme-dark-text-secondary;
+    @apply hover:border-theme-dark-primary hover:text-theme-dark-primary hover:bg-theme-dark-primary/10;
+  }
+
+  .filter-item.active {
+    @apply bg-theme-primary text-black border-theme-primary;
+  }
+
+  :global(html.dark) .filter-item.active {
+    @apply bg-theme-dark-primary border-theme-dark-primary;
+  }
+
+  /* Featured Post */
+  .featured-post-section {
+    @apply relative;
+  }
+
+  /* Posts Grid */
+  .posts-grid-section {
+    @apply py-8;
+  }
+
+  /* Pagination */
+  .pagination-wrapper {
+    @apply py-12;
+    @apply flex justify-center;
+  }
+</style>

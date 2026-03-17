@@ -1,0 +1,88 @@
+---
+interface Props {
+  color?: string;
+}
+
+const { color = "theme-primary" } = Astro.props;
+---
+
+<div id="reading-progress" class="reading-progress">
+  <div class="reading-progress-bar" data-color={color}></div>
+</div>
+
+<script define:vars={{ color }}>
+  const progressBar = document.querySelector('.reading-progress-bar') as HTMLElement;
+  let lastScrollY = 0;
+  let ticking = false;
+
+  function updateProgress() {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollableHeight = documentHeight - windowHeight;
+    const progress = (scrollTop / scrollableHeight) * 100;
+
+    if (progressBar) {
+      progressBar.style.width = `${Math.min(progress, 100)}%`;
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateProgress();
+        ticking = false;
+      });
+
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Initial call
+  updateProgress();
+</script>
+
+<style>
+  .reading-progress {
+    @apply fixed top-0 left-0 w-full h-1;
+    @apply z-50;
+    @apply bg-theme-surface/50;
+    @apply backdrop-blur-sm;
+  }
+
+  :global(html.dark) .reading-progress {
+    @apply bg-theme-dark-surface/50;
+  }
+
+  .reading-progress-bar {
+    @apply h-full;
+    @apply bg-gradient-to-r from-theme-primary via-theme-secondary to-theme-tertiary;
+    @apply transition-all duration-150 ease-out;
+    @apply origin-left;
+    @apply w-0;
+  }
+
+  :global(html.dark) .reading-progress-bar {
+    @apply from-theme-dark-primary via-theme-dark-secondary to-theme-dark-tertiary;
+  }
+
+  .reading-progress-bar[data-color="theme-primary"] {
+    @apply bg-theme-primary;
+  }
+
+  :global(html.dark) .reading-progress-bar[data-color="theme-primary"] {
+    @apply bg-theme-dark-primary;
+  }
+
+  .reading-progress-bar[data-color="theme-secondary"] {
+    @apply bg-theme-secondary;
+  }
+
+  :global(html.dark) .reading-progress-bar[data-color="theme-secondary"] {
+    @apply bg-theme-dark-secondary;
+  }
+</style>

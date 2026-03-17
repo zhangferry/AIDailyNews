@@ -4,15 +4,15 @@ import { NAV_ITEMS } from "$/config";
 ---
 
 <nav class="nav py-3">
-  <ul class="nav-list dark:text-theme-dark-secondary" transition:animate="fade">
+  <ul class="nav-list" transition:animate="fade">
     {
       Object.keys(NAV_ITEMS).map((navItemKey) => (
         <li>
           <a
             class:list={[
-              `pb-1 border-b-2 hover:border-gray-400 hover:dark:border-gray-700 `,
+              `pb-1 border-b-2 hover:border-theme-text-muted`,
               Astro.url.pathname !== NAV_ITEMS[navItemKey].path
-                ? "border-gray-100 dark:border-gray-800"
+                ? "border-theme-border"
                 : "",
               Astro.url.pathname === NAV_ITEMS[navItemKey].path
                 ? "border-theme-primary"
@@ -30,6 +30,15 @@ import { NAV_ITEMS } from "$/config";
 </nav>
 <style>
   .nav-list {
-    @apply inline-flex list-none gap-8 text-xl font-semibold text-theme-primary dark:text-theme-dark-primary py-2 flex-wrap;
+    @apply inline-flex list-none gap-8 text-xl font-semibold text-theme-primary py-2 flex-wrap;
+  }
+  :global(html.dark) .nav-list {
+    @apply text-theme-dark-primary;
+  }
+  :global(html.dark) .nav-list a {
+    @apply hover:border-theme-dark-text-muted;
+  }
+  :global(html.dark) .nav-list a:not(.border-theme-primary) {
+    @apply border-theme-dark-border;
   }
 </style>

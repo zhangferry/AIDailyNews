@@ -5,9 +5,12 @@ import Footer from './Footer.astro';
 import Nav from './Nav.astro';
 import Portal from './Portal.astro';
 import SearchModal from './SearchModal.svelte'
+import ReadingProgress from './ReadingProgress.astro';
+import AnimationEnhancer from './AnimationEnhancer.astro';
 
 ---
 <BaseLayout>
+    <ReadingProgress />
     <br class="my-4"/>
     <Header/>
     <Nav/>
@@ -19,6 +22,7 @@ import SearchModal from './SearchModal.svelte'
     <Portal>
             <SearchModal client:load/>
     </Portal>
+    <AnimationEnhancer />
 </BaseLayout>
 
 <style>

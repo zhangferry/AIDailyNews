@@ -10,11 +10,17 @@
 
 <style>
 	button {
-        @apply bg-none border-b-2 border-solid border-white m-0 text-gray-400 px-4 py-1;
+        @apply bg-none border-b-2 border-solid border-theme-border m-0 text-theme-text-muted px-4 py-1;
+	}
+	:global(html.dark) button {
+        @apply border-theme-dark-border text-theme-dark-text-muted;
 	}
 
 	.selected {
-        @apply border-b-2 border-solid border-gray-700 text-gray-700;
+        @apply border-b-2 border-solid border-theme-primary text-theme-primary;
+	}
+	:global(html.dark) .selected {
+        @apply border-theme-dark-primary text-theme-dark-primary;
 	}
 </style>
 

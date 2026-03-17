@@ -10,7 +10,7 @@ const { frontmatter: post, file } = Astro.props.post
         </div>
     </div>
     <div class="flex-1">
-        <h4 class="post-draft-preview__title dark:text-theme-dark-primary">
+        <h4 class="post-draft-preview__title">
             <a href={`/drafts/${getSlugFromPathname(file)}`} title={post.title}>{post.title}</a>
         </h4>
         <p class="post-draft-preview__desc">
@@ -26,15 +26,27 @@ const { frontmatter: post, file } = Astro.props.post
         @apply flex flex-col w-full text-center
     }
     .post-draft-preview__date__day {
-        @apply text-6xl font-semibold text-gray-500 dark:text-gray-300
+        @apply text-6xl font-semibold text-theme-text-primary;
+    }
+    :global(html.dark) .post-draft-preview__date__day {
+        @apply text-theme-dark-text-primary;
     }
     .post-draft-preview__date__month-n-year {
-        @apply text-gray-400
+        @apply text-theme-text-muted;
+    }
+    :global(html.dark) .post-draft-preview__date__month-n-year {
+        @apply text-theme-dark-text-muted;
     }
     .post-draft-preview__title {
-        @apply text-2xl font-semibold text-theme-primary dark:text-theme-dark-primary /* this doesn't works here */ hover:underline mb-2
+        @apply text-2xl font-semibold text-theme-primary hover:underline mb-2;
+    }
+    :global(html.dark) .post-draft-preview__title {
+        @apply text-theme-dark-primary;
     }
     .post-draft-preview__desc {
-        @apply text-lg leading-6 dark:text-white line-clamp-2 hyphens-auto
+        @apply text-lg leading-6 text-theme-text-secondary line-clamp-2 hyphens-auto;
+    }
+    :global(html.dark) .post-draft-preview__desc {
+        @apply text-theme-dark-text-secondary;
     }
 </style>

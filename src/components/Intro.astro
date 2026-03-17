@@ -5,6 +5,9 @@
         @apply mx-auto w-2/3 mt-6
     }
     h1 {
-      @apply w-full justify-center text-center text-3xl font-bold text-purple-600 py-10
+      @apply w-full justify-center text-center text-3xl font-bold text-theme-primary py-10;
+    }
+    :global(html.dark) h1 {
+      @apply text-theme-dark-primary;
     }
 </style>
