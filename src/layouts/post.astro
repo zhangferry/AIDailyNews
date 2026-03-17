@@ -30,7 +30,7 @@ const { content, meta } = Astro.props;
 
 // 获取所有博客文章用于导航
 const allPosts = await getCollection("blog");
-const sortedPosts = allPosts.sort(
+const sortedPosts = allPosts.toSorted(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 

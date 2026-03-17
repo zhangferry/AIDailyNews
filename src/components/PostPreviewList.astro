@@ -18,7 +18,7 @@ const {
   featuredCount = 1,
 } = Astro.props;
 
-const sortedPosts = posts.sort(
+const sortedPosts = posts.toSorted(
   (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
 );
 

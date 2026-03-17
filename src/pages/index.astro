@@ -10,7 +10,7 @@ const title = "Home";
 const description = "Daily News Report - Your daily dose of tech and development news";
 
 let posts = await getCollection("blog");
-posts = posts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+posts = posts.toSorted((a, b) => new Date(b.data.date) - new Date(a.data.date));
 
 // Get latest 8 posts
 const latestPosts = posts.slice(0, 8);
