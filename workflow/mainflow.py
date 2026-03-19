@@ -101,6 +101,10 @@ def find_favorite_article(rss_articles):
         else:
             rss_resource[rss_category] = [article]
 
+    if not rss_resource:
+        logger.warning("没有可评估的文章分类，跳过并行评分")
+        return []
+
     show_articles = []
 
     # 使用线程池并行处理各个分类
