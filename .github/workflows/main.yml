@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: 0 15 * * * # every 23:59 UTC +8
+    - cron: 30 15 * * * # every 23:30 UTC +8
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -61,8 +61,16 @@ jobs:
           pip3 install -r ./requirements.txt
 
       - name: Create Daily News
-        # You may pin to the exact commit or the version.
+        id: create_daily_news
+        continue-on-error: true
         run: python3 ./main.py
+
+      - name: Retry Create Daily News After 10 Minutes
+        if: steps.create_daily_news.outcome == 'failure'
+        run: |
+          echo "First attempt failed, retrying in 10 minutes..."
+          sleep 600
+          python3 ./main.py
 
       - name: Get branch name
         run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
@@ -81,3 +89,4 @@ jobs:
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
           branch: main
+
