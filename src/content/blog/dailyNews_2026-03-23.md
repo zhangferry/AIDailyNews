@@ -1,14 +1,7 @@
 ---
 title: "Daily News #2026-03-23"
 date: "2026-03-23 23:55:39"
-description: "我的 App 审核被卡了？
-SSH 仅在非伪终端模式下等待后台作业退出
-The "One More Prompt" risk of agentic coding
-阿里云智空间：从 AI 作坊到 AI 助手工厂的架构演进
-AI 时代下的产品工程师：审美、质量与未来工作流
-OpenClaw引发变革与AI落地挑战：企业如何跨越AI工程化最后一公里
-tmux 常用命令速查表
-商业小样36 | Google发债，一百年太久只争朝夕"
+description: 我的 App 审核被卡了？ SSH 仅在非伪终端模式下等待后台作业退出 The "One More Prompt" risk of agentic coding 阿里云智空间：从 AI 作坊到 AI 助手工厂的架构演进 AI 时代下的产品工程师：审美、质量与未来工作流 OpenClaw引发变革与AI落地挑战：企业如何跨越AI工程化最后一公里 tmux 常用命令速查表 商业小样36 | Google发债，一百年太久只争朝夕
 tags: 
 - "AI 辅助开发"
 - "SSH"

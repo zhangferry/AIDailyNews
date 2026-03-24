@@ -76,8 +76,9 @@ def make_meta_data(description, tags):
     data = f"""---
 title: "{md_title}"
 date: "{today_with_timezone.strftime("%Y-%m-%d %H:%M:%S")}"
-description: "{description}"
-tags: 
+description: >
+  {description.replace('\n', ' ')}
+tags:
 {tags_str}
 ---
 """
