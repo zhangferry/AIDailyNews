@@ -113,23 +113,53 @@ def parse_rss_config(rss_config):
         logger.info(f'{rss_config["url"]} content count of today is {len(today_rss)}')
     return today_rss
 
+def _extract_enclosure_image(rss_item):
+    """从 RSS enclosures 或 media_content 中提取图片 URL"""
+    # enclosures (常见于 RSS 2.0)
+    enclosures = getattr(rss_item, 'enclosures', [])
+    for enc in enclosures:
+        if enc.get('type', '').startswith('image') and enc.get('href'):
+            return enc['href']
+    # media_content (Media RSS 扩展)
+    media = getattr(rss_item, 'media_content', [])
+    for m in media:
+        if m.get('type', '').startswith('image') and m.get('url'):
+            return m['url']
+    # 从 summary HTML 中提取 <img> 标签
+    summary_raw = rss_item.get("summary", "")
+    if summary_raw:
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(summary_raw, 'html.parser')
+        img = soup.find("img")
+        if img:
+            src = img.get("src") or img.get("data-src", "")
+            if src:
+                return src
+    return ""
+
+
 def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, channel=None, config=None):
     title = rss_item["title"]
     link = rss_item["link"]
     summary_raw = rss_item.get("summary", "")
     image_url = ""
 
+    # 优先级1：从 RSS enclosures/media_content/summary<img> 提取图片
+    image_url = _extract_enclosure_image(rss_item)
+
     if rss_type and len(rss_type) != 0:
         summary, fetched_image = fetch_summary_from(url=link, rss_type=rss_type)
-        if fetched_image:
+        if fetched_image and not image_url:
             image_url = fetched_image
     else:
-        summary, image_url = transform_html2txt(summary_raw, image_enable=image_enable)
+        summary, rss_summary_image = transform_html2txt(summary_raw, image_enable=image_enable)
+        if rss_summary_image and not image_url:
+            image_url = rss_summary_image
 
     if not summary or len(summary) < 10:
         return None
 
-    # If no image found, try fetching from the article URL
+    # 优先级2：从文章页面提取封面图（正文图片优先，过滤生成的社交卡片）
     if not image_url and link:
         image_url = fetch_cover_image_from_url(link)
 
