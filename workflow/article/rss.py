@@ -129,6 +129,10 @@ def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, chan
     if not summary or len(summary) < 10:
         return None
 
+    # If no image found, try fetching from the article URL
+    if not image_url and link:
+        image_url = fetch_cover_image_from_url(link)
+
     article = Article(title=title,
                   summary=summary,
                   link=link,
@@ -147,6 +151,36 @@ def fetch_summary_from(url: str, rss_type: str):
         summary = parse_github_readme(url)
         image_url = fetch_github_repo_image(url)
     return summary, image_url
+
+
+def fetch_cover_image_from_url(url, timeout=10):
+    """轻量级封面图抓取：只获取 og:image，不解析全文"""
+    try:
+        response = _http_session.get(url, timeout=timeout)
+        response.raise_for_status()
+        response.encoding = response.apparent_encoding
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # og:image
+        og_image = soup.find("meta", property="og:image")
+        if og_image and og_image.get("content"):
+            candidate = og_image["content"]
+            if not any(skip in candidate.lower() for skip in [
+                "touch-icon", "favicon", "logo", "icon-", "apple-touch",
+            ]):
+                if candidate.startswith("/"):
+                    from urllib.parse import urljoin
+                    candidate = urljoin(url, candidate)
+                return candidate
+
+        # twitter:image
+        tw_image = soup.find("meta", attrs={"name": "twitter:image"})
+        if tw_image and tw_image.get("content"):
+            return tw_image["content"]
+
+        return ""
+    except Exception:
+        return ""
 
 
 def transform_telegram_article(article: Article):

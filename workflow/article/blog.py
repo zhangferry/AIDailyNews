@@ -59,7 +59,7 @@ def make_meta_data(description, tags):
 
     time_zone = tz.gettz("Asia/Shanghai")
     today_with_timezone = datetime.today().astimezone(time_zone)
-    # Display date is +1 day so morning readers see "today's" news
+    # Display date: advance 1 day so morning readers see "today's" news
     display_date = today_with_timezone + timedelta(days=1)
     today_str = display_date.strftime("%Y-%m-%d")
 
