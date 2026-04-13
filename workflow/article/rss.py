@@ -153,30 +153,89 @@ def fetch_summary_from(url: str, rss_type: str):
     return summary, image_url
 
 
+def _is_generated_social_image(url):
+    """判断是否为自动生成的社交分享卡片图（非真实文章配图）"""
+    generated_patterns = [
+        "opengraph-image", "twitter-image", "og-image",
+        "/og_", "/social_", "/share-image", "/card-image",
+        "metatags", "/meta-image",
+    ]
+    url_lower = url.lower()
+    return any(p in url_lower for p in generated_patterns)
+
+
+def _find_real_image_in_body(soup, base_url=""):
+    """从文章正文中提取第一张有意义的真实图片"""
+    # 在常见文章容器中查找
+    article = (
+        soup.find("article")
+        or soup.find("main")
+        or soup.find(class_=re.compile(r"article|post|content|entry", re.I))
+        or soup.find("body")
+    )
+    if not article:
+        return ""
+
+    skip_keywords = [
+        "icon", "logo", "avatar", "badge", "emoji", "pixel",
+        "spinner", "loading", "favicon", "touch-icon",
+        "apple-touch", "placeholder", "1x1", "blank", "spacer",
+        "assets/images/logo", "githubassets.com/assets/github-logo",
+        "ad", "banner", "sponsor", "gravatar", "analytics",
+        "opengraph-image", "twitter-image",
+    ]
+
+    for img in article.find_all("img"):
+        src = img.get("src") or img.get("data-src", "")
+        if not src or src.startswith("data:") or src.endswith(".svg"):
+            continue
+        src_lower = src.lower()
+        if any(skip in src_lower for skip in skip_keywords):
+            continue
+        # 过滤过小的图片（宽度属性 < 100 的通常是图标）
+        width = img.get("width", "")
+        if width and width.isdigit() and int(width) < 100:
+            continue
+        # 解析相对路径
+        if src.startswith("/"):
+            from urllib.parse import urljoin
+            src = urljoin(base_url, src)
+        return src
+    return ""
+
+
 def fetch_cover_image_from_url(url, timeout=10):
-    """轻量级封面图抓取：只获取 og:image，不解析全文"""
+    """封面图抓取策略：正文真实图片优先，og:image 兜底，过滤生成的社交卡片"""
     try:
         response = _http_session.get(url, timeout=timeout)
         response.raise_for_status()
         response.encoding = response.apparent_encoding
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # og:image
+        # 策略1：从文章正文提取真实图片（优先）
+        real_image = _find_real_image_in_body(soup, base_url=url)
+        if real_image:
+            return real_image
+
+        # 策略2：og:image（仅当非自动生成卡片时使用）
         og_image = soup.find("meta", property="og:image")
         if og_image and og_image.get("content"):
             candidate = og_image["content"]
-            if not any(skip in candidate.lower() for skip in [
-                "touch-icon", "favicon", "logo", "icon-", "apple-touch",
-            ]):
-                if candidate.startswith("/"):
-                    from urllib.parse import urljoin
-                    candidate = urljoin(url, candidate)
-                return candidate
+            if not _is_generated_social_image(candidate):
+                if not any(skip in candidate.lower() for skip in [
+                    "touch-icon", "favicon", "logo", "icon-", "apple-touch",
+                ]):
+                    if candidate.startswith("/"):
+                        from urllib.parse import urljoin
+                        candidate = urljoin(url, candidate)
+                    return candidate
 
-        # twitter:image
+        # 策略3：twitter:image（仅当非自动生成卡片时使用）
         tw_image = soup.find("meta", attrs={"name": "twitter:image"})
         if tw_image and tw_image.get("content"):
-            return tw_image["content"]
+            candidate = tw_image["content"]
+            if not _is_generated_social_image(candidate):
+                return candidate
 
         return ""
     except Exception:
@@ -226,7 +285,7 @@ def unify_timezone(date_string):
 
 
 def parse_web_page(url, timeout=15):
-    """解析网页内容，提取正文和首图"""
+    """解析网页内容，提取正文和首图。正文真实图片优先，og:image 仅作兜底。"""
     try:
         response = _http_session.get(url, timeout=timeout)
         response.raise_for_status()
@@ -234,50 +293,29 @@ def parse_web_page(url, timeout=15):
         response.encoding = response.apparent_encoding
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # Extract cover image
-        image_url = ""
+        # 策略1：从文章正文提取真实图片（优先）
+        image_url = _find_real_image_in_body(soup, base_url=url)
 
-        # Priority 1: og:image meta tag (most reliable for articles)
-        og_image = soup.find("meta", property="og:image")
-        if og_image and og_image.get("content"):
-            candidate = og_image["content"]
-            # Skip icons/logos that some sites put in og:image
-            if not any(skip in candidate.lower() for skip in [
-                "touch-icon", "favicon", "logo", "icon-", "apple-touch",
-            ]):
-                image_url = candidate
+        # 策略2：og:image（仅当正文无图且非生成卡片时使用）
         if not image_url:
-            # Priority 2: twitter:image
+            og_image = soup.find("meta", property="og:image")
+            if og_image and og_image.get("content"):
+                candidate = og_image["content"]
+                if not _is_generated_social_image(candidate) and not any(skip in candidate.lower() for skip in [
+                    "touch-icon", "favicon", "logo", "icon-", "apple-touch",
+                ]):
+                    if candidate.startswith("/"):
+                        from urllib.parse import urljoin
+                        candidate = urljoin(url, candidate)
+                    image_url = candidate
+
+        # 策略3：twitter:image（仅当非生成卡片时使用）
+        if not image_url:
             tw_image = soup.find("meta", attrs={"name": "twitter:image"})
             if tw_image and tw_image.get("content"):
-                image_url = tw_image["content"]
-
-        # Priority 3: first meaningful <img> in article body
-        if not image_url:
-            # Look in common article containers
-            article = soup.find("article") or soup.find("main") or soup.find(class_=re.compile(r"article|post|content", re.I))
-            if article:
-                for img in article.find_all("img"):
-                    src = img.get("src") or img.get("data-src", "")
-                    # Skip tiny images, icons, logos, avatars
-                    if not src or any(skip in src.lower() for skip in [
-                        "icon", "logo", "avatar", "badge", "emoji", "pixel",
-                        "spinner", "loading", "favicon", "touch-icon",
-                        "apple-touch", "placeholder", "1x1", "blank", "spacer",
-                    ]):
-                        continue
-                    # Skip data URIs, SVGs, and common non-article image paths
-                    if src.startswith("data:") or src.endswith(".svg"):
-                        continue
-                    if any(skip in src.lower() for skip in ["assets/images/logo", "githubassets.com/assets/github-logo"]):
-                        continue
-                    image_url = src
-                    break
-
-        # Resolve relative URLs
-        if image_url and image_url.startswith("/"):
-            from urllib.parse import urljoin
-            image_url = urljoin(url, image_url)
+                candidate = tw_image["content"]
+                if not _is_generated_social_image(candidate):
+                    image_url = candidate
 
         # Extract text content
         tags = soup.find_all(["h1", "h2", "p", "code"])
