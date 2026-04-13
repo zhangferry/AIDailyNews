@@ -206,8 +206,13 @@ def parse_web_page(url, timeout=15):
         # Priority 1: og:image meta tag (most reliable for articles)
         og_image = soup.find("meta", property="og:image")
         if og_image and og_image.get("content"):
-            image_url = og_image["content"]
-        else:
+            candidate = og_image["content"]
+            # Skip icons/logos that some sites put in og:image
+            if not any(skip in candidate.lower() for skip in [
+                "touch-icon", "favicon", "logo", "icon-", "apple-touch",
+            ]):
+                image_url = candidate
+        if not image_url:
             # Priority 2: twitter:image
             tw_image = soup.find("meta", attrs={"name": "twitter:image"})
             if tw_image and tw_image.get("content"):
@@ -221,10 +226,16 @@ def parse_web_page(url, timeout=15):
                 for img in article.find_all("img"):
                     src = img.get("src") or img.get("data-src", "")
                     # Skip tiny images, icons, logos, avatars
-                    if not src or any(skip in src.lower() for skip in ["icon", "logo", "avatar", "badge", "emoji", "pixel", "spinner", "loading"]):
+                    if not src or any(skip in src.lower() for skip in [
+                        "icon", "logo", "avatar", "badge", "emoji", "pixel",
+                        "spinner", "loading", "favicon", "touch-icon",
+                        "apple-touch", "placeholder", "1x1", "blank", "spacer",
+                    ]):
                         continue
-                    # Skip data URIs and SVGs
+                    # Skip data URIs, SVGs, and common non-article image paths
                     if src.startswith("data:") or src.endswith(".svg"):
+                        continue
+                    if any(skip in src.lower() for skip in ["assets/images/logo", "githubassets.com/assets/github-logo"]):
                         continue
                     image_url = src
                     break
