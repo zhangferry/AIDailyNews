@@ -120,7 +120,9 @@ def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, chan
     image_url = ""
 
     if rss_type and len(rss_type) != 0:
-        summary = fetch_summary_from(url=link, rss_type=rss_type)
+        summary, fetched_image = fetch_summary_from(url=link, rss_type=rss_type)
+        if fetched_image:
+            image_url = fetched_image
     else:
         summary, image_url = transform_html2txt(summary_raw, image_enable=image_enable)
 
@@ -138,11 +140,13 @@ def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, chan
 
 def fetch_summary_from(url: str, rss_type: str):
     summary = None
+    image_url = ""
     if rss_type == "link":
-        summary = parse_web_page(url=url)
+        summary, image_url = parse_web_page(url=url)
     elif rss_type == "code":
         summary = parse_github_readme(url)
-    return summary
+        image_url = fetch_github_repo_image(url)
+    return summary, image_url
 
 
 def transform_telegram_article(article: Article):
@@ -161,9 +165,9 @@ def transform_telegram_article(article: Article):
         link = get_real_url(tco_links[0])
         article.link = link
         if link.startswith("https://github.com"):
-            article.summary = fetch_summary_from(url=link, rss_type="code")
+            article.summary, _ = fetch_summary_from(url=link, rss_type="code")
         else:
-            article.summary = fetch_summary_from(url=link, rss_type="link")
+            article.summary, _ = fetch_summary_from(url=link, rss_type="link")
     return article
 
 
@@ -188,30 +192,63 @@ def unify_timezone(date_string):
 
 
 def parse_web_page(url, timeout=15):
-    """解析网页内容，添加超时和更好的错误处理"""
+    """解析网页内容，提取正文和首图"""
     try:
         response = _http_session.get(url, timeout=timeout)
         response.raise_for_status()
 
-        # 指定编码方式
         response.encoding = response.apparent_encoding
-        # 使用BeautifulSoup解析HTML
         soup = BeautifulSoup(response.text, 'html.parser')
-        # 提取限定标签，简化取网页内容流程
+
+        # Extract cover image
+        image_url = ""
+
+        # Priority 1: og:image meta tag (most reliable for articles)
+        og_image = soup.find("meta", property="og:image")
+        if og_image and og_image.get("content"):
+            image_url = og_image["content"]
+        else:
+            # Priority 2: twitter:image
+            tw_image = soup.find("meta", attrs={"name": "twitter:image"})
+            if tw_image and tw_image.get("content"):
+                image_url = tw_image["content"]
+
+        # Priority 3: first meaningful <img> in article body
+        if not image_url:
+            # Look in common article containers
+            article = soup.find("article") or soup.find("main") or soup.find(class_=re.compile(r"article|post|content", re.I))
+            if article:
+                for img in article.find_all("img"):
+                    src = img.get("src") or img.get("data-src", "")
+                    # Skip tiny images, icons, logos, avatars
+                    if not src or any(skip in src.lower() for skip in ["icon", "logo", "avatar", "badge", "emoji", "pixel", "spinner", "loading"]):
+                        continue
+                    # Skip data URIs and SVGs
+                    if src.startswith("data:") or src.endswith(".svg"):
+                        continue
+                    image_url = src
+                    break
+
+        # Resolve relative URLs
+        if image_url and image_url.startswith("/"):
+            from urllib.parse import urljoin
+            image_url = urljoin(url, image_url)
+
+        # Extract text content
         tags = soup.find_all(["h1", "h2", "p", "code"])
-        # 不处理标签嵌套内容
         tags_text = [tag.get_text() for tag in tags if not tag.next.name]
         extracted_text = '\n'.join(tags_text)
-        return extracted_text.strip()
+
+        return extracted_text.strip(), image_url
     except requests.exceptions.Timeout:
         logger.error(f"请求超时: {url}")
-        return None
+        return None, ""
     except requests.exceptions.HTTPError as e:
         logger.error(f"HTTP 错误: {url}, 状态码: {e.response.status_code}")
-        return None
+        return None, ""
     except requests.exceptions.RequestException as e:
         logger.exception(f"解析网页失败: {url}, 错误: {e}")
-        return None
+        return None, ""
 
 
 def extract_image_links(text):
@@ -221,6 +258,33 @@ def extract_image_links(text):
     if image_links:
         return image_links[0]
     return "", ""
+
+
+def fetch_github_repo_image(repo_url):
+    """获取 GitHub 仓库的社交预览图"""
+    try:
+        repo_url = get_real_url(repo_url)
+        username, repo_name = repo_url.split("/")[-2:]
+        api_url = f"https://api.github.com/repos/{username}/{repo_name}"
+        headers = {"Accept": "application/vnd.github.v3+json"}
+        github_token = ""
+        if os.environ.get("GITHUB_ACCESS_TOKEN"):
+            github_token = f"token {os.environ.get('GITHUB_ACCESS_TOKEN')}"
+        elif os.environ.get("ACCESS_TOKEN"):
+            github_token = f"token {os.environ.get('ACCESS_TOKEN')}"
+        headers["Authorization"] = github_token
+        response = _http_session.get(api_url, headers=headers, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        # social_preview_image is the custom repo social image
+        image_url = data.get("social_preview_image_url", "")
+        if not image_url:
+            # Fallback: owner avatar
+            image_url = data.get("owner", {}).get("avatar_url", "")
+        return image_url
+    except Exception as e:
+        logger.warning(f"获取仓库图片失败: {repo_url}, 错误: {e}")
+        return ""
 
 
 def parse_github_readme(repo_url):

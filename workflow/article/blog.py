@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil import tz
 from loguru import logger
 
@@ -59,7 +59,9 @@ def make_meta_data(description, tags):
 
     time_zone = tz.gettz("Asia/Shanghai")
     today_with_timezone = datetime.today().astimezone(time_zone)
-    today_str = today_with_timezone.strftime("%Y-%m-%d")
+    # Display date is +1 day so morning readers see "today's" news
+    display_date = today_with_timezone + timedelta(days=1)
+    today_str = display_date.strftime("%Y-%m-%d")
 
     current_directory = os.path.dirname(os.path.abspath(__file__))
     # 获取当前项目的根目录
@@ -75,7 +77,7 @@ def make_meta_data(description, tags):
     tags_str = "".join([rectify_tag_value(tag) for tag in set(tags)])
     data = f"""---
 title: "{md_title}"
-date: "{today_with_timezone.strftime("%Y-%m-%d %H:%M:%S")}"
+date: "{display_date.strftime("%Y-%m-%d")} 08:00:00"
 description: >
   {description.replace('\n', ' ')}
 tags:

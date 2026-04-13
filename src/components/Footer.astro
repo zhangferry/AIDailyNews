@@ -3,20 +3,61 @@ import { SITE } from "../config";
 import ModeLabel from "./ModeLabel.svelte";
 ---
 
-<footer class="footer">
-  <nav class="nav">
-    <div>
-      {new Date().getFullYear()} &copy; Copyright notice | <a
-        href={SITE.githubUrl}
-        title={`${SITE.name}'s Github URL'`}>{SITE.name}</a
-      >
-      <ModeLabel client:load /> theme on <a href="https://astro.build/"
-        >Astro</a>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-row">
+      <span>&copy; {new Date().getFullYear()} {SITE.name}</span>
+      <span class="dot">&middot;</span>
+      <a href={SITE.githubUrl} class="footer-link">GitHub</a>
+      <span class="dot">&middot;</span>
+      <a href="/rss.xml" class="footer-link">RSS</a>
+      <span class="dot">&middot;</span>
+      <a href="https://astro.build/" class="footer-link">Astro</a>
+      <span class="dot">&middot;</span>
+      <ModeLabel client:load />
     </div>
-  </nav>
+  </div>
 </footer>
+
 <style>
-  .footer {
-    @apply py-6 border-t;
+  .site-footer {
+    @apply mt-16 md:mt-24;
+    @apply py-8;
+    @apply border-t;
+    border-color: theme('colors.theme.border');
+  }
+
+  :global(html.dark) .site-footer {
+    border-color: theme('colors.theme.dark-border');
+  }
+
+  .footer-row {
+    @apply flex flex-wrap items-center gap-1;
+    @apply text-xs text-theme-text-muted;
+  }
+
+  :global(html.dark) .footer-row {
+    @apply text-theme-dark-text-muted;
+  }
+
+  .dot {
+    @apply mx-0.5;
+  }
+
+  .footer-link {
+    @apply text-theme-text-muted transition-colors duration-200;
+    text-decoration: none;
+  }
+
+  .footer-link:hover {
+    @apply text-blue-500;
+  }
+
+  :global(html.dark) .footer-link {
+    @apply text-theme-dark-text-muted;
+  }
+
+  :global(html.dark) .footer-link:hover {
+    @apply text-blue-400;
   }
 </style>

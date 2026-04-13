@@ -2,13 +2,12 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 const config = require("./tailwind.theme.config.cjs");
 
 /**
- * Find the applicable theme color palette, or use the default one
- * Using neon-magazine theme for modern digital magazine style
+ * Editorial Magazine theme - warm, elegant, content-first design
  */
 const themeConfig =
   process.env.THEME_KEY && config[process.env.THEME_KEY]
     ? config[process.env.THEME_KEY]
-    : config.neonmagazine;
+    : config.editorial;
 
 const { colors } = themeConfig;
 
@@ -18,9 +17,27 @@ module.exports = {
   safelist: ["dark"],
   theme: {
     fontFamily: {
-      display: ["Syne", "sans-serif"],
-      sans: ["Plus Jakarta Sans", "sans-serif"],
-      mono: ["Fira Code", ...fontFamily.mono],
+      display: [
+        '"Playfair Display"',
+        '"Noto Serif SC"',
+        '"Songti SC"',
+        '"SimSun"',
+        "serif",
+      ],
+      sans: [
+        '"Plus Jakarta Sans"',
+        '"PingFang SC"',
+        '"Microsoft YaHei"',
+        "sans-serif",
+      ],
+      mono: ["'Fira Code'", ...fontFamily.mono],
+      serif: [
+        '"Playfair Display"',
+        '"Noto Serif SC"',
+        '"Songti SC"',
+        "Georgia",
+        "serif",
+      ],
     },
     extend: {
       colors: {

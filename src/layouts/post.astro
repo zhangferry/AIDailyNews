@@ -9,12 +9,11 @@ import {
   USE_SUBSCRIPTION,
   USE_VIEW_STATS,
 } from "../config";
+import config from "../config/config.json";
 import MainLayout from "../components/MainLayout.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Prose from "../components/Prose.astro";
 import PostStats from "../components/PostStats.svelte";
-import EditUrl from "../components/EditLink.astro";
-import GeneratedCover from "../components/GeneratedCover.astro";
 
 interface Props {
   meta?: {
@@ -30,43 +29,22 @@ interface Props {
 }
 const { content, meta, coverHeadings = [] } = Astro.props;
 
-// 获取所有博客文章用于导航
 const allPosts = await getCollection("blog");
 const sortedPosts = allPosts.toSorted(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 
-// 只有在有meta.slug时才计算导航（即文章页面）
 let previousPost, nextPost;
 if (meta?.slug) {
-  // 找到当前文章的索引
   const currentIndex = sortedPosts.findIndex(
     (post) => post.slug === meta?.slug,
   );
-
-  // 获取上一篇和下一篇文章
   previousPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : undefined;
   nextPost =
     currentIndex < sortedPosts.length - 1
       ? sortedPosts[currentIndex + 1]
       : undefined;
 }
-
-const AUTHOR_NAME = content.author
-  ? content.author
-  : SITE?.author
-    ? SITE?.author
-    : "Author";
-const AUTHOR_TWITTER = content.authorTwitter
-  ? content.authorTwitter
-  : SITE?.authorTwitter
-    ? SITE?.authorTwitter
-    : "";
-const AUTHOR_AVATAR = content.authorImage
-  ? content.authorImage
-  : SITE?.authorImage
-    ? SITE?.authorImage
-    : "";
 ---
 
 <!doctype html>
@@ -78,213 +56,106 @@ const AUTHOR_AVATAR = content.authorImage
     />
   </head>
   <MainLayout>
-    <div class="post__header">
-      <h1 class="post__title">{content.title}</h1>
-      <div class="post__tags">
-        {
-          content.tags.length > 0 &&
-            content.tags.map((tag) => (
-              <a
-                class="category-badge post__tag"
-                href={`/tags/${tag}`}
-                title={tag}
-              >
-                {tag}
-              </a>
-            ))
-        }
-      </div>
-      <h5 class={`post__desc ${AUTHOR_AVATAR ? "flex flex-row gap-2" : ""}`}>
-        <div class={AUTHOR_AVATAR ? "flex flex-col border-l-2 pl-2" : ""}>
-          <span class="post__date">
-            <!-- post creation/updation data -->
-            {
-              new Intl.DateTimeFormat("en-US", { dateStyle: "full" }).format(
-                new Date(content.date),
-              )
-            }
-          </span>
-          <span class="post__stats">
-            {USE_VIEW_STATS && ` | `}
-            {
-              USE_VIEW_STATS && (
-                <>
-                  <Icon class="w-5 h-5 inline-block" pack="mdi" name="eye" />
-                  <PostStats slug={meta?.slug} client:load />
-                </>
-              )
-            }
-            <!-- | <Icon class="w-5 h-5 inline-block" pack="mdi" name="clock" /> 2 mins -->
-          </span>
+    <article class="post">
+      <!-- Header -->
+      <header class="post-header">
+        <div class="post-tags">
+          {content.tags.length > 0 && content.tags.map((tag) => (
+            <a class="post-tag" href={`/tags/${tag}`}>{tag}</a>
+          ))}
         </div>
-      </h5>
-    </div>
-    {
-      content.image ? (
-        USE_POST_IMG_OVERLAY ? (
-          <>
-            <div class="img__outer">
-              <img
-                class="img__outer-image"
-                src={content.image}
-                alt={content.title}
-              />
-              <div class="img_gradient" />
-            </div>
-          </>
-        ) : (
-          <div class="img__outer">
-            <img
-              class="img__outer-image"
-              src={content.image}
-              alt={content.title}
-            />
-          </div>
-        )
-      ) : (
-        // 没有图片时使用生成的封面
-        <div class="post-cover-wrapper">
-          <GeneratedCover
-            title={content.title}
-            slug={meta?.slug}
-            tags={content.tags}
-            date={content.date}
-            headings={coverHeadings}
-            width={1200}
-            height={400}
-            class="block w-full h-full object-cover object-center rounded-lg"
-            alt={content.title}
-          />
+        <h1 class="post-title font-display">{content.title}</h1>
+        <div class="post-meta">
+          <time datetime={content.date}>
+            {new Intl.DateTimeFormat("zh-CN", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }).format(new Date(content.date))}
+          </time>
+          {config.aiprovider_model && (
+            <>
+              <span class="meta-sep">&middot;</span>
+              <span class="post-ai">AI generated with {config.aiprovider_model}</span>
+            </>
+          )}
+          {USE_VIEW_STATS && (
+            <>
+              <span class="meta-sep">&middot;</span>
+              <span class="post-stats">
+                <Icon class="w-4 h-4 inline-block" pack="mdi" name="eye" />
+                <PostStats slug={meta?.slug} client:load />
+              </span>
+            </>
+          )}
         </div>
-      )
-    }
-    <Prose
-      currentPost={{ data: content, slug: meta?.slug }}
-      previousPost={previousPost}
-      nextPost={nextPost}
-    >
-      <slot />
-    </Prose>
+      </header>
+
+      <!-- Content -->
+      <Prose
+        currentPost={{ data: content, slug: meta?.slug }}
+        previousPost={previousPost}
+        nextPost={nextPost}
+      >
+        <slot />
+      </Prose>
+    </article>
   </MainLayout>
+
   <style>
-    .post__header {
-      @apply pt-4 pb-5 mb-4 text-left flex flex-col gap-3 md:gap-4;
-    }
-    .post__title {
-      @apply text-4xl font-extrabold text-theme-primary leading-tight;
-    }
-    :global(html.dark) .post__title {
-      @apply text-theme-dark-primary;
-    }
-    .post__desc {
-      @apply text-theme-text-secondary text-sm md:text-base flex items-start gap-2 text-left;
-    }
-    .post__author {
-      @apply no-underline hover:text-theme-primary;
-    }
-    :global(html.dark) .post__author {
-      @apply hover:text-theme-dark-primary;
-    }
-    .post__date,
-    .post__stats {
-      @apply text-theme-text-muted inline-flex items-center gap-1;
-    }
-    :global(html.dark) .post__date,
-    :global(html.dark) .post__stats {
-      @apply text-theme-dark-text-muted;
-    }
-    .post__tags {
-      @apply inline-flex gap-2 flex-wrap;
-    }
-    .post__tag {
-      @apply no-underline;
+    .post-header {
+      @apply pt-6 pb-8 md:pt-10 md:pb-12;
     }
 
-    .avatar {
-      @apply w-12 h-12 rounded-full object-cover p-1 border-2 border-solid border-theme-primary;
-    }
-    :global(html.dark) .avatar {
-      @apply border-theme-dark-primary;
-    }
-    .avatar--lg {
-      @apply w-32 h-32;
+    .post-tags {
+      @apply flex flex-wrap gap-2 mb-4;
     }
 
-    /* 文章封面样式 */
-    .post-cover-wrapper {
-      @apply relative rounded-lg shadow-md overflow-hidden;
-      @apply w-full;
-      @apply mb-6 md:mb-8;
-      aspect-ratio: 21 / 5;
+    .post-tag {
+      @apply text-xs uppercase tracking-wider;
+      @apply text-theme-text-secondary;
+      @apply transition-opacity duration-200;
+      text-decoration: none;
+      opacity: 0.7;
     }
 
-    .post-cover-image {
-      @apply block w-full h-full;
-      object-fit: cover;
-      @apply rounded-lg;
+    .post-tag:hover {
+      @apply opacity-100 text-blue-500;
     }
 
-    /* 原有图片样式 */
-    .img__outer {
-      @apply relative rounded-lg shadow-xl overflow-hidden;
-      @apply w-full;
-      @apply block;
-      @apply mb-6 md:mb-8;
-      aspect-ratio: 21 / 5;
+    :global(html.dark) .post-tag:hover {
+      @apply text-blue-400;
     }
 
-    .img__outer-image {
-      @apply block w-full h-full;
-      object-fit: cover;
-      object-position: center;
+    .post-title {
+      @apply text-3xl md:text-4xl lg:text-5xl;
+      @apply font-bold;
+      @apply text-theme-text-primary;
+      @apply leading-tight;
+      letter-spacing: -0.025em;
+      max-width: 24ch;
     }
 
-    .img_gradient {
-      @apply absolute z-10 w-full bottom-0 left-0 h-full bg-gradient-to-tr from-theme-primary;
-    }
-
-    :global(html.dark) .img_gradient {
-      @apply from-theme-dark-primary;
-    }
-
-    .author-card {
-      @apply text-theme-text-secondary flex flex-row gap-4 justify-start text-left;
-    }
-    :global(html.dark) .author-card {
-      @apply text-theme-dark-text-secondary;
-    }
-    .author-card__meta {
-      @apply border-l pl-4;
-    }
-    .author-card__author {
-      @apply text-2xl mb-1;
-    }
-    .author-card__bio {
-      @apply text-theme-text-muted;
-    }
-    :global(html.dark) .author-card__bio {
-      @apply text-theme-dark-text-muted;
-    }
-
-    .subscription-form {
-      @apply w-4/6 mt-2 flex flex-row rounded-lg overflow-hidden shadow-lg;
-    }
-    .subscription-form input {
-      @apply flex-grow border-0 text-theme-text-primary;
-    }
-    :global(html.dark) .subscription-form input {
+    :global(html.dark) .post-title {
       @apply text-theme-dark-text-primary;
     }
-    .subscription-form button,
-    .button {
-      @apply px-4 py-2 uppercase font-bold text-white bg-gradient-to-tr from-theme-primary to-theme-secondary;
+
+    .post-meta {
+      @apply flex items-center gap-2 mt-4;
+      @apply text-sm text-theme-text-muted;
     }
-    :global(html.dark) .subscription-form button,
-    :global(html.dark) .button {
-      @apply from-theme-dark-primary to-theme-dark-secondary;
+
+    :global(html.dark) .post-meta {
+      @apply text-theme-dark-text-muted;
     }
-    .author-card__follow-btn {
-      @apply rounded-md shadow-md hover:shadow-lg transition-all;
+
+    .meta-sep {
+      @apply text-theme-text-muted;
+    }
+
+    .post-ai {
+      @apply text-xs;
+      opacity: 0.6;
     }
   </style>
 </html>

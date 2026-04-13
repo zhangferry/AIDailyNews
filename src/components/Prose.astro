@@ -74,12 +74,39 @@ const {
     --tw-prose-td-borders: theme('colors.theme.dark-border');
   }
 
-  /* Ensure links have hover effect */
+  /* Editorial typography enhancements */
+  .prose :global(h2) {
+    @apply font-display;
+    letter-spacing: -0.01em;
+  }
+
+  .prose :global(h3) {
+    @apply font-display;
+  }
+
+  .prose :global(blockquote) {
+    @apply border-l-2;
+    font-style: italic;
+  }
+
   .prose a {
     @apply transition-colors duration-200;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .prose a:hover {
-    @apply opacity-80;
+    @apply text-blue-500 opacity-100;
+  }
+
+  :global(html.dark) .prose a:hover {
+    @apply text-blue-400;
+  }
+
+  /* Horizontal rule as elegant divider */
+  .prose :global(hr) {
+    @apply my-8;
+    height: 1px;
+    border: none;
   }
 </style>
