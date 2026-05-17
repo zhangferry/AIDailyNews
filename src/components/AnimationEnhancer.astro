@@ -1,5 +1,5 @@
 ---
-// This component adds global animation and interaction enhancements
+// Subtle animation and interaction enhancements
 ---
 
 <div id="animation-enhancer" data-enabled></div>
@@ -33,76 +33,31 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('animate-visible');
-        // Stop observing once animated
         animationObserver.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  // Observe elements with animation classes
-  document.addEventListener('astro:page-load', () => {
+  function observeElements() {
     document.querySelectorAll('.animate-fade-in-up').forEach(el => {
       animationObserver.observe(el);
     });
-  });
-
-  // Initial observation
-  document.querySelectorAll('.animate-fade-in-up').forEach(el => {
-    animationObserver.observe(el);
-  });
-
-  // Add parallax effect to hero sections
-  function initParallax() {
-    const heroSections = document.querySelectorAll('.hero-section');
-
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-
-      heroSections.forEach(hero => {
-        const rate = scrolled * 0.3;
-        const content = hero.querySelector('.hero-content');
-        if (content) {
-          (content as HTMLElement).style.transform = `translateY(${rate * 0.5}px)`;
-          (content as HTMLElement).style.opacity = `${1 - scrolled / 700}`;
-        }
-      });
-    }, { passive: true });
   }
 
-  initParallax();
-
-  // Add hover effect to cards with 3D tilt
-  document.querySelectorAll('.card-hover').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = (y - centerY) / 20;
-      const rotateY = (centerX - x) / 20;
-
-      (card as HTMLElement).style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      (card as HTMLElement).style.transform = '';
-    });
-  });
+  document.addEventListener('astro:page-load', observeElements);
+  observeElements();
 </script>
 
 <style>
   /* Scroll-triggered animation visibility */
   .animate-fade-in-up.animate-visible {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.5s ease-out forwards;
   }
 
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(12px);
     }
     to {
       opacity: 1;
@@ -115,52 +70,47 @@
     @apply transition-colors duration-200 ease-out;
   }
 
-  /* Disable transition on specific elements */
   img,
   video,
   .no-transition {
     @apply transition-none;
   }
 
-  /* Custom scrollbar for webkit browsers */
+  /* Custom scrollbar */
   ::-webkit-scrollbar {
-    @apply w-2;
+    @apply w-1.5;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-theme-background;
-  }
-
-  :global(html.dark) ::-webkit-scrollbar-track {
-    @apply bg-theme-dark-background;
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-theme-border/50 rounded-full hover:bg-theme-primary/50;
+    @apply bg-theme-border/40 rounded-full;
   }
 
   :global(html.dark) ::-webkit-scrollbar-thumb {
-    @apply bg-theme-dark-border/50 hover:bg-theme-dark-primary/50;
+    @apply bg-theme-dark-border/40;
   }
 
   /* Selection color */
   ::selection {
-    @apply bg-theme-primary/20 text-theme-primary;
+    @apply bg-theme-primary/15 text-theme-primary;
   }
 
   :global(html.dark) ::selection {
-    @apply bg-theme-dark-primary/20 text-theme-dark-primary;
+    @apply bg-theme-dark-primary/15 text-theme-dark-primary;
   }
 
   ::-moz-selection {
-    @apply bg-theme-primary/20 text-theme-primary;
+    @apply bg-theme-primary/15 text-theme-primary;
   }
 
   :global(html.dark) ::-moz-selection {
-    @apply bg-theme-dark-primary/20 text-theme-dark-primary;
+    @apply bg-theme-dark-primary/15 text-theme-dark-primary;
   }
 
-  /* Focus styles for accessibility */
+  /* Focus styles */
   a:focus-visible,
   button:focus-visible {
     @apply outline-2 outline-offset-2 outline-theme-primary;

@@ -3,13 +3,13 @@ export const prerender = true;
 
 import { getCollection } from "astro:content";
 import DefaultPageLayout from "$/layouts/default.astro";
-import GeneratedCover from "$/components/GeneratedCover.astro";
 import Code from "$/components/Code.astro";
 import Prose from "$/components/Prose.astro";
+import config from "$/config/config.json";
 
 const title = "Home";
-const description =
-  "Daily News Report - Your daily dose of tech and development news";
+const description = "Daily News Report - 你的每日科技新闻精选";
+const aiModel = config.aiprovider_model || "";
 
 let posts = await getCollection("blog");
 posts = posts.toSorted(
@@ -27,256 +27,331 @@ const formatDateKey = (dateValue: Date | string) =>
 const todayKey = formatDateKey(new Date());
 const todayPost =
   posts.find((post) => formatDateKey(post.data.date) === todayKey) ?? posts[0];
-const uniqueCategories = [...new Set(todayPost?.data.tags || [])];
 const todayRendered = todayPost ? await todayPost.render() : undefined;
-const coverHeadings = (todayRendered?.headings || [])
-  .map((heading) => heading.text)
-  .slice(0, 5);
 const TodayContent = todayRendered?.Content;
+
+// Recent posts for listing
+const recentPosts = posts.filter(p => p.slug !== todayPost?.slug).slice(0, 8);
 ---
 
 <DefaultPageLayout content={{ title, description }} showPageHeader={false}>
-  <!-- Hero Section with Featured Article -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <p class="hero-description">你的每日科技新闻精选，AI 驱动的智能聚合</p>
-    </div>
+  <!-- Date line -->
+  <div class="dateline">
+    {new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
+    {aiModel && (
+      <>
+        <span class="dateline-sep">&middot;</span>
+        <span class="dateline-ai">AI generated with {aiModel}</span>
+      </>
+    )}
+  </div>
 
-    <!-- Category Pills -->
-    <div class="category-pills">
-      {
-        uniqueCategories.map((category) => (
-          <a href={`/tags/${category}`} class="category-pill">
-            {category}
-          </a>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="today-post-section">
-    {
-      todayPost ? (
-        <>
-          <div class="today-post-cover">
-            {todayPost.data.image ? (
-              <img
-                src={todayPost.data.image}
-                alt={todayPost.data.title}
-                class="today-post-cover-image"
-                loading="lazy"
-              />
-            ) : (
-              <GeneratedCover
-                title={todayPost.data.title}
-                slug={todayPost.slug}
-                tags={todayPost.data.tags}
-                date={todayPost.data.date}
-                headings={coverHeadings}
-                width={1200}
-                height={500}
-                class="today-post-cover-image"
-                alt={todayPost.data.title}
-              />
-            )}
-          </div>
-
-          <div class="today-content-wrap">
-            <Prose showNavigation={false} showComment={false}>
-              {TodayContent && <TodayContent components={{ code: Code }} />}
-            </Prose>
-          </div>
-        </>
-      ) : (
-        <div class="today-empty">暂无可展示的文章内容</div>
-      )
-    }
-  </section>
-
-  <section class="cta-section">
-    <div class="cta-content">
-      <h2 class="cta-title font-display font-bold">Stay Updated</h2>
-      <p class="cta-description">
-        Get the latest tech news delivered to your inbox daily
-      </p>
-      <div class="cta-actions">
-        <a href="/blog" class="cta-button cta-button-primary">
-          Browse All Posts
-        </a>
-        <a href="/tags" class="cta-button cta-button-secondary">
-          Explore by Topic
-        </a>
+  <!-- Today's Featured -->
+  {todayPost ? (
+    <section class="featured">
+      <a href={`/blog/${todayPost.slug}`} class="featured-link">
+        <h1 class="featured-title font-display">{todayPost.data.title}</h1>
+      </a>
+      {todayPost.data.description && (
+        <p class="featured-desc">{todayPost.data.description}</p>
+      )}
+      <div class="featured-tags">
+        {(todayPost.data.tags || []).slice(0, 4).map((tag) => (
+          <span class="featured-tag">{tag}</span>
+        ))}
       </div>
-    </div>
-  </section>
+
+      <!-- Today's Content -->
+      <div class="today-content">
+        <Prose showNavigation={false} showComment={false}>
+          {TodayContent && <TodayContent components={{ code: Code }} />}
+        </Prose>
+      </div>
+    </section>
+  ) : (
+    <div class="empty-state">暂无可展示的文章内容</div>
+  )}
+
+  <!-- Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Recent Posts -->
+  {recentPosts.length > 0 && (
+    <section class="recent">
+      <div class="recent-list">
+        {recentPosts.map((post) => {
+          const postDate = new Date(post.data.date);
+          const dateStr = postDate.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+          return (
+            <a href={`/blog/${post.slug}`} class="recent-item">
+              <div class="recent-left">
+                <h3 class="recent-title font-display">{post.data.title}</h3>
+                {post.data.description && (
+                  <p class="recent-desc">{post.data.description}</p>
+                )}
+              </div>
+              <div class="recent-right">
+                <span class="recent-date">{dateStr}</span>
+                <span class="recent-arrow">&rarr;</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  )}
+
+  <!-- More Link -->
+  <div class="more-link">
+    <a href="/blog">查看全部文章 &rarr;</a>
+  </div>
 </DefaultPageLayout>
 
 <style>
-  /* Hero Section */
-  .hero-section {
-    @apply py-6 md:py-8 lg:py-10;
-    @apply text-center;
-    @apply relative overflow-hidden;
+  .dateline {
+    @apply pt-4 pb-10 md:pb-14;
+    @apply text-xs md:text-sm;
+    @apply text-theme-text-muted;
+    letter-spacing: 0.08em;
   }
 
-  .hero-section::before {
-    content: "";
-    @apply absolute inset-0;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(91, 124, 153, 0.08) 0%,
-      transparent 70%
-    );
-    @apply pointer-events-none;
+  :global(html.dark) .dateline {
+    @apply text-theme-dark-text-muted;
   }
 
-  :global(html.dark) .hero-section::before {
-    background: radial-gradient(
-      ellipse at center,
-      rgba(107, 184, 184, 0.1) 0%,
-      transparent 70%
-    );
+  .dateline-sep {
+    @apply mx-2;
   }
 
-  .hero-content {
-    @apply relative z-10;
+  .dateline-ai {
+    @apply text-[10px] md:text-xs;
+    opacity: 0.6;
   }
 
-  .hero-description {
-    @apply text-lg md:text-xl text-theme-text-secondary;
-    @apply max-w-2xl mx-auto;
-    @apply mt-0;
+  /* Featured */
+  .featured {
+    @apply pb-10 md:pb-14;
   }
 
-  /* Category Pills */
-  .category-pills {
-    @apply flex flex-wrap justify-center gap-3;
-    @apply mt-4;
+  .featured-link {
+    text-decoration: none;
   }
 
-  .category-pill {
-    @apply px-4 py-2 rounded-full;
-    @apply text-sm font-medium;
-    @apply bg-theme-surface border border-theme-border;
+  .featured-title {
+    @apply text-3xl md:text-5xl lg:text-6xl;
+    @apply font-bold;
+    @apply text-theme-text-primary;
+    @apply leading-tight;
+    @apply transition-colors duration-200;
+    letter-spacing: -0.025em;
+    max-width: 28ch;
+  }
+
+  :global(html.dark) .featured-title {
+    @apply text-theme-dark-text-primary;
+  }
+
+  .featured-link:hover .featured-title {
+    @apply text-blue-500;
+  }
+
+  :global(html.dark) .featured-link:hover .featured-title {
+    @apply text-blue-400;
+  }
+
+  .featured-desc {
+    @apply text-base md:text-lg;
     @apply text-theme-text-secondary;
-    @apply transition-all duration-200 ease-out;
-    @apply hover:border-theme-primary hover:text-theme-primary hover:bg-theme-primary/10;
+    @apply mt-4 md:mt-6;
+    @apply max-w-2xl;
+    @apply leading-relaxed;
   }
 
-  :global(html.dark) .category-pill {
-    @apply bg-theme-dark-surface border-theme-dark-border text-theme-dark-text-secondary;
-    @apply hover:border-theme-dark-primary hover:text-theme-dark-primary hover:bg-theme-dark-primary/10;
+  :global(html.dark) .featured-desc {
+    @apply text-theme-dark-text-secondary;
   }
 
-  .today-post-section {
-    @apply pt-0 pb-2 md:pb-3;
+  .featured-tags {
+    @apply flex flex-wrap gap-3 mt-4;
   }
 
-  .today-post-cover {
-    @apply relative overflow-hidden rounded-xl mb-1 md:mb-2;
-    aspect-ratio: 21 / 8;
+  .featured-tag {
+    @apply text-xs;
+    @apply text-theme-text-secondary;
+    letter-spacing: 0.05em;
   }
 
-  .today-post-cover-image {
-    @apply block w-full h-full object-cover object-center;
+  :global(html.dark) .featured-tag {
+    @apply text-theme-dark-text-muted;
   }
 
-  .today-content-wrap :global(article.prose) {
+  .today-content {
+    @apply mt-10;
+    @apply border-t;
+    border-color: theme('colors.theme.border');
+    @apply pt-8;
+  }
+
+  :global(html.dark) .today-content {
+    border-color: theme('colors.theme.dark-border');
+  }
+
+  .today-content :global(article.prose) {
     margin-top: 0;
   }
 
-  .today-content-wrap :global(article.prose > *:first-child) {
+  .today-content :global(article.prose > *:first-child) {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
 
-  .today-empty {
-    @apply py-10 text-center text-theme-text-muted;
+  .empty-state {
+    @apply py-20 text-center text-theme-text-muted;
+    font-style: italic;
   }
 
-  :global(html.dark) .today-empty {
+  :global(html.dark) .empty-state {
     @apply text-theme-dark-text-muted;
   }
 
-  /* CTA Section */
-  .cta-section {
-    @apply py-16 md:py-24;
-    @apply mt-12;
-    @apply relative;
-    @apply overflow-hidden;
-    @apply rounded-2xl;
-    background: linear-gradient(
-      135deg,
-      rgba(91, 124, 153, 0.1) 0%,
-      rgba(107, 184, 184, 0.1) 100%
-    );
-    border: 1px solid rgba(91, 124, 153, 0.2);
+  /* Divider */
+  .section-divider {
+    @apply pb-px;
+    background: theme('colors.theme.border');
   }
 
-  :global(html.dark) .cta-section {
-    background: linear-gradient(
-      135deg,
-      rgba(107, 184, 184, 0.12) 0%,
-      rgba(212, 165, 165, 0.12) 100%
-    );
-    border: 1px solid rgba(107, 184, 184, 0.25);
+  :global(html.dark) .section-divider {
+    background: theme('colors.theme.dark-border');
   }
 
-  .cta-content {
-    @apply text-center px-6;
-    @apply relative z-10;
+  /* Recent Posts */
+  .recent {
+    @apply py-10 md:py-14;
   }
 
-  .cta-title {
-    @apply text-3xl md:text-4xl lg:text-5xl;
+  .recent-list {
+    @apply flex flex-col;
+  }
+
+  .recent-item {
+    @apply flex items-start justify-between gap-4;
+    @apply py-5 md:py-6;
+    @apply border-b;
+    @apply transition-all duration-200;
+    border-color: theme('colors.theme.border');
+    text-decoration: none;
+  }
+
+  :global(html.dark) .recent-item {
+    border-color: theme('colors.theme.dark-border');
+  }
+
+  .recent-item:last-child {
+    @apply border-b-0;
+  }
+
+  .recent-item:hover {
+    padding-left: 6px;
+  }
+
+  .recent-left {
+    @apply flex-1 min-w-0;
+  }
+
+  .recent-title {
+    @apply text-lg md:text-xl lg:text-2xl;
+    @apply font-semibold;
     @apply text-theme-text-primary;
-    @apply mb-4;
+    @apply leading-snug;
+    @apply transition-colors duration-200;
   }
 
-  :global(html.dark) .cta-title {
+  :global(html.dark) .recent-title {
     @apply text-theme-dark-text-primary;
   }
 
-  .cta-description {
-    @apply text-lg text-theme-text-secondary;
-    @apply max-w-xl mx-auto;
-    @apply mb-8;
+  .recent-item:hover .recent-title {
+    @apply text-blue-500;
   }
 
-  :global(html.dark) .cta-description {
+  :global(html.dark) .recent-item:hover .recent-title {
+    @apply text-blue-400;
+  }
+
+  .recent-desc {
+    @apply text-sm text-theme-text-secondary mt-1.5;
+    @apply line-clamp-1;
+  }
+
+  :global(html.dark) .recent-desc {
     @apply text-theme-dark-text-secondary;
   }
 
-  .cta-actions {
-    @apply flex flex-wrap justify-center gap-4;
+  .recent-right {
+    @apply flex items-center gap-3 flex-shrink-0;
+    @apply pt-1;
   }
 
-  .cta-button {
-    @apply px-6 py-3 rounded-full;
-    @apply font-semibold;
-    @apply transition-all duration-200 ease-out;
-    @apply inline-flex items-center gap-2;
+  .recent-date {
+    @apply text-xs text-theme-text-muted;
+    white-space: nowrap;
   }
 
-  .cta-button-primary {
-    @apply bg-theme-primary text-black;
-    @apply hover:bg-theme-primary/90 hover:shadow-lg;
-    @apply hover:-translate-y-0.5;
+  :global(html.dark) .recent-date {
+    @apply text-theme-dark-text-muted;
   }
 
-  :global(html.dark) .cta-button-primary {
-    @apply bg-theme-dark-primary hover:bg-theme-dark-primary/90;
+  .recent-arrow {
+    @apply text-xs text-theme-text-muted;
+    @apply opacity-0 transition-all duration-200;
   }
 
-  .cta-button-secondary {
-    @apply bg-theme-surface border border-theme-border text-theme-text-primary;
-    @apply hover:border-theme-primary hover:text-theme-primary;
-    @apply hover:bg-theme-primary/10;
+  :global(html.dark) .recent-arrow {
+    @apply text-theme-dark-text-muted;
   }
 
-  :global(html.dark) .cta-button-secondary {
-    @apply bg-theme-dark-surface border-theme-dark-border text-theme-dark-text-primary;
-    @apply hover:border-theme-dark-primary hover:text-theme-dark-primary;
-    @apply hover:bg-theme-dark-primary/10;
+  .recent-item:hover .recent-arrow {
+    @apply opacity-100 text-blue-500;
+    transform: translateX(3px);
+  }
+
+  :global(html.dark) .recent-item:hover .recent-arrow {
+    @apply text-blue-400;
+  }
+
+  /* More Link */
+  .more-link {
+    @apply pb-12 md:pb-16;
+    @apply text-sm;
+  }
+
+  .more-link a {
+    @apply text-theme-text-muted;
+    @apply transition-colors duration-200;
+    text-decoration: none;
+  }
+
+  .more-link a:hover {
+    @apply text-blue-500;
+  }
+
+  :global(html.dark) .more-link a {
+    @apply text-theme-dark-text-muted;
+  }
+
+  :global(html.dark) .more-link a:hover {
+    @apply text-blue-400;
+  }
+
+  @media (max-width: 640px) {
+    .featured-title {
+      @apply text-2xl;
+    }
+    .recent-title {
+      @apply text-base;
+    }
+    .recent-desc {
+      @apply hidden;
+    }
   }
 </style>

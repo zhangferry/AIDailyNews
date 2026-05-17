@@ -1,309 +1,152 @@
 ---
 import { SITE } from "$/config";
+import { NAV_ITEMS } from "$/config";
+import { toTitleCase } from "$/utils";
 import SvgIcon from "./SvgIcon.astro";
 import ModeSwitcherBtn from "./ModeSwitcherBtn.svelte";
 import SearchBtn from "./SearchBtn.svelte";
 ---
 
-<header class="magazine-header">
-  <!-- Decorative top bar -->
-  <div class="header-top-bar">
-    <div class="top-bar-content">
-      <span class="edition-badge">DAILY EDITION</span>
-      <div class="top-bar-right">
-        <span class="date-badge">
-          {new Date().toLocaleDateString('zh-CN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-        </span>
-      </div>
-    </div>
-  </div>
+<header class="site-header">
+  <div class="header-inner">
+    <!-- Left: Brand -->
+    <a href="/" class="brand">
+      <span class="brand-name">Daily News Report</span>
+    </a>
 
-  <!-- Main header -->
-  <div class="header-main" id="main-header">
-    <div class="header-left">
-      <a href="/" class="logo-container">
-        <div class="logo-wrapper">
-          <img class="logo-image" src="/assets/logo.png" alt={SITE.name} />
-          <div class="logo-glow"></div>
-        </div>
-        <div class="brand-info">
-          <h1 class="brand-name">{SITE.name}</h1>
-          <p class="brand-tagline">{SITE.description}</p>
-        </div>
+    <!-- Center: Navigation -->
+    <nav class="header-nav">
+      {Object.keys(NAV_ITEMS).map((navItemKey, index) => (
+        <>
+          {index > 0 && <span class="nav-sep">/</span>}
+          <a
+            class:list={[
+              "nav-link",
+              Astro.url.pathname === NAV_ITEMS[navItemKey].path ? "nav-link-active" : "",
+            ]}
+            href={NAV_ITEMS[navItemKey].path}
+          >
+            {toTitleCase(NAV_ITEMS[navItemKey].title)}
+          </a>
+        </>
+      ))}
+    </nav>
+
+    <!-- Right: Actions -->
+    <div class="header-actions">
+      <SearchBtn client:visible />
+      <a href={SITE.githubUrl} title="GitHub" class="action-btn" aria-label="GitHub">
+        <SvgIcon>
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </SvgIcon>
       </a>
-    </div>
-
-    <div class="header-right">
-      <nav class="header-nav">
-        <ul class="nav-icons">
-          <li class="nav-icon-item">
-            <SearchBtn client:visible />
-          </li>
-          <li class="nav-icon-item">
-            <a href={SITE.githubUrl} title="GitHub" class="nav-icon-link" aria-label="GitHub">
-              <SvgIcon>
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </SvgIcon>
-            </a>
-          </li>
-          <li class="nav-icon-item">
-            <a href="/rss.xml" title="RSS Feed" class="nav-icon-link" aria-label="RSS Feed">
-              <SvgIcon>
-                <path d="M4 11a9 9 0 0 1 9 9"></path>
-                <path d="M4 4a16 16 0 0 1 16 16"></path>
-                <circle cx="5" cy="19" r="1"></circle>
-              </SvgIcon>
-            </a>
-          </li>
-          <li class="nav-icon-item">
-            <div class="theme-toggle-wrapper">
-              <ModeSwitcherBtn client:visible />
-            </div>
-          </li>
-        </ul>
-      </nav>
+      <a href="/rss.xml" title="RSS" class="action-btn" aria-label="RSS">
+        <SvgIcon>
+          <path d="M4 11a9 9 0 0 1 9 9"></path>
+          <path d="M4 4a16 16 0 0 1 16 16"></path>
+          <circle cx="5" cy="19" r="1"></circle>
+        </SvgIcon>
+      </a>
+      <div class="action-btn">
+        <ModeSwitcherBtn client:visible />
+      </div>
     </div>
   </div>
 </header>
 
 <style>
-  /* Top decorative bar */
-  .header-top-bar {
-    @apply bg-theme-surface border-b border-theme-border/30;
-    @apply px-4 md:px-6;
-    padding-top: 0.375rem;
-    padding-bottom: 0.375rem;
-    background: linear-gradient(90deg,
-      rgba(91, 124, 153, 0.03) 0%,
-      rgba(107, 184, 184, 0.06) 50%,
-      rgba(212, 165, 165, 0.03) 100%
-    );
+  .site-header {
+    @apply py-6 md:py-8;
   }
 
-  :global(html.dark) .header-top-bar {
-    @apply bg-theme-dark-surface border-theme-dark-border/50;
-    background: linear-gradient(90deg,
-      rgba(107, 184, 184, 0.08) 0%,
-      rgba(212, 165, 165, 0.1) 50%,
-      rgba(107, 184, 184, 0.08) 100%
-    );
-  }
-
-  .top-bar-content {
-    @apply flex justify-between items-center;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .edition-badge {
-    @apply text-[10px] md:text-xs font-bold uppercase tracking-wider;
-    @apply text-theme-primary;
-    letter-spacing: 0.15em;
-  }
-
-  :global(html.dark) .edition-badge {
-    @apply text-theme-dark-primary;
-  }
-
-  .date-badge {
-    @apply text-[10px] md:text-xs font-medium;
-    @apply text-theme-text-muted;
-  }
-
-  :global(html.dark) .date-badge {
-    @apply text-theme-dark-text-muted;
-  }
-
-  /* Main header */
-  .header-main {
-    @apply px-4 md:px-6 py-3 md:py-4;
+  .header-inner {
     @apply flex items-center justify-between;
-    @apply bg-theme-background/95 backdrop-blur-md;
-    @apply border-b border-theme-border/30;
-    max-width: 1400px;
-    margin: 0 auto;
   }
 
-  :global(html.dark) .header-main {
-    @apply bg-theme-dark-background/95 border-theme-dark-border/50;
-  }
-
-  /* Logo and brand section */
-  .header-left {
-    @apply flex items-center gap-4;
-  }
-
-  .logo-container {
-    @apply flex items-center gap-4;
-    @apply transition-all duration-300 ease-out;
-    @apply hover:opacity-90;
+  .brand {
     text-decoration: none;
-  }
-
-  .logo-wrapper {
-    @apply relative;
-    @apply w-12 h-12 md:w-16 md:h-16;
-  }
-
-  .logo-image {
-    @apply w-full h-full rounded-full;
-    @apply object-cover;
-    @apply border-2 border-theme-border/30;
-    box-shadow: 0 4px 12px rgba(91, 124, 153, 0.15);
-    transition: all 0.3s ease-out;
-  }
-
-  :global(html.dark) .logo-image {
-    @apply border-theme-dark-border/30;
-    box-shadow: 0 4px 12px rgba(107, 184, 184, 0.15);
-  }
-
-  .logo-container:hover .logo-image {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(91, 124, 153, 0.25);
-  }
-
-  :global(html.dark) .logo-container:hover .logo-image {
-    box-shadow: 0 8px 20px rgba(107, 184, 184, 0.25);
-  }
-
-  .logo-glow {
-    @apply absolute inset-0 rounded-full;
-    background: radial-gradient(circle, rgba(91, 124, 153, 0.3) 0%, transparent 70%);
-    @apply opacity-0;
-    transition: opacity 0.3s ease-out;
-  }
-
-  :global(html.dark) .logo-glow {
-    background: radial-gradient(circle, rgba(107, 184, 184, 0.4) 0%, transparent 70%);
-  }
-
-  .logo-container:hover .logo-glow {
-    @apply opacity-100;
-  }
-
-  .brand-info {
-    @apply flex flex-col;
   }
 
   .brand-name {
-    @apply text-xl md:text-2xl lg:text-3xl;
-    @apply font-display font-bold;
+    @apply text-sm md:text-base font-medium tracking-wide;
     @apply text-theme-text-primary;
-    @apply leading-tight;
-    background: linear-gradient(135deg, #5b7c99 0%, #6bb8b8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    transition: all 0.3s ease-out;
   }
 
   :global(html.dark) .brand-name {
-    background: linear-gradient(135deg, #6bb8b8 0%, #d4a5a5 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
+    @apply text-theme-dark-text-primary;
   }
 
-  .brand-tagline {
-    @apply text-xs md:text-sm;
-    @apply text-theme-text-secondary;
-    @apply mt-0.5;
-    @apply font-medium;
+  .header-nav {
+    @apply flex items-center gap-3;
   }
 
-  :global(html.dark) .brand-tagline {
-    @apply text-theme-dark-text-secondary;
+  .nav-sep {
+    @apply text-theme-text-muted text-xs;
   }
 
-  /* Right section - Navigation icons */
-  .header-right {
-    @apply flex items-center;
+  :global(html.dark) .nav-sep {
+    @apply text-theme-dark-text-muted;
   }
 
-  .nav-icons {
-    @apply flex items-center gap-2 md:gap-3;
-  }
-
-  .nav-icon-item {
-    @apply relative;
-  }
-
-  .nav-icon-link {
-    @apply flex items-center justify-center;
-    @apply w-9 h-9 md:w-10 md:h-10;
-    @apply rounded-lg;
+  .nav-link {
+    @apply text-sm;
     @apply text-theme-text-muted;
-    @apply bg-theme-surface border border-theme-border/50;
-    @apply transition-all duration-200 ease-out;
-    @apply hover:text-theme-primary hover:border-theme-primary hover:bg-theme-primary/10;
-    @apply hover:scale-105 hover:-translate-y-0.5;
-    @apply focus:outline-none focus:ring-2 focus:ring-theme-primary/50;
+    @apply transition-colors duration-200;
     text-decoration: none;
   }
 
-  :global(html.dark) .nav-icon-link {
-    @apply text-theme-dark-text-muted bg-theme-dark-surface border-theme-dark-border/50;
-    @apply hover:text-theme-dark-primary hover:border-theme-dark-primary hover:bg-theme-dark-primary/10;
-    @apply focus:ring-theme-dark-primary/50;
+  .nav-link:hover {
+    @apply text-blue-500;
   }
 
-  .nav-icon-link:hover {
-    box-shadow: 0 4px 12px rgba(91, 124, 153, 0.15);
+  :global(html.dark) .nav-link {
+    @apply text-theme-dark-text-muted;
   }
 
-  :global(html.dark) .nav-icon-link:hover {
-    box-shadow: 0 4px 12px rgba(107, 184, 184, 0.15);
+  :global(html.dark) .nav-link:hover {
+    @apply text-blue-400;
   }
 
-  .nav-icon-link svg {
-    @apply w-4 h-4 md:w-5 md:h-5;
+  .nav-link-active {
+    @apply text-theme-text-primary font-medium;
   }
 
-  /* Theme toggle wrapper */
-  .theme-toggle-wrapper {
+  :global(html.dark) .nav-link-active {
+    @apply text-theme-dark-text-primary;
+  }
+
+  .header-actions {
+    @apply flex items-center gap-1;
+  }
+
+  .action-btn {
     @apply flex items-center justify-center;
-    @apply w-9 h-9 md:w-10 md:h-10;
-    @apply rounded-lg;
+    @apply w-8 h-8;
     @apply text-theme-text-muted;
-    @apply bg-theme-surface border border-theme-border/50;
-    @apply transition-all duration-200 ease-out;
-    @apply hover:text-theme-primary hover:border-theme-primary hover:bg-theme-primary/10;
-    @apply hover:scale-105 hover:-translate-y-0.5;
-    @apply focus:outline-none focus:ring-2 focus:ring-theme-primary/50;
+    @apply transition-colors duration-200;
+    @apply hover:text-blue-500;
     cursor: pointer;
+    text-decoration: none;
   }
 
-  :global(html.dark) .theme-toggle-wrapper {
-    @apply text-theme-dark-text-muted bg-theme-dark-surface border-theme-dark-border/50;
-    @apply hover:text-theme-dark-primary hover:border-theme-dark-primary hover:bg-theme-dark-primary/10;
-    @apply focus:ring-theme-dark-primary/50;
+  :global(html.dark) .action-btn {
+    @apply text-theme-dark-text-muted;
+    @apply hover:text-blue-400;
   }
 
-  .theme-toggle-wrapper:hover {
-    box-shadow: 0 4px 12px rgba(91, 124, 153, 0.15);
+  .action-btn svg {
+    @apply w-4 h-4;
   }
 
-  :global(html.dark) .theme-toggle-wrapper:hover {
-    box-shadow: 0 4px 12px rgba(107, 184, 184, 0.15);
-  }
-
-  .theme-toggle-wrapper svg {
-    @apply w-4 h-4 md:w-5 md:h-5;
-  }
-
-  /* Responsive adjustments */
   @media (max-width: 640px) {
     .brand-name {
-      font-size: 1.125rem;
+      @apply text-xs;
     }
-
-    .brand-tagline {
-      font-size: 0.7rem;
+    .nav-link {
+      @apply text-xs;
     }
-
-    .logo-wrapper {
-      width: 2.75rem;
-      height: 2.75rem;
+    .header-nav {
+      @apply gap-2;
     }
   }
 </style>

@@ -12,28 +12,42 @@ const { content, showPageHeader = true } = Astro.props
     </head>
     <MainLayout>
         {showPageHeader &&
-            <div class="page__header">
-                <h1 class="page__title">{content.title}</h1>
-                <h5 class="page__desc">{content.description}</h5>
+            <div class="page-header">
+                <h1 class="page-title font-display">{content.title}</h1>
+                {content.description && (
+                    <p class="page-desc">{content.description}</p>
+                )}
             </div>
         }
         <slot />
     </MainLayout>
 </html>
 <style>
-    .page__header {
-        @apply py-4 mb-1
+    .page-header {
+        @apply pt-8 pb-6 mb-4;
+        @apply border-b;
+        border-color: theme('colors.theme.border');
     }
-    .page__title {
-        @apply text-5xl font-extrabold text-theme-primary;
+
+    :global(html.dark) .page-header {
+        border-color: theme('colors.theme.dark-border');
     }
-    :global(html.dark) .page__title {
-        @apply text-theme-dark-primary;
+
+    .page-title {
+        @apply text-3xl md:text-4xl font-bold;
+        @apply text-theme-text-primary;
+        letter-spacing: -0.01em;
     }
-    .page__desc {
-        @apply text-theme-text-muted;
+
+    :global(html.dark) .page-title {
+        @apply text-theme-dark-text-primary;
     }
-    :global(html.dark) .page__desc {
+
+    .page-desc {
+        @apply mt-2 text-theme-text-muted;
+    }
+
+    :global(html.dark) .page-desc {
         @apply text-theme-dark-text-muted;
     }
 </style>

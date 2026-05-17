@@ -27,15 +27,15 @@ jobs:
 
       # 设置环境变量指向智谱Coding专用API地址
       ANTHROPIC_BASE_URL: https://open.bigmodel.cn/api/coding/paas/v4
-      # 设置使用GLM-4.7模型（Coding套餐支持的模型之一）
-      ANTHROPIC_DEFAULT_OPUS_MODEL: GLM-4.7
-      ANTHROPIC_DEFAULT_SONNET_MODEL: GLM-4.7
+      # 设置使用GLM-5.1模型（Coding套餐支持的模型之一）
+      ANTHROPIC_DEFAULT_OPUS_MODEL: GLM-5.1
+      ANTHROPIC_DEFAULT_SONNET_MODEL: GLM-5.1
       ANTHROPIC_DEFAULT_HAIKU_MODEL: GLM-4.5-Air
       ANTHROPIC_AUTH_TOKEN: ${{ secrets.GPT_API_KEY }}
 
       # 适配智谱 Coding 的 GPT 接口地址
       GPT_BASE_URL: https://open.bigmodel.cn/api/coding/paas/v4
-      GPT_MODEL_NAME: GLM-4.7
+      GPT_MODEL_NAME: GLM-5.1
       # Coding 模式参数
       MAX_ARTICLE_NUMS: 12
 

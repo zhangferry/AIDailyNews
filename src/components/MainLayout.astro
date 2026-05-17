@@ -2,46 +2,25 @@
 import BaseLayout from './BaseLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import Nav from './Nav.astro';
 import Portal from './Portal.astro';
 import SearchModal from './SearchModal.svelte'
-import ReadingProgress from './ReadingProgress.astro';
 import AnimationEnhancer from './AnimationEnhancer.astro';
 
 ---
 <BaseLayout>
-    <ReadingProgress />
-    <div class="sticky-header-wrapper">
-        <Header/>
-        <Nav/>
+    <Header />
+    <div class="main-content">
+        <slot />
     </div>
-    <div class="main-wrapper">
-        <div class="content">
-            <slot />
-        </div>
-    </div>
-    <Footer/>
+    <Footer />
     <Portal>
-            <SearchModal client:load/>
+        <SearchModal client:load/>
     </Portal>
     <AnimationEnhancer />
 </BaseLayout>
 
 <style>
-    .sticky-header-wrapper {
-        @apply sticky top-0 z-50;
-        @apply bg-theme-background/95 backdrop-blur-md;
-    }
-
-    :global(html.dark) .sticky-header-wrapper {
-        @apply bg-theme-dark-background/95 backdrop-blur-md;
-    }
-
-    .main-wrapper {
-        @apply min-h-screen;
-    }
-
-    .content {
-        min-height: 580px
+    .main-content {
+        min-height: 580px;
     }
 </style>

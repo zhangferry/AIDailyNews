@@ -113,19 +113,57 @@ def parse_rss_config(rss_config):
         logger.info(f'{rss_config["url"]} content count of today is {len(today_rss)}')
     return today_rss
 
+def _extract_enclosure_image(rss_item):
+    """从 RSS enclosures 或 media_content 中提取有意义的图片 URL
+    过滤掉明确标记为 0 字节或极小的图标/缩略图
+    """
+    # enclosures (常见于 RSS 2.0)
+    enclosures = getattr(rss_item, 'enclosures', [])
+    for enc in enclosures:
+        if enc.get('type', '').startswith('image') and enc.get('href'):
+            return enc['href']
+    # media_content (Media RSS 扩展)
+    media = getattr(rss_item, 'media_content', [])
+    for m in media:
+        if m.get('type', '').startswith('image') and m.get('url'):
+            return m['url']
+    # 从 summary HTML 中提取 <img> 标签
+    summary_raw = rss_item.get("summary", "")
+    if summary_raw:
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(summary_raw, 'html.parser')
+        img = soup.find("img")
+        if img:
+            src = img.get("src") or img.get("data-src", "")
+            if src:
+                return src
+    return ""
+
+
 def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, channel=None, config=None):
     title = rss_item["title"]
     link = rss_item["link"]
     summary_raw = rss_item.get("summary", "")
     image_url = ""
 
+    # 优先级1：从 RSS enclosures/media_content/summary<img> 提取图片
+    image_url = _extract_enclosure_image(rss_item)
+
     if rss_type and len(rss_type) != 0:
-        summary = fetch_summary_from(url=link, rss_type=rss_type)
+        summary, fetched_image = fetch_summary_from(url=link, rss_type=rss_type)
+        if fetched_image and not image_url:
+            image_url = fetched_image
     else:
-        summary, image_url = transform_html2txt(summary_raw, image_enable=image_enable)
+        summary, rss_summary_image = transform_html2txt(summary_raw, image_enable=image_enable)
+        if rss_summary_image and not image_url:
+            image_url = rss_summary_image
 
     if not summary or len(summary) < 10:
         return None
+
+    # 优先级2：从文章页面提取封面图（正文图片优先，过滤生成的社交卡片）
+    if not image_url and link:
+        image_url = fetch_cover_image_from_url(link)
 
     article = Article(title=title,
                   summary=summary,
@@ -138,11 +176,102 @@ def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, chan
 
 def fetch_summary_from(url: str, rss_type: str):
     summary = None
+    image_url = ""
     if rss_type == "link":
-        summary = parse_web_page(url=url)
+        summary, image_url = parse_web_page(url=url)
     elif rss_type == "code":
         summary = parse_github_readme(url)
-    return summary
+        image_url = fetch_github_repo_image(url)
+    return summary, image_url
+
+
+def _is_generated_social_image(url):
+    """判断是否为自动生成的社交分享卡片图（非真实文章配图）"""
+    generated_patterns = [
+        "opengraph-image", "twitter-image", "og-image",
+        "/og_", "/social_", "/share-image", "/card-image",
+        "metatags", "/meta-image",
+    ]
+    url_lower = url.lower()
+    return any(p in url_lower for p in generated_patterns)
+
+
+def _find_real_image_in_body(soup, base_url=""):
+    """从文章正文中提取第一张有意义的真实图片"""
+    # 在常见文章容器中查找
+    article = (
+        soup.find("article")
+        or soup.find("main")
+        or soup.find(class_=re.compile(r"article|post|content|entry", re.I))
+        or soup.find("body")
+    )
+    if not article:
+        return ""
+
+    skip_keywords = [
+        "icon", "logo", "avatar", "badge", "emoji", "pixel",
+        "spinner", "loading", "favicon", "touch-icon",
+        "apple-touch", "placeholder", "1x1", "blank", "spacer",
+        "assets/images/logo", "githubassets.com/assets/github-logo",
+        "ad", "banner", "sponsor", "gravatar", "analytics",
+        "opengraph-image", "twitter-image",
+    ]
+
+    for img in article.find_all("img"):
+        src = img.get("src") or img.get("data-src", "")
+        if not src or src.startswith("data:") or src.endswith(".svg"):
+            continue
+        src_lower = src.lower()
+        if any(skip in src_lower for skip in skip_keywords):
+            continue
+        # 过滤过小的图片（宽度属性 < 100 的通常是图标）
+        width = img.get("width", "")
+        if width and width.isdigit() and int(width) < 100:
+            continue
+        # 解析相对路径
+        if src.startswith("/"):
+            from urllib.parse import urljoin
+            src = urljoin(base_url, src)
+        return src
+    return ""
+
+
+def fetch_cover_image_from_url(url, timeout=10):
+    """封面图抓取策略：正文真实图片优先，og:image 兜底，过滤生成的社交卡片"""
+    try:
+        response = _http_session.get(url, timeout=timeout)
+        response.raise_for_status()
+        response.encoding = response.apparent_encoding
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # 策略1：从文章正文提取真实图片（优先）
+        real_image = _find_real_image_in_body(soup, base_url=url)
+        if real_image:
+            return real_image
+
+        # 策略2：og:image（仅当非自动生成卡片时使用）
+        og_image = soup.find("meta", property="og:image")
+        if og_image and og_image.get("content"):
+            candidate = og_image["content"]
+            if not _is_generated_social_image(candidate):
+                if not any(skip in candidate.lower() for skip in [
+                    "touch-icon", "favicon", "logo", "icon-", "apple-touch",
+                ]):
+                    if candidate.startswith("/"):
+                        from urllib.parse import urljoin
+                        candidate = urljoin(url, candidate)
+                    return candidate
+
+        # 策略3：twitter:image（仅当非自动生成卡片时使用）
+        tw_image = soup.find("meta", attrs={"name": "twitter:image"})
+        if tw_image and tw_image.get("content"):
+            candidate = tw_image["content"]
+            if not _is_generated_social_image(candidate):
+                return candidate
+
+        return ""
+    except Exception:
+        return ""
 
 
 def transform_telegram_article(article: Article):
@@ -161,9 +290,9 @@ def transform_telegram_article(article: Article):
         link = get_real_url(tco_links[0])
         article.link = link
         if link.startswith("https://github.com"):
-            article.summary = fetch_summary_from(url=link, rss_type="code")
+            article.summary, _ = fetch_summary_from(url=link, rss_type="code")
         else:
-            article.summary = fetch_summary_from(url=link, rss_type="link")
+            article.summary, _ = fetch_summary_from(url=link, rss_type="link")
     return article
 
 
@@ -188,30 +317,53 @@ def unify_timezone(date_string):
 
 
 def parse_web_page(url, timeout=15):
-    """解析网页内容，添加超时和更好的错误处理"""
+    """解析网页内容，提取正文和首图。正文真实图片优先，og:image 仅作兜底。"""
     try:
         response = _http_session.get(url, timeout=timeout)
         response.raise_for_status()
 
-        # 指定编码方式
         response.encoding = response.apparent_encoding
-        # 使用BeautifulSoup解析HTML
         soup = BeautifulSoup(response.text, 'html.parser')
-        # 提取限定标签，简化取网页内容流程
+
+        # 策略1：从文章正文提取真实图片（优先）
+        image_url = _find_real_image_in_body(soup, base_url=url)
+
+        # 策略2：og:image（仅当正文无图且非生成卡片时使用）
+        if not image_url:
+            og_image = soup.find("meta", property="og:image")
+            if og_image and og_image.get("content"):
+                candidate = og_image["content"]
+                if not _is_generated_social_image(candidate) and not any(skip in candidate.lower() for skip in [
+                    "touch-icon", "favicon", "logo", "icon-", "apple-touch",
+                ]):
+                    if candidate.startswith("/"):
+                        from urllib.parse import urljoin
+                        candidate = urljoin(url, candidate)
+                    image_url = candidate
+
+        # 策略3：twitter:image（仅当非生成卡片时使用）
+        if not image_url:
+            tw_image = soup.find("meta", attrs={"name": "twitter:image"})
+            if tw_image and tw_image.get("content"):
+                candidate = tw_image["content"]
+                if not _is_generated_social_image(candidate):
+                    image_url = candidate
+
+        # Extract text content
         tags = soup.find_all(["h1", "h2", "p", "code"])
-        # 不处理标签嵌套内容
         tags_text = [tag.get_text() for tag in tags if not tag.next.name]
         extracted_text = '\n'.join(tags_text)
-        return extracted_text.strip()
+
+        return extracted_text.strip(), image_url
     except requests.exceptions.Timeout:
         logger.error(f"请求超时: {url}")
-        return None
+        return None, ""
     except requests.exceptions.HTTPError as e:
         logger.error(f"HTTP 错误: {url}, 状态码: {e.response.status_code}")
-        return None
+        return None, ""
     except requests.exceptions.RequestException as e:
         logger.exception(f"解析网页失败: {url}, 错误: {e}")
-        return None
+        return None, ""
 
 
 def extract_image_links(text):
@@ -221,6 +373,33 @@ def extract_image_links(text):
     if image_links:
         return image_links[0]
     return "", ""
+
+
+def fetch_github_repo_image(repo_url):
+    """获取 GitHub 仓库的社交预览图"""
+    try:
+        repo_url = get_real_url(repo_url)
+        username, repo_name = repo_url.split("/")[-2:]
+        api_url = f"https://api.github.com/repos/{username}/{repo_name}"
+        headers = {"Accept": "application/vnd.github.v3+json"}
+        github_token = ""
+        if os.environ.get("GITHUB_ACCESS_TOKEN"):
+            github_token = f"token {os.environ.get('GITHUB_ACCESS_TOKEN')}"
+        elif os.environ.get("ACCESS_TOKEN"):
+            github_token = f"token {os.environ.get('ACCESS_TOKEN')}"
+        headers["Authorization"] = github_token
+        response = _http_session.get(api_url, headers=headers, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        # social_preview_image is the custom repo social image
+        image_url = data.get("social_preview_image_url", "")
+        if not image_url:
+            # Fallback: owner avatar
+            image_url = data.get("owner", {}).get("avatar_url", "")
+        return image_url
+    except Exception as e:
+        logger.warning(f"获取仓库图片失败: {repo_url}, 错误: {e}")
+        return ""
 
 
 def parse_github_readme(repo_url):
