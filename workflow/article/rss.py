@@ -114,7 +114,9 @@ def parse_rss_config(rss_config):
     return today_rss
 
 def _extract_enclosure_image(rss_item):
-    """从 RSS enclosures 或 media_content 中提取图片 URL"""
+    """从 RSS enclosures 或 media_content 中提取有意义的图片 URL
+    过滤掉明确标记为 0 字节或极小的图标/缩略图
+    """
     # enclosures (常见于 RSS 2.0)
     enclosures = getattr(rss_item, 'enclosures', [])
     for enc in enclosures:
