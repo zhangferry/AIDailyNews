@@ -56,10 +56,27 @@ def process_category(key, articles):
             if article.link == evaluate.get("link"):
                 article.evaluate = evaluate
 
-    # 过滤掉没有评分的文章
-    valid_articles = [item for item in articles if item.evaluate and item.evaluate.get("score") is not None]
+    min_score = float(os.environ.get("MIN_ARTICLE_SCORE", "6"))
+    blocked_keywords = [
+        item.strip()
+        for item in os.environ.get("BLOCKED_ARTICLE_KEYWORDS", "破解,盗版,破解版,破解插件,盗版资源").split(",")
+        if item.strip()
+    ]
+
+    def is_valid_article(item):
+        if not item.evaluate or item.evaluate.get("score") is None:
+            return False
+        if float(item.evaluate["score"]) < min_score:
+            return False
+        title = item.evaluate.get("title", item.title)
+        summary = item.evaluate.get("summary", "")
+        content = f"{title} {summary}"
+        return not any(keyword in content for keyword in blocked_keywords)
+
+    # 过滤掉没有评分、低价值或灰色分发倾向的文章
+    valid_articles = [item for item in articles if is_valid_article(item)]
     if not valid_articles:
-        logger.warning(f"分类 '{key}' 没有有效的评分文章，跳过")
+        logger.warning(f"分类 '{key}' 没有通过质量门槛的文章，跳过")
         return []
 
     # 按评分排序

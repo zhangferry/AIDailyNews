@@ -1,4 +1,5 @@
 import json
+import re
 
 from dotenv import load_dotenv
 from loguru import logger
@@ -13,9 +14,20 @@ def evaluate_article_with_gpt(articles):
     article_links = [article.link for article in articles]
     logger.info(f"start summary: {article_links}")
 
-    gpt_input = ""
-    for idx, item in enumerate(articles):
-        gpt_input += f"```link: {item.link}, content:{item.summary}```.\n"
+    gpt_input = json.dumps(
+        [
+            {
+                "title": item.title,
+                "link": item.link,
+                "source": item.info.get("title", "") if item.info else "",
+                "category": item.config.get("category", "") if item.config else "",
+                "date": item.date,
+                "content": item.summary,
+            }
+            for item in articles
+        ],
+        ensure_ascii=False,
+    )
 
     ai_provider: AIProvider = AIProvider.build_from_envs()
     response = ai_provider.request(prompt=multi_content_prompt, content=gpt_input)
@@ -34,10 +46,15 @@ def transform2json(result):
     if not result:
         return None
     format_json = None
-    # 去掉首尾两行就是完整json内容
-    text = result.removeprefix("```json")
-    text = text.removesuffix("```")
-    # 有时输出格式可能不完全符合json
+    text = result.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```$", "", text)
+
+    json_match = re.search(r"(\[[\s\S]*\]|\{[\s\S]*\})", text)
+    if json_match:
+        text = json_match.group(1)
+
     try:
         json_obj = json.loads(text)
         # 关键信息校验
