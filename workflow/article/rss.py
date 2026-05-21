@@ -80,24 +80,25 @@ def load_rss_configs(resource):
 
 
 def parse_rss_config(rss_config):
-    """获取近期的 RSS 信息，默认覆盖最近 36 小时以兼容时区和 RSS 延迟。"""
+    """获取最近一个采集周期内的 RSS 信息，并限制在最近两个自然日内。"""
     res = feedparser.parse(rss_config["url"],
                            agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
     keymap = res.keymap
     today_rss = []
     # 默认一个rss源只获取一定数量信息
     max_count = rss_config.get("input_count", 4)
-    lookback_hours = int(rss_config.get("lookback_hours", os.environ.get("RSS_LOOKBACK_HOURS", 36)))
+    lookback_hours = int(rss_config.get("lookback_hours", os.environ.get("RSS_LOOKBACK_HOURS", 24)))
     time_zone = tz.gettz(time_zone_value)
     now = datetime.now(time_zone)
     start_time = now - timedelta(hours=lookback_hours)
+    allowed_dates = {now.date(), (now - timedelta(days=1)).date()}
 
     for article in res[keymap["items"]]:
         # issued > date > res.date
         article_date = unify_timezone(article.get(keymap["issued"],
                                                   article.get(keymap["date"],
                                                               res.get(keymap["date"]))))
-        if not article_date or not (start_time <= article_date <= now + timedelta(minutes=5)):
+        if not article_date or article_date.date() not in allowed_dates or not (start_time <= article_date <= now + timedelta(minutes=5)):
             continue
         rss = gen_article_from(rss_item=article, rss_type=rss_config.get("type"), image_enable=rss_config.get("image_enable", False),
                                rss_date=article_date.strftime("%Y-%m-%d %H:%M:%S"), channel=res[keymap["channel"]],

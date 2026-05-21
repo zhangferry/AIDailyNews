@@ -17,7 +17,8 @@ def execute(rss_resource="workflow/resources"):
     if cache_folder:
         save_article(origin_article_list, cache_folder)
     articles = find_favorite_article(origin_article_list)
-    blog.make_daily_markdown_with(articles, origin_article_list)
+    if not blog.make_daily_markdown_with(articles, origin_article_list):
+        raise RuntimeError("Daily markdown was not generated because no article content was selected")
 
 
 def parse_daily_rss_article(rss_resource, cache_file=None):
