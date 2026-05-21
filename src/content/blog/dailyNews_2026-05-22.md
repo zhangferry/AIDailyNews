@@ -2,55 +2,72 @@
 title: "Daily News #2026-05-22"
 date: "2026-05-22 08:00:00"
 description: >
-  AI 工程的三次进化：从 Prompt、Context 到 Harness 人类与 AI Agent 的最佳协作范式探索：从被动响应到 OS 级主动学习 iOS Dev Weekly 第 750 期：15 周年回顾与 AI 辅助开发新动态
+  人类和 AI Agent 的最佳配合方式，还没被发明｜对谈 Paperboy TLiveOmni 1.0: 直播视频多模态理解大模型 AI Agent 最大的问题：它在企业里只是个“无名之辈” iOS Dev Weekly 第 750 期：AI 代理测试工具与 SwiftUI 的原生体验之困
 tags:
-- "系统架构"
-- "软件工程"
+- "多模态大模型"
+- "人机协作"
+- "数据治理"
+- "分布式训练"
 - "AI Agent"
-- "iOS"
-- "Agent"
+- "身份与访问管理"
+- "上下文理解"
+- "技术周报"
+- "模型推理优化"
 - "Swift"
-- "Context Layer"
+- "电商直播"
+- "合规审计"
+- "交互设计"
 - "SwiftUI"
-- "开发工具"
-- "人机交互"
-- "AI工程化"
-- "架构设计"
+- "企业架构"
+- "iOS"
 
 ---
 
-> - AI 工程的三次进化：从 Prompt、Context 到 Harness
-> - 人类与 AI Agent 的最佳协作范式探索：从被动响应到 OS 级主动学习
-> - iOS Dev Weekly 第 750 期：15 周年回顾与 AI 辅助开发新动态
+> - 人类和 AI Agent 的最佳配合方式，还没被发明｜对谈 Paperboy
+> - TLiveOmni 1.0: 直播视频多模态理解大模型
+> - AI Agent 最大的问题：它在企业里只是个“无名之辈”
+> - iOS Dev Weekly 第 750 期：AI 代理测试工具与 SwiftUI 的原生体验之困
 
 ## 📥 Tech News
 
-### [AI 工程的三次进化：从 Prompt、Context 到 Harness](https://www.bestblogs.dev/article/ae472ac6?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
-
-来源：BestBlogs.dev - 精选文章
-
-发布时间：2026-05-20 08:45:00
-![](https://image.jido.dev/20251127045410_4d44587a)
-随着大模型代码生成能力的爆发，传统的软件开发范式面临失效，行业亟需理清 AI 工程演进的底层逻辑和工程师角色的重新定位。
-文章宏观梳理了 AI 工程的三个演进阶段：Prompt Engineering（解决表达与指令）、Context Engineering（解决信息与背景）、Harness Engineering（解决系统可靠性）。三者并非替代，而是层层嵌套的依赖关系。文章进一步提出了“Harness 衰变定律”——模型能力越强，所需的外部系统越精简。最终给出了工程师的新范式：“Human Steer, Agents Execute”，核心职责从编写代码转向系统设计、方向把控与判别。
-这是一篇兼具技术深度与哲学思考的佳作，精准抓住了 AI 落地过程中“可靠性”的牛鼻子，为开发者和技术管理者提供了清晰的方法论。它有助于团队避免盲目堆砌功能，将精力聚焦于构建健壮的 AI 治理闭环上。
-
-### [人类与 AI Agent 的最佳协作范式探索：从被动响应到 OS 级主动学习](https://www.bestblogs.dev/podcast/c35c94b?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
+### [人类和 AI Agent 的最佳配合方式，还没被发明｜对谈 Paperboy](https://www.bestblogs.dev/podcast/c35c94b?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
 
 来源：BestBlogs.dev - 精选文章
 
 发布时间：2026-05-21 00:00:00
 ![](https://image.jido.dev/20251127045524_c750c286)
-当前主流 AI Agent（如 Cursor、Claude Code 等）普遍受限于 Session-based（上下文割裂）、Reactive（被动等待 Prompt）和缺乏个性化记忆三大痛点，导致人机协作效率受限。
-Paperboy 团队提出了一种颠覆性的解决思路：从操作系统（OS）底层采集屏幕、键鼠等用户操作数据，构建持久化的 Context Layer 与记忆系统。这使得 Agent 能够跨越应用壁垒，主动学习用户习惯与偏好，从而提供 Proactive（主动式）的协助。同时，团队基于任务的“时间跨度”提出了“五种速度”的 Agent 产品设计框架。
-这篇文章极具启发性，精准指出了当前 Agent 产品的形态缺陷，并指明了向“主动学习”演进的范式转移。适合 AI 产品经理和 Agent 开发者深度阅读，能为下一代智能助手的设计提供重要思路。不过，OS 级别的无死角数据采集将面临极高的隐私合规风险，这也是该方案落地必须跨越的鸿沟。
+【背景/问题】当前主流AI Agent产品（如Cursor、Claude Code等）主要面临Session-based（上下文不连续）、Reactive（被动等待Prompt）和缺乏长期记忆三大痛点，导致人机协作效率受限，无法真正实现个性化。
+【核心观点/方案】Paperboy团队指出，从OS层面直接收集用户的屏幕、键盘等操作数据是构建主动型Agent的最佳路径。通过构建持续性的Context Layer，Agent能绕过繁琐的提示词工程，主动学习用户习惯并实时提供帮助。此外，文章还提出了“五种速度”的产品设计框架，针对不同时间跨度的任务匹配相应的交互方式，并创新性地借鉴微信群聊模式设计了IM式的Agent协作界面。
+【结论/价值】该文章为未来AI Agent的发展指明了从“被动工具”走向“主动分身”的演进方向。对于AI产品经理、创业者及交互设计师而言，其关于上下文收集和产品形态的思考极具启发性。不过，OS级别的全局数据采集在实际落地中也将面临不容忽视的用户隐私合规挑战。
+
+### [TLiveOmni 1.0: 直播视频多模态理解大模型](https://www.bestblogs.dev/article/c44121f6?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
+
+来源：BestBlogs.dev - 精选文章
+
+发布时间：2026-05-20 16:26:00
+![](https://image.jido.dev/20251127045404_f9729af6)
+【背景/问题】电商直播场景融合了密集的语音互动、复杂的视觉画面和文本信息，传统的单模态AI模型难以对海量信息进行跨模态的深度理解与实时业务分析。
+【核心观点/方案】阿里大淘宝技术团队发布了TLiveOmni 1.0全模态大模型，原生支持图、文、视、音四模态统一输入与128K长上下文。在训练端，模型采用“模态对齐→能力强化→全任务微调”三阶段策略；在工程端，自研了同步长度分组采样器，有效克服了多模态分布式训练中由于数据异构导致的死锁问题，使训练吞吐提升超50%；在推理端，基于深度定制的vLLM框架与FP8量化技术，在精度几乎无损的前提下实现了2.5-3.5倍的推理加速。
+【结论/价值】TLiveOmni 1.0在电商直播域的语音识别、商品定位等核心任务上达到了SOTA水平。文章完整展示了大模型从基座选择、训练范式设计到大规模推理部署优化的全链路工程实践，是一份极具深度的工业级落地指南，对从事多模态模型研发、分布式训练及AI系统优化的工程师具有极高的实战参考价值。
+
+### [AI Agent 最大的问题：它在企业里只是个“无名之辈”](https://www.infoq.cn/article/KMlTCRBIWmlaZLSWks6A)
+
+来源：InfoQ 推荐
+
+发布时间：2026-05-21 08:00:00
+![](https://static001.infoq.cn/resource/image/89/15/89762c7f1208b46bf245350a80170a15.jpg)
+随着 AI Agent 逐渐落地企业级生产环境，其带来的治理与审计风险日益凸显。传统身份系统无法适配短生命周期、高动态的 Agent，导致系统在面临合规审查时无法溯源。文章提出解决 Agent 身份与信任问题的关键在于“将治理内嵌于架构”。具体方案包括：在创建时而非运行时确定权限边界；对 Agent 跨系统组合产生的衍生洞察进行策略管控；以及实施长于 Agent 生命周期的持久化追踪。结论指出，限制 Agent 大规模应用的核心瓶颈已不再是能力，而是可问责性与信任。该文章直击企业 AI 落地痛点，为企业架构师和安全合规团队提供了包含权限隔离、输出治理在内的可操作设计指南。不过，部分内容带有 Snowflake 商业背书的色彩。
 
 ## 💾 Daily Dev
 
-### [iOS Dev Weekly 第 750 期：15 周年回顾与 AI 辅助开发新动态](https://main--iosdevweekly.netlify.app/issues/750/)
+### [iOS Dev Weekly 第 750 期：AI 代理测试工具与 SwiftUI 的原生体验之困](https://main--iosdevweekly.netlify.app/issues/750/)
 
 来源：iOS Development News - Telegram Channel
 
 发布时间：2026-05-20 23:12:34
 ![](https://cdn4.telesco.pe/file/MtHocOMK5y8fMxHJdPw5t7t7tUDmHsxksFN1-i7mC6EVjPG7CAwX2Rz10pOPf9IcCsewatgRfO421Xx7jiRtGZFxutPfRwfUHECFxXLvwjq3LXObtConjtvYbmVKmG7IXsB_S55JhDcxU4TSTUTZiOIC4WFk3V1vHPvpmPV9W0onGqVHFMd58TCxLNI3KT7s0hIpPBF-aLp0hpuqXFALfZxaBqI_1p4kuqBSuFrFHwxkfG0g2OjQMbPi_fqmU9Tx3DB7ajS5cuC_89DDQQmrITWarnOP-LY3YtSYdtHiTXZXr_t1cttFS8sYBUDpgmTke3SvLtwkturYQiiERhg43g.jpg)
-本期《iOS Dev Weekly》迎来了具有里程碑意义的第 750 期，作者 Dave Verwer 回顾了自 2011 年以来这 15 年间苹果开发社区的演变与壮大。在技术内容方面，本期重点推荐了多款极具价值的工具与深度思考：首先是专为 AI Agent 打造的 MCP 服务器 Cupertino 1.0.0，它能够高效索引并检索苹果开发者文档；其次是 ios-build-verify 插件，它利用无障碍 API 让 AI Agent（如 Claude）能够在模拟器中自动测试并验证 UI 变更。此外，周刊还深入探讨了 SwiftUI 在打磨极致原生 Mac 应用体验时的局限性，指出近年来真正具备纯正 Mac 原生质感的获奖应用寥寥无几。这期内容不仅是开发者社区发展的历史剪影，更为现代 iOS/macOS 开发者将 AI 深度融入日常工作流提供了实用的工具指引，同时引发了对当前苹果平台原生开发体验的深刻反思。适合广大苹果生态开发者及关注 AI 辅助编程的技术人员阅读。
+背景/问题：本期是 iOS Dev Weekly 的第 750 期，作者 Dave Verwer 回顾了 15 年来伴随苹果生态和开发者社区的成长历程。同时，随着 AI 编程助手的兴起和 SwiftUI 的全面推广，当前开发者正面临如何将 AI 更好地融入开发闭环，以及跨平台框架能否保留平台原生精致体验的新挑战。
+
+核心观点/方案：本期推荐了多款值得关注的工具与深度思考。在 AI 辅助开发方面，Cupertino 1.0.0 作为 MCP 服务器，可向 AI 代理提供苹果开发者文档索引；ios-build-verify 则是针对 Claude Code 的插件，允许 AI 通过无障碍 API 在模拟器中自动验证 UI 变更。在 UI 开发方面，开发者 Paulo Andrade 深入探讨了为 macOS 应用增加最后 10% 精致打磨的难点，并指出 SwiftUI 目前在实现极致原生体验上仍力有不逮。此外，文章还探讨了数据指标的欺骗性以及软件演进是否真正提升了质量的哲学思考。
+
+结论/价值：作为一期具有里程碑意义的周刊，它精准捕捉了当前 iOS 开发的两大核心趋势：大语言模型与客户端工程 workflow 的深度融合，以及 SwiftUI 在多平台体验上的现实痛点。适合广大苹果生态开发者和架构师阅读，不仅能了解行业前沿动态，更能从工具演进和开发者的深度反思中获得技术选型和架构设计的启发。
