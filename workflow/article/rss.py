@@ -80,23 +80,24 @@ def load_rss_configs(resource):
 
 
 def parse_rss_config(rss_config):
-    """仅获取当天的rss信息"""
+    """获取近期的 RSS 信息，默认覆盖最近 36 小时以兼容时区和 RSS 延迟。"""
     res = feedparser.parse(rss_config["url"],
                            agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
     keymap = res.keymap
     today_rss = []
     # 默认一个rss源只获取一定数量信息
     max_count = rss_config.get("input_count", 4)
+    lookback_hours = int(rss_config.get("lookback_hours", os.environ.get("RSS_LOOKBACK_HOURS", 36)))
+    time_zone = tz.gettz(time_zone_value)
+    now = datetime.now(time_zone)
+    start_time = now - timedelta(hours=lookback_hours)
 
     for article in res[keymap["items"]]:
-        # 获取当天信息
-        time_zone = tz.gettz(time_zone_value)
-        target_date = datetime.today().astimezone(time_zone).date()
         # issued > date > res.date
         article_date = unify_timezone(article.get(keymap["issued"],
                                                   article.get(keymap["date"],
                                                               res.get(keymap["date"]))))
-        if not article_date or article_date.date() != target_date:
+        if not article_date or not (start_time <= article_date <= now + timedelta(minutes=5)):
             continue
         rss = gen_article_from(rss_item=article, rss_type=rss_config.get("type"), image_enable=rss_config.get("image_enable", False),
                                rss_date=article_date.strftime("%Y-%m-%d %H:%M:%S"), channel=res[keymap["channel"]],
@@ -108,9 +109,9 @@ def parse_rss_config(rss_config):
             return today_rss
     # 防止一个地址有过多内容，这里限定下数量
     if len(today_rss) == 0:
-        logger.info(f'{rss_config["url"]} content of today is empty')
+        logger.info(f'{rss_config["url"]} content in recent {lookback_hours}h is empty')
     else:
-        logger.info(f'{rss_config["url"]} content count of today is {len(today_rss)}')
+        logger.info(f'{rss_config["url"]} content count in recent {lookback_hours}h is {len(today_rss)}')
     return today_rss
 
 def _extract_enclosure_image(rss_item):
@@ -153,6 +154,10 @@ def gen_article_from(rss_item, rss_type, image_enable=False, rss_date=None, chan
         summary, fetched_image = fetch_summary_from(url=link, rss_type=rss_type)
         if fetched_image and not image_url:
             image_url = fetched_image
+        if not summary:
+            summary, rss_summary_image = transform_html2txt(summary_raw, image_enable=image_enable)
+            if rss_summary_image and not image_url:
+                image_url = rss_summary_image
     else:
         summary, rss_summary_image = transform_html2txt(summary_raw, image_enable=image_enable)
         if rss_summary_image and not image_url:
@@ -236,6 +241,35 @@ def _find_real_image_in_body(soup, base_url=""):
     return ""
 
 
+def _extract_main_text(soup, max_chars=12000):
+    """从页面中提取更接近正文的文本，兼顾技术文章的列表和代码块。"""
+    for tag in soup(["script", "style", "noscript", "svg", "nav", "footer", "header", "aside", "form"]):
+        tag.decompose()
+
+    article = (
+        soup.find("article")
+        or soup.find("main")
+        or soup.find(class_=re.compile(r"article|post|content|entry|markdown|prose", re.I))
+        or soup.find("body")
+    )
+    if not article:
+        return ""
+
+    blocks = []
+    for tag in article.find_all(["h1", "h2", "h3", "p", "li", "blockquote", "pre", "code"]):
+        text = tag.get_text(" ", strip=True)
+        if not text:
+            continue
+        if len(text) < 3 and tag.name not in ["li", "code"]:
+            continue
+        blocks.append(text)
+
+    text = "\n".join(blocks)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    text = re.sub(r"[ \t]{2,}", " ", text).strip()
+    return text[:max_chars]
+
+
 def fetch_cover_image_from_url(url, timeout=10):
     """封面图抓取策略：正文真实图片优先，og:image 兜底，过滤生成的社交卡片"""
     try:
@@ -287,12 +321,15 @@ def transform_telegram_article(article: Article):
             links = re.findall(r'https://t.co\S+', line)
             tco_links.extend(links)
     if len(tco_links) > 0:
-        link = get_real_url(tco_links[0])
+        expanded_links = [get_real_url(item) for item in tco_links]
+        link = next((item for item in expanded_links if "t.co/" not in item), expanded_links[0])
         article.link = link
         if link.startswith("https://github.com"):
-            article.summary, _ = fetch_summary_from(url=link, rss_type="code")
+            article.summary, image_url = fetch_summary_from(url=link, rss_type="code")
         else:
-            article.summary, _ = fetch_summary_from(url=link, rss_type="link")
+            article.summary, image_url = fetch_summary_from(url=link, rss_type="link")
+        if image_url and not article.cover_url:
+            article.cover_url = image_url
     return article
 
 
@@ -349,10 +386,8 @@ def parse_web_page(url, timeout=15):
                 if not _is_generated_social_image(candidate):
                     image_url = candidate
 
-        # Extract text content
-        tags = soup.find_all(["h1", "h2", "p", "code"])
-        tags_text = [tag.get_text() for tag in tags if not tag.next.name]
-        extracted_text = '\n'.join(tags_text)
+        max_chars = int(os.environ.get("ARTICLE_TEXT_MAX_CHARS", 12000))
+        extracted_text = _extract_main_text(soup, max_chars=max_chars)
 
         return extracted_text.strip(), image_url
     except requests.exceptions.Timeout:

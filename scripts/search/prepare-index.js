@@ -18,7 +18,7 @@ import grayMatter from "gray-matter";
 
   const indexFile = path.join(publicDir, "search-index.json");
   const getSlugFromPathname = (pathname) =>
-    path.basename(pathname, path.extname(pathname));
+    path.basename(pathname, path.extname(pathname)).toLowerCase();
 
   const contentFilePaths = await globby([
     mdContentFilePattern,

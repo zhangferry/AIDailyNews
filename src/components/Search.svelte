@@ -3,30 +3,100 @@
   import SearchIcon from "./SearchIcon.svelte";
   import PostSearchPreview from "./PostSearchPreview.svelte";
 
-  let searchInput;
-  let searchableDocs;
+  type SearchablePost = {
+    slug: string;
+    title: string;
+    description: string;
+    category: string;
+    tags: Array<string>;
+    body?: string;
+    searchText?: string;
+  };
+
+  let searchInput: HTMLInputElement;
+  let searchableDocs: Array<SearchablePost> = [];
+  let docsBySlug = new Map<string, SearchablePost>();
   let searchIndex;
 
   let searchQuery = "";
-  let searchResults = [];
+  let searchResults: Array<SearchablePost> = [];
   let isSearching = false;
+
+  function normalizeSearchText(value: unknown) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function buildSearchText(post: SearchablePost) {
+    return normalizeSearchText([
+      post.title,
+      post.description,
+      post.tags?.join(" "),
+      post.body,
+    ].filter(Boolean).join(" "));
+  }
+
+  function getExactMatchScore(post: SearchablePost, query: string) {
+    const normalizedTitle = normalizeSearchText(post.title);
+    const normalizedDescription = normalizeSearchText(post.description);
+    const normalizedTags = normalizeSearchText(post.tags?.join(" "));
+    const normalizedBody = normalizeSearchText(post.body);
+
+    if (normalizedTitle.includes(query)) return 120;
+    if (normalizedTags.includes(query)) return 90;
+    if (normalizedDescription.includes(query)) return 70;
+    if (normalizedBody.includes(query)) return 35;
+    if (post.searchText?.includes(query)) return 20;
+    return 0;
+  }
+
+  function searchPosts(query: string) {
+    const scores = new Map<string, number>();
+
+    try {
+      searchIndex.search(query).forEach((match, index) => {
+        const positionBoost = Math.max(0, 20 - index);
+        scores.set(match.ref, (scores.get(match.ref) || 0) + match.score * 10 + positionBoost);
+      });
+    } catch {
+      // Lunr can reject punctuation-heavy queries; exact matching below still works.
+    }
+
+    searchableDocs.forEach((post) => {
+      const score = getExactMatchScore(post, query);
+      if (score > 0) {
+        scores.set(post.slug, (scores.get(post.slug) || 0) + score);
+      }
+    });
+
+    return Array.from(scores.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 30)
+      .map(([slug]) => docsBySlug.get(slug))
+      .filter(Boolean) as Array<SearchablePost>;
+  }
 
   onMount(async () => {
     const lunr = (await import("lunr")).default;
     const resp = await fetch("/search-index.json");
-    searchableDocs = await resp.json();
+    const docs = await resp.json();
+    searchableDocs = docs.map((doc) => ({
+      ...doc,
+      slug: normalizeSearchText(doc.slug),
+      searchText: buildSearchText(doc),
+    }));
+    docsBySlug = new Map(searchableDocs.map((doc) => [doc.slug, doc]));
     // Initialize indexing
     searchIndex = lunr(function () {
       // the match key...
       this.ref("slug");
 
       // indexable properties
-      this.field("title");
-      this.field("description");
-      this.field("tags");
-
-      // Omit, if you don't want to search on `body`
-      // this.field('body')
+      this.field("title", { boost: 10 });
+      this.field("description", { boost: 6 });
+      this.field("tags", { boost: 8 });
 
       // Index every document
       searchableDocs.forEach((doc) => {
@@ -37,17 +107,10 @@
   });
 
   $: {
-    if (searchQuery && searchQuery.length >= 2) {
+    const normalizedQuery = normalizeSearchText(searchQuery);
+    if (normalizedQuery.length >= 2 && searchIndex) {
       isSearching = true;
-      const matches = searchIndex.search(searchQuery);
-      searchResults = [];
-      matches.map((match) => {
-        searchableDocs.filter((doc) => {
-          if (match.ref === doc.slug) {
-            searchResults.push(doc);
-          }
-        });
-      });
+      searchResults = searchPosts(normalizedQuery);
       isSearching = false;
     } else {
       searchResults = [];
