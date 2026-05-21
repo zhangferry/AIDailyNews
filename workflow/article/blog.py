@@ -43,16 +43,13 @@ def make_daily_markdown_with(articles, rss_list):
     daily_guide = make_daily_guide(article_titles)
     if len(category_contents) == 0:
         logger.error("category content is empty!")
-        return
+        return False
     blog = Blog(metadata=meta_data, guide=daily_guide, categories=category_contents)
     logger.info(f"make blog success: {meta_data}")
-    # Don't write file if content is empty
-    if not category_contents:
-        logger.warning("No content generated, skipping file write")
-        return
     with open(md_path, "w") as fp:
         fp.write(blog.make_blog())
         logger.info(f"write to file: {md_path}")
+    return True
 
 
 def make_meta_data(description, tags):

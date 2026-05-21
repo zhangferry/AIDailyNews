@@ -7,6 +7,7 @@ node_modules/
 .snowpack/
 
 venv/
+.venv/
 __pycache__/
 
 # logs
@@ -30,5 +31,7 @@ netlify
 .idea/
 .vercel
 .playwright-mcp/
+.omc/
+.omx/
 
 workflow/test_resources/.env
