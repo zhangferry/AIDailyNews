@@ -39,7 +39,29 @@ def evaluate_article_with_gpt(articles):
         response_list = [response_list]
 
     evaluate_list = [item for item in response_list if item.get("title") and item.get("link")]
+    # Normalize summary formatting: ensure section headers are bold and separated by double line breaks
+    for item in evaluate_list:
+        if item.get("summary"):
+            item["summary"] = normalize_summary(item["summary"])
     return evaluate_list
+
+
+def normalize_summary(summary: str) -> str:
+    """Ensure summary sections use bold headers and consistent double line breaks."""
+    import re
+    # Ensure section markers are bold (wrapped in **)
+    summary = re.sub(
+        r'(?<!\*)\*?(背景[/／]问题|核心观点[/／]方案|结论[/／]价值)\*?(?!\*)',
+        r'**\1**',
+        summary,
+    )
+    # Normalize line breaks before section headers: consume any existing \n, then use exactly \n\n
+    summary = re.sub(
+        r'\n*(\*\*(?:背景[/／]问题|核心观点[/／]方案|结论[/／]价值)\*\*)',
+        r'\n\n\1',
+        summary,
+    )
+    return summary.strip()
 
 
 def transform2json(result):

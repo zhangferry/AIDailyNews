@@ -173,6 +173,32 @@
             ]
         },
         {
+            "category": "🤖 AI Coding",
+            "items": [
+                {
+                    "title": "Claude Blog",
+                    "rsshub_path": "claude/blog",
+                    "type": "link",
+                    "output_count": 2,
+                    "input_count": 5
+                },
+                {
+                    "title": "Cursor Blog",
+                    "rsshub_path": "cursor/blog",
+                    "type": "link",
+                    "output_count": 2,
+                    "input_count": 5
+                },
+                {
+                    "title": "Anthropic News",
+                    "rsshub_path": "anthropic/news",
+                    "type": "link",
+                    "output_count": 2,
+                    "input_count": 5
+                }
+            ]
+        },
+        {
             "category": "💾 Daily Dev",
             "items": [
                 {
