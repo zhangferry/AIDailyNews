@@ -2,157 +2,82 @@
 title: "Daily News #2026-07-05"
 date: "2026-07-05 08:00:00"
 description: >
-  sim-use - 给 agent 装上眼睛和手，让 mobile 开发跟上 AI 时代 Code is cheap. Don't write any.——AI Native，程序员如何提升五倍 coding 效率 从 AI Coding 到 Harness Engineering 的端到端工程开发实践 美团 LongCat-2.0 正式发布：在国产算力集群上完成全流程训练与推理的万亿参数模型 Claude Code 80%的提示词说删就删，Anthropic用Fable 5打了个样：AI行业的“降本”才刚刚开始 ICML 2026 | 美团技术团队学术论文精选 iOS Dev Weekly 第757期：SwiftUI底层解析、iOS 27新特性与AI编程辅助 SBBI China 2025 解读：如何在市场喧嚣中寻找长期投资的参照系
+  苹果首次将私有云计算平台扩展至谷歌云 Piece：将 Coding Agent 的局部构建反馈提速 10x SwiftUI 3D 渲染机制的底层剖析：为何它是扁平的 SwiftUI iOS 27 新特性：.crossFade 导航转场动画指南
 tags:
-- "长期主义"
-- "Agentic Coding"
-- "智能体"
+- "苹果"
+- "导航转场"
+- "隐私安全"
+- "谷歌云"
+- "机密计算"
+- "Coding Agent"
 - "SwiftUI"
-- "大类资产配置"
-- "美团"
-- "AI降本"
-- "开源模型"
-- "大模型训练"
-- "WWDC"
-- "System Prompt"
-- "提示工程"
-- "国产算力"
-- "iOS开发"
-- "投资"
-- "CLI"
-- "移动开发"
-- "上下文工程"
-- "Token优化"
+- "云架构"
+- "Core Animation"
+- "底层原理"
 - "iOS 27"
-- "A股"
-- "架构设计"
-- "机器学习"
-- "SBBI"
-- "Anthropic"
-- "强化学习"
-- "DevOps"
-- "LLM"
-- "AI 编程"
-- "ICML 2026"
-- "多模态"
-- "知识库工程"
-- "自动化测试"
+- "iOS开发"
+- "动画"
+- "构建系统"
+- "3D渲染"
+- "架构优化"
 - "研发效能"
-- "AI Agent"
-- "AI编程"
-- "Claude Code"
+- "UI设计"
 
 ---
 
-> - sim-use - 给 agent 装上眼睛和手，让 mobile 开发跟上 AI 时代
-> - Code is cheap. Don't write any.——AI Native，程序员如何提升五倍 coding 效率
-> - 从 AI Coding 到 Harness Engineering 的端到端工程开发实践
-> - 美团 LongCat-2.0 正式发布：在国产算力集群上完成全流程训练与推理的万亿参数模型
-> - Claude Code 80%的提示词说删就删，Anthropic用Fable 5打了个样：AI行业的“降本”才刚刚开始
-> - ICML 2026 | 美团技术团队学术论文精选
-> - iOS Dev Weekly 第757期：SwiftUI底层解析、iOS 27新特性与AI编程辅助
-> - SBBI China 2025 解读：如何在市场喧嚣中寻找长期投资的参照系
-
-## 🍎 iOS Blog
-
-### [sim-use - 给 agent 装上眼睛和手，让 mobile 开发跟上 AI 时代](https://onevcat.com/2026/07/sim-use/)
-
-来源：OneV's Den
-
-发布时间：2026-07-03 22:50:00
-
-**背景/问题**：当前 AI Agent 已经能高效生成代码，但在移动端（iOS/Android）UI 开发中，面临“验证难”的痛点。Agent 无法自行运行应用、查看 UI 效果并据此反馈修改，导致开发闭环中断，人机交互效率低下。
-
-**核心观点/方案**：介绍了一款开源的跨平台 CLI 工具 sim-use。该工具相当于给 Agent 装上了“眼睛和手”，使其能够直接在移动端模拟器中识别屏幕画面、执行点击等交互操作，并自动验证 UI 结果，从而补齐了 Agent 驱动的移动端开发的最后一块拼图。
-
-**结论/价值**：该工具突破了传统 AI 辅助编程仅停留在纯代码生成阶段的局限，极大地提升了移动端开发的自动化程度和调试效率。对于希望深度集成 AI Agent 以优化开发流程的移动端开发者而言，具有极高的实战参考价值。
+> - 苹果首次将私有云计算平台扩展至谷歌云
+> - Piece：将 Coding Agent 的局部构建反馈提速 10x
+> - SwiftUI 3D 渲染机制的底层剖析：为何它是扁平的
+> - SwiftUI iOS 27 新特性：.crossFade 导航转场动画指南
 
 ## 📥 Tech News
 
-### [Code is cheap. Don't write any.——AI Native，程序员如何提升五倍 coding 效率](https://www.bestblogs.dev/article/c25f459e?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
-
-来源：BestBlogs.dev - 精选文章
-
-发布时间：2026-07-03 08:30:00
-![](https://image.jido.dev/20260527050139_5335db5.jpeg)
-**背景/问题**：在 AI Native 时代，代码本身的生成成本正变得极其低廉。然而，由于大模型本质上是非确定性的概率生成器，且上下文窗口存在“中间遗忘”等局限性，直接让 AI 编写复杂代码极易产生偏差和幻觉，难以保证工程质量。
-
-**核心观点/方案**：作者结合超大规模代码产出的实战经验，提出了一套名为 Harness 的 AI 编程方法论。核心在于“人定方向，模型推进”：引入“水流理论”将控制点前移至系统边界和检查点，而非逐行控制代码；运用“最小混沌单元”拆解任务，并通过编写 Spec、CodeMap 和定期开新对话等设施严格控制上下文环境，确保模型在受控空间内自主推进。
-
-**结论/价值**：本文是一篇罕见的兼具底层理论深度与极强实操性的 AI 编程指南，适合所有渴望成倍提升研发效能的开发者深度阅读。它彻底重塑了程序员与 AI 的协作模式，指出在 AI 时代，程序员的核心竞争力已从编写代码转变为定义目标、控制边界和验收结果的能力。
-
-### [从 AI Coding 到 Harness Engineering 的端到端工程开发实践](https://www.bestblogs.dev/article/e06a6c5e?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
-
-来源：BestBlogs.dev - 精选文章
-
-发布时间：2026-07-03 17:36:00
-![](https://image.jido.dev/20260527045543_19fddfe.jpeg)
-**背景/问题**：当前大热的对话式 AI Coding 在真实的复杂业务工程中，正面临着上下文窗口快速膨胀、大模型缺乏完整业务知识、缺乏工程自动化闭环以及无法高效并行执行四大核心瓶颈，难以真正实现端到端的自动化开发。
-
-**核心观点/方案**：腾讯应用宝活动平台团队提出并实践了 Harness Engineering 架构。该方案以结构化知识库工程为底座，通过 AI 自动生成与渐进式分层检索（替代传统 RAG）保障业务上下文的精准与新鲜。在执行层，采用状态文件驱动流程持久化，设计单一职责的专家 Agent 体系，结合 DAG 并行编排与冲突治理策略。同时，将确定性操作全面脚本化，彻底贯彻"AI 负责认知、脚本负责执行"的核心工程原则。
-
-**结论/价值**：该实践为大型复杂业务工程落地 AI 编程提供了极具参考价值的破局思路，非常适合架构师及资深后端开发者阅读。文章总结出的“工程化设计优于 Prompt 调优”等原则，对提升企业级 DevOps 全流程闭环和开发效能具有极强的指导意义。
-
-### [美团 LongCat-2.0 正式发布：在国产算力集群上完成全流程训练与推理的万亿参数模型](https://tech.meituan.com/2026/06/30/LongCat2.0.html)
-
-来源：美团 · 技术团队
-
-发布时间：2026-07-03 14:33:46
-![](https://p1.meituan.net/meituantechblog/ef19600fdb0e6868a3574c4a8c7ff746220482.png)
-**背景/问题**：随着大模型参数量迈向万亿级，如何在算力受限的条件下（特别是依赖国产算力集群）稳定、高效地完成大规模MoE模型的预训练与推理，同时解决模型在超长上下文和复杂Agentic Coding任务中的性能衰减问题，是当前AI工程领域的重大挑战。
-
-**核心观点/方案**：美团开源了总参数1.6T的LongCat-2.0模型，业界首次在五万卡国产算力集群上完成全流程训练与推理。工程层面，通过确定性算子、弹性扩缩卡等技术将日故障率降低70%，并实现流水线调度和算子级控核使MFU提升1.5倍。模型架构层面，采用稀疏注意力机制（LSA）原生支持1M超长上下文，结合零计算专家与ScMoE实现Token级动态激活，并引入MOPD多专家融合架构，让模型在编程、推理与交互任务上按需调度算力。
-
-**结论/价值**：LongCat-2.0在多项权威代码与复杂办公场景评测中达到甚至超越国际前沿闭源模型水平。该成果验证了国产算力支撑万亿参数模型稳定运行的可行性，对关注算力国产化替代、MoE架构底层优化及Agent应用落地的开发者和架构师具有极高的实战参考价值。
-
-### [Claude Code 80%的提示词说删就删，Anthropic用Fable 5打了个样：AI行业的“降本”才刚刚开始](https://www.infoq.cn/article/GEkEm7rkUJfF8bdwTuBt)
+### [苹果首次将私有云计算平台扩展至谷歌云](https://www.infoq.cn/article/UoJtxVXj0d1QT1ftyjtd)
 
 来源：InfoQ 推荐
 
-发布时间：2026-07-03 19:27:10
-![](https://static001.infoq.cn/resource/image/df/aa/df136245afd543b373e714f352e0bfaa.png)
-**背景/问题**：随着AI深度应用，企业算力成本失控，甚至引发了“Token末日”。许多公司限制模型等级或设定个人配额来抑制成本。以Claude Code为代表的产品为了营造“高产”错觉，在设计上大量消耗Token，导致资源浪费与效率低下。
+发布时间：2026-07-04 09:00:00
+![](https://static001.infoq.cn/resource/image/a1/a0/a14d4cb9ea0c7037c780d574c89ceea0.jpg)
+**背景/问题**：苹果需借助谷歌的基础设施和 Gemini 技术运行下一代基础模型，处理复杂的云端 AI 推理任务。然而，苹果一向以极致的隐私保护作为核心卖点，如何在不完全掌控的第三方云服务商上运行敏感 AI 负载，同时坚守其“零运维访问”的隐私承诺，成为亟待解决的架构与信任难题。
 
-**核心观点/方案**：为了应对高昂的算力成本，行业开始转向极限降本策略。Anthropic果断删减了Claude Code 80%的系统提示词，因为过度冗长的提示词已成为隐蔽的“Prompt债”，不仅占用上下文还拉低效率。同时，通过类似Caveman的插件精简输出语言，以及借鉴OpenAI压缩内部推理链路的技术，大幅减少无效Token的生成。
+**核心观点/方案**：苹果构建了端到端的机密推理管道，采用由 NVIDIA Blackwell GPU、英特尔 TDX 以及谷歌 Titan 芯片组成的三层硬件信任机制。为防范单点信任风险，苹果独立维护加密的硬件追踪账本，要求软件认证基于至少两家独立供应商的可信根，并开源 Prompt Encryption SDK 确保从端到 TEE 全程加密，从根本上杜绝谷歌访问明文数据的可能。
 
-**结论/价值**：AI行业已从盲目追求Token消耗量迈入追求极致效率的新阶段。这篇文章深刻揭示了过度包装的AI工具背后的成本陷阱，对开发者和企业极具警示意义：精简提示词、优化输出与推理链路，是实现AI规模化盈利的必经之路。
+**结论/价值**：这是解决 AI 算力与商业依赖的高水平工程实践，更是跨云机密计算领域的标杆架构。文章对多层次 TEE 和零信任云基础设施的设计剖析，对云架构师和安全工程师具有极高参考价值；但也客观警示了单纯的技术加密在应对司法管辖权时的局限性。
 
-### [ICML 2026 | 美团技术团队学术论文精选](https://tech.meituan.com/2026/06/29/ICML-2026.html)
+### [Piece：将 Coding Agent 的局部构建反馈提速 10x](http://www.phodal.com/blog/piece-agentic-build-system/)
 
-来源：美团 · 技术团队
+来源：Blog | Phodal - A Growth Engineer
 
-发布时间：2026-07-03 14:33:46
-![](https://p0.meituan.net/meituantechblog/53ce71427cc5fb26c883af36a738b10569202.webp)
-**背景/问题**：随着大语言模型向通用智能体演进，模型在长程推理中的记忆瓶颈、强化学习训练中的策略对齐与评估难题，以及多模态（尤其是高分辨率视频和长程交互世界模型）生成中的一致性与算力冲突，成为制约AI技术突破的核心痛点。
+发布时间：2026-07-04 19:57:00
+![](http://www.phodal.com/static/phodal/images/qrcode.jpg)
+**背景/问题**：在 AI 编码智能体（Coding Agent）的自动化开发流程中，传统的项目级或文件级构建反馈机制耗时较长，难以满足智能体频繁修改代码后的即时验证需求，严重拖慢了迭代与试错速度。
 
-**核心观点/方案**：美团技术团队精选了13篇被ICML 2026收录的论文，从多维度提出了创新方案。在智能体推理方面，提出了基于版面感知的视觉记忆机制（MemOCR）以高效压缩交互历史；在强化学习训练上，推出解耦策略参数的通用价值模型（V_0）和联合自我验证机制。同时，针对评测痛点构建了评估噪声鲁棒性（AgentNoiseBench）和智能体裁判能力（AJ-Bench）的新基准。在多模态领域，提出了双频专家潜空间级联框架（LUVE）和层级化记忆架构（Infinite-World），显著提升了超高分辨率视频生成与1000帧以上长程交互的连贯性。
+**核心观点/方案**：文章提出了名为 Piece 的全新构建思路，将代码修改精确映射为“片段级构建反馈”。该方案打破了传统的构建粒度，将文件内部的函数、组件、接口和 JSX 结构等细粒度元素，转变为独立可追踪、可验证且可回退的基础构建单位。
 
-**结论/价值**：这批论文全方位展示了美团在AI前沿技术上的深厚积累，不仅提供了丰富的理论创新，还紧密结合了实际业务场景（如已落地的LongCat-Video模型）。对于从事大模型对齐、强化学习、智能体评测及视频生成的学术和工程研究人员而言，是一份不可多得的技术演进路线图。
+**结论/价值**：该机制能够将局部构建反馈速度提升 10 倍，极大优化了 AI 智能体的自动化编码与纠错闭环。非常适合关注 AI 辅助编程、智能体工作流设计及底层研发效能架构的开发者阅读，但原文篇幅较短，缺乏具体的工程落地与底层实现细节。
 
 ## 💾 Daily Dev
 
-### [iOS Dev Weekly 第757期：SwiftUI底层解析、iOS 27新特性与AI编程辅助](https://main--iosdevweekly.netlify.app/issues/757/)
+### [SwiftUI 3D 渲染机制的底层剖析：为何它是扁平的](https://aleahim.com/blog/swiftui-3d-is-flat/)
 
 来源：iOS Development News - Telegram Channel
 
-发布时间：2026-07-03 23:17:32
-![](https://cdn4.telesco.pe/file/AB-DTXlipe8hrEOrNTJNWN758arDewWcv7u23iVCNgWNz0_o52cVbBT3mjrky-OObipNCqgrOsS3J78ri1ipbHa-9XHhwaFRKpBagHC-PbyV7VbUCt0IKAQSCHwvGTrFFci2jVbN05PCUU3kn5CyU9yuU8dWm-3UYcUbwUM9ke6RPXNhU_aqAJdRF-wRjogBNEWlo93nvqa8jfGjasMSSE0Ai-3p3g7v8mf_tl8J2uYnTSb-4MawgXw0-Pbq6hhNEgWAO7QsHChnlsEpwsdmA_P6REoriYltxB0CsBM_dBIGzTKsV9tN7kwJ65x0EmdjqBez7uvEvElSwZGOBOAeEw.jpg)
-**背景/问题**：WWDC 结束后，Swift 6.4 和 v27 SDKs 随 Xcode 27 beta 发布，iOS 开发社区正处于新工具链落地与旧架构演进的关键过渡期，开发者面临着适配新 API、解决复杂 UI 框架 Bug 以及探索 AI 编程落地等诸多挑战。
+发布时间：2026-07-04 22:37:20
+![](https://cdn4.telesco.pe/file/pzfrfG5onpVQuxxKVtqjfHSbA5LG36reMiZO5NB1Ic6EPh_-ufq97GSmwUMmVqO5pEP40xYFmdwo9_GPzXYR3Ap5N7bUv85VaeqZnCA7m3h2my9renY_ZTWDTLr6gV3egm0T3FpOrM2-91WoeSw2xeY5UkZDrU983xLPHzB37XPRC0Aa_PY45eK1HjA7vQxJnV_A4P4HXdneCkqGw0V22Gq5ObqIwK_GZLkCdscM6584eHNORfXHk9Ys6lG2aLBBNoAf9pWnCtzIPommQKEHyst0-SdFF3DD84PHDgnrgQcYeBwvr_7Kh1MZcUzqE3RiKAtNtIqQfHkC8yNndv0n2Q.jpg)
+**背景/问题**：SwiftUI 提供了 `rotation3DEffect` 等具有 3D 视觉效果的 API，开发者容易误以为其具备真正的 3D 场景构建能力。本文旨在验证 SwiftUI 在 iOS/macOS 平台上是否能实现真正的多视图共享 3D 空间渲染及深度排序。
 
-**核心观点/方案**：本期周报精选了数篇深度技术文章。探讨了通过差分测试“Oracle技术”从零重构 SwiftUI 引擎的硬核实践；剖析了由结构身份（如 `if/else` 与三元运算符的差异）引起的 SwiftUI 动画与 List 机制 Bug；介绍了 iOS 27 中支持原生拖拽排序的 `.reorderable()` 新 API；还分享了在 UIKit 与 SwiftUI 混用架构下构建设计系统时动态颜色解析的底层差异。此外，针对 AI 编程代理的局限性，介绍了一款旨在提升运行时可观测性的 `Broadcast` 日志库。
+**核心观点/方案**：作者通过构建纯 SwiftUI 立方体并分析渲染结果，证实了 SwiftUI 的 3D 本质上是基于单视图的 2D 投影。它缺乏跨视图的共享 3D 坐标系，视图层级完全取决于代码声明顺序。这导致旋转时遮挡关系错误，因为 SwiftUI 框架过滤了 Core Animation 中 `CATransformLayer` 提供的深度排序能力，而真正的 3D 变换 API 被刻意限制在 visionOS 平台。
 
-**结论/价值**：这是一份高价值的 iOS 技术雷达，适合中高级 iOS 开发者快速掌握后 WWDC 时代的核心技术动态。其价值不仅在于技术更新预告，更在于强调了深入理解 SwiftUI 底层视图树机制以及提升 AI 代理运行时调试能力的重要性，具有极强的实战指导意义。
+**结论/价值**：这一结论揭示了 SwiftUI 基于“值类型视图模型”的刻意设计边界。对于中高级 iOS 开发者而言，该文极具深度与参考价值，能有效避免在构建复杂 3D 场景时陷入 API 陷阱；若需实现真正的 3D 交互，建议直接采用 Core Animation 或底层图形框架。
 
-## 📻 Podcast
+### [SwiftUI iOS 27 新特性：.crossFade 导航转场动画指南](https://www.sagarunagar.com/blog/swiftui-crossfade-navigation-transition/)
 
-### [SBBI China 2025 解读：如何在市场喧嚣中寻找长期投资的参照系](https://www.xiaoyuzhoufm.com/episode/6a4762cf2e335a35a80d789e)
+来源：iOS Development News - Telegram Channel
 
-来源：知行小酒馆
+发布时间：2026-07-04 18:17:35
+![](https://cdn4.telesco.pe/file/CwZ7et3eXLasE9PBrd6CcuP-wM44otKjP8RpwDF7k04ImQpaqbu9ZWMYew85uCs5K0fI2UCCHjok-egM8Uda1pAn6jaCNQPRF3Ljh7VotvD4y1BjpN-uzxhETMknk-e7B6V6dbnBypkUEZnpHcgKV8-LVtaKRTBTLPJ9YLzBupkLe8dfHkkDjDDXYR5FxxKbavxxsImbHKkSCDXJXNxFOOl2jDEg3cUX7U79eAl8cFMiH4kDrX-Q06KPqFg-lDWPaHQEBidLm8tBK3zqGZ-GENwVXWyzDJeIBjMQLETvnlkS21CEOWgBxXwxAEiliBpYkhP8FZOXmpvzg9ZHQVCLaQ.jpg)
+**背景/问题**：自 iOS 18 引入 `NavigationTransition` 以来，SwiftUI 获得了定制导航动画的能力（如缩放）。然而，强关联源视图和目标视图的缩放动画并不适用于所有场景。在设置页或表单流转中，开发者往往只需要简洁的淡入淡出效果，以往只能依赖复杂的自定义代码或第三方库。
 
-发布时间：2026-07-03 20:00:00
-![](https://image.xyzcdn.net/Fgy2PobYbGHbU8AQWvHa5LPv5_hL.png)
-**背景/问题**：面对当下A股市场风格切换、热门赛道（如AI、芯片）大涨等现象，普通投资者容易陷入迷茫和情绪内耗，常常怀疑“这次是不是真的不一样”以及长期投资是否依然有效。
+**核心观点/方案**：文章详细介绍了 iOS 27 引入的 `.crossFade` 导航转场动画。与 `.zoom` 动画不同，`.crossFade` 剔除了 `@Namespace` 和源视图 ID 匹配等繁琐配置，仅通过单一修饰符即可实现页面交叉淡化。作者明确区分了两者的适用场景：缩放适合强调视觉扩展（如卡片放大），而淡入淡出更适合无直接视觉关联的页面切换（如设置菜单、表单流程）。
 
-**核心观点/方案**：《中国大类资产投资 2025 年报》（SBBI China 2025）提供了一个客观、长期的数据参照系。数据显示，长期承担更高波动的资产通常带来更高回报，且A股长期收益的核心驱动力是上市公司盈利的实际增长而非估值扩张。投资者应基于不同资产的相关性进行分散配置，并根据自身风险承受力进行动态再平衡，同时发挥个人投资者“等得起”的时间优势。
-
-**结论/价值**：该播客通过翔实的历史数据，帮助投资者拨开短期市场情绪的迷雾，回归风险与收益相匹配的投资常识。对于普通投资者制定长期资产配置规划、克服追涨杀跌的人性弱点具有极高的指导价值和心理抚慰作用。
+**结论/价值**：该 API 以极低的代码成本补齐了 SwiftUI 在转场动画上的体验短板。文章提供了清晰的实战指南，非常适合日常应用开发者据此优化应用的 UX 设计。局限性在于其强依赖 iOS 27+ 环境，开发者在使用时必须考虑旧版系统的降级兼容方案。
