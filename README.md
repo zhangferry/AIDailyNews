@@ -1,3 +1,5 @@
+
+
 ## DailyNewsReport
 
 My Daily News：一键部署独属于你的每日新闻总览,支持 GPT3，Gemini Pro 模型。
@@ -52,12 +54,12 @@ Fork 该仓库，删除 [src/content/blog](https://github.com/zhangferry/AIDaily
    - `AI_PROVIDER`: 可选 `gemini` 和 `openai`（GLM 使用 `openai`）。默认 `gemini`
    - `GPT_API_KEY`: 根据设置的 AI 能力填写对应的 Key
    - `GPT_MODEL_NAME`: gemini 默认 `gemini-pro`，openai 默认 `gpt-3.5-turbo`，GLM 推荐使用 `glm-4` 或 `glm-4-flash`
-   - `GPT_BASE_URL`: 默认官方地址，GLM 使用 `https://open.bigmodel.cn/api/paas/v4`，可选
+   - `GPT_BASE_URL`: 默认官方地址，GLM（Coding模式）使用 `https://open.bigmodel.cn/api/coding/paas/v4`，可选
 
    **支持的 AI 服务：**
    - **智谱 GLM**（推荐，性价比高）：
      - AI_PROVIDER: `openai`
-     - GPT_BASE_URL: `https://open.bigmodel.cn/api/paas/v4`
+     - GPT_BASE_URL: `https://open.bigmodel.cn/api/coding/paas/v4`
      - GPT_MODEL_NAME: `glm-4`（或其他 GLM 模型如 `glm-4-flash`）
      - GPT_API_KEY: GLM API Key
    - **OpenAI**：
