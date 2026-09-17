@@ -1,6 +1,6 @@
 import unittest, os
 
-from workflow.gpt.summary import evaluate_article_with_gpt, AIProvider
+from workflow.gpt.summary import AIProvider, evaluate_article_with_gpt, normalize_summary
 from workflow.article.rss import gen_article_from
 from workflow.gpt.prompt import multi_content_prompt
 from workflow.gpt.request import request_openai
@@ -9,6 +9,14 @@ import workflow.article.rss as rss
 
 
 class SummaryTestCase(unittest.TestCase):
+
+    def test_normalize_summary_bolds_the_opening_paragraph(self):
+        summary = "这是一次产品更新。\n\n* 支持新功能\n* 适合现有用户升级。"
+
+        self.assertEqual(
+            normalize_summary(summary),
+            "**这是一次产品更新。**\n\n* 支持新功能\n* 适合现有用户升级。",
+        )
 
     def setUp(self):
         """
