@@ -39,7 +39,7 @@ def evaluate_article_with_gpt(articles):
         response_list = [response_list]
 
     evaluate_list = [item for item in response_list if item.get("title") and item.get("link")]
-    # Normalize summary formatting: ensure section headers are bold and separated by double line breaks
+    # Ensure the opening summary is visually distinct without imposing section headings.
     for item in evaluate_list:
         if item.get("summary"):
             item["summary"] = normalize_summary(item["summary"])
@@ -47,21 +47,13 @@ def evaluate_article_with_gpt(articles):
 
 
 def normalize_summary(summary: str) -> str:
-    """Ensure summary sections use bold headers and consistent double line breaks."""
-    import re
-    # Ensure section markers are bold (wrapped in **)
-    summary = re.sub(
-        r'(?<!\*)\*?(背景[/／]问题|核心观点[/／]方案|结论[/／]价值)\*?(?!\*)',
-        r'**\1**',
-        summary,
-    )
-    # Normalize line breaks before section headers: consume any existing \n, then use exactly \n\n
-    summary = re.sub(
-        r'\n*(\*\*(?:背景[/／]问题|核心观点[/／]方案|结论[/／]价值)\*\*)',
-        r'\n\n\1',
-        summary,
-    )
-    return summary.strip()
+    """Bold the opening prose paragraph while preserving flexible Markdown below it."""
+    summary = summary.strip()
+    if not summary or summary.startswith("**") or summary.startswith(("* ", "- ")):
+        return summary
+
+    opening, separator, remainder = summary.partition("\n\n")
+    return f"**{opening.strip()}**{separator}{remainder}".strip()
 
 
 def transform2json(result):
