@@ -2,51 +2,55 @@
 title: "Daily News #2026-10-28"
 date: "2026-10-28 08:00:00"
 description: >
-  当应用不再属于特定操作系统 - 肘子的 Swift 周报 #159 How the Xcode 27 MCP can lead to higher token costs when navigating the Simulator 中层技术经理要么重新学技术，要么考虑退休：前Stripe工程高管警告，未来三年工程管理将彻底变样 AI 写作是一种命运 Apple 发布全新 iPad mini：A20 Pro + 8.5 英寸 OLED，但 60Hz 与芯片差异化引争议 ChatGPT 在工作场景中的应用版图持续扩张 OpenAI 工程团队用 Codex Ultrafast 将事故调查从数小时压缩到数分钟 苹果发布第八代 iPad mini：OLED 屏 + A20 Pro，但仍无 Face ID 与 ProMotion
+  当应用不再属于特定操作系统 - 肘子的 Swift 周报 #159 Xcode 27 MCP 在模拟器导航中可能导致更高的 Token 成本 国产算力·昇腾 910C 大模型推理优化（下）：源码修改与算子优化，TPOT 延迟降低 64.8%｜得物技术 中层技术经理要么重新学技术，要么考虑退休：前 Stripe 工程高管警告，未来三年工程管理将彻底变样 AI 写作是一种命运 苹果发布全新 iPad mini：A20 Pro 芯片 + 8.5 英寸 OLED 屏幕 OpenAI 与学术社区合作推进科学认知：公开多项前沿课题的模型研究结果 第八代 iPad mini 发布：OLED 与 A20 Pro 齐升级，60Hz 与高价引争议
 tags:
-- "iPad mini"
-- "职业发展"
-- "DevOps"
-- "AI时代"
-- "OpenAI"
-- "SRE"
-- "跨平台"
-- "AI 写作"
-- "技术领导力"
-- "写作方法"
+- "AI 伦理"
 - "媒介理论"
-- "Swift"
-- "数据分析"
-- "内容创作"
-- "硬件"
-- "OLED"
-- "Token 成本"
-- "macOS"
-- "软件工程"
-- "AI 应用"
-- "ChatGPT"
-- "工程管理"
-- "MCP"
-- "Xcode"
-- "AI 编程"
-- "生产力工具"
-- "A20 Pro"
 - "iOS"
+- "工程管理"
+- "OpenAI"
+- "开发工具"
+- "Xcode"
+- "iPad mini"
+- "量子色动力学"
+- "iPad"
+- "AI 写作"
+- "科研"
+- "MCP"
+- "A20 Pro"
+- "LLM 推理优化"
+- "CTO"
+- "OLED"
+- "iPadOS"
+- "硬件"
+- "数学猜想"
+- "组织变革"
 - "AI Agent"
+- "AI编程"
+- "Token 成本"
+- "AI for Science"
+- "AI 基础设施"
+- "iOS Simulator"
+- "职业发展"
+- "内容创作"
+- "vLLM"
+- "Swift"
+- "跨平台"
+- "AI"
+- "昇腾 910C"
 - "Apple"
-- "Codex"
-- "人工智能"
+- "性能优化"
 
 ---
 
 > - 当应用不再属于特定操作系统 - 肘子的 Swift 周报 #159
-> - How the Xcode 27 MCP can lead to higher token costs when navigating the Simulator
-> - 中层技术经理要么重新学技术，要么考虑退休：前Stripe工程高管警告，未来三年工程管理将彻底变样
+> - Xcode 27 MCP 在模拟器导航中可能导致更高的 Token 成本
+> - 国产算力·昇腾 910C 大模型推理优化（下）：源码修改与算子优化，TPOT 延迟降低 64.8%｜得物技术
+> - 中层技术经理要么重新学技术，要么考虑退休：前 Stripe 工程高管警告，未来三年工程管理将彻底变样
 > - AI 写作是一种命运
-> - Apple 发布全新 iPad mini：A20 Pro + 8.5 英寸 OLED，但 60Hz 与芯片差异化引争议
-> - ChatGPT 在工作场景中的应用版图持续扩张
-> - OpenAI 工程团队用 Codex Ultrafast 将事故调查从数小时压缩到数分钟
-> - 苹果发布第八代 iPad mini：OLED 屏 + A20 Pro，但仍无 Face ID 与 ProMotion
+> - 苹果发布全新 iPad mini：A20 Pro 芯片 + 8.5 英寸 OLED 屏幕
+> - OpenAI 与学术社区合作推进科学认知：公开多项前沿课题的模型研究结果
+> - 第八代 iPad mini 发布：OLED 与 A20 Pro 齐升级，60Hz 与高价引争议
 
 ## 🍎 iOS Blog
 
@@ -56,41 +60,56 @@ tags:
 
 发布时间：2026-10-26 22:00:00
 ![](https://og.fatbobman.com/weekly/issue159.webp)
-**本期周报以“应用不再属于特定操作系统”为主题，介绍 Cutefish、SimRun、Mac Android Subsystem 三个打破平台边界的项目，并指出 AI Coding Agent 正在大幅降低跨平台移植的成本。**
+**本期周报以「应用不再属于特定操作系统」为主题，探讨了跨平台运行技术的新趋势，并收录多篇 iOS 开发深度文章与开源项目。**
 
-* Cutefish 通过 Reef 兼容层重新实现 Mach-O 加载器、Objective-C Runtime 及 Foundation、AppKit、SwiftUI 等框架，让未经修改的 Mac 应用直接运行于 Linux，目前仍存在视图树重建、重复绘制等性能问题
-* SimRun 无需启动完整模拟器即可在 macOS 独立窗口运行 iOS 模拟器应用，支持视图层级检查与实验性 JS 自动化，便于界面调试和 AI 代理操作，但要求 Apple 芯片并关闭 SIP
-* Mac Android Subsystem 基于 LineageOS、QEMU 与 Apple Hypervisor Framework 在后台运行完整 Android 环境，APK 应用可获得独立窗口、Dock 图标、Spotlight 与双向剪贴板，尚处早期预发布阶段
-* 其他推荐包括 iOS 触觉反馈完整指南、AVFoundation 音频闪灭与平滑混音实践、Onevcat 对 NSHostingView 生命周期问题的深度排查、一套工具契约接入多种实时语音模型，以及 Claude Code 初始上下文占用的测量与优化
-* 编辑观点认为，当应用可跨系统运行，硬件选购将更看重设计、性能与体验，平台竞争重点也将从“独占应用”转向“谁能提供更好的跨生态使用体验”
+* 核心观点：Cutefish（Linux 运行原生 Mac 应用）、SimRun（iOS 模拟器应用独立窗口运行于 Mac）、Mac Android Subsystem（Android 应用融入 Mac 桌面）采用兼容层、直跑模拟器构建产物、后台虚拟系统三条不同路线，共同模糊应用与宿主系统的边界；AI Coding Agent 正大幅降低打破平台壁垒的成本，未来硬件购买决策或从「独占应用」转向「跨平台使用体验」。
+* 推荐文章涵盖：iOS 触觉反馈 API 完整指南、AVFoundation 音频闪退与平滑混音的工程实践、SwiftUI 与 AppKit 混用中 NSHostingView 意外重建问题的排查实录（同时展示了 AI Agent 通过实验建立证据链的调试方法）。
+* 其他内容：通过统一 JSON 工具契约接入六种实时语音模型的实践经验；Tuist 联合创始人关于开发工具应构建于 Compute 之上而非编辑器的反思；利用 /context 等指令分析并优化 Claude Code 初始上下文占用（高达 39.6k Token）的方法。
 
-### [How the Xcode 27 MCP can lead to higher token costs when navigating the Simulator](https://www.avanderlee.com/ai-development/xcode-mcp-simulator-token-costs/)
+适合 Swift/iOS 开发者及关注跨平台与 AI 辅助开发趋势的读者阅读。
+
+### [Xcode 27 MCP 在模拟器导航中可能导致更高的 Token 成本](https://www.avanderlee.com/ai-development/xcode-mcp-simulator-token-costs/)
 
 来源：SwiftLee
 
 发布时间：2026-10-26 20:09:51
 ![](https://swiftlee-banners.herokuapp.com/imagegenerator.php?title=How+the+Xcode+27+MCP+can+lead+to+higher+token+costs+when+navigating+the+Simulator)
-**Xcode 27 内置的 MCP 在 AI Agent 导航 iOS 模拟器时，每次操作后读取的文本量约为 RocketSim CLI 的 7 倍（作者基准测试结果），可能带来明显更高的 token 消耗成本。**
+**Xcode 27 内置的 MCP 在 AI 代理操作 iOS 模拟器时，每次动作后读取的文本量约为 RocketSim CLI 的七倍，会显著推高 token 消耗。**
 
-* 核心结论：Agent 导航模拟器的效率与成本取决于每次点击后读取的内容，截图仅展示屏幕外观、信息相对精简，而 Xcode 27 MCP 每次动作后回读的文本量过大，会快速膨胀上下文
-* 对使用 AI Agent 进行 iOS 开发且需频繁与模拟器交互的开发者，MCP 工具的输出设计会直接影响 token 开销，在该场景下 RocketSim CLI 的方案更为经济
-* 输入内容为 RSS 节选，完整的基准测试方法与对比数据细节需查阅原文链接
+* 作者通过基准测试发现，Xcode 27 MCP 在代理执行每个操作后读取的文本量约是 RocketSim CLI 的 7 倍。
+* 高效导航的关键在于代理每次点击后读取的内容形式：截图可以直接呈现界面状态，而纯文本读取方式往往冗长得多。
+* 对使用 MCP 驱动模拟器自动化导航或测试的 iOS 开发者而言，需留意这种读取方式带来的 token 成本差异，并权衡替代工具。
 
 ## 📥 Tech News
 
-### [中层技术经理要么重新学技术，要么考虑退休：前Stripe工程高管警告，未来三年工程管理将彻底变样](https://www.infoq.cn/article/hhxL1M65UU3Iwr4ovALT)
+### [国产算力·昇腾 910C 大模型推理优化（下）：源码修改与算子优化，TPOT 延迟降低 64.8%｜得物技术](https://www.bestblogs.dev/article/6d9c06f1f2?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
+
+来源：BestBlogs.dev - 精选文章
+
+发布时间：2026-10-26 18:30:00
+![](https://image.jido.dev/20251127045403_cb8f24c8)
+**得物技术团队在华为昇腾 910C 上对大模型推理进行了源码级与算子层的深度优化，通过多流重叠、host 开销削减、融合算子与静态 kernel 编译等手段，将 TPOT 延迟从基线 14.1ms 降至 5.0ms，降幅达 64.8%，并在真实业务场景中验证有效。**
+
+* MoE 共享专家多流重叠：将 shared expert 计算与 AllReduce 放入独立 side stream，与 routed experts 并行执行，并移除冗余同步事件，显著缩短 MoE 层执行时间
+* decode host 侧开销优化：针对 c=1 decode 时 host 侧拷贝与提交耗时过高的问题，引入上一轮状态跟踪，跳过不必要的 block table 提交与数据拷贝，并优化 positions 计算路径
+* 算子层融合：利用 FUSED_MC2 实现通信-计算融合，通过 SuperKernel 合并多个小 kernel，自研 matmul_allreduce_add_rmsnorm_910c 融合算子，减少 kernel launch 次数与 HBM 访问
+* 修复静态 kernel 编译路径问题实现 100% 编译成功率，并调整 cudagraph 捕获尺寸以兼容 MTP 投机解码，保证该模式下的性能稳定
+* 文章强调“优化的另一半工作是证伪”：MatmulAllReduce、FlashComm 等文档推荐的特性在 910C 实测中支持不完整或无收益，甚至有负向影响
+
+### [中层技术经理要么重新学技术，要么考虑退休：前 Stripe 工程高管警告，未来三年工程管理将彻底变样](https://www.infoq.cn/article/hhxL1M65UU3Iwr4ovALT)
 
 来源：InfoQ 推荐
 
 发布时间：2026-10-26 15:18:06
 ![](https://static001.infoq.cn/resource/image/84/65/84bf754a601684aaed2c4fe4a7ab5565.png)
-**前Stripe工程高管、《Staff Engineer》作者Will Larson警告：中层技术经理要么重新深入技术一线，要么考虑退休，未来三年传统工程管理能力可能不再被市场需要。**
+**前 Stripe 工程高管、曾出任 Carta 与 Calm CTO 的 Will Larson 预测：未来三年传统工程管理职业可能不复存在，中层技术经理要么重新深入技术一线，要么考虑退休。他本人已践行这一判断——从管理 250 人团队转任 Imprint 约 25 人团队负责人，一年半内提交 500+ 个生产环境 PR。**
 
-* AI加速变化：软件实现成本趋近于零，但理解业务、判断该做什么、处理复杂约束并验证结果仍需工程师；技术管理者被重新要求深入技术细节，Larson在Imprint一年半提交超500个生产环境PR，超过此前整个职业生涯
-* 零利率时代（ZIRP）塑造了2010年代管理文化：工程经理被禁止做技术决策，只能靠流程、招聘和人员管理施加影响，导致组织臃肿；如今这套评价标准突然失效，许多中层管理者被困在半途
-* 曾被视为职业陷阱的TLM（技术负责人兼经理）成为抢手岗位，企业需要有能力处理管理事务却更愿意写代码的人
-* 访谈还回顾Digg v4灾难性重写、Uber两年内团队从6人扩张至70人、Yahoo服务器“黑市”等经历，阐释长期稳定小团队优于临时增援、好产品背后需要敢于做不受欢迎决策的被授权高管等观点
-* 谈及AI写作，Larson表示拒绝批量生成内容：“花了近20年建立写作声誉，为什么要用AI垃圾内容毁掉它”，一两篇有影响力的文章远胜几百篇无人阅读的内容
+* 核心判断：2010 年代“管理者不做技术决策”的理念已失效，企业需要既懂管理又能写代码的 TLM（技术负责人兼经理）；理想经理是“有能力处理管理事务，却更愿意花时间开发的人”
+* 历史反思：零利率时代几乎解释了 2010 年代工程管理的全部异化——管理者被禁止碰技术，只能靠招聘、流程和满意度证明价值，导致组织臃肿
+* 工程师价值：软件实现成本趋近于零，但理解业务、在模糊中做权衡、判断“该不该做”仍需人完成；Staff Engineer 的核心始终是在模糊中做出重要决策
+* 访谈包含大量一手细节：Yahoo 服务器“黑市”、Digg v4 灾难重写（Cassandra 读写互斥、Python 可变默认参数致内存泄漏）、Uber 两年内团队从 6 人扩至 70 人
+* 组织建议：长期稳定的小团队胜过往延期项目塞人；好产品背后往往有一两个被充分授权、敢于做不受欢迎决策的人
+* 写作态度：拒绝用 AI 大量产文，“一两篇真正有影响力的文章，远比几百篇没人看的内容更有价值”
 
 ### [AI 写作是一种命运](https://www.bestblogs.dev/article/e299e67b46?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
 
@@ -98,62 +117,50 @@ tags:
 
 发布时间：2026-10-26 17:10:00
 ![](https://media.bestblogs.dev/20260827095624_dbb7c8f.jpeg)
-**腾讯研究院撰文指出，AI 写作已不是可选项，而是一种必须直面的"命运"——即便不主动使用 AI，其生成的文字也正在通过文化生态渗透，重塑大众的语言习惯与"合格写作"的审美标准。**
+**腾讯研究院这篇文章提出，AI 写作已不是可选项而是一种“命运”：即使不主动使用，AI 产生的文字也在重塑语言习惯与“合格写作”的标准，应对之道是专注打磨机器无法复制的“承重句”。**
 
-* 核心判断：当越来越多人的文字向同一个中位数收敛，这个中位数就会成为新的标准；伦理讨论的重点应从"是否使用 AI"的选择伦理，转向"如何分工"的伦理，即明确划分人与机器各自承担的写作环节。
-* 应对策略：写作者应专注于"承重句"——包含锋利判断、专属个人经验和立场修正的句子。这些要素无法被模型复制，构成写作真正的个性签名；而通用性表达则会沦为可被批量生产的"商品内容"。
-* 关键警示：个性一旦被证明可商品化，就会被商品化；AI 让更多人拥有了写作能力，但只有不完全服从于它的人，才真正拥有自己的文字。
+* 伦理讨论的焦点应从“是否使用 AI”转向“如何分工”，即明确人与机器的边界，保留需要人类独特判断和经验的写作环节
+* “承重句”指包含锋利判断、专属个人经验和立场修正的句子，构成写作真正的个性签名，是模型难以复制的部分；依赖通用性表达则容易沦为“商品内容”
+* 当越来越多人的文字向同一中位数收敛，该中位数就成了新标准；而个性一旦被证明可商品化，个性就会被商品化
+* AI 让更多人拥有了写作能力，但只有不完全服从于它的人，才真正拥有自己的文字
 
-文章兼具思想深度与现实关照，适合内容创作者、写作者及关注 AI 伦理与媒介理论的读者阅读。
-
-### [Apple 发布全新 iPad mini：A20 Pro + 8.5 英寸 OLED，但 60Hz 与芯片差异化引争议](https://t.me/AppleNuts/2558)
+### [苹果发布全新 iPad mini：A20 Pro 芯片 + 8.5 英寸 OLED 屏幕](https://t.me/AppleNuts/2558)
 
 来源： Apple Nuts - Telegram Channel
 
 发布时间：2026-10-26 21:13:18
 ![](https://cdn5.telesco.pe/file/qB0Shd62_GHJfzuid6y0Hyyvq8nmq3UQL3bzEuJI8s8Kp606T2DyWBpm7ghuR-yFVQ8sW7H2dpFVeDgVy72wSdW19U9roGlMmiGJudCbQry5XJnjwjDteDo51H6zadzXNEyCEbU1qlVOsntj0sKnrWKZZ-Awwbmd0vg9CbfvalNMSoigRbsStotQz4Q2M-pDPoittnC2EDpW0Izyvi4FhgTrPMah0LoI2nZwk5ncNpg1186X634fVW3QjzSIErCKK-s7-llRRka9zYyjmAQYO4dEhucG9nV5EUXAFYdB4NC3prjAR_LiXo_-m4QiLEiY8SypgO_73PMCKDcwjaVbSA.jpg)
-**Apple 发布迄今升级幅度最大的 iPad mini，搭载 A20 Pro 芯片与 8.5 英寸 OLED 屏幕，并首发 Acoustic Display 屏幕发声技术，但 60Hz 刷新率与按容量区分芯片规格的做法引发争议。**
+**苹果发布被官方称为史上最大更新的 iPad mini，搭载 A20 Pro 芯片并首次采用 8.5 英寸 OLED 显示屏，10 月 28 日开启订购，11 月 6 日正式发售。**
 
-* 核心配置：A20 Pro 芯片、N1 芯片、C2 模块，8.5 英寸 OLED 显示屏，1200 万像素 Center Stage 摄像头
-* Acoustic Display 技术通过屏幕震动直接发声，省去传统扬声器开孔，使机身达到 IP67 级别防尘防水
-* 主要局限：屏幕刷新率仅 60Hz，不支持 ProMotion；仅 512GB 版本搭载完整规格 A20 Pro，低容量机型会锁定 1 个能效核心，属于明显的芯片差异化策略
-* 定价与发售：WiFi 版 RMB 5,499 起，蜂窝版 RMB 6,799 起；10 月 28 日开启订购，11 月 6 日正式发售
+* 核心规格：A20 Pro 芯片（搭配 N1 芯片与 C2 模块）、1200 万像素 Center Stage 摄像头；借助 Acoustic Display 屏幕发声技术取消传统开孔，实现 IP67 级防尘防水。
+* 明显限制：屏幕刷新率仍为 60Hz，不支持 ProMotion；仅 512GB 机型搭载完整版 A20 Pro，低容量版本锁掉 1 个能效核心。
+* 定价：WiFi 版 RMB 5,499 起，WiFi + 蜂窝版 RMB 6,799 起。
+* 适合关注小尺寸平板的用户，但低容量机型的芯片阉割与 60Hz 刷新率是选购时需要权衡的因素。
 
-### [ChatGPT 在工作场景中的应用版图持续扩张](https://openai.com/index/chatgpt-expanding-world-of-work)
-
-来源：OpenAI News
-
-发布时间：2026-10-26 18:00:00
-
-**OpenAI 基于 Signals 数据发布报告，追踪了覆盖近 100 个国家的 165 项工作活动，展示人们如何将 ChatGPT 用于工作，以及使用模式随时间的演变。**
-
-* 数据来自 OpenAI Signals，样本覆盖近 100 个国家、165 项工作活动，视角偏向宏观行为统计而非单点案例。
-* 报告关注使用方式的时间变化，可为理解 AI 工具在各行业渗透趋势提供参考。
-* 适合关注 AI 生产力趋势、企业数字化转型的读者；原文内容较简短，深度分析需查阅完整报告。
-
-### [OpenAI 工程团队用 Codex Ultrafast 将事故调查从数小时压缩到数分钟](https://openai.com/index/openai-cut-incident-investigation)
+### [OpenAI 与学术社区合作推进科学认知：公开多项前沿课题的模型研究结果](https://openai.com/index/building-scientific-understanding-with-academic-communities)
 
 来源：OpenAI News
 
-发布时间：2026-10-26 15:00:00
+发布时间：2026-10-26 22:30:00
 
-**OpenAI 内部工程团队展示了如何使用 Codex Ultrafast 加速事故（incident）调查，将原本耗时数小时的排查流程缩短至数分钟。**
+**OpenAI 公开了其模型在多个前沿科学问题上的研究结果，并邀请学界验证与延续这些工作。**
 
-* 应用场景包括安全分析、代码重构以及工程师日常开发工作流。
-* 亮点在于 AI 编程工具在故障排查这一高时间压力场景中的实际落地效果。
-* 属于官方产品实践案例，带有一定推广性质，但展示的工作流思路（用 AI 辅助定位根因、加速分析）对 SRE 和后端工程师有借鉴意义。
+* 涉及课题包括 Kakeya 猜想（挂谷猜想）、指数时间假设（ETH）以及量子色动力学（QCD）
+* 文章同时阐述了研究人员如何对这些模型产生的结果进行验证和进一步研究
+* 体现了大模型能力向纯数学与理论物理等基础科学场景延伸的趋势
+* 对关注 AI for Science 的研究者和开发者具有参考价值，具体方法与结论需阅读原文
 
 ## 💾 Daily Dev
 
-### [苹果发布第八代 iPad mini：OLED 屏 + A20 Pro，但仍无 Face ID 与 ProMotion](https://mjtsai.com/blog/2026/10/26/ipad-mini-8th-generation/)
+### [第八代 iPad mini 发布：OLED 与 A20 Pro 齐升级，60Hz 与高价引争议](https://mjtsai.com/blog/2026/10/26/ipad-mini-8th-generation/)
 
 来源：iOS Development News - Telegram Channel
 
 发布时间：2026-10-27 03:27:05
 ![](https://cdn4.telesco.pe/file/EhLZriydTJEQdpsClp0SeYjDVIKnDeFcxt0IWfdIGJzk9c8wQzm9rAKEy9h2lvjwb7RNdtW-RDrTVVnZasvKo6u_AJdNoe5J_l7HPGbwvkXDslmxTkFO50RvCiQ70RTmJziHa_JA8TLLsVf7iAg_tU9bfEEMcBsjYmf_i4vOF29q8pfz0qEbYmEj4Rjo7JObGEdmmSX9YShwvlPcmRSdI795JnWYYweAj3iWEkMauCNvMLSMkekkvjdSwWOABSRHofaf_rIkQjHla2yCYQTbGjvoIazqOnGoXncos5U2BJ-bIGq0ZJAaS4xSO0plvZE-CSd7K-2ey-jZzQfNJeoHsQ.jpg)
-**苹果发布第八代 iPad mini，首次搭载 8.5 英寸 OLED（XDR）显示屏与 A20 Pro 芯片，起售价 699 美元，但依然缺少 Face ID 和 ProMotion 高刷屏，引发多位评论者批评。**
+**苹果发布第八代 iPad mini，首次配备 OLED XDR 屏幕并搭载 A20 Pro 芯片，但 60Hz 刷新率、沿用 Touch ID 以及 699 美元起售价引发评论界强烈批评。**
 
-* 新机更薄更轻（5.4mm / 255g，上代为 6.3mm / 293g），屏幕由 8.3 英寸增至 8.5 英寸，边框缩小 25%，峰值亮度翻倍以上，可选纳米纹理玻璃；配备"声学显示屏"技术，低音单元借屏幕震动增强低频，高音单元隐藏于玻璃与铝壳之间；12MP Center Stage 前摄移至横向边框。
-* 搭载 iPadOS 27.2，外接显示器时支持扩展显示模式，便于多窗口多任务。
-* 主要争议点：除最高 512GB 配置外，其余版本均采用降规格的 A20 Pro 芯片；仅提供 Touch ID；屏幕刷新率仍为 60Hz（无 ProMotion）；起售价从上代 499 美元涨至 699 美元，顶配达 1249 美元，配色缩减为午夜色与星光色两种。
-* John Gruber 指出这是首款 XDR 屏的 iPad mini，但除非苹果推出 mini 尺寸的 iPad Pro，否则用户无法买到带 Face ID 的小尺寸 iPad；多位读者表示因 60Hz 屏幕放弃购买。
+* 屏幕升级至 8.5 英寸（上代 8.3），边框缩窄 25%，峰值亮度翻倍，可选 nano-texture 防眩光；机身更薄更轻（5.4mm/255g，上代 6.3mm/293g）
+* 定价 699 美元起、最高 1249 美元，而上代发布价为 499 美元；据技术规格页，除 512GB 顶配外，其余配置均采用降规格的 A20 Pro 芯片
+* John Gruber 等多位评论者不满其仍无 Face ID 与 ProMotion 高刷，认为在这个价位上不可接受，有用户明确表示因此放弃购买
+* 新增 Acoustic Display 声学显示技术（低音单元与屏幕共振、高音单元藏于玻璃与铝壳之间），前置 12MP Center Stage 摄像头移至横边，首次支持防水防尘；配合 iPadOS 27.2 可在外接显示器时使用扩展显示模式
