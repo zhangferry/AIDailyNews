@@ -206,32 +206,32 @@ module.exports = {
    */
   editorial: {
     colors: {
-      primary: "#64748b", // Slate - subtle, only reveals on hover
-      secondary: "#6366f1", // Indigo accent
-      tertiary: "#8b5cf6", // Purple accent
-      background: "#fafbfc", // Cool white
-      surface: "#f1f3f5", // Cool light gray surface
-      surface2: "#e5e7eb", // Slightly darker for cards
-      border: "#e2e5e9", // Cool border
-      "text-primary": "#1e293b", // Dark slate
-      "text-secondary": "#475569", // Slate secondary
-      "text-muted": "#94a3b8", // Muted slate
-      "dark-primary": "#94a3b8", // Lighter slate for dark mode hover
-      "dark-secondary": "#818cf8", // Lighter indigo
-      "dark-tertiary": "#a78bfa", // Lighter purple
-      "dark-background": "#0c0c10", // Near-black
-      "dark-surface": "#141418", // Dark surface
-      "dark-surface2": "#1c1c22", // Card background
-      "dark-border": "#2a2a32", // Dark borders
-      "dark-text-primary": "#e2e8f0", // Light slate text
-      "dark-text-secondary": "#94a3b8", // Slate secondary
-      "dark-text-muted": "#64748b", // Muted text
+      primary: "#68766d", // Slate - subtle, only reveals on hover
+      secondary: "#367354", // Indigo accent
+      tertiary: "#367354", // Purple accent
+      background: "#fafbf8", // Cool white
+      surface: "#f0f3ed", // Cool light gray surface
+      surface2: "#e8eee5", // Slightly darker for cards
+      border: "#dde3da", // Cool border
+      "text-primary": "#202a25", // Dark slate
+      "text-secondary": "#536159", // Slate secondary
+      "text-muted": "#68766d", // Muted slate
+      "dark-primary": "#9fc8a9", // Lighter slate for dark mode hover
+      "dark-secondary": "#9fc8a9", // Lighter indigo
+      "dark-tertiary": "#9fc8a9", // Lighter purple
+      "dark-background": "#151b18", // Near-black
+      "dark-surface": "#1e2721", // Dark surface
+      "dark-surface2": "#263a2d", // Card background
+      "dark-border": "#354038", // Dark borders
+      "dark-text-primary": "#e4eae1", // Light slate text
+      "dark-text-secondary": "#b5c1b5", // Slate secondary
+      "dark-text-muted": "#9aa99c", // Muted text
       accent: {
         gray: {
-          light: "#e2e5e9",
-          dark: "#2a2a32",
+          light: "#dde3da",
+          dark: "#354038",
         },
-        default: "#64748b",
+        default: "#68766d",
       },
     },
   },

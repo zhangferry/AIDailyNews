@@ -17,6 +17,13 @@ const {
   showNavigation = true,
   showComment = true,
 } = Astro.props;
+
+const commentsConfigured = [
+  import.meta.env.PUBLIC_GITTALK_CLIENT_ID,
+  import.meta.env.PUBLIC_GITTALK_CLIENT_SECRET,
+  import.meta.env.PUBLIC_GITTALK_REPO,
+  import.meta.env.PUBLIC_GITTALK_OWNER,
+].every(Boolean);
 ---
 
 <article class="prose">
@@ -30,7 +37,7 @@ const {
     />
   )}
 
-  {showComment && <Comment client:load />}
+  {showComment && commentsConfigured && <Comment client:load />}
 </article>
 
 <style>
@@ -89,18 +96,18 @@ const {
     font-style: italic;
   }
 
-  .prose a {
+  .prose :global(a) {
     @apply transition-colors duration-200;
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
-  .prose a:hover {
-    @apply text-blue-500 opacity-100;
+  .prose :global(a:hover) {
+    @apply text-theme-secondary opacity-100;
   }
 
-  :global(html.dark) .prose a:hover {
-    @apply text-blue-400;
+  :global(html.dark) .prose :global(a:hover) {
+    @apply text-theme-dark-primary;
   }
 
   /* Horizontal rule as elegant divider */

@@ -13,7 +13,7 @@ const { colors } = themeConfig;
 
 module.exports = {
   darkMode: "class",
-  content: ["./public/**/*.html", "./src/**/*.{astro,js,ts}"],
+  content: ["./public/**/*.html", "./src/**/*.{astro,js,ts,svelte}"],
   safelist: ["dark"],
   theme: {
     fontFamily: {

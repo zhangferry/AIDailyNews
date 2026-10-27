@@ -58,7 +58,6 @@ const regularPosts = showFeatured ? sortedPosts.slice(featuredCount) : sortedPos
         <PostPreview
           post={post}
           asCard={mode === "row"}
-          class={`animate-fade-in-up stagger-${Math.min(index + 1, 5)}`}
         />
       ))
     }
@@ -102,17 +101,14 @@ const regularPosts = showFeatured ? sortedPosts.slice(featuredCount) : sortedPos
   }
 
   .post-preview__list--col {
-    @apply flex-col gap-6;
+    @apply flex-col;
   }
 
   .post-preview__list--row {
-    @apply flex-row flex-wrap gap-6;
-    @apply -mx-3 px-3;
+    @apply grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-0;
   }
 
-  .post-preview__list--row .post-preview {
-    @apply w-full sm:w-1/2 lg:w-1/3;
-  }
+
 
   /* Ensure animations work properly */
   .animate-fade-in-up {

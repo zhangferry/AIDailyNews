@@ -4,26 +4,26 @@ import config from "./config/config.json"
 export const NAV_ITEMS: NavItems = {
 	home: {
 		path: "/",
-		title: "today",
+		title: "最新日报",
 	},
 	blog: {
 		path: "/blog",
-		title: "blog",
+		title: "往期归档",
 	},
 	tags: {
 		path: "/tags",
-		title: "tags",
+		title: "主题",
 	},
 	about: {
 		path: "/about",
-		title: "about",
+		title: "关于",
 	},
 };
 
 export const SITE = {
 	// Your site's detail?
 	name: config.name,
-	title: "zhangferry",
+	title: "Daily News · 每日科技简报",
 	description: `Made with ${config.aiprovider_model}`,
 	url: "https://daily.zhangferry.com",
 	githubUrl: "https://github.com/zhangferry/AIDailyNews",

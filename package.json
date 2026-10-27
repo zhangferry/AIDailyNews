@@ -4,10 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "node ./scripts/search/prepare-index.js",
     "dev": "THEME_KEY=editorial astro dev",
+    "prebuild": "node ./scripts/search/prepare-index.js",
     "build": "THEME_KEY=editorial astro build",
     "check": "astro check",
-    "postbuild": "node ./scripts/search/prepare-index.js",
     "preview": "astro preview",
     "check:type": "tsc --project tsconfig.json --pretty --noEmit",
     "lint": "biome lint src",

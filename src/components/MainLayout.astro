@@ -8,10 +8,11 @@ import AnimationEnhancer from './AnimationEnhancer.astro';
 
 ---
 <BaseLayout>
+    <a class="skip-link" href="#main-content">跳转到正文</a>
     <Header />
-    <div class="main-content">
+    <main class="main-content" id="main-content">
         <slot />
-    </div>
+    </main>
     <Footer />
     <Portal>
         <SearchModal client:load/>

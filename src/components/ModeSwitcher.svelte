@@ -10,8 +10,8 @@
 
 
     function toggleTheme() {
-        window.document.documentElement.classList.toggle(THEME_DARK)
-        currTheme = localStorage.getItem('theme') === THEME_DARK ? THEME_LIGHT : THEME_DARK
+        currTheme = currTheme === THEME_DARK ? THEME_LIGHT : THEME_DARK
+        window.document.documentElement.classList.toggle(THEME_DARK, currTheme === THEME_DARK)
         // Update Storage
         localStorage.setItem('theme', currTheme)
         // Update Store
@@ -30,6 +30,6 @@
         theme.set(currTheme)
     })
 </script>
-<button on:click={toggleTheme}>
+<button on:click={toggleTheme} aria-label={currTheme === THEME_DARK ? '切换到浅色模式' : '切换到深色模式'} title="切换阅读主题">
     <slot theme={currTheme}/>
 </button>

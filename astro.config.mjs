@@ -11,6 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import remarkCodeTitles from "remark-code-titles";
 import rehypeExternalLinks from "rehype-external-links";
+import newsLayout from "./src/plugins/news-layout.mjs";
 
 // Full Astro Configuration API Documentation:
 // https://docs.astro.build/reference/configuration-reference
@@ -31,6 +32,7 @@ export default defineConfig(
       },
       remarkPlugins: [remarkCodeTitles],
       rehypePlugins: [
+        newsLayout,
         [
           rehypeExternalLinks,
           {
@@ -51,6 +53,11 @@ export default defineConfig(
       // decapCmsOauth(),
     ],
     vite: {
+      server: {
+        watch: {
+          ignored: ["**/.vercel/**"],
+        },
+      },
       plugins: [],
       resolve: {
         alias: {

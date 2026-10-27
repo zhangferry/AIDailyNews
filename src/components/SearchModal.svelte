@@ -48,7 +48,7 @@
             rgba(212, 165, 165, 0.15) 100%
         );
         backdrop-filter: blur(8px);
-        z-index: 1;
+        z-index: 40;
         pointer-events: auto;
     }
 
