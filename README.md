@@ -6,7 +6,9 @@ AIDailyNews 使用 Python 采集订阅内容，通过 AI 评分、筛选并生�
 
 [在线阅读](https://daily.zhangferry.com) · [本地预览](#本地预览) · [生成自己的日报](#生成自己的日报) · [部署网站](#部署网站)
 
-![日报阅读界面：吸顶导航、分类标题与侧边目录](docs/ui-review/screenshots/category-centered-detail.png)
+[![日报阅读界面：吸顶导航、分类标题与侧边目录](docs/ui-review/screenshots/readme-desktop.png)](docs/ui-review/screenshots/readme-desktop.png)
+
+<sub>Retina 实机截图（2916 × 1424），点击查看原图。</sub>
 
 ## 项目特点
 
@@ -18,9 +20,11 @@ AIDailyNews 使用 Python 采集订阅内容，通过 AI 评分、筛选并生�
 
 ## 工作方式
 
-```text
-RSS 订阅 → Python 采集 → AI 评分与摘要 → Markdown 日报 → Astro 网站
-```
+[![项目流程图：定时采集 RSS，经 AI 总结、评分和筛选，生成 Markdown 并推送 GitHub，由 Vercel 更新网站](docs/images/workflow.png)](docs/images/workflow.png)
+
+1. **采集**：GitHub Actions 定时触发 Python 流程，解析 RSS 并提取文章内容。
+2. **整理**：AI 生成摘要与评分，程序筛选入选文章，按分类写入 Markdown 日报并推送仓库。
+3. **发布**：Vercel 在仓库更新后部署 Astro 网站，读者可浏览日报、搜索全文或订阅 RSS。
 
 采集与展示可以分别运行。只想修改页面时，直接使用仓库中的历史日报，无需配置 AI API Key。
 
