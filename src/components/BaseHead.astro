@@ -63,8 +63,7 @@ const { title = SITE.title, description, permalink, image } = Astro.props;
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
       return localStorage.getItem("theme");
     }
-    // Default to light mode
-    return "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   })();
 
   if (theme === "light") {

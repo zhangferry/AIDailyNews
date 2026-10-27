@@ -1,161 +1,27 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import type { MarkdownHeading } from "astro";
 import { getCollection } from "astro:content";
-import Icon from "astro-icon";
-import {
-  SITE,
-  USE_POST_IMG_OVERLAY,
-  USE_AUTHOR_CARD,
-  USE_SUBSCRIPTION,
-  USE_VIEW_STATS,
-} from "../config";
-import config from "../config/config.json";
+import { SITE } from "../config";
 import MainLayout from "../components/MainLayout.astro";
 import BaseHead from "../components/BaseHead.astro";
-import Prose from "../components/Prose.astro";
-import PostStats from "../components/PostStats.svelte";
-
+import DailyBrief from "../components/DailyBrief.astro";
 interface Props {
-  meta?: {
-    id: string;
-    slug: string;
-    collection: string;
-  };
+  meta: { id: string; slug: string; collection: string };
   content: CollectionEntry<"blog">["data"];
-  coverHeadings?: string[];
-  stats?: {
-    views: number;
-  };
+  headings: MarkdownHeading[];
 }
-const { content, meta, coverHeadings = [] } = Astro.props;
-
-const allPosts = await getCollection("blog");
-const sortedPosts = allPosts.toSorted(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
-);
-
-let previousPost, nextPost;
-if (meta?.slug) {
-  const currentIndex = sortedPosts.findIndex(
-    (post) => post.slug === meta?.slug,
-  );
-  previousPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : undefined;
-  nextPost =
-    currentIndex < sortedPosts.length - 1
-      ? sortedPosts[currentIndex + 1]
-      : undefined;
-}
+const { content, meta, headings = [] } = Astro.props;
+const posts = (await getCollection("blog")).toSorted((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const currentIndex = posts.findIndex(post => post.slug === meta.slug);
+const post = posts[currentIndex];
+const previousPost = currentIndex > 0 ? posts[currentIndex - 1] : undefined;
+const nextPost = currentIndex >= 0 ? posts[currentIndex + 1] : undefined;
 ---
-
 <!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      {...content}
-      title={content.title ? `${SITE.title} | ${content.title}` : SITE.title}
-    />
-  </head>
+<html lang="zh-CN">
+  <head><BaseHead {...content} title={`${content.title} | ${SITE.title}`} /></head>
   <MainLayout>
-    <article class="post">
-      <!-- Header -->
-      <header class="post-header">
-        <div class="post-tags">
-          {content.tags.length > 0 && content.tags.map((tag) => (
-            <a class="post-tag" href={`/tags/${tag}`}>{tag}</a>
-          ))}
-        </div>
-        <h1 class="post-title font-display">{content.title}</h1>
-        <div class="post-meta">
-          <time datetime={content.date}>
-            {new Intl.DateTimeFormat("zh-CN", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            }).format(new Date(content.date))}
-          </time>
-          {config.aiprovider_model && (
-            <>
-              <span class="meta-sep">&middot;</span>
-              <span class="post-ai">AI generated with {config.aiprovider_model}</span>
-            </>
-          )}
-          {USE_VIEW_STATS && (
-            <>
-              <span class="meta-sep">&middot;</span>
-              <span class="post-stats">
-                <Icon class="w-4 h-4 inline-block" pack="mdi" name="eye" />
-                <PostStats slug={meta?.slug} client:load />
-              </span>
-            </>
-          )}
-        </div>
-      </header>
-
-      <!-- Content -->
-      <Prose
-        currentPost={{ data: content, slug: meta?.slug }}
-        previousPost={previousPost}
-        nextPost={nextPost}
-      >
-        <slot />
-      </Prose>
-    </article>
+    <DailyBrief post={post} headings={headings} previousPost={previousPost} nextPost={nextPost} showComment><slot /></DailyBrief>
   </MainLayout>
-
-  <style>
-    .post-header {
-      @apply pt-6 pb-8 md:pt-10 md:pb-12;
-    }
-
-    .post-tags {
-      @apply flex flex-wrap gap-2 mb-4;
-    }
-
-    .post-tag {
-      @apply text-xs uppercase tracking-wider;
-      @apply text-theme-text-secondary;
-      @apply transition-opacity duration-200;
-      text-decoration: none;
-      opacity: 0.7;
-    }
-
-    .post-tag:hover {
-      @apply opacity-100 text-blue-500;
-    }
-
-    :global(html.dark) .post-tag:hover {
-      @apply text-blue-400;
-    }
-
-    .post-title {
-      @apply text-3xl md:text-4xl lg:text-5xl;
-      @apply font-bold;
-      @apply text-theme-text-primary;
-      @apply leading-tight;
-      letter-spacing: -0.025em;
-      max-width: 24ch;
-    }
-
-    :global(html.dark) .post-title {
-      @apply text-theme-dark-text-primary;
-    }
-
-    .post-meta {
-      @apply flex items-center gap-2 mt-4;
-      @apply text-sm text-theme-text-muted;
-    }
-
-    :global(html.dark) .post-meta {
-      @apply text-theme-dark-text-muted;
-    }
-
-    .meta-sep {
-      @apply text-theme-text-muted;
-    }
-
-    .post-ai {
-      @apply text-xs;
-      opacity: 0.6;
-    }
-  </style>
 </html>

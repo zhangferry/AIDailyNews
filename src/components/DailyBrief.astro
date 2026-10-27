@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { MarkdownHeading } from "astro";
+import Prose from "./Prose.astro";
+import { USE_VIEW_STATS } from "../config";
+import PostStats from "./PostStats.svelte";
+interface Props {
+  post: CollectionEntry<"blog">;
+  headings: MarkdownHeading[];
+  latest?: boolean;
+  previousPost?: CollectionEntry<"blog">;
+  nextPost?: CollectionEntry<"blog">;
+  showComment?: boolean;
+}
+const { post, headings, latest = false, previousPost, nextPost, showComment = false } = Astro.props;
+const stories = headings.filter(h => h.depth === 3);
+const dateKey = post.data.date.slice(0, 10);
+const date = new Date(`${dateKey}T12:00:00+08:00`);
+const dateLabel = new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", month: "long", day: "numeric" }).format(date);
+const weekday = new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", weekday: "long" }).format(date);
+const minutes = Math.max(1, Math.ceil(post.body.replace(/!\[[^\]]*\]\([^)]*\)|\([^)]*\)/g, "").length / 450));
+const title = /^Daily News\s*#/i.test(post.data.title) ? `${dateLabel}简报` : post.data.title;
+---
+<section class="brief" aria-labelledby="brief-title">
+  <header class="brief-heading">
+    <div>
+      <div class="brief-title-row">
+        <h1 id="brief-title">{title}<span class="title-dot">.</span></h1>
+        <span class="edition-status">{latest ? "最新一期" : "往期日报"}</span>
+      </div>
+      <div class="brief-meta">
+        <time datetime={dateKey}>{dateKey} · {weekday}</time>
+        <span>{stories.length} 篇资讯</span><span>约 {minutes} 分钟</span>
+        {USE_VIEW_STATS && <span>阅读 <PostStats slug={post.slug} client:load /></span>}
+      </div>
+    </div>
+    <a class="edition-link" href="/blog">浏览往期 <span aria-hidden="true">↗</span></a>
+  </header>
+
+  {stories.length > 0 && <details class="mobile-contents">
+    <summary>本期目录 <span>{stories.length} 篇资讯</span></summary>
+    <nav aria-label="本期目录（移动端）"><ol>{stories.map(h => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></nav>
+  </details>}
+
+  <div class="brief-layout">
+    <div class="reading-column">
+      <Prose currentPost={post} previousPost={previousPost} nextPost={nextPost} showNavigation={Boolean(previousPost || nextPost)} showComment={showComment}>
+        <slot />
+      </Prose>
+      {post.data.tags.length > 0 && <details class="all-topics"><summary>本期全部主题 · {post.data.tags.length}</summary><div class="topic-links">{post.data.tags.map(tag => <a href={`/tags/${encodeURIComponent(tag)}`}>{tag}</a>)}</div></details>}
+    </div>
+    <aside class="brief-sidebar">
+      <div class="sidebar-sticky">
+        {stories.length > 0 && <nav class="contents-nav" aria-label="本期目录">
+          <div class="sidebar-label">本期目录 <span>{String(stories.length).padStart(2, "0")}</span></div>
+          <ol>{stories.map(h => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+        </nav>}
+        {post.data.tags.length > 0 && <section class="sidebar-topics"><h2 class="sidebar-label">关注主题</h2><div class="topic-links">{post.data.tags.slice(0, 6).map(tag => <a href={`/tags/${encodeURIComponent(tag)}`}>{tag}</a>)}</div></section>}
+        <section class="reading-note"><span class="eyebrow">关于这份简报</span><p>由 RSS 汇集，AI 辅助整理。<br />摘要供快速浏览，完整信息请阅读原文。</p><a href="/rss.xml">通过 RSS 订阅 <span aria-hidden="true">↗</span></a></section>
+      </div>
+    </aside>
+  </div>
+</section>

@@ -1,7 +1,6 @@
 ---
 import { SITE } from "$/config";
 import { NAV_ITEMS } from "$/config";
-import { toTitleCase } from "$/utils";
 import SvgIcon from "./SvgIcon.astro";
 import ModeSwitcherBtn from "./ModeSwitcherBtn.svelte";
 import SearchBtn from "./SearchBtn.svelte";
@@ -11,22 +10,23 @@ import SearchBtn from "./SearchBtn.svelte";
   <div class="header-inner">
     <!-- Left: Brand -->
     <a href="/" class="brand">
-      <span class="brand-name">Daily News Report</span>
+      <span class="brand-name">Daily<span class="brand-accent">News</span><span class="brand-caption">每日科技简报</span></span>
     </a>
 
     <!-- Center: Navigation -->
-    <nav class="header-nav">
+    <nav class="header-nav" aria-label="主导航">
       {Object.keys(NAV_ITEMS).map((navItemKey, index) => (
         <>
-          {index > 0 && <span class="nav-sep">/</span>}
+
           <a
             class:list={[
               "nav-link",
-              Astro.url.pathname === NAV_ITEMS[navItemKey].path ? "nav-link-active" : "",
+              (NAV_ITEMS[navItemKey].path === "/" ? Astro.url.pathname === "/" : Astro.url.pathname.startsWith(NAV_ITEMS[navItemKey].path)) ? "nav-link-active" : "",
             ]}
             href={NAV_ITEMS[navItemKey].path}
+            aria-current={(NAV_ITEMS[navItemKey].path === "/" ? Astro.url.pathname === "/" : Astro.url.pathname.startsWith(NAV_ITEMS[navItemKey].path)) ? "page" : undefined}
           >
-            {toTitleCase(NAV_ITEMS[navItemKey].title)}
+            {NAV_ITEMS[navItemKey].title}
           </a>
         </>
       ))}
@@ -54,99 +54,22 @@ import SearchBtn from "./SearchBtn.svelte";
   </div>
 </header>
 
-<style>
-  .site-header {
-    @apply py-6 md:py-8;
+<script>
+  let headerObserver: ResizeObserver | undefined;
+  function observeHeader() {
+    headerObserver?.disconnect();
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (!header) return;
+    const updateHeaderHeight = () => {
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${header.getBoundingClientRect().height}px`,
+      );
+    };
+    updateHeaderHeight();
+    headerObserver = new ResizeObserver(updateHeaderHeight);
+    headerObserver.observe(header);
   }
-
-  .header-inner {
-    @apply flex items-center justify-between;
-  }
-
-  .brand {
-    text-decoration: none;
-  }
-
-  .brand-name {
-    @apply text-sm md:text-base font-medium tracking-wide;
-    @apply text-theme-text-primary;
-  }
-
-  :global(html.dark) .brand-name {
-    @apply text-theme-dark-text-primary;
-  }
-
-  .header-nav {
-    @apply flex items-center gap-3;
-  }
-
-  .nav-sep {
-    @apply text-theme-text-muted text-xs;
-  }
-
-  :global(html.dark) .nav-sep {
-    @apply text-theme-dark-text-muted;
-  }
-
-  .nav-link {
-    @apply text-sm;
-    @apply text-theme-text-muted;
-    @apply transition-colors duration-200;
-    text-decoration: none;
-  }
-
-  .nav-link:hover {
-    @apply text-blue-500;
-  }
-
-  :global(html.dark) .nav-link {
-    @apply text-theme-dark-text-muted;
-  }
-
-  :global(html.dark) .nav-link:hover {
-    @apply text-blue-400;
-  }
-
-  .nav-link-active {
-    @apply text-theme-text-primary font-medium;
-  }
-
-  :global(html.dark) .nav-link-active {
-    @apply text-theme-dark-text-primary;
-  }
-
-  .header-actions {
-    @apply flex items-center gap-1;
-  }
-
-  .action-btn {
-    @apply flex items-center justify-center;
-    @apply w-8 h-8;
-    @apply text-theme-text-muted;
-    @apply transition-colors duration-200;
-    @apply hover:text-blue-500;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  :global(html.dark) .action-btn {
-    @apply text-theme-dark-text-muted;
-    @apply hover:text-blue-400;
-  }
-
-  .action-btn svg {
-    @apply w-4 h-4;
-  }
-
-  @media (max-width: 640px) {
-    .brand-name {
-      @apply text-xs;
-    }
-    .nav-link {
-      @apply text-xs;
-    }
-    .header-nav {
-      @apply gap-2;
-    }
-  }
-</style>
+  observeHeader();
+  document.addEventListener("astro:page-load", observeHeader);
+</script>

@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Icon from "astro-icon";
 
 interface Props {
   currentPost: {
@@ -20,9 +19,9 @@ const { currentPost, previousPost, nextPost } = Astro.props;
       <a 
         href={`/blog/${previousPost.slug}`} 
         class="nav-button prev-button"
-        title="上一篇: {previousPost.data.title}"
+        title={`较新一期：${previousPost.data.title}`}
       >
-        <Icon class="nav-icon" pack="mdi" name="chevron-left" />
+        <span aria-hidden="true">←</span>
         <span class="nav-text">{previousPost.data.title}</span>
       </a>
     )}
@@ -31,10 +30,10 @@ const { currentPost, previousPost, nextPost } = Astro.props;
       <a 
         href={`/blog/${nextPost.slug}`} 
         class="nav-button next-button"
-        title="下一篇: {nextPost.data.title}"
+        title={`较早一期：${nextPost.data.title}`}
       >
         <span class="nav-text">{nextPost.data.title}</span>
-        <Icon class="nav-icon" pack="mdi" name="chevron-right" />
+        <span aria-hidden="true">→</span>
       </a>
     )}
   </div>
@@ -50,7 +49,7 @@ const { currentPost, previousPost, nextPost } = Astro.props;
   }
 
   .navigation-buttons {
-    @apply flex justify-between items-center gap-4;
+    @apply flex flex-wrap justify-between items-center gap-4;
   }
 
   .nav-button {

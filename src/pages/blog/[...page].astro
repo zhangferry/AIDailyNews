@@ -8,8 +8,8 @@ import PostPreview from "$/components/PostPreview.astro";
 import Paginator from "$/components/Paginator.astro";
 import { PAGE_SIZE } from "$/config";
 
-let title = "Blog";
-let description = "所有文章和每日新闻报道";
+let title = "往期归档";
+let description = "每天一份简报，串起技术变化的脉络。";
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection("blog");
@@ -31,10 +31,6 @@ const uniqueCategories = [...new Set(allTags)].slice(0, 12);
 ---
 
 <DefaultPageLayout content={{ title, description }}>
-  <!-- Page Header -->
-  <div class="page-header">
-    <h1 class="page-title font-display">全部文章</h1>
-  </div>
 
   <!-- Category Filter -->
   <div class="category-filter">

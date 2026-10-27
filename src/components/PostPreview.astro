@@ -95,11 +95,11 @@ const category = tags && tags.length > 0 ? tags[0] : null;
   }
 
   .featured-link:hover .featured-title {
-    @apply text-blue-500;
+    @apply text-theme-secondary;
   }
 
   :global(html.dark) .featured-link:hover .featured-title {
-    @apply text-blue-400;
+    @apply text-theme-dark-primary;
   }
 
   .featured-desc {
@@ -123,10 +123,6 @@ const category = tags && tags.length > 0 ? tags[0] : null;
 
   :global(html.dark) .list-link {
     border-color: theme('colors.theme.dark-border');
-  }
-
-  .list-link:last-child {
-    @apply border-b-0;
   }
 
   .list-link:hover {
@@ -173,11 +169,11 @@ const category = tags && tags.length > 0 ? tags[0] : null;
   }
 
   .list-link:hover .list-title {
-    @apply text-blue-500;
+    @apply text-theme-secondary;
   }
 
   :global(html.dark) .list-link:hover .list-title {
-    @apply text-blue-400;
+    @apply text-theme-dark-primary;
   }
 
   .list-desc {
