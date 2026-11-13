@@ -2,83 +2,67 @@
 title: "Daily News #2026-11-14"
 date: "2026-11-14 08:00:00"
 description: >
-  Google 发布 TorchTPU：PyTorch 原生跑上 TPU，少量代码修改即可迁移 维护 3.3 万字符的长 Prompt？让优化 Agent 迭代执行 Agent Amplitude 借助 OpenAI 将产品改进交付周期压缩至 1-2 天 OpenAI 投入 200 万美元支持 AI 与儿童安全研究
+  FileWrapper(directoryWithFileWrappers:).write(…) erroneously deletes existing folders & files Google 联合 Meta 推出 TorchTPU：PyTorch 原生支持 TPU Amplitude 借助 OpenAI 模型将产品改进交付周期缩短至 1-2 天
 tags:
-- "负责任 AI"
-- "PyTorch"
-- "LLM"
-- "软件工程"
-- "AI基础设施"
-- "Google"
-- "AI Agent"
-- "Prompt 工程"
-- "测试与质量"
-- "自动化优化"
-- "OpenAI"
-- "产品开发"
-- "儿童保护"
-- "AI 安全"
 - "深度学习"
+- "开源"
+- "OpenAI"
+- "客户案例"
+- "Swift"
+- "macOS"
+- "AI Agent"
+- "FileWrapper"
+- "Foundation"
+- "效率提升"
+- "Bug"
 - "TPU"
-- "自动化"
+- "产品研发"
+- "AI 基础设施"
+- "PyTorch"
 
 ---
 
-> - Google 发布 TorchTPU：PyTorch 原生跑上 TPU，少量代码修改即可迁移
-> - 维护 3.3 万字符的长 Prompt？让优化 Agent 迭代执行 Agent
-> - Amplitude 借助 OpenAI 将产品改进交付周期压缩至 1-2 天
-> - OpenAI 投入 200 万美元支持 AI 与儿童安全研究
+> - FileWrapper(directoryWithFileWrappers:).write(…) erroneously deletes existing folders & files
+> - Google 联合 Meta 推出 TorchTPU：PyTorch 原生支持 TPU
+> - Amplitude 借助 OpenAI 模型将产品改进交付周期缩短至 1-2 天
+
+## 🍎 iOS Blog
+
+### [FileWrapper(directoryWithFileWrappers:).write(…) erroneously deletes existing folders & files](https://wadetregaskis.com/filewrapperdirectorywithfilewrappers-write-erroneously-deletes-existing-folders-files/)
+
+来源：Wade Tregaskis
+
+发布时间：2026-11-13 02:58:23
+
+**开发者 Wade Tregaskis 发现 Apple Foundation 框架中 FileWrapper(directoryWithFileWrappers:) 的 write(...) 方法存在危险缺陷：当写入操作失败时，它会连带删除目标位置已存在的文件夹和文件。**
+
+* 预期行为应为二者之一：要么完成写入并覆盖已有内容，要么失败但完整保留原有数据；实际情况却是写入失败的同时原有文件被删除，不存在任何合理场景能解释这一行为。
+* 作者尚未深入调试该 Bug 的根本原因，文章目前仅记录了这一现象。
+* 对 macOS/iOS 开发者的启示：在使用 FileWrapper 进行目录写入前应警惕数据丢失风险，重要数据务必先行备份，避免依赖该 API 的失败回滚行为。
 
 ## 📥 Tech News
 
-### [Google 发布 TorchTPU：PyTorch 原生跑上 TPU，少量代码修改即可迁移](https://www.infoq.cn/article/Fikt82HLToqb6ZANB2xj)
+### [Google 联合 Meta 推出 TorchTPU：PyTorch 原生支持 TPU](https://www.infoq.cn/article/Fikt82HLToqb6ZANB2xj)
 
 来源：InfoQ 推荐
 
 发布时间：2026-11-12 15:00:00
 ![](https://static001.infoq.cn/resource/image/d2/66/d26cc0b823699480b6130d7340617b66.jpg)
-**Google 与 Meta 合作开源 TorchTPU 项目，为 TPU 提供原生 PyTorch 后端，现有工作负载只需少量代码修改即可运行，解决了 PyTorch/XLA 方案侵入式修改、编译延迟高、不支持即时执行等长期痛点。**
+**Google 与 Meta 合作推出开源项目 TorchTPU，为 TPU 提供原生 PyTorch 后端，现有工作负载仅需少量代码修改（替换设备名与分布式后端）即可迁移，解决了 PyTorch/XLA 侵入式修改、编译延迟高、不支持即时执行等长期痛点。**
 
-* 迁移成本低：将 cuda 设备替换为 tpu、nccl 分布式后端替换为 tpu_dist 即可；支持 Strict、Debug、DeferAndFuse 三种即时执行模式，其中混合模式 DeferAndFuse 比 Strict Eager 快 50% 以上并降低 HBM 峰值内存
-* 兼容性经过约 5000 个 Hugging Face 模型、500 多种架构的集成流水线验证；300 亿参数模型在单枚 TPUv7 上推理吞吐达每秒 25700 Token
-* 已完成 Qwen3 MoE 235B 从 1024 枚到 8192 枚 TPUv7 芯片的扩展训练实验
-* 项目仍处早期阶段，路线图涵盖动态形状、编译性能、算子覆盖、强化学习和量化；开发者普遍认为此举早该发生，PyTorch 生态优势将进一步释放
+* 支持 Strict、Debug 和 DeferAndFuse 三种执行模式，其中 DeferAndFuse 混合模式比 Strict Eager 快 50% 以上，同时降低 HBM 峰值内存占用。
+* 通过集成流水线在 v5e 起的多代 TPU 上以即时和编译两种模式验证了约 5000 个 Hugging Face 模型、覆盖 500 多种架构。
+* 性能方面，300 亿参数模型在单枚 TPUv7 上推理吞吐达每秒 25,700 Token（序列长度 5120）；Qwen3 MoE 235B 训练可扩展至 8,192 枚芯片。
+* 项目仍处早期，路线图包括动态形状、算子覆盖、强化学习和量化；社区普遍认为此举早该发生，将显著利好 PyTorch 生态与 TPU 硬件的结合。
 
-### [维护 3.3 万字符的长 Prompt？让优化 Agent 迭代执行 Agent](https://www.bestblogs.dev/article/eac30685b5?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
-
-来源：BestBlogs.dev - 精选文章
-
-发布时间：2026-11-12 09:09:00
-![](https://image.jido.dev/20251127045410_4d44587a)
-**文章分享如何利用 Google Research 开源的 harness² 框架构建自动迭代的优化 Agent，解决 3.3 万字符长 Prompt 难以人工维护的问题，在输入法联想场景中将问题识别 F1 从 82.78% 提升至 89.89%。**
-
-* 方案将优化拆分为 INV（怎么工作）与 DOM（需要知道什么）两个独立 Agent，通过 Propose、Probe、Compose 三步实现 Prompt 自动化迭代合成
-* 将准确率、召回率、F1 等量化指标连同分歧样本及模型判断依据完整传递给优化 Agent，使其精准定位根因而非依赖模型直觉修改
-* 每轮迭代后复盘改动，把有证据支撑的经验写入经验库供后续任务检索复用，形成持续改进机制，避免每次从零开始
-* 通过放宽常驻内容至 5 万字符、限定仅修改 Prompt 本体、增加校验防止对评测集样本直接记忆等手段控制长度并防止过拟合
-* 在 611 条评测数据上单轮迭代（约 95 分钟）即带来 F1 提升 7.11 个百分点，对需要维护长 Prompt 的 LLM 应用团队有直接借鉴价值
-
-### [Amplitude 借助 OpenAI 将产品改进交付周期压缩至 1-2 天](https://openai.com/index/amplitude)
+### [Amplitude 借助 OpenAI 模型将产品改进交付周期缩短至 1-2 天](https://openai.com/business/customer-stories/amplitude)
 
 来源：OpenAI News
 
 发布时间：2026-11-13 04:00:00
 
-**Amplitude 基于 OpenAI 模型构建了主动式产品代理 Wave，将产品改进的交付周期压缩至 1-2 天。**
+**产品分析公司 Amplitude 基于 OpenAI 模型构建了主动式产品代理 Wave，将产品改进的交付周期压缩至 1-2 天。**
 
-* Wave 负责识别"应该构建什么"，辅助团队进行产品决策
-* 通过编码代理帮助团队完成变更的开发与交付
-* 交付后进一步衡量改进的实际业务影响，形成发现问题到验证效果的完整闭环
-* 案例展示了 AI 代理在产品研发全流程中的端到端应用，适合关注 AI 辅助研发效率的工程与产品团队参考；内容偏客户案例宣传，未披露具体技术细节
-
-### [OpenAI 投入 200 万美元支持 AI 与儿童安全研究](https://openai.com/index/children-first-declaration)
-
-来源：OpenAI News
-
-发布时间：2026-11-12 08:00:00
-
-**OpenAI 宣布投入 200 万美元，用于支持 AI 与儿童安全方向的研究。**
-
-* 相关工作将支持开发共享工具，用于衡量 AI 给未成年人带来的风险与机遇
-* 此举属于 AI 安全与治理领域的企业投入，与行业和监管层面日益重视未成年人保护的趋势相呼应
-* 适合关注 AI 政策、安全研究与负责任 AI 议题的读者跟进了解后续研究进展
+* Wave 覆盖完整的产品研发闭环：识别应该构建什么功能、借助编码代理帮助团队交付变更、并自动衡量变更的实际影响
+* 该案例展示了 AI 代理从单纯编码辅助扩展到「洞察—开发—度量」全流程整合的趋势
+* 此为 OpenAI 官方客户案例，营销属性较强，未披露具体技术架构与实现细节，实际效果数据有待独立验证
