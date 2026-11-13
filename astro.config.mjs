@@ -5,7 +5,7 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import { defineConfig, passthroughImageService } from "astro/config";
-import vercel from "@astrojs/vercel";
+import cloudflare from "@astrojs/cloudflare";
 import markdoc from "@astrojs/markdoc";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -68,8 +68,6 @@ export default defineConfig(
         allowNodeBuiltins: true,
       },
     },
-    adapter: vercel({
-      webAnalytics: { enabled: true },
-    }),
+    adapter: cloudflare({ imageService: "passthrough" }),
   }
 );

@@ -27,7 +27,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^18.19.3",
-    "astro": "5.5.2",
+    "astro": "5.7",
     "astro-icon": "^0.8.2",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
@@ -41,6 +41,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.13",
     "@astrojs/markdoc": "0.13.0",
     "@astrojs/vercel": "8.1.2",
     "@libsql/client": "^0.4.0-pre.5",
