@@ -16,15 +16,15 @@ AIDailyNews 使用 Python 采集订阅内容，通过 AI 评分、筛选并生�
 - **AI 筛选与总结**：支持 OpenAI 兼容接口和 Gemini；按评分筛选文章，生成标题、摘要和主题标签。
 - **专注阅读**：紧凑的刊期信息、吸顶导航、桌面侧边目录与手机折叠目录，保留来源链接和配图。
 - **查找往期内容**：提供日报归档、主题浏览与全文搜索，支持深浅色切换。
-- **自动更新**：GitHub Actions 定时采集，将日报以 Markdown 提交到仓库，连接 Vercel 后触发网站部署。
+- **自动更新**：GitHub Actions 定时采集，将日报以 Markdown 提交到仓库，CI 构建后自动部署到 Cloudflare Pages。
 
 ## 工作方式
 
-[![项目流程图：定时采集 RSS，经 AI 总结、评分和筛选，生成 Markdown 并推送 GitHub，由 Vercel 更新网站](docs/images/workflow.png)](docs/images/workflow.png)
+[![项目流程图：定时采集 RSS，经 AI 总结、评分和筛选，生成 Markdown 并推送 GitHub，由 Cloudflare Pages 更新网站](docs/images/workflow.png)](docs/images/workflow.png)
 
 1. **采集**：GitHub Actions 定时触发 Python 流程，解析 RSS 并提取文章内容。
 2. **整理**：AI 生成摘要与评分，程序筛选入选文章，按分类写入 Markdown 日报并推送仓库。
-3. **发布**：Vercel 在仓库更新后部署 Astro 网站，读者可浏览日报、搜索全文或订阅 RSS。
+3. **发布**：CI 在仓库更新后构建 Astro 网站并部署到 Cloudflare Pages，读者可浏览日报、搜索全文或订阅 RSS。
 
 采集与展示可以分别运行。只想修改页面时，直接使用仓库中的历史日报，无需配置 AI API Key。
 
@@ -48,7 +48,7 @@ yarn dev
 | 命令 | 用途 |
 | --- | --- |
 | `yarn dev` | 启动本地开发服务器 |
-| `yarn build` | 构建生产版本，当前使用 Vercel 服务端适配器 |
+| `yarn build` | 构建生产版本，当前使用 Cloudflare 服务端适配器 |
 | `yarn check:type` | TypeScript 类型检查 |
 | `yarn lint` | 检查源码规范 |
 | `node --test scripts/tests/*.test.mjs` | 验证阅读布局转换与历史日报内容保留 |
@@ -158,11 +158,9 @@ python3 main.py
 
 ## 部署网站
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fzhangferry%2FAIDailyNews)
+Fork 本仓库后，在 GitHub Secrets 配置 `CLOUDFLARE_API_TOKEN`（Cloudflare Pages Edit 权限）和 `CLOUDFLARE_ACCOUNT_ID`，GitHub Actions 会在构建后通过 wrangler 部署到 Cloudflare Pages。
 
-在 Vercel 导入自己的 Fork 仓库，使用 Astro 框架预设，安装命令设为 `yarn install`，构建命令设为 `yarn build`。当前配置使用 Vercel 服务端适配器。
-
-部署前修改 [src/config.ts](src/config.ts) 的站点地址、仓库地址和作者信息，并同步 [astro.config.mjs](astro.config.mjs) 中的 `site`。GitHub Actions 将新日报推送到所连接的分支后，由 Vercel 自动部署。
+部署前修改 [src/config.ts](src/config.ts) 的站点地址、仓库地址和作者信息，并同步 [astro.config.mjs](astro.config.mjs) 中的 `site`。GitHub Actions 生成新日报后，会自动构建并部署到 Cloudflare Pages。
 
 仅展示已有日报不需要 AI Key；自动采集所需的密钥放在 GitHub Actions secrets 中。评论为可选功能，未完整配置时不会初始化，相关字段见 [src/components/Prose.astro](src/components/Prose.astro)。
 

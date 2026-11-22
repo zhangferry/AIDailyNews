@@ -10,11 +10,11 @@ DailyNewsReport 是一个自动化新闻聚合系统，通过 RSS 订阅源采�
 - **数据采集**: Python (feedparser, httpx, BeautifulSoup)
 - **AI 集成**: OpenAI API / Google Gemini API / 智谱 GLM
 - **前端渲染**: Astro (SSR) + Svelte + TailwindCSS
-- **部署**: GitHub Actions (定时任务) + Vercel
+- **部署**: GitHub Actions (定时任务) + Cloudflare Pages
 
 **工作流程:**
 ```
-RSS 订阅源 → Python 采集 → AI 分析评分 → Markdown 生成 → Astro 渲染 → Vercel 部署
+RSS 订阅源 → Python 采集 → AI 分析评分 → Markdown 生成 → Astro 渲染 → Cloudflare Pages 部署
 ```
 
 ## 项目结构

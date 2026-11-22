@@ -20,7 +20,7 @@ import newsLayout from "./src/plugins/news-layout.mjs";
 export default defineConfig(
   /** @type {import('astro').AstroUserConfig} */ {
     output: "server",
-    site: "https://zhangferry.com", // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
+    site: "https://daily.zhangferry.com", // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
     server: {
       // port: 4321, // The port to run the dev server on.
     },
