@@ -1,6 +1,8 @@
 ---
 import Comment from "./Comment.svelte";
 import PostNavigation from "./PostNavigation.astro";
+import AdSlot from "./AdSlot.astro";
+import { AD_SLOT_ARTICLE_BOTTOM } from "../config";
 
 interface Props {
   currentPost?: any;
@@ -28,6 +30,8 @@ const commentsConfigured = [
 
 <article class="prose">
   <slot />
+
+  <AdSlot slot={AD_SLOT_ARTICLE_BOTTOM} />
 
   {showNavigation && (previousPost || nextPost) && (
     <PostNavigation

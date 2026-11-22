@@ -53,3 +53,9 @@ export const USE_AUTHOR_CARD = true;
 export const USE_SUBSCRIPTION = false; /* works only when USE_AUTHOR_CARD is true */
 
 export const USE_VIEW_STATS = false;
+
+// Google AdSense —— 手动广告位
+// AD_SLOT_* 值在 AdSense 后台「广告 → 按广告单元 → 展示广告」创建后填入 data-ad-slot；
+// 留空字符串则对应位置不渲染任何广告元素
+export const ADSENSE_CLIENT = "ca-pub-1404623154743926";
+export const AD_SLOT_ARTICLE_BOTTOM = "";
