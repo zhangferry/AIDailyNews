@@ -22,6 +22,9 @@ const { title = SITE.title, description, permalink, image } = Astro.props;
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<!-- Google AdSense (Auto ads) -->
+<script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1404623154743926" crossorigin="anonymous"></script>
+
 <title>{title}</title>
 <meta name="title" content={title} />
 {description && <meta name="description" content={description} />}
