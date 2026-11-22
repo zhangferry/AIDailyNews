@@ -2,67 +2,67 @@
 title: "Daily News #2026-11-23"
 date: "2026-11-23 08:00:00"
 description: >
-  曝黎曼猜想被证明：Anthropic 数学家与 Claude 合作，首次以 Lean 形式化语言公开证明 亚马逊云科技推出 TorchNeuron，可直接在 AWS Trainium 上运行 PyTorch 模型，无需任何修改 华为 OSTA 星芒 O1 Pro 评测：以「小艺 AI 屏」为核心的指令式 AI 代理手机
+  曝黎曼猜想被证明：Anthropic 数学家与 Claude 合作完成 Lean 形式化证明 Pinterest 联合英特尔将开源性能分析推向互联网级规模 华为 OSTA 星芒 O1 Pro 评测：一台真正为 AI 而生的鸿蒙手机
 tags:
-- "黎曼猜想"
-- "鸿蒙"
-- "AI 手机"
-- "数学"
-- "人机交互"
-- "Trainium"
-- "Lean"
-- "Claude"
-- "AI基础设施"
-- "AWS"
-- "PyTorch"
-- "深度学习"
 - "AI"
-- "小艺"
+- "开源"
+- "大语言模型"
+- "gProfiler"
+- "性能分析"
+- "可观测性"
+- "云原生"
+- "鸿蒙"
 - "华为"
+- "数学"
+- "Lean"
+- "产品评测"
+- "AI 手机"
+- "AI Agent"
+- "Claude"
 
 ---
 
-> - 曝黎曼猜想被证明：Anthropic 数学家与 Claude 合作，首次以 Lean 形式化语言公开证明
-> - 亚马逊云科技推出 TorchNeuron，可直接在 AWS Trainium 上运行 PyTorch 模型，无需任何修改
-> - 华为 OSTA 星芒 O1 Pro 评测：以「小艺 AI 屏」为核心的指令式 AI 代理手机
+> - 曝黎曼猜想被证明：Anthropic 数学家与 Claude 合作完成 Lean 形式化证明
+> - Pinterest 联合英特尔将开源性能分析推向互联网级规模
+> - 华为 OSTA 星芒 O1 Pro 评测：一台真正为 AI 而生的鸿蒙手机
 
 ## 📥 Tech News
 
-### [曝黎曼猜想被证明：Anthropic 数学家与 Claude 合作，首次以 Lean 形式化语言公开证明](https://www.bestblogs.dev/article/e04c586efc?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
+### [曝黎曼猜想被证明：Anthropic 数学家与 Claude 合作完成 Lean 形式化证明](https://www.bestblogs.dev/article/e04c586efc?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
 
 来源：BestBlogs.dev - 精选文章
 
 发布时间：2026-11-22 03:29:22
 ![](https://media.bestblogs.dev/20261121114301_lark2pad-1795215065663-7.jpg)
-**Anthropic 数学家 Levent Alpöge 宣布与 Claude 合作找到黎曼猜想及广义黎曼猜想的证明，并首次以 Lean 形式化语言公开，引发数学界对 AI 前沿数学研究能力的广泛关注。**
+**Anthropic 数学家 Levent Alpöge 宣布与 Claude 合作找到黎曼猜想的证明，并进一步证明了广义黎曼猜想，证明以 Lean 形式化语言公开，标志着 AI 从辅助工具向前沿数学研究合作者的角色转变。**
 
-* 黎曼猜想是悬置 167 年的千禧年难题，Alpöge 借助 Claude 探索迭代 theta 提升构造证明路径；证明以机器可检查的代码形式呈现，可通过计算机验证推导正确性
-* Claude 在高阶自换形式理论等复杂推导上速度超越人类研究者，甚至在研究后期超过 Alpöge 本人，标志着 AI 从辅助工具向研究合作者转变
-* Claude 此前已在数论领域取得雅可比猜想反例、Hadamard 矩阵发现等成果，其能力正从解题走向原创性发现，智能评估标准或从解题速度转向创造性发现能力
-* 若最终验证成功，数学家角色可能从“发现者”转向“解释者”与“应用者”；证明方法能否推动其他领域发展仍有待人类深入研究
+* 黎曼猜想是悬置 167 年的千禧年难题，本次证明首次以 Lean 形式化语言的机器可检查代码形式公开，既保证推导可被计算机验证，也体现了 AI 辅助数学研究的前沿方法论。
+* Alpöge 通过 Claude 探索迭代 theta 提升构造证明路径，并指出 Claude 在处理高阶自守形式理论等复杂推导时速度超越人类研究者，甚至在研究后期超过他本人。
+* Claude 此前已在数论领域取得雅可比猜想反例、Hadamard 矩阵发现等进展，AI 的数学能力正从解题验证走向原创性发现。
+* 若证明最终通过验证，数学家的工作模式可能从「发现者」转向「解释者」与「应用者」，AI 正在重塑数学研究范式与智能水平的衡量标准。
 
-### [亚马逊云科技推出 TorchNeuron，可直接在 AWS Trainium 上运行 PyTorch 模型，无需任何修改](https://www.infoq.cn/article/XhtWUmaolJECUhPX2jzY)
+### [Pinterest 联合英特尔将开源性能分析推向互联网级规模](https://www.infoq.cn/article/fs4IuBTjwIwR1xUgdjqt)
 
 来源：InfoQ 推荐
 
-发布时间：2026-11-22 10:00:00
-![](https://static001.infoq.cn/resource/image/a0/0d/a0b70de959696be3ebc674582469d70d.png)
-**亚马逊云科技在 2026 年 PyTorch 北美大会上推出 TorchNeuron 原生 PyTorch 后端，开发者几乎无需修改代码即可在 AWS Trainium AI 芯片上运行现有 PyTorch 模型，大幅降低自研芯片的迁移门槛。**
+发布时间：2026-11-22 11:00:00
+![](https://static001.infoq.cn/resource/image/98/45/983966ab1295ed5f5b70ba7aedd52245.png)
+**Pinterest 联合英特尔扩展开源持续性能分析工具 gProfiler，新增动态分析、硬件遥测、挂钟时间分析与 PMC 火焰图等能力，将性能分析打造为互联网级生产集群的常态化可观测能力。**
 
-* 迁移成本极低：借助 torch.accelerator 自动设备检测，只需将 .to('cuda') 替换为 .to('neuron')，无需重写和重新验证模型；原生支持 DDP、FSDP2、DTensor 等分布式训练并行 API
-* 兼容性保障充分：开发团队对 10 万个最受欢迎模型和 800 多种机器学习架构进行了验证；开发者还可通过 Neuron 内核接口（NKI）编写自定义算子，获得比即时执行和 torch.compile 更精细的性能控制
-* 支持训练与推理共享硬件容量，非高峰时段可在两类任务间灵活调配资源；Cartesia 已将其用于语音 AI 推理，利伯脑发育研究所在探索药物靶点识别应用
-* 业界评论指出，真正的考验在于生产环境的性能、每 token 成本与总拥有成本，降低迁移门槛只是竞争的第一步；此举紧随谷歌推出 TorchTPU 之后，反映 AI 芯片厂商的竞争焦点正从芯片本身转向规模化易用性
+* Pinterest 运维数十万实例、支撑 6.4 亿月活，业务横跨 Java、Python、C++、Go 等多语言，此前 perf、async-profiler、py-spy 等工具产出的数据碎片化，难以跨语言、跨机器关联分析
+* gProfiler 定位为编排层，自动发现进程并合并各运行时分析器结果为统一火焰图，无需修改应用代码；代理休眠时 CPU 占用低于 1%、内存约 100 MB，支持远程触发分析与参数热调整
+* 集成 Intel PerfSpect 采集缓存行为、内存带宽、CPU 停顿等硬件信息，PMC 火焰图可将函数与缓存未命中、分支预测错误关联；挂钟时间分析用于定位 CPU 不高但响应缓慢的 IO、锁等待问题
+* 数据链路采用 S3 存储、SQS 异步索引、ClickHouse 分析查询；相比 Parca、Pyroscope、Datadog 等竞品，差异化在系统级多运行时编排与硬件层分析，相比 VTune 更适配云原生集群场景
 
-### [华为 OSTA 星芒 O1 Pro 评测：以「小艺 AI 屏」为核心的指令式 AI 代理手机](https://www.bestblogs.dev/article/27f1e1f7f5?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
+### [华为 OSTA 星芒 O1 Pro 评测：一台真正为 AI 而生的鸿蒙手机](https://www.bestblogs.dev/article/27f1e1f7f5?utm_source=rss&utm_medium=feed&utm_campaign=resources&entry=rss_article_item)
 
 来源：BestBlogs.dev - 精选文章
 
 发布时间：2026-11-21 12:00:00
 ![](https://media.bestblogs.dev/20261113050053_35a08f3.jpeg)
-**华为子品牌 OSTA 星芒发布首款旗舰 O1 Pro，以「小艺 AI 屏」作为默认桌面，将人机交互从手动操作转变为指令式 AI 代理，是目前市面上少有的真正以 AI 为核心设计的鸿蒙手机。**
+**华为子品牌 OSTA 星芒推出首款以 AI 为核心设计的鸿蒙手机 O1 Pro，以「小艺 AI 屏」取代传统桌面，尝试将手机交互方式从手动操作转变为指令式 AI 代理。**
 
-* 硬件配置包括 16:9.5 阔直屏、麒麟 9030S 处理器和 7000mAh 大电池，硬件成熟度略逊于华为主力产品线
-* 「小艺 AI 屏」压缩传统图标入口，以键盘、麦克风、附件按钮“新三大金刚键”为核心交互，用户可通过自然语言完成 B 站内容聚合、购物比价、外卖点单、微信消息收发等任务，实现“不进 app 完成日常工作”
-* 相较鸿蒙 6.1 版本，小艺在识别、理解和代理操作速度上实现质的飞跃，成为 AI 功能“吃灰”与“日用”的分水岭，背后基于盘古大模型并融合 DeepSeek 等前沿模型能力
-* 星芒以「Come as you are」为定位，承载华为对“下一个十年人机交互方式”的探索，意在打造面向纯 AI 时代的新品牌形象
+* 硬件方面采用 16:9.5 阔直屏、麒麟 9030S 处理器与 7000mAh 大电池，硬件成熟度略逊于华为主力产品线。
+* 「小艺 AI 屏」压缩传统图标入口，聚焦键盘、麦克风、附件按钮三大交互键，用户可通过自然语言指令完成 B 站内容聚合、购物比价、外卖点单、微信消息收发等任务，实现「不进 app 完成日常工作」的场景。
+* 小艺基于盘古大模型并融合 DeepSeek 等前沿模型，相较鸿蒙 6.1 版本在识别、理解和代理操作速度上实现质的飞跃，接近人类手动操作水平。
+* 星芒定位为面向「纯 AI 时代」的新生品牌，是华为对下一个十年人机交互方式的探索，适合关注 AI 硬件生态与人机交互演进的读者。
