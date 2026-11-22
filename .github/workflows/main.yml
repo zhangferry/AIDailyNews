@@ -90,3 +90,23 @@ jobs:
           github_token: ${{ secrets.ACCESS_TOKEN }}
           branch: main
 
+      - name: Setup Node
+        if: ${{ env.BRANCH_NAME == 'main' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Build Site
+        if: ${{ env.BRANCH_NAME == 'main' }}
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+
+      - name: Deploy to Cloudflare Pages
+        if: ${{ env.BRANCH_NAME == 'main' }}
+        run: npx wrangler pages deploy ./dist --project-name=daily --branch=main --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
