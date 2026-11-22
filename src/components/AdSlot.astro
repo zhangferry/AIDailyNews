@@ -2,6 +2,11 @@
 // 手动 AdSense 广告位组件（editorial 风格：细线分隔 + 小号衬线标签，与主题一致）
 // 用法：<AdSlot slot={AD_SLOT_ARTICLE_BOTTOM} />
 // slot 为空时整个组件不渲染
+//
+// 未填充处理策略：
+// 1. 默认透明占位（保留布局空间，避免 CLS），填充成功后淡入
+// 2. AdSense 标记 data-ad-status="unfilled" 时整体收起（CSS 即时生效）
+// 3. 脚本加载失败（如被墙）导致状态永远不来时，8 秒后由 JS 兜底收起
 import { ADSENSE_CLIENT } from "../config";
 
 interface Props {
@@ -26,7 +31,19 @@ const { slot, label = "Advertisement" } = Astro.props;
       />
       {/* data-astro-rerun: View Transitions 客户端导航后重新触发广告填充 */}
       <script is:inline data-astro-rerun>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+        (function () {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+          var aside = document.currentScript
+            ? document.currentScript.closest("aside.ad-slot")
+            : null;
+          if (!aside) return;
+          var ins = aside.querySelector("ins.adsbygoogle");
+          setTimeout(function () {
+            if (!ins || ins.getAttribute("data-ad-status") !== "filled") {
+              aside.style.display = "none";
+            }
+          }, 8000);
+        })();
       </script>
     </aside>
   )
@@ -37,11 +54,24 @@ const { slot, label = "Advertisement" } = Astro.props;
     @apply my-10 py-6 text-center;
     border-top: 1px solid theme("colors.theme.border");
     border-bottom: 1px solid theme("colors.theme.border");
+    /* 保留布局空间但默认不可见，填充成功后淡入（opacity 不影响 AdSense 测量） */
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   :global(html.dark) .ad-slot {
     border-top-color: theme("colors.theme.dark-border");
     border-bottom-color: theme("colors.theme.dark-border");
+  }
+
+  /* 填充成功：淡入展示 */
+  .ad-slot:has(ins.adsbygoogle[data-ad-status="filled"]) {
+    opacity: 1;
+  }
+
+  /* 明确未填充：整体收起，不留空白 */
+  .ad-slot:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+    display: none;
   }
 
   .ad-label {
