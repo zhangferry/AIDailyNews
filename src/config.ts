@@ -58,4 +58,4 @@ export const USE_VIEW_STATS = false;
 // AD_SLOT_* 值在 AdSense 后台「广告 → 按广告单元 → 展示广告」创建后填入 data-ad-slot；
 // 留空字符串则对应位置不渲染任何广告元素
 export const ADSENSE_CLIENT = "ca-pub-1404623154743926";
-export const AD_SLOT_ARTICLE_BOTTOM = "8364484754";
+export const AD_SLOT_ARTICLE_BOTTOM = "4581227313"; // 测试旧单元(2021)；原新单元 8364484754
